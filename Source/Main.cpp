@@ -14,7 +14,7 @@
 #include "Core/ProjectManager.h"
 
 //==============================================================================
-class KentDAWApplication  : public JUCEApplication, juce::ApplicationCommandTarget
+class KentDAWApplication  : public JUCEApplication
 {
 public:
     //==============================================================================
