@@ -35,30 +35,30 @@ public:
     {
     }
 
-    void KentDAWApplication::registerCommands()
+    void registerCommands()
     {
         _commandsManager.registerAllCommandsForTarget(this);
         _commandsManager.registerAllCommandsForTarget(getInstance());
     }
 
-    ApplicationCommandTarget * KentDAWApplication::getNextCommandTarget() override
+    ApplicationCommandTarget * getNextCommandTarget() override
     {
         return JUCEApplication::getNextCommandTarget();
     }
 
-    void KentDAWApplication::getAllCommands(Array<CommandID>& commands) override
+    void getAllCommands(Array<CommandID>& commands) override
     {
         JUCEApplication::getAllCommands(commands);
         _projectManager.getAllCommands(commands);
     }
 
-    void KentDAWApplication::getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
+    void getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
     {
         JUCEApplication::getCommandInfo(commandID, result);
         _projectManager.getCommandInfo(commandID, result);
     }
 
-    bool KentDAWApplication::perform(const InvocationInfo & info) override
+    bool perform(const InvocationInfo & info) override
     {
         ApplicationCommandInfo commandInfo(info.commandID);
 
