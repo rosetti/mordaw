@@ -75,8 +75,7 @@ namespace Audio {
 
         if (region) {
             _resampled.at(region)->getNextAudioBlock(bufferToFill);
-        }
-        else {
+        } else {
             bufferToFill.buffer->clear();
         }
 

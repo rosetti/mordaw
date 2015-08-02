@@ -31,14 +31,19 @@ namespace Audio {
         //
         //AudioFormatReader *reader = _formats.createReaderFor(file);
         //AudioFormatReader *reader2 = _formats.createReaderFor(file);
+        //AudioFormatReader *reader3 = _formats.createReaderFor(file);
 
         //Track *track = new Track();
+        //Track *track2 = new Track();
         //Region *region = new SampleRegion(reader, reader->sampleRate / current->getCurrentSampleRate());
         //Region *region2 = new SampleRegion(reader2, reader2->sampleRate / current->getCurrentSampleRate());
+        //Region *region3 = new SampleRegion(reader3, reader3->sampleRate / current->getCurrentSampleRate());
 
-        //track->add(current->getCurrentBufferSizeSamples(), region);
+        //track->add(0, region);
         //track->add(region->getTotalLength() + region->getTotalLength() / 4, region2);
+        //track2->add(region->getTotalLength() / 2, region3);
         //_mixer->add(track);
+        //_mixer->add(track2);
 
         //_mixer->startPlayingAt(0);
     }

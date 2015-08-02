@@ -30,9 +30,9 @@ namespace Audio {
         return "Track Processor";
     }
 
-    void TrackProcessor::prepareToPlay(double sampleRate, int estimatedSamplesPerBlock)
+    void TrackProcessor::prepareToPlay(double newSampleRate, int estimatedSamplesPerBlock)
     {
-        _source.prepareToPlay(estimatedSamplesPerBlock, sampleRate);
+        _source.prepareToPlay(estimatedSamplesPerBlock, newSampleRate);
     }
 
     void TrackProcessor::releaseResources()
@@ -43,7 +43,7 @@ namespace Audio {
     void TrackProcessor::processBlock(AudioSampleBuffer & buffer, MidiBuffer & midiMessages)
     {
         AudioSourceChannelInfo channelInfo;
-
+        
         channelInfo.buffer = &buffer;
         channelInfo.startSample = 0;
         channelInfo.numSamples = buffer.getNumSamples();

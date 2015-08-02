@@ -38,6 +38,9 @@ namespace Audio
         TimeSliceThread _thread;
         AudioProcessorGraph _processorGraph;
         std::map<Track *, TrackProcessor *> _tracks;
+
+        int _numInput, _numOutput, _bufferSize;
+        double _sampleRate;
     };
 }
 
