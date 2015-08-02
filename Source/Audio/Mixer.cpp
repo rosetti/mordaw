@@ -35,6 +35,7 @@ namespace Audio
     {
         TrackProcessor *processor = new TrackProcessor(track, &_thread);
         
+        track->prepareToPlay(_processorGraph.getBlockSize(), _processorGraph.getSampleRate());
         _tracks.insert(std::pair<Track *, TrackProcessor *>(track, processor));
         _processorGraph.addNode(processor, _nextNodeID);
         _processorGraph.addConnection(_nextNodeID, 0, OUTPUT_NODE_ID, 0);

@@ -18,7 +18,7 @@ namespace Audio
     class SampleRegion : public Region
     {
     public:
-        SampleRegion(AudioFormatReader *fileFormatReader);
+        SampleRegion(AudioFormatReader *fileFormatReader, double resampleRatio);
         ~SampleRegion();
 
         double getBaseSampleRate() const;

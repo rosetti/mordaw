@@ -27,12 +27,12 @@ namespace Audio {
         
         // CODE FOR YOU TO TEST
         //File &currentDir = File::getCurrentWorkingDirectory();
-        //File &file = currentDir.getChildFile("reveil.flac");
+        //File &file = currentDir.getChildFile("be_cool.wav");
         //
         //AudioFormatReader *reader = _formats.createReaderFor(file);
 
         //Track *track = new Track();
-        //Region *region = new SampleRegion(reader);
+        //Region *region = new SampleRegion(reader, reader->sampleRate / current->getCurrentSampleRate());
 
         //track->add(0, region);
         //_mixer->add(track);
