@@ -18,13 +18,17 @@ namespace Audio {
     Track::~Track()
     {
         for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
+            delete _resampled.at(region->second);
             delete region->second;
         }
     }
 
     void Track::add(int64 position, Region *region)
     {
+        ResamplingAudioSource *resampled = new ResamplingAudioSource(region, false, 2);
+
         _regions.insert(std::pair<int64, Region *>(position, region));
+        _resampled.insert(std::pair<Region *, ResamplingAudioSource *>(region, resampled));
         
         if (position >= _totalLength) {
             _totalLength = position + region->getTotalLength();
@@ -53,7 +57,11 @@ namespace Audio {
         _rate = sampleRate;
 
         for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
+            ResamplingAudioSource *resampled = _resampled.at(region->second);
+
             region->second->prepareToPlay(samplesPerBlockExpected, sampleRate);
+            resampled->prepareToPlay(samplesPerBlockExpected, sampleRate);
+            resampled->setResamplingRatio(region->second->getBaseSampleRate() / sampleRate);
         }
     }
 
@@ -66,7 +74,7 @@ namespace Audio {
         Region *region = findCurrentRegion();
 
         if (region) {
-            region->getNextAudioBlock(bufferToFill);
+            _resampled.at(region)->getNextAudioBlock(bufferToFill);
             _currentPosition += bufferToFill.numSamples;
         }
     }

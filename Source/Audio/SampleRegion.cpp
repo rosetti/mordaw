@@ -22,6 +22,11 @@ namespace Audio
         delete _reader;
     }
 
+    double SampleRegion::getBaseSampleRate() const
+    {
+        return _reader->sampleRate;
+    }
+
     void SampleRegion::getNextAudioBlock(const AudioSourceChannelInfo & bufferToFill)
     {
         _reader->read(bufferToFill.buffer, bufferToFill.startSample, bufferToFill.numSamples, _currentPosition, true, true);

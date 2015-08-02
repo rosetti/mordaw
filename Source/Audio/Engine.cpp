@@ -25,18 +25,19 @@ namespace Audio {
         _player.setProcessor(_mixer->getProcessorGraph());
         _devices.addAudioCallback(&_player);
         
-        File &currentDir = File::getCurrentWorkingDirectory();
-        File &file = currentDir.getChildFile("reveil.flac");
-        
-        AudioFormatReader *reader = _formats.createReaderFor(file);
+        // CODE FOR YOU TO TEST
+        //File &currentDir = File::getCurrentWorkingDirectory();
+        //File &file = currentDir.getChildFile("reveil.flac");
+        //
+        //AudioFormatReader *reader = _formats.createReaderFor(file);
 
-        Track *track = new Track();
-        Region *region = new SampleRegion(reader);
+        //Track *track = new Track();
+        //Region *region = new SampleRegion(reader);
 
-        track->add(0, region);
-        _mixer->add(track);
+        //track->add(0, region);
+        //_mixer->add(track);
 
-        _mixer->startPlayingAt(0);
+        //_mixer->startPlayingAt(0);
     }
 
     Engine::~Engine()

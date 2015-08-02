@@ -43,6 +43,7 @@ namespace Audio
         int64 _totalLength;
 
         std::map<int64, Region *> _regions;
+        std::map<Region *, ResamplingAudioSource *> _resampled;
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Track)
     };

@@ -20,6 +20,7 @@ namespace Audio
     public:
         virtual ~Region();
 
+        virtual double getBaseSampleRate() const = 0;
 
         // Inherited via PositionableAudioSource
         virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;

@@ -21,6 +21,8 @@ namespace Audio
         SampleRegion(AudioFormatReader *fileFormatReader);
         ~SampleRegion();
 
+        double getBaseSampleRate() const;
+
     private:
         AudioFormatReader *_reader;
 
