@@ -17,7 +17,7 @@ namespace Audio
 {
     class Mixer {
     public:
-        Mixer::Mixer(int numInputChannels, int numOutputChannels, double sampleRate, int bufferSize);
+        Mixer(int numInputChannels, int numOutputChannels, double sampleRate, int bufferSize);
         ~Mixer();
 
         void add(Track *track);
