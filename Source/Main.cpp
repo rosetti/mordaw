@@ -48,35 +48,14 @@ public:
 
     void KentDAWApplication::getAllCommands(Array<CommandID>& commands) override
     {
-        const CommandID ids[] = {
-            ProjectManager::newProject,
-            ProjectManager::openProject,
-        };
-
         JUCEApplication::getAllCommands(commands);
-        commands.addArray(ids, numElementsInArray(ids));
+        _projectManager.getAllCommands(commands);
     }
 
     void KentDAWApplication::getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
     {
-        const String projectManagement("Project Management");
-
         JUCEApplication::getCommandInfo(commandID, result);
-
-        switch (commandID) {
-        case ProjectManager::newProject:
-            result.setInfo("New Project...", "Create a new project.", projectManagement, 0);
-            result.addDefaultKeypress('N', ModifierKeys::commandModifier);
-            break;
-
-        case ProjectManager::openProject:
-            result.setInfo("Open Project...", "Open an existing project.", projectManagement, 0);
-            result.addDefaultKeypress('O', ModifierKeys::commandModifier);
-            break;
-
-        default:
-            break;
-        }
+        _projectManager.getCommandInfo(commandID, result);
     }
 
     bool KentDAWApplication::perform(const InvocationInfo & info) override

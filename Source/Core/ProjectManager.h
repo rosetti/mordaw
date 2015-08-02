@@ -19,6 +19,8 @@ public:
     ProjectManager();
     ~ProjectManager();
 
+    void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
+    void getAllCommands(Array<CommandID>& commands) const;
     bool perform(const ApplicationCommandTarget::InvocationInfo & info);
 
     enum Commands {

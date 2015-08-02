@@ -18,6 +18,34 @@ ProjectManager::~ProjectManager()
 {
 }
 
+void ProjectManager::getAllCommands(Array<CommandID>& commands) const
+{
+    const CommandID ids[] = {
+        ProjectManager::newProject,
+        ProjectManager::openProject,
+    };
+
+    commands.addArray(ids, numElementsInArray(ids));
+}
+
+void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const {
+    const String projectManagement("Project Management");
+ 
+    switch (commandID) {
+    case ProjectManager::newProject:
+        result.setInfo("New Project...", "Create a new project.", projectManagement, 0);
+        result.addDefaultKeypress('N', ModifierKeys::commandModifier);
+        break;
+
+    case ProjectManager::openProject:
+        result.setInfo("Open Project...", "Open an existing project.", projectManagement, 0);
+        result.addDefaultKeypress('O', ModifierKeys::commandModifier);
+        break;
+
+    default:
+        break;
+    }
+}
 bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & info)
 {
     switch (info.commandID) {

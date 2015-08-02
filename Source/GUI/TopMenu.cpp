@@ -15,12 +15,12 @@ Author:  Thomas
 TopMenu::TopMenu(ApplicationCommandManager &commandsManager) : MenuBarModel(), _commandsManager(commandsManager)
 {
     PopupMenu fileMenu;
-    ApplicationCommandManager *manager = &_commandsManager;
+    ApplicationCommandManager *commands = &_commandsManager;
 
-    fileMenu.addCommandItem(manager, ProjectManager::newProject);
-    fileMenu.addCommandItem(manager, ProjectManager::openProject);
+    fileMenu.addCommandItem(commands, ProjectManager::newProject);
+    fileMenu.addCommandItem(commands, ProjectManager::openProject);
     fileMenu.addSeparator();
-    fileMenu.addCommandItem(manager, StandardApplicationCommandIDs::quit);
+    fileMenu.addCommandItem(commands, StandardApplicationCommandIDs::quit);
     _menus.insert(std::pair<String, PopupMenu>("File", fileMenu));
 
     menuItemsChanged();

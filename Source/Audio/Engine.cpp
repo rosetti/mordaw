@@ -15,6 +15,9 @@
 namespace Audio {
     Engine::Engine()
     {
+        _devices.initialiseWithDefaultDevices(0, 2);
+        _formats.registerBasicFormats();
+
         //AudioDeviceManager *manager = new AudioDeviceManager();
         //
         //File &currentDir = File::getCurrentWorkingDirectory();
