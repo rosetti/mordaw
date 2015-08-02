@@ -49,6 +49,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
+  $(OBJDIR)/ProjectManager_74d90745.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
   $(OBJDIR)/SampleRegion_6518a500.o \
@@ -86,6 +87,11 @@ clean:
 strip:
 	@echo Stripping KentDAW
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
+
+$(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling ProjectManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TopMenu_34ea79c1.o: ../../Source/GUI/TopMenu.cpp
 	-@mkdir -p $(OBJDIR)

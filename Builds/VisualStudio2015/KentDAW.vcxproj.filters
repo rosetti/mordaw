@@ -8,6 +8,9 @@
     <Filter Include="KentDAW\Source">
       <UniqueIdentifier>{5AFC75CE-07DD-2E28-300F-794DC0EFB426}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Source\Core">
+      <UniqueIdentifier>{3C600051-9037-BFA3-87DF-E6E758FA4E87}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KentDAW\Source\GUI">
       <UniqueIdentifier>{FF8EC6DC-4C78-D6C9-C8BC-CA1929BA1A23}</UniqueIdentifier>
     </Filter>
@@ -307,6 +310,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Core\ProjectManager.cpp">
+      <Filter>KentDAW\Source\Core</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\GUI\TopMenu.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
@@ -1542,6 +1548,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Core\ProjectManager.h">
+      <Filter>KentDAW\Source\Core</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\GUI\TopMenu.h">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClInclude>

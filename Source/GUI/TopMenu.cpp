@@ -9,15 +9,18 @@ Author:  Thomas
 */
 
 #include "TopMenu.h"
+#include "MainWindow.h"
+#include "../Core/ProjectManager.h"
 
-TopMenu::TopMenu() : MenuBarModel()
+TopMenu::TopMenu(ApplicationCommandManager &commandsManager) : MenuBarModel(), _commandsManager(commandsManager)
 {
     PopupMenu fileMenu;
+    ApplicationCommandManager *manager = &_commandsManager;
 
-    fileMenu.addItem(1, "New...");
-    fileMenu.addItem(2, "Open...");
+    fileMenu.addCommandItem(manager, ProjectManager::newProject);
+    fileMenu.addCommandItem(manager, ProjectManager::openProject);
     fileMenu.addSeparator();
-    fileMenu.addItem(3, "Exit");
+    fileMenu.addCommandItem(manager, StandardApplicationCommandIDs::quit);
     _menus.insert(std::pair<String, PopupMenu>("File", fileMenu));
 
     menuItemsChanged();

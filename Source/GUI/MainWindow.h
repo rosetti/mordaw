@@ -17,17 +17,20 @@
 class MainWindow : public DocumentWindow
 {
 public:
-    MainWindow();
+    MainWindow(ApplicationCommandManager &commands);
     ~MainWindow();
-
-    void initializeContent();
-    void closeButtonPressed() override;
 
     Component Content;
 
+    void closeButtonPressed() override;
+
 private:
-    TopMenu menu;
-    LookAndFeel_V3 lookAndFeel;
+    void initializeContent();
+    void initializeMenu();
+   
+    TopMenu _menu;
+    LookAndFeel_V3 _lookAndFeel;
+    ApplicationCommandManager &_commandsManager;
   
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 };

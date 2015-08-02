@@ -129,6 +129,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TopMenu.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp"/>
     <ClCompile Include="..\..\Source\Audio\SampleRegion.cpp"/>
@@ -1249,6 +1250,7 @@
     <ClCompile Include="..\..\JuceModules\juce_video\juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
     <ClInclude Include="..\..\Source\GUI\TopMenu.h"/>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h"/>
     <ClInclude Include="..\..\Source\Audio\SampleRegion.h"/>

@@ -10,9 +10,12 @@
 
 #include "MainWindow.h"
 
-MainWindow::MainWindow() : DocumentWindow("KentDAW", Colours::darkgrey, TitleBarButtons::allButtons)
+MainWindow::MainWindow(ApplicationCommandManager &commands) :
+    DocumentWindow("KentDAW", Colours::darkgrey, TitleBarButtons::allButtons), 
+    _commandsManager(commands), 
+    _menu(commands)
 {
-    setLookAndFeel(&lookAndFeel);
+    setLookAndFeel(&_lookAndFeel);
     setUsingNativeTitleBar(true);
     centreWithSize(800, 600);
     maximiseButtonPressed();
@@ -35,7 +38,12 @@ void MainWindow::closeButtonPressed()
 
 void MainWindow::initializeContent()
 {
-    setMenuBar(&menu);
-    getMenuBarComponent()->setColour(PopupMenu::backgroundColourId, Colours::lightgrey);
+    initializeMenu();
     setContentOwned(&Content, false);
+}
+
+void MainWindow::initializeMenu()
+{
+    setMenuBar(&_menu);
+    getMenuBarComponent()->setColour(PopupMenu::backgroundColourId, Colours::lightgrey);
 }

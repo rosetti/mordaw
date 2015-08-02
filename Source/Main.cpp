@@ -11,9 +11,10 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Audio/Engine.h"
 #include "GUI/MainWindow.h"
+#include "Core/ProjectManager.h"
 
 //==============================================================================
-class KentDAWApplication  : public JUCEApplication
+class KentDAWApplication  : public JUCEApplication, juce::ApplicationCommandTarget
 {
 public:
     //==============================================================================
@@ -26,12 +27,69 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
-
+        registerCommands();
+        _mainWindow = new MainWindow(_commandsManager);
     }
 
     void shutdown() override
     {
-        // Add your application's shutdown code here..
+    }
+
+    void KentDAWApplication::registerCommands()
+    {
+        _commandsManager.registerAllCommandsForTarget(this);
+        _commandsManager.registerAllCommandsForTarget(getInstance());
+    }
+
+    ApplicationCommandTarget * KentDAWApplication::getNextCommandTarget() override
+    {
+        return JUCEApplication::getNextCommandTarget();
+    }
+
+    void KentDAWApplication::getAllCommands(Array<CommandID>& commands) override
+    {
+        const CommandID ids[] = {
+            ProjectManager::newProject,
+            ProjectManager::openProject,
+        };
+
+        JUCEApplication::getAllCommands(commands);
+        commands.addArray(ids, numElementsInArray(ids));
+    }
+
+    void KentDAWApplication::getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
+    {
+        const String projectManagement("Project Management");
+
+        JUCEApplication::getCommandInfo(commandID, result);
+
+        switch (commandID) {
+        case ProjectManager::newProject:
+            result.setInfo("New Project...", "Create a new project.", projectManagement, 0);
+            result.addDefaultKeypress('N', ModifierKeys::commandModifier);
+            break;
+
+        case ProjectManager::openProject:
+            result.setInfo("Open Project...", "Open an existing project.", projectManagement, 0);
+            result.addDefaultKeypress('O', ModifierKeys::commandModifier);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    bool KentDAWApplication::perform(const InvocationInfo & info) override
+    {
+        ApplicationCommandInfo commandInfo(info.commandID);
+
+        getCommandInfo(info.commandID, commandInfo);
+
+        if (commandInfo.categoryName == "Project Management") {
+            return _projectManager.perform(info);
+        }
+
+        return JUCEApplication::perform(info);
     }
 
     //==============================================================================
@@ -51,7 +109,9 @@ public:
 
 private:
     Audio::Engine _engine;
-    MainWindow mainWindow;
+    ScopedPointer<MainWindow> _mainWindow;
+    ProjectManager _projectManager;
+    ApplicationCommandManager _commandsManager;
 };
 
 //==============================================================================

@@ -17,7 +17,7 @@
 class TopMenu : public MenuBarModel
 {
 public:
-    TopMenu();
+    TopMenu(ApplicationCommandManager &commandManager);
     ~TopMenu();
 
     // Inherited via MenuBarModel
@@ -26,8 +26,9 @@ public:
     virtual void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
 
 private:
-    std::map<String, PopupMenu> _menus;
     StringArray _menusNames;
+    std::map<String, PopupMenu> _menus;
+    ApplicationCommandManager &_commandsManager;
 };
 
 #endif  // TOPMENU_H_INCLUDED
