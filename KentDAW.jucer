@@ -18,6 +18,12 @@
         <FILE id="HQJuWs" name="MainWindow.h" compile="0" resource="0" file="Source/GUI/MainWindow.h"/>
       </GROUP>
       <GROUP id="{5CC0F50A-2D80-8B2D-AD3D-0F3E9BC6C6A9}" name="Audio">
+        <FILE id="Sm33ff" name="TrackProcessor.cpp" compile="1" resource="0"
+              file="Source/Audio/TrackProcessor.cpp"/>
+        <FILE id="LpbSVN" name="TrackProcessor.h" compile="0" resource="0"
+              file="Source/Audio/TrackProcessor.h"/>
+        <FILE id="DUpmPM" name="Mixer.cpp" compile="1" resource="0" file="Source/Audio/Mixer.cpp"/>
+        <FILE id="p23EF9" name="Mixer.h" compile="0" resource="0" file="Source/Audio/Mixer.h"/>
         <FILE id="VfGK8n" name="SampleRegion.cpp" compile="1" resource="0"
               file="Source/Audio/SampleRegion.cpp"/>
         <FILE id="f4IK0n" name="SampleRegion.h" compile="0" resource="0" file="Source/Audio/SampleRegion.h"/>
@@ -53,6 +59,9 @@
         <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
         <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
         <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_utils" path="JuceModules"/>
+        <MODULEPATH id="juce_box2d" path="JuceModules"/>
+        <MODULEPATH id="juce_tracktion_marketplace" path="JuceModules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015">
@@ -76,6 +85,9 @@
         <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
         <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
         <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_utils" path="JuceModules"/>
+        <MODULEPATH id="juce_box2d" path="JuceModules"/>
+        <MODULEPATH id="juce_tracktion_marketplace" path="JuceModules"/>
       </MODULEPATHS>
     </VS2015>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -99,6 +111,9 @@
         <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
         <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
         <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_utils" path="JuceModules"/>
+        <MODULEPATH id="juce_box2d" path="JuceModules"/>
+        <MODULEPATH id="juce_tracktion_marketplace" path="JuceModules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -107,6 +122,8 @@
     <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_box2d" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
@@ -115,6 +132,7 @@
     <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_tracktion_marketplace" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS/>

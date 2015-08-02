@@ -19,6 +19,7 @@ namespace Audio
 
     SampleRegion::~SampleRegion()
     {
+        delete _reader;
     }
 
     void SampleRegion::getNextAudioBlock(const AudioSourceChannelInfo & bufferToFill)

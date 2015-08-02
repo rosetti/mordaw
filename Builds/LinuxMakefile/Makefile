@@ -52,6 +52,8 @@ OBJECTS := \
   $(OBJDIR)/ProjectManager_74d90745.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
+  $(OBJDIR)/TrackProcessor_c8552789.o \
+  $(OBJDIR)/Mixer_d22926d1.o \
   $(OBJDIR)/SampleRegion_6518a500.o \
   $(OBJDIR)/Region_d34d2d76.o \
   $(OBJDIR)/Track_c2771b13.o \
@@ -61,6 +63,8 @@ OBJECTS := \
   $(OBJDIR)/juce_audio_devices_fa623caf.o \
   $(OBJDIR)/juce_audio_formats_28e3864f.o \
   $(OBJDIR)/juce_audio_processors_296048e9.o \
+  $(OBJDIR)/juce_audio_utils_169283ef.o \
+  $(OBJDIR)/juce_box2d_239af00f.o \
   $(OBJDIR)/juce_core_dfab3b13.o \
   $(OBJDIR)/juce_cryptography_8e07336d.o \
   $(OBJDIR)/juce_data_structures_da0c4e8f.o \
@@ -69,6 +73,7 @@ OBJECTS := \
   $(OBJDIR)/juce_gui_basics_bdeee3e7.o \
   $(OBJDIR)/juce_gui_extra_26b6e32f.o \
   $(OBJDIR)/juce_opengl_307c0e33.o \
+  $(OBJDIR)/juce_tracktion_marketplace_94bee74f.o \
   $(OBJDIR)/juce_video_2daea54f.o \
 
 .PHONY: clean
@@ -101,6 +106,16 @@ $(OBJDIR)/TopMenu_34ea79c1.o: ../../Source/GUI/TopMenu.cpp
 $(OBJDIR)/MainWindow_ca618186.o: ../../Source/GUI/MainWindow.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling MainWindow.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/TrackProcessor_c8552789.o: ../../Source/Audio/TrackProcessor.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling TrackProcessor.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/Mixer_d22926d1.o: ../../Source/Audio/Mixer.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling Mixer.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/SampleRegion_6518a500.o: ../../Source/Audio/SampleRegion.cpp
@@ -148,6 +163,16 @@ $(OBJDIR)/juce_audio_processors_296048e9.o: ../../JuceModules/juce_audio_process
 	@echo "Compiling juce_audio_processors.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
+$(OBJDIR)/juce_audio_utils_169283ef.o: ../../JuceModules/juce_audio_utils/juce_audio_utils.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling juce_audio_utils.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/juce_box2d_239af00f.o: ../../JuceModules/juce_box2d/juce_box2d.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling juce_box2d.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
 $(OBJDIR)/juce_core_dfab3b13.o: ../../JuceModules/juce_core/juce_core.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling juce_core.cpp"
@@ -186,6 +211,11 @@ $(OBJDIR)/juce_gui_extra_26b6e32f.o: ../../JuceModules/juce_gui_extra/juce_gui_e
 $(OBJDIR)/juce_opengl_307c0e33.o: ../../JuceModules/juce_opengl/juce_opengl.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling juce_opengl.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/juce_tracktion_marketplace_94bee74f.o: ../../JuceModules/juce_tracktion_marketplace/juce_tracktion_marketplace.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling juce_tracktion_marketplace.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/juce_video_2daea54f.o: ../../JuceModules/juce_video/juce_video.cpp

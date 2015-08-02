@@ -21,8 +21,6 @@ namespace Audio
         SampleRegion(AudioFormatReader *fileFormatReader);
         ~SampleRegion();
 
-
-
     private:
         AudioFormatReader *_reader;
 

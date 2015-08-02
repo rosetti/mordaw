@@ -11,7 +11,7 @@ Author:  Thomas
 #ifndef ENGINE_H_INCLUDED
 #define ENGINE_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "Mixer.h"
 
 namespace Audio
 {
@@ -21,8 +21,10 @@ namespace Audio
         ~Engine();
 
     private:
+        ScopedPointer<Mixer> _mixer;
         AudioDeviceManager _devices;
         AudioFormatManager _formats;
+        AudioProcessorPlayer _player;
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Engine)
     };

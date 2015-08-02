@@ -17,6 +17,9 @@ namespace Audio {
 
     Track::~Track()
     {
+        for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
+            delete region->second;
+        }
     }
 
     void Track::add(int64 position, Region *region)
@@ -48,6 +51,10 @@ namespace Audio {
     {
         _samples = samplesPerBlockExpected;
         _rate = sampleRate;
+
+        for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
+            region->second->prepareToPlay(samplesPerBlockExpected, sampleRate);
+        }
     }
 
     void Track::releaseResources()

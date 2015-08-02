@@ -15,36 +15,33 @@
 namespace Audio {
     Engine::Engine()
     {
-        _devices.initialiseWithDefaultDevices(0, 2);
+        AudioIODevice* current;
+
         _formats.registerBasicFormats();
+        _devices.initialiseWithDefaultDevices(2, 2);
+        current = _devices.getCurrentAudioDevice();
 
-        //AudioDeviceManager *manager = new AudioDeviceManager();
-        //
-        //File &currentDir = File::getCurrentWorkingDirectory();
-        //File &file = currentDir.getChildFile("reveil.flac");
-        //
-        //AudioFormatManager *formats = new AudioFormatManager();
-        //formats->registerBasicFormats();
+        _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
+        _player.setProcessor(_mixer->getProcessorGraph());
+        _devices.addAudioCallback(&_player);
+        
+        File &currentDir = File::getCurrentWorkingDirectory();
+        File &file = currentDir.getChildFile("reveil.flac");
+        
+        AudioFormatReader *reader = _formats.createReaderFor(file);
 
-        //AudioFormatReader *reader = formats->createReaderFor(file);
+        Track *track = new Track();
+        Region *region = new SampleRegion(reader);
 
-        //Track *track = new Track();
-        //Region *region = new SampleRegion(reader);
+        track->add(0, region);
+        _mixer->add(track);
 
-        //track->add(0, region);
-
-        //AudioTransportSource *transport = new AudioTransportSource();
-        //transport->setSource(track, 0, nullptr, reader->sampleRate, 2);
-        //transport->start();
-
-        //AudioSourcePlayer *player = new AudioSourcePlayer();
-        //player->setSource(transport);
-
-        //manager->initialiseWithDefaultDevices(0, 2);
-        //manager->addAudioCallback(player);
+        _mixer->startPlayingAt(0);
     }
 
     Engine::~Engine()
     {
+        _mixer->stop();
+        _devices.removeAudioCallback(&_player);
     }
 }

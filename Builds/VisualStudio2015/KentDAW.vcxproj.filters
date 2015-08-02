@@ -83,6 +83,24 @@
     <Filter Include="Juce Modules\juce_audio_processors\scanning">
       <UniqueIdentifier>{EB8DD942-E2CB-869F-D381-E02A65BA790B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Juce Modules\juce_audio_utils">
+      <UniqueIdentifier>{B63F69FD-8A40-8E1E-E7ED-419B8DC1C12B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_utils\gui">
+      <UniqueIdentifier>{8167E753-09C7-5D1C-EF2B-32D297557443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_audio_utils\players">
+      <UniqueIdentifier>{AEDCB7F7-7A36-5392-8E9A-715F5BDE35CB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_box2d">
+      <UniqueIdentifier>{B2912FF0-8ED6-7123-C74F-BA4CF0F436AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_box2d\box2d">
+      <UniqueIdentifier>{141B1452-6821-88F4-FFF8-F13BC738929D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_box2d\utils">
+      <UniqueIdentifier>{E3D8F4B4-33E2-B3AA-1F4F-CD78351C6C37}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Juce Modules\juce_core">
       <UniqueIdentifier>{95CA1506-2B94-0DEE-0C8D-85EDEBBC4E88}</UniqueIdentifier>
     </Filter>
@@ -293,6 +311,12 @@
     <Filter Include="Juce Modules\juce_opengl\native">
       <UniqueIdentifier>{151B49D8-6102-F802-1C07-D59931BC0574}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Juce Modules\juce_tracktion_marketplace">
+      <UniqueIdentifier>{1A956A34-A2BA-5894-7841-93F85BA2ADF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Juce Modules\juce_tracktion_marketplace\marketplace">
+      <UniqueIdentifier>{34784845-3322-EBD9-17BE-FB2395C81D75}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Juce Modules\juce_video">
       <UniqueIdentifier>{72A923E2-C729-DB92-D7BF-A9D4AFAE5896}</UniqueIdentifier>
     </Filter>
@@ -318,6 +342,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp">
+      <Filter>KentDAW\Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\Mixer.cpp">
+      <Filter>KentDAW\Source\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\SampleRegion.cpp">
       <Filter>KentDAW\Source\Audio</Filter>
@@ -561,6 +591,27 @@
     </ClCompile>
     <ClCompile Include="..\..\JuceModules\juce_audio_processors\scanning\juce_PluginListComponent.cpp">
       <Filter>Juce Modules\juce_audio_processors\scanning</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioAppComponent.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioDeviceSelectorComponent.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioThumbnail.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioThumbnailCache.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\gui\juce_MidiKeyboardComponent.cpp">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\players\juce_AudioProcessorPlayer.cpp">
+      <Filter>Juce Modules\juce_audio_utils\players</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_box2d\utils\juce_Box2DRenderer.cpp">
+      <Filter>Juce Modules\juce_box2d\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceModules\juce_core\text\juce_CharacterFunctions.cpp">
       <Filter>Juce Modules\juce_core\text</Filter>
@@ -1486,6 +1537,12 @@
     <ClCompile Include="..\..\JuceModules\juce_opengl\utils\juce_OpenGLAppComponent.cpp">
       <Filter>Juce Modules\juce_opengl\utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_tracktion_marketplace\marketplace\juce_TracktionMarketplaceStatus.cpp">
+      <Filter>Juce Modules\juce_tracktion_marketplace\marketplace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_tracktion_marketplace\marketplace\juce_TracktionMarketplaceUnlockForm.cpp">
+      <Filter>Juce Modules\juce_tracktion_marketplace\marketplace</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceModules\juce_video\capture\juce_CameraDevice.cpp">
       <Filter>Juce Modules\juce_video\capture</Filter>
     </ClCompile>
@@ -1519,6 +1576,12 @@
     <ClCompile Include="..\..\JuceModules\juce_audio_processors\juce_audio_processors.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_audio_utils\juce_audio_utils.cpp">
+      <Filter>Juce Library Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_box2d\juce_box2d.cpp">
+      <Filter>Juce Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceModules\juce_core\juce_core.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
@@ -1543,6 +1606,9 @@
     <ClCompile Include="..\..\JuceModules\juce_opengl\juce_opengl.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceModules\juce_tracktion_marketplace\juce_tracktion_marketplace.cpp">
+      <Filter>Juce Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceModules\juce_video\juce_video.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
@@ -1556,6 +1622,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h">
       <Filter>KentDAW\Source\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\TrackProcessor.h">
+      <Filter>KentDAW\Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Mixer.h">
+      <Filter>KentDAW\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\SampleRegion.h">
       <Filter>KentDAW\Source\Audio</Filter>
@@ -1802,6 +1874,39 @@
     </ClInclude>
     <ClInclude Include="..\..\JuceModules\juce_audio_processors\juce_audio_processors.h">
       <Filter>Juce Modules\juce_audio_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioAppComponent.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioDeviceSelectorComponent.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioThumbnail.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioThumbnailBase.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\gui\juce_AudioThumbnailCache.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\gui\juce_MidiKeyboardComponent.h">
+      <Filter>Juce Modules\juce_audio_utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\players\juce_AudioProcessorPlayer.h">
+      <Filter>Juce Modules\juce_audio_utils\players</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_audio_utils\juce_audio_utils.h">
+      <Filter>Juce Modules\juce_audio_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_box2d\box2d\Box2D.h">
+      <Filter>Juce Modules\juce_box2d\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_box2d\utils\juce_Box2DRenderer.h">
+      <Filter>Juce Modules\juce_box2d\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_box2d\juce_box2d.h">
+      <Filter>Juce Modules\juce_box2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceModules\juce_core\text\juce_CharacterFunctions.h">
       <Filter>Juce Modules\juce_core\text</Filter>
@@ -2895,6 +3000,18 @@
     <ClInclude Include="..\..\JuceModules\juce_opengl\juce_opengl.h">
       <Filter>Juce Modules\juce_opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_tracktion_marketplace\marketplace\juce_TracktionMarketplaceServer.h">
+      <Filter>Juce Modules\juce_tracktion_marketplace\marketplace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_tracktion_marketplace\marketplace\juce_TracktionMarketplaceStatus.h">
+      <Filter>Juce Modules\juce_tracktion_marketplace\marketplace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_tracktion_marketplace\marketplace\juce_TracktionMarketplaceUnlockForm.h">
+      <Filter>Juce Modules\juce_tracktion_marketplace\marketplace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceModules\juce_tracktion_marketplace\juce_tracktion_marketplace.h">
+      <Filter>Juce Modules\juce_tracktion_marketplace</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceModules\juce_video\playback\juce_DirectShowComponent.h">
       <Filter>Juce Modules\juce_video\playback</Filter>
     </ClInclude>
@@ -2927,6 +3044,15 @@
     <None Include="..\..\JuceModules\juce_audio_processors\juce_module_info">
       <Filter>Juce Modules\juce_audio_processors</Filter>
     </None>
+    <None Include="..\..\JuceModules\juce_audio_utils\juce_module_info">
+      <Filter>Juce Modules\juce_audio_utils</Filter>
+    </None>
+    <None Include="..\..\JuceModules\juce_box2d\box2d\README.txt">
+      <Filter>Juce Modules\juce_box2d\box2d</Filter>
+    </None>
+    <None Include="..\..\JuceModules\juce_box2d\juce_module_info">
+      <Filter>Juce Modules\juce_box2d</Filter>
+    </None>
     <None Include="..\..\JuceModules\juce_core\juce_module_info">
       <Filter>Juce Modules\juce_core</Filter>
     </None>
@@ -2950,6 +3076,9 @@
     </None>
     <None Include="..\..\JuceModules\juce_opengl\juce_module_info">
       <Filter>Juce Modules\juce_opengl</Filter>
+    </None>
+    <None Include="..\..\JuceModules\juce_tracktion_marketplace\juce_module_info">
+      <Filter>Juce Modules\juce_tracktion_marketplace</Filter>
     </None>
     <None Include="..\..\JuceModules\juce_video\juce_module_info">
       <Filter>Juce Modules\juce_video</Filter>
