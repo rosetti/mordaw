@@ -25,16 +25,19 @@ namespace Audio {
         _player.setProcessor(_mixer->getProcessorGraph());
         _devices.addAudioCallback(&_player);
         
-        // CODE FOR YOU TO TEST
+        //// CODE FOR YOU TO TEST
         //File &currentDir = File::getCurrentWorkingDirectory();
         //File &file = currentDir.getChildFile("be_cool.wav");
         //
         //AudioFormatReader *reader = _formats.createReaderFor(file);
+        //AudioFormatReader *reader2 = _formats.createReaderFor(file);
 
         //Track *track = new Track();
         //Region *region = new SampleRegion(reader, reader->sampleRate / current->getCurrentSampleRate());
+        //Region *region2 = new SampleRegion(reader2, reader2->sampleRate / current->getCurrentSampleRate());
 
-        //track->add(0, region);
+        //track->add(current->getCurrentBufferSizeSamples(), region);
+        //track->add(region->getTotalLength() + region->getTotalLength() / 4, region2);
         //_mixer->add(track);
 
         //_mixer->startPlayingAt(0);

@@ -75,8 +75,12 @@ namespace Audio {
 
         if (region) {
             _resampled.at(region)->getNextAudioBlock(bufferToFill);
-            _currentPosition += bufferToFill.numSamples;
         }
+        else {
+            bufferToFill.buffer->clear();
+        }
+
+        _currentPosition += bufferToFill.numSamples;
     }
 
     void Track::setNextReadPosition(int64 newPosition)
