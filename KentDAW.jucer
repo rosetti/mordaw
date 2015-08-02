@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="KE999T" name="KentDAW" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="DawnOfAudio.DAW" includeBinaryInAppConfig="1"
+              jucerVersion="3.2.0">
+  <MAINGROUP id="rLaEhK" name="KentDAW">
+    <GROUP id="{E5F16C16-8665-4C0D-DBF9-8FAEE72BEC9A}" name="Source">
+      <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
+        <FILE id="zttU2n" name="TopMenu.cpp" compile="1" resource="0" file="Source/GUI/TopMenu.cpp"/>
+        <FILE id="hW3E1s" name="TopMenu.h" compile="0" resource="0" file="Source/GUI/TopMenu.h"/>
+        <FILE id="CfWlwk" name="MainWindow.cpp" compile="1" resource="0" file="Source/GUI/MainWindow.cpp"/>
+        <FILE id="HQJuWs" name="MainWindow.h" compile="0" resource="0" file="Source/GUI/MainWindow.h"/>
+      </GROUP>
+      <GROUP id="{5CC0F50A-2D80-8B2D-AD3D-0F3E9BC6C6A9}" name="Audio">
+        <FILE id="VfGK8n" name="SampleRegion.cpp" compile="1" resource="0"
+              file="Source/Audio/SampleRegion.cpp"/>
+        <FILE id="f4IK0n" name="SampleRegion.h" compile="0" resource="0" file="Source/Audio/SampleRegion.h"/>
+        <FILE id="MBFp2K" name="Region.cpp" compile="1" resource="0" file="Source/Audio/Region.cpp"/>
+        <FILE id="mOu7zr" name="Region.h" compile="0" resource="0" file="Source/Audio/Region.h"/>
+        <FILE id="mmS8Ur" name="Track.cpp" compile="1" resource="0" file="Source/Audio/Track.cpp"/>
+        <FILE id="yElJ04" name="Track.h" compile="0" resource="0" file="Source/Audio/Track.h"/>
+        <FILE id="yQ0Pep" name="Engine.cpp" compile="1" resource="0" file="Source/Audio/Engine.cpp"/>
+        <FILE id="QZbHej" name="Engine.h" compile="0" resource="0" file="Source/Audio/Engine.h"/>
+      </GROUP>
+      <FILE id="POKwiX" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="1" optimisation="1" targetName="KentDAW"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="0" optimisation="3" targetName="KentDAW"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="JuceModules"/>
+        <MODULEPATH id="juce_events" path="JuceModules"/>
+        <MODULEPATH id="juce_graphics" path="JuceModules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceModules"/>
+        <MODULEPATH id="juce_gui_basics" path="JuceModules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceModules"/>
+        <MODULEPATH id="juce_cryptography" path="JuceModules"/>
+        <MODULEPATH id="juce_video" path="JuceModules"/>
+        <MODULEPATH id="juce_opengl" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2015 targetFolder="Builds/VisualStudio2015">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="KentDAW"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="3" targetName="KentDAW"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="JuceModules"/>
+        <MODULEPATH id="juce_events" path="JuceModules"/>
+        <MODULEPATH id="juce_graphics" path="JuceModules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceModules"/>
+        <MODULEPATH id="juce_gui_basics" path="JuceModules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceModules"/>
+        <MODULEPATH id="juce_cryptography" path="JuceModules"/>
+        <MODULEPATH id="juce_video" path="JuceModules"/>
+        <MODULEPATH id="juce_opengl" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
+      </MODULEPATHS>
+    </VS2015>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="KentDAW"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="3"
+                       targetName="KentDAW"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="JuceModules"/>
+        <MODULEPATH id="juce_events" path="JuceModules"/>
+        <MODULEPATH id="juce_graphics" path="JuceModules"/>
+        <MODULEPATH id="juce_data_structures" path="JuceModules"/>
+        <MODULEPATH id="juce_gui_basics" path="JuceModules"/>
+        <MODULEPATH id="juce_gui_extra" path="JuceModules"/>
+        <MODULEPATH id="juce_cryptography" path="JuceModules"/>
+        <MODULEPATH id="juce_video" path="JuceModules"/>
+        <MODULEPATH id="juce_opengl" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_basics" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>

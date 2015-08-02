@@ -1,0 +1,38 @@
+# XCode
+Builds/MacOSX/*/build
+Builds/MacOSX/*.pbxuser
+Builds/MacOSX/!default.pbxuser
+Builds/MacOSX/*.mode1v3
+Builds/MacOSX/!default.mode1v3
+Builds/MacOSX/*.mode2v3
+Builds/MacOSX/!default.mode2v3
+Builds/MacOSX/*.perspectivev3
+Builds/MacOSX/!default.perspectivev3
+Builds/MacOSX/xcuserdata
+Builds/MacOSX/*.xccheckout
+Builds/MacOSX/*.moved-aside
+Builds/MacOSX/DerivedData
+Builds/MacOSX/*.xcuserstate
+
+# VS
+Builds/*/Debug
+Builds/*/Release
+
+Builds/*/KentDAW.sdf
+Builds/*/KentDAW.opensdf
+Builds/*/*.suo
+Builds/VisualStudio2015/.vs
+Builds/*/*.user
+
+# Vim
+*.swp
+*~*
+/.project
+**/.idea
+
+# Mac
+**/.DS_Store
+
+# AudioFiles
+*.wav
+*.flac
