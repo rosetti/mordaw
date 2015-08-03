@@ -12,23 +12,19 @@
 
 namespace Audio
 {
-    SampleRegion::SampleRegion(AudioFormatReader *fileFormatReader, double resampleRatio)
-        : Region(fileFormatReader->lengthInSamples / resampleRatio), _reader(fileFormatReader)
-    {
+    SampleRegion::SampleRegion(AudioFormatReader* fileFormatReader, double resampleRatio)
+        : Region(static_cast<int64>(ceil(fileFormatReader->lengthInSamples / resampleRatio))), _reader(fileFormatReader) {
     }
 
-    SampleRegion::~SampleRegion()
-    {
+    SampleRegion::~SampleRegion() {
         delete _reader;
     }
 
-    double SampleRegion::getBaseSampleRate() const
-    {
+    double SampleRegion::getBaseSampleRate() const {
         return _reader->sampleRate;
     }
 
-    void SampleRegion::getNextAudioBlock(const AudioSourceChannelInfo & bufferToFill)
-    {
+    void SampleRegion::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) {
         _reader->read(bufferToFill.buffer, bufferToFill.startSample, bufferToFill.numSamples, _currentPosition, true, true);
         _currentPosition += bufferToFill.numSamples;
     }

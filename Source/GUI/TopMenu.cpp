@@ -9,19 +9,15 @@ Author:  Thomas
 */
 
 #include "TopMenu.h"
-#include "MainWindow.h"
 #include "../Core/ProjectManager.h"
+#include "../Audio/Engine.h"
 
-TopMenu::TopMenu(ApplicationCommandManager &commandsManager) : MenuBarModel(), _commandsManager(commandsManager)
-{
-    PopupMenu fileMenu;
-    ApplicationCommandManager *commands = &_commandsManager;
+TopMenu::TopMenu(ApplicationCommandManager& commandsManager) : MenuBarModel(), _commandsManager(commandsManager) {
+    ApplicationCommandManager* commands = &_commandsManager;
 
-    fileMenu.addCommandItem(commands, ProjectManager::newProject);
-    fileMenu.addCommandItem(commands, ProjectManager::openProject);
-    fileMenu.addSeparator();
-    fileMenu.addCommandItem(commands, StandardApplicationCommandIDs::quit);
-    _menus.insert(std::pair<String, PopupMenu>("File", fileMenu));
+    addFileMenu(commands);
+    addEditMenu(commands);
+    addTransportMenu(commands);
 
     menuItemsChanged();
 
@@ -30,21 +26,57 @@ TopMenu::TopMenu(ApplicationCommandManager &commandsManager) : MenuBarModel(), _
     }
 }
 
-TopMenu::~TopMenu()
-{
+TopMenu::~TopMenu() {
 }
 
-StringArray TopMenu::getMenuBarNames()
-{
+void TopMenu::addFileMenu(ApplicationCommandManager* commands) {
+    PopupMenu fileMenu;
+
+    fileMenu.addCommandItem(commands, ProjectManager::newProject);
+    fileMenu.addCommandItem(commands, ProjectManager::openProject);
+    fileMenu.addCommandItem(commands, ProjectManager::saveProject);
+    fileMenu.addCommandItem(commands, ProjectManager::saveProjectAs);
+    fileMenu.addSeparator();
+    fileMenu.addCommandItem(commands, StandardApplicationCommandIDs::quit);
+    _menus.push_back(std::pair<String, PopupMenu>("File", fileMenu));
+}
+
+void TopMenu::addEditMenu(ApplicationCommandManager* commands) {
+    PopupMenu editMenu;
+
+    editMenu.addCommandItem(commands, StandardApplicationCommandIDs::undo);
+    editMenu.addCommandItem(commands, StandardApplicationCommandIDs::redo);
+    editMenu.addSeparator();
+    editMenu.addCommandItem(commands, StandardApplicationCommandIDs::cut);
+    editMenu.addCommandItem(commands, StandardApplicationCommandIDs::copy);
+    editMenu.addCommandItem(commands, StandardApplicationCommandIDs::paste);
+    _menus.push_back(std::pair<String, PopupMenu>("Edit", editMenu));
+}
+
+void TopMenu::addTransportMenu(ApplicationCommandManager* commands) {
+    PopupMenu transportMenu;
+
+    transportMenu.addCommandItem(commands, Audio::Engine::start);
+    transportMenu.addCommandItem(commands, Audio::Engine::pause);
+    transportMenu.addCommandItem(commands, Audio::Engine::stop);
+    _menus.push_back(std::pair<String, PopupMenu>("Transport", transportMenu));
+}
+
+
+StringArray TopMenu::getMenuBarNames() {
     return _menusNames;
 }
 
-PopupMenu TopMenu::getMenuForIndex(int topLevelMenuIndex, const String & menuName)
-{
-    return _menus.at(menuName);
+PopupMenu TopMenu::getMenuForIndex(int topLevelMenuIndex, const String& menuName) {
+    for (auto it = _menus.begin(), end = _menus.end(); it != end; ++it) {
+        if (it->first == menuName) {
+            return it->second;
+        }
+    }
+
+    return PopupMenu();
 }
 
-void TopMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
-{
+void TopMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex) {
     
 }

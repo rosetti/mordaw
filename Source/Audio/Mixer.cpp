@@ -18,7 +18,8 @@ namespace Audio
         _numInput(numInputChannels),
         _numOutput(numOutputChannels), 
         _sampleRate(sampleRate), 
-        _bufferSize(bufferSize)
+        _bufferSize(bufferSize),
+        _isPlaying(false)
     {
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
@@ -44,7 +45,7 @@ namespace Audio
         _tracks.insert(std::pair<Track *, TrackProcessor *>(track, processor));
 
         auto node = _processorGraph.addNode(processor, _nextNodeID);
-        jassert(_processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0));
+        _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
         _processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
 
         _nextNodeID += 1;
@@ -52,23 +53,35 @@ namespace Audio
 
     void Mixer::startPlayingAt(int64 position)
     {
-        for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
-            current->second->getSource().prepareToPlay(_processorGraph.getBlockSize(), _processorGraph.getSampleRate());
-            current->second->getSource().setNextReadPosition(position);
-            current->second->getSource().start();
+        if (!_isPlaying) {
+            for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
+                current->second->getSource().prepareToPlay(_processorGraph.getBlockSize(), _processorGraph.getSampleRate());
+                current->second->getSource().setNextReadPosition(position);
+                current->second->getSource().start();
+            }
+
+            _isPlaying = true;
         }
     }
     
     void Mixer::stop()
     {
-        for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
-            current->second->getSource().stop();
-            current->second->getSource().releaseResources();
+        if (_isPlaying) {
+            for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
+                current->second->getSource().stop();
+                current->second->getSource().releaseResources();
+            }
+
+            _isPlaying = false;
         }
     }
 
     AudioProcessorGraph *Mixer::getProcessorGraph()
     {
         return &_processorGraph;
+    }
+
+    bool Mixer::isPlaying() const {
+        return _isPlaying;
     }
 }

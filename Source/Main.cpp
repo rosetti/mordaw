@@ -50,12 +50,14 @@ public:
     {
         JUCEApplication::getAllCommands(commands);
         _projectManager.getAllCommands(commands);
+        _engine.getAllCommands(commands);
     }
 
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
     {
         JUCEApplication::getCommandInfo(commandID, result);
         _projectManager.getCommandInfo(commandID, result);
+        _engine.getCommandInfo(commandID, result);
     }
 
     bool perform(const InvocationInfo & info) override
@@ -64,8 +66,12 @@ public:
 
         getCommandInfo(info.commandID, commandInfo);
 
-        if (commandInfo.categoryName == "Project Management") {
+        if (commandInfo.categoryName == "Project Management" || commandInfo.categoryName == "Selection") {
             return _projectManager.perform(info);
+        }
+
+        if (commandInfo.categoryName == "Audio") {
+            return _engine.perform(info);
         }
 
         return JUCEApplication::perform(info);
@@ -74,8 +80,6 @@ public:
     //==============================================================================
     void systemRequestedQuit() override
     {
-        // This is called when the app is being asked to quit: you can ignore this
-        // request and let the app carry on running, or call quit() to allow the app to close.
         quit();
     }
 
@@ -88,9 +92,11 @@ public:
 
 private:
     Audio::Engine _engine;
-    ScopedPointer<MainWindow> _mainWindow;
     ProjectManager _projectManager;
+    ScopedPointer<MainWindow> _mainWindow;
     ApplicationCommandManager _commandsManager;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KentDAWApplication)
 };
 
 //==============================================================================

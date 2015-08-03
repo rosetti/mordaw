@@ -12,9 +12,9 @@
 #include "Track.h"
 #include "SampleRegion.h"
 
-namespace Audio {
-    Engine::Engine()
-    {
+namespace Audio
+{
+    Engine::Engine() {
         AudioIODevice* current;
 
         _formats.registerBasicFormats();
@@ -24,7 +24,7 @@ namespace Audio {
         _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
         _player.setProcessor(_mixer->getProcessorGraph());
         _devices.addAudioCallback(&_player);
-        
+
         //// CODE FOR YOU TO TEST
         //File &currentDir = File::getCurrentWorkingDirectory();
         //File &file = currentDir.getChildFile("be_cool.wav");
@@ -48,9 +48,69 @@ namespace Audio {
         //_mixer->startPlayingAt(0);
     }
 
-    Engine::~Engine()
-    {
+    Engine::~Engine() {
         _mixer->stop();
         _devices.removeAudioCallback(&_player);
+    }
+
+    void Engine::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
+        const String audio("Audio");
+        int flags;
+
+        switch (commandID) {
+        case start:
+            flags = _mixer->isPlaying() ? ApplicationCommandInfo::isDisabled : 0;
+            result.setInfo("Play", "Play the project at the position on the timeline.", audio, flags);
+            result.addDefaultKeypress(KeyPress::spaceKey, 0);
+            break;
+
+        case pause:
+            flags = _mixer->isPlaying() ? 0 : ApplicationCommandInfo::isDisabled;
+            result.setInfo("Stop", "Play the project at the position on the timeline.", audio, flags);
+            result.addDefaultKeypress(KeyPress::spaceKey, 0);
+            break;
+
+        case stop:
+            flags = _mixer->isPlaying() ? 0 : ApplicationCommandInfo::isDisabled;
+            result.setInfo("Stop", "Play the project at the position on the timeline.", audio, flags);
+            result.addDefaultKeypress(KeyPress::escapeKey, 0);
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    void Engine::getAllCommands(Array<CommandID>& commands) const {
+        const CommandID ids[] = {
+            start,
+            pause,
+            stop,
+        };
+
+        commands.addArray(ids, numElementsInArray(ids));
+    }
+
+    bool Engine::perform(const ApplicationCommandTarget::InvocationInfo& info) {
+        switch (info.commandID) {
+        case start:
+            // Close current project
+            // Create new project
+            return true;
+
+        case pause:
+            // Ask for save if project has modifications
+            // Close current project
+            // Open existing project
+            return true;
+
+        case stop:
+            // Choose destination if project is new
+            // Save existing project
+            return true;
+
+        default:
+            return false;
+        }
     }
 }

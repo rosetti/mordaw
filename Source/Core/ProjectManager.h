@@ -26,11 +26,11 @@ public:
     enum Commands {
         newProject = 0x100,
         openProject = 0x101,
+        saveProject = 0x102,
+        saveProjectAs = 0x103,
     };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectManager)
 };
-
-
 
 #endif  // PROJECTMANAGER_H_INCLUDED

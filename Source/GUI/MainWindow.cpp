@@ -13,7 +13,8 @@
 MainWindow::MainWindow(ApplicationCommandManager &commands) :
     DocumentWindow("KentDAW", Colours::darkgrey, TitleBarButtons::allButtons), 
     _commandsManager(commands), 
-    _menu(commands)
+    _menu(commands),
+    Content(commands)
 {
     setLookAndFeel(&_lookAndFeel);
     setUsingNativeTitleBar(true);
@@ -40,6 +41,7 @@ void MainWindow::initializeContent()
 {
     initializeMenu();
     setContentOwned(&Content, false);
+    getTopLevelComponent()->addKeyListener(&Content);
 }
 
 void MainWindow::initializeMenu()

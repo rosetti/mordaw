@@ -12,13 +12,17 @@
 #define TOPMENU_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include <map>
+#include <list>
 
 class TopMenu : public MenuBarModel
 {
 public:
     TopMenu(ApplicationCommandManager &commandManager);
     ~TopMenu();
+
+    void addFileMenu(ApplicationCommandManager* commands);
+    void addEditMenu(ApplicationCommandManager* commands);
+    void addTransportMenu(ApplicationCommandManager* commands);
 
     // Inherited via MenuBarModel
     virtual StringArray getMenuBarNames() override;
@@ -27,8 +31,10 @@ public:
 
 private:
     StringArray _menusNames;
-    std::map<String, PopupMenu> _menus;
+    std::list<std::pair<String, PopupMenu>> _menus;
     ApplicationCommandManager &_commandsManager;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TopMenu)
 };
 
 #endif  // TOPMENU_H_INCLUDED

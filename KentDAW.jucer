@@ -12,6 +12,9 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
+        <FILE id="UBOvhg" name="MainComponent.cpp" compile="1" resource="0"
+              file="Source/GUI/MainComponent.cpp"/>
+        <FILE id="LjqDQP" name="MainComponent.h" compile="0" resource="0" file="Source/GUI/MainComponent.h"/>
         <FILE id="zttU2n" name="TopMenu.cpp" compile="1" resource="0" file="Source/GUI/TopMenu.cpp"/>
         <FILE id="hW3E1s" name="TopMenu.h" compile="0" resource="0" file="Source/GUI/TopMenu.h"/>
         <FILE id="CfWlwk" name="MainWindow.cpp" compile="1" resource="0" file="Source/GUI/MainWindow.cpp"/>

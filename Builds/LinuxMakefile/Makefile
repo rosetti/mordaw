@@ -50,6 +50,7 @@ endif
 
 OBJECTS := \
   $(OBJDIR)/ProjectManager_74d90745.o \
+  $(OBJDIR)/MainComponent_7cc716b1.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
   $(OBJDIR)/TrackProcessor_c8552789.o \
@@ -96,6 +97,11 @@ strip:
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/MainComponent_7cc716b1.o: ../../Source/GUI/MainComponent.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling MainComponent.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TopMenu_34ea79c1.o: ../../Source/GUI/TopMenu.cpp

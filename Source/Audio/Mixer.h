@@ -27,6 +27,8 @@ namespace Audio
 
         AudioProcessorGraph *getProcessorGraph();
 
+        bool isPlaying() const;
+
         enum NodeIDs
         {
             INPUT_NODE_ID = 0x100,
@@ -35,12 +37,15 @@ namespace Audio
 
     private:
         int _nextNodeID;
+        bool _isPlaying;
         TimeSliceThread _thread;
         AudioProcessorGraph _processorGraph;
         std::map<Track *, TrackProcessor *> _tracks;
 
         int _numInput, _numOutput, _bufferSize;
         double _sampleRate;
+
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Mixer)
     };
 }
 

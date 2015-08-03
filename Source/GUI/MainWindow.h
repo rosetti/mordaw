@@ -11,8 +11,8 @@
 #ifndef MAINWINDOW_H_INCLUDED
 #define MAINWINDOW_H_INCLUDED
 
-#include "../../JuceLibraryCode/JuceHeader.h"
 #include "TopMenu.h"
+#include "MainComponent.h"
 
 class MainWindow : public DocumentWindow
 {
@@ -20,7 +20,7 @@ public:
     MainWindow(ApplicationCommandManager &commands);
     ~MainWindow();
 
-    Component Content;
+    MainComponent Content;
 
     void closeButtonPressed() override;
 
