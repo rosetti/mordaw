@@ -26,24 +26,24 @@ namespace Audio
         _devices.addAudioCallback(&_player);
 
         //// CODE FOR YOU TO TEST
-        //File &currentDir = File::getCurrentWorkingDirectory();
-        //File &file = currentDir.getChildFile("be_cool.wav");
-        //
-        //AudioFormatReader *reader = _formats.createReaderFor(file);
-        //AudioFormatReader *reader2 = _formats.createReaderFor(file);
-        //AudioFormatReader *reader3 = _formats.createReaderFor(file);
+        File &currentDir = File::getCurrentWorkingDirectory();
+        File &file = currentDir.getChildFile("be_cool.wav");
+        
+        AudioFormatReader *reader = _formats.createReaderFor(file);
+        AudioFormatReader *reader2 = _formats.createReaderFor(file);
+        AudioFormatReader *reader3 = _formats.createReaderFor(file);
 
-        //Track *track = new Track();
-        //Track *track2 = new Track();
-        //Region *region = new SampleRegion(reader, reader->sampleRate / current->getCurrentSampleRate());
-        //Region *region2 = new SampleRegion(reader2, reader2->sampleRate / current->getCurrentSampleRate());
-        //Region *region3 = new SampleRegion(reader3, reader3->sampleRate / current->getCurrentSampleRate());
+        Track *track = new Track();
+        Track *track2 = new Track();
+        Region *region = new SampleRegion(reader, reader->sampleRate / current->getCurrentSampleRate());
+        Region *region2 = new SampleRegion(reader2, reader2->sampleRate / current->getCurrentSampleRate());
+        Region *region3 = new SampleRegion(reader3, reader3->sampleRate / current->getCurrentSampleRate());
 
-        //track->add(0, region);
-        //track->add(region->getTotalLength() + region->getTotalLength() / 4, region2);
-        //track2->add(region->getTotalLength() / 2, region3);
-        //_mixer->add(track);
-        //_mixer->add(track2);
+        track->add(0, region);
+        track->add(region->getTotalLength() + region->getTotalLength() / 4, region2);
+        track2->add(region->getTotalLength() / 2, region3);
+        _mixer->add(track);
+        _mixer->add(track2);
 
         //_mixer->startPlayingAt(0);
     }
@@ -66,13 +66,13 @@ namespace Audio
 
         case pause:
             flags = _mixer->isPlaying() ? 0 : ApplicationCommandInfo::isDisabled;
-            result.setInfo("Stop", "Play the project at the position on the timeline.", audio, flags);
+            result.setInfo("Pause", "Pause the player.", audio, flags);
             result.addDefaultKeypress(KeyPress::spaceKey, 0);
             break;
 
         case stop:
             flags = _mixer->isPlaying() ? 0 : ApplicationCommandInfo::isDisabled;
-            result.setInfo("Stop", "Play the project at the position on the timeline.", audio, flags);
+            result.setInfo("Stop", "Stop the player and reset the timeline.", audio, flags);
             result.addDefaultKeypress(KeyPress::escapeKey, 0);
             break;
 
@@ -94,19 +94,16 @@ namespace Audio
     bool Engine::perform(const ApplicationCommandTarget::InvocationInfo& info) {
         switch (info.commandID) {
         case start:
-            // Close current project
-            // Create new project
+            // @todo replace 0 with timeline position
+            _mixer->startPlayingAt(0);
             return true;
 
         case pause:
-            // Ask for save if project has modifications
-            // Close current project
-            // Open existing project
+            // Pause the mixer
             return true;
 
         case stop:
-            // Choose destination if project is new
-            // Save existing project
+            _mixer->stop();
             return true;
 
         default:

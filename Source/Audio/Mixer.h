@@ -22,7 +22,8 @@ namespace Audio
 
         void add(Track *track);
 
-        void startPlayingAt(int64 position = 0);
+        void startPlayingAt(int64 position = -1);
+        void pause();
         void stop();
 
         AudioProcessorGraph *getProcessorGraph();

@@ -76,6 +76,18 @@ namespace Audio
     }
 
     void Track::setNextReadPosition(int64 newPosition) {
+        bool found = false;
+
+        for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
+            if (found) {
+                region->second->setNextReadPosition(0);
+            } else {
+                if (newPosition <= region->second->getTotalLength() + region->first) {
+                    region->second->setNextReadPosition(newPosition < region->first ? 0 : newPosition - region->first);
+                }
+            }
+        }
+
         _currentPosition = newPosition;
     }
 

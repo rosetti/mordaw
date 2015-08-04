@@ -63,6 +63,17 @@ namespace Audio
             _isPlaying = true;
         }
     }
+
+    void Mixer::pause()
+    {
+        if (_isPlaying) {
+            for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
+                current->second->getSource().stop();
+            }
+
+            _isPlaying = false;
+        }
+    }
     
     void Mixer::stop()
     {
