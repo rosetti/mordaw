@@ -50,6 +50,8 @@ endif
 
 OBJECTS := \
   $(OBJDIR)/ProjectManager_74d90745.o \
+  $(OBJDIR)/TransportControls_13276ec.o \
+  $(OBJDIR)/LeftSide_f50f27fb.o \
   $(OBJDIR)/MainComponent_7cc716b1.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
@@ -97,6 +99,16 @@ strip:
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/TransportControls_13276ec.o: ../../Source/GUI/TransportControls.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling TransportControls.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/LeftSide_f50f27fb.o: ../../Source/GUI/LeftSide.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling LeftSide.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/MainComponent_7cc716b1.o: ../../Source/GUI/MainComponent.cpp

@@ -11,7 +11,7 @@
 #ifndef MAINCOMPONENT_H_INCLUDED
 #define MAINCOMPONENT_H_INCLUDED
 
-#include "../../JuceLibraryCode/JuceHeader.h"
+#include "LeftSide.h"
 
 //==============================================================================
 /*
@@ -25,13 +25,15 @@ public:
     void paint(Graphics&);
     void resized();
 
-    const ApplicationCommandManager &_manager;
+    // Inherited via KeyListener
+    virtual bool keyPressed(const KeyPress & key, Component * originatingComponent) override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    LeftSide _leftSide;
+    TransportControls _transportControls;
+    const ApplicationCommandManager &_commands;
 
-        // Inherited via KeyListener
-        virtual bool keyPressed(const KeyPress & key, Component * originatingComponent) override;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
 
 

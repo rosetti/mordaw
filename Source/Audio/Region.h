@@ -20,6 +20,8 @@ namespace Audio
     public:
         virtual ~Region();
 
+        bool overlaps(int64 position, int64 startPosition);
+
         virtual double getBaseSampleRate() const = 0;
 
         // Inherited via PositionableAudioSource

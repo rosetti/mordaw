@@ -30,7 +30,7 @@ private:
    
     TopMenu _menu;
     LookAndFeel_V3 _lookAndFeel;
-    ApplicationCommandManager &_commandsManager;
+    ApplicationCommandManager &_commands;
   
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 };

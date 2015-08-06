@@ -1,30 +1,29 @@
 /*
   ==============================================================================
 
-    MainComponent.cpp
-    Created: 3 Aug 2015 10:18:09pm
+    TransportControls.cpp
+    Created: 4 Aug 2015 8:02:29pm
     Author:  Thomas
 
   ==============================================================================
 */
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "MainComponent.h"
+#include "TransportControls.h"
 
 //==============================================================================
-MainComponent::MainComponent(const ApplicationCommandManager &manager) : _commands(manager), _leftSide(manager), _transportControls(manager)
+TransportControls::TransportControls(const ApplicationCommandManager &commands) : _commands(commands)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-    addAndMakeVisible(_leftSide);
-    addAndMakeVisible(_transportControls);
+
 }
 
-MainComponent::~MainComponent()
+TransportControls::~TransportControls()
 {
 }
 
-void MainComponent::paint (Graphics& g)
+void TransportControls::paint (Graphics& g)
 {
     /* This demo code just fills the component's background and
        draws some placeholder text to get you started.
@@ -40,21 +39,13 @@ void MainComponent::paint (Graphics& g)
 
     g.setColour (Colours::lightblue);
     g.setFont (14.0f);
-    g.drawText ("MainComponent", getLocalBounds(),
+    g.drawText ("TransportControls", getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
 }
 
-void MainComponent::resized()
+void TransportControls::resized()
 {
     // This method is where you should set the bounds of any child
     // components that your component contains..
-    _leftSide.setBounds(0, 0, 300, getHeight());
-    _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 200, getWidth() - _leftSide.getWidth(), 200);
-}
 
-bool MainComponent::keyPressed(const KeyPress & key, Component * originatingComponent)
-{
-    auto keyMapping = _commands.getKeyMappings();
-
-    return keyMapping->keyPressed(key, originatingComponent);
 }

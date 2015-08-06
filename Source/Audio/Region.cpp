@@ -19,6 +19,10 @@ namespace Audio {
     {
     }
 
+    bool Region::overlaps(int64 position, int64 startPosition) {
+        return position >= startPosition && position < getTotalLength() + startPosition;
+    }
+
     void Region::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
     {
         _samples = samplesPerBlockExpected;

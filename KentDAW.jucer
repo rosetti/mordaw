@@ -12,6 +12,12 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
+        <FILE id="jcv8ch" name="TransportControls.cpp" compile="1" resource="0"
+              file="Source/GUI/TransportControls.cpp"/>
+        <FILE id="I0UYc0" name="TransportControls.h" compile="0" resource="0"
+              file="Source/GUI/TransportControls.h"/>
+        <FILE id="Rd6bi3" name="LeftSide.cpp" compile="1" resource="0" file="Source/GUI/LeftSide.cpp"/>
+        <FILE id="pkzKwf" name="LeftSide.h" compile="0" resource="0" file="Source/GUI/LeftSide.h"/>
         <FILE id="UBOvhg" name="MainComponent.cpp" compile="1" resource="0"
               file="Source/GUI/MainComponent.cpp"/>
         <FILE id="LjqDQP" name="MainComponent.h" compile="0" resource="0" file="Source/GUI/MainComponent.h"/>

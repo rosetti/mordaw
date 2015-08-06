@@ -8,6 +8,7 @@
   ==============================================================================
 */
 
+#include <stdexcept>
 #include "Track.h"
 
 namespace Audio
@@ -39,12 +40,35 @@ namespace Audio
 
     Region* Track::findRegionAt(int64 position) const {
         for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
-            if (position >= region->first && position - region->first <= region->second->getTotalLength()) {
+            if (region->second->overlaps(position, region->first)) {
                 return region->second;
             }
         }
 
         return nullptr;
+    }
+
+    const std::map<int64, Region *> &Track::getRegions() const {
+        return _regions;
+    }
+
+    bool Track::move(const Region *region, int64 position) {
+        for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
+            if (current->second == region) {
+                Region *regionAtPosition = findRegionAt(position);
+
+                if (regionAtPosition != region && regionAtPosition != nullptr) {
+                    return false;
+                } else {
+                    _regions.insert(std::pair<int64, Region *>(position, current->second));
+                    _regions.erase(current->first);
+
+                    return true;
+                }
+            }
+        }
+
+        throw std::range_error("The region has not been found in the track.");
     }
 
     void Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {

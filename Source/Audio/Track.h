@@ -19,13 +19,14 @@ namespace Audio
     class Track : public PositionableAudioSource
     {
     public:
-
         Track();
         ~Track();
 
         void add(int64 positionInTimeline, Region *region);
         Region *findCurrentRegion() const;
         Region *findRegionAt(int64 position) const;
+        const std::map<int64, Region *> &getRegions() const;
+        bool move(const Region *region, int64 position);
 
         // Inherited via PositionableAudioSource
         virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;

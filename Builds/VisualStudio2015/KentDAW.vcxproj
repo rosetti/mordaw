@@ -130,6 +130,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\TransportControls.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\LeftSide.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TopMenu.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp"/>
@@ -1284,6 +1286,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
+    <ClInclude Include="..\..\Source\GUI\TransportControls.h"/>
+    <ClInclude Include="..\..\Source\GUI\LeftSide.h"/>
     <ClInclude Include="..\..\Source\GUI\MainComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TopMenu.h"/>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h"/>

@@ -12,7 +12,7 @@
 
 MainWindow::MainWindow(ApplicationCommandManager &commands) :
     DocumentWindow("KentDAW", Colours::darkgrey, TitleBarButtons::allButtons), 
-    _commandsManager(commands), 
+    _commands(commands), 
     _menu(commands),
     Content(commands)
 {
