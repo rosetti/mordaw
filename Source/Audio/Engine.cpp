@@ -26,8 +26,8 @@ namespace Audio
         _devices.addAudioCallback(&_player);
 
         //// CODE FOR YOU TO TEST
-        File &currentDir = File::getCurrentWorkingDirectory();
-        File &file = currentDir.getChildFile("be_cool.wav");
+        const File &currentDir = File::getCurrentWorkingDirectory();
+        const File &file = currentDir.getChildFile("be_cool.wav");
         
         AudioFormatReader *reader = _formats.createReaderFor(file);
         AudioFormatReader *reader2 = _formats.createReaderFor(file);
