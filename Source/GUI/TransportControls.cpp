@@ -16,11 +16,39 @@ TransportControls::TransportControls(const ApplicationCommandManager &commands) 
 {
     currentTimeCode = samplesToTimeCode(0, 44100.0);
     timerAmount = 60;
-    startTimer(timerAmount);
+    startButton = new TextButton("Start");
+    addAndMakeVisible(startButton);
+    startButton->addListener(this);
 }
 
 TransportControls::~TransportControls()
 {
+}
+
+void TransportControls::start()
+{
+    startTimer(timerAmount);
+}
+
+void TransportControls::stop()
+{
+    stopTimer();
+}
+
+void TransportControls::addListener(TransportControls::Listener *listener)
+{
+    listenerList.add(listener);
+}
+
+void TransportControls::removeListener(TransportControls::Listener *listener)
+{
+    listenerList.remove(listener);
+}
+
+void TransportControls::buttonClicked(Button* button)
+{
+    if(button == startButton)
+        start();
 }
 
 void TransportControls::timerCallback()
@@ -53,7 +81,6 @@ void TransportControls::paint (Graphics& g)
 
 void TransportControls::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
+    startButton->setBounds(0, 0, 100, 50);
 
 }

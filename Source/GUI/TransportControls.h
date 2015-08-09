@@ -17,21 +17,33 @@
 /*
 */
 class TransportControls    : public Component,
-                             public Timer
+                             public Timer,
+                             public Button::Listener
 {
 public:
     TransportControls(const ApplicationCommandManager &commands);
     ~TransportControls();
+    
+    void start();
+    void stop();
+    void pause();
 
     void timerCallback();
     void paint (Graphics&);
     void resized();
+    
+    void addListener(TransportControls::Listener* listener);
+    void removeListener(TransportControls::Listener* listener);
+    virtual void buttonClicked(Button* button);
+    
 
 private:
+    ListenerList<TransportControls::Listener> listenerList;
     int timerAmount;
     double milliseconds;
     String currentTimeCode;
     const ApplicationCommandManager &_commands;
+    ScopedPointer<TextButton> startButton;
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportControls)
