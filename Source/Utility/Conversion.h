@@ -12,6 +12,7 @@
 #define CONVERSION_H_INCLUDED
 
 #include <math.h>
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 inline static double valueTodB(double value)
 {
@@ -63,6 +64,30 @@ static inline double midiToFrequency (double noteNumber)
     return 440.0 * pow(2.0, (noteNumber - 69.0) / 12.0);
 }
 
+static const String samplesToTimeCode(int64 samples, double sampleRate)
+{
+    String str = "";
+    String sign = ":";
+    int64 milliseconds = (int64)samplesToMilliseconds(samples, sampleRate);
 
+    int64 seconds = (milliseconds/1000)%60;
+    int64 minutes = ((milliseconds)/1000)/60;
+    int64 hours = 0;
+    if(minutes > 59)
+    {
+        hours = minutes / 2;
+        minutes -= (hours * 60);
+        
+        str << String (hours).paddedLeft('0', 2) << sign;
+        str << String (minutes).paddedLeft('0', 2) << sign;
+    }
+    else
+    {
+        str << String (minutes).paddedLeft('0', 2) << sign;
+    }
+    str << String (seconds).paddedLeft('0', 2) << sign;
+    str << String (milliseconds).substring(0, 3);
+    return str;
+}
 
 #endif  // CONVERSION_H_INCLUDED

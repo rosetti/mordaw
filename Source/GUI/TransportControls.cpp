@@ -14,13 +14,21 @@
 //==============================================================================
 TransportControls::TransportControls(const ApplicationCommandManager &commands) : _commands(commands)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
+    currentTimeCode = samplesToTimeCode(0, 44100.0);
+    timerAmount = 60;
+    startTimer(timerAmount);
 }
 
 TransportControls::~TransportControls()
 {
+}
+
+void TransportControls::timerCallback()
+{
+    milliseconds += timerAmount;
+    int64 samples = millisecondsToSamples(milliseconds, 44100.0);
+    currentTimeCode = samplesToTimeCode(samples, 44100.0);
+    repaint();
 }
 
 void TransportControls::paint (Graphics& g)
@@ -39,7 +47,7 @@ void TransportControls::paint (Graphics& g)
 
     g.setColour (Colours::lightblue);
     g.setFont (14.0f);
-    g.drawText ("TransportControls", getLocalBounds(),
+    g.drawText (currentTimeCode, getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
 }
 
