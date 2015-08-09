@@ -1285,6 +1285,7 @@
     <ClCompile Include="..\..\JuceModules\juce_video\juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
     <ClInclude Include="..\..\Source\GUI\TransportControls.h"/>
     <ClInclude Include="..\..\Source\GUI\LeftSide.h"/>

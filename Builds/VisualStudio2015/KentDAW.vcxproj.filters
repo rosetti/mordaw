@@ -8,6 +8,9 @@
     <Filter Include="KentDAW\Source">
       <UniqueIdentifier>{5AFC75CE-07DD-2E28-300F-794DC0EFB426}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Source\Utility">
+      <UniqueIdentifier>{EE7FE6BB-FEDE-3060-E7A9-7F7130F7F6A6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KentDAW\Source\Core">
       <UniqueIdentifier>{3C600051-9037-BFA3-87DF-E6E758FA4E87}</UniqueIdentifier>
     </Filter>
@@ -1623,6 +1626,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Utility\Conversion.h">
+      <Filter>KentDAW\Source\Utility</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h">
       <Filter>KentDAW\Source\Core</Filter>
     </ClInclude>
