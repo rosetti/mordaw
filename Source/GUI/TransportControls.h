@@ -28,11 +28,15 @@ public:
     void start();
     void stop();
     void pause();
-
+    void resetTimecode(double sampleRate);
+    void setTotalLength(int64 samples);
+    void setTimeCodePosition(int64 position);
+    
     void timerCallback();
     void paint (Graphics&);
     void resized();
     
+    void setButtonImages();
     
     void addListener(TransportControls::Listener* listener);
     void removeListener(TransportControls::Listener* listener);
@@ -41,13 +45,17 @@ public:
 
 private:
     ListenerList<TransportControls::Listener> listenerList;
-    int timerAmount;
-    double milliseconds;
-    String currentTimeCode;
-    const ApplicationCommandManager &_commands;
-    ScopedPointer<ImageButton> startButton;
-    Image image;
+    
+    Image _image;
+    ScopedPointer<ImageButton> _startButton, _rewindButton, _forwardButton;
+    
+    int64 timerAmount;
+    double _milliseconds;
+    String _currentTimeCode;
     bool _isPlaying;
+    int64 _totalLength;
+    
+    const ApplicationCommandManager &_commands;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportControls)
 };

@@ -10,6 +10,8 @@
               file="Source/Resources/Images/TransportImages.cpp"/>
         <FILE id="WziGYX" name="TransportImages.h" compile="0" resource="0"
               file="Source/Resources/Images/TransportImages.h"/>
+        <FILE id="ZouB6s" name="forward.png" compile="0" resource="0" file="Source/Resources/Images/forward.png"/>
+        <FILE id="ie2Qgi" name="rewind.png" compile="0" resource="0" file="Source/Resources/Images/rewind.png"/>
         <FILE id="IzflRc" name="pause.png" compile="0" resource="0" file="Source/Resources/Images/pause.png"/>
         <FILE id="eJzeDa" name="play.png" compile="0" resource="0" file="Source/Resources/Images/play.png"/>
       </GROUP>

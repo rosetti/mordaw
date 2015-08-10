@@ -86,7 +86,8 @@ static const String samplesToTimeCode(int64 samples, double sampleRate)
         str << String (minutes).paddedLeft('0', 2) << sign;
     }
     str << String (seconds).paddedLeft('0', 2) << sign;
-    str << String (milliseconds).substring(1, 3);
+    String sub = String (milliseconds).substring(1, 3);
+    str << sub.paddedLeft('0', 2);
     return str;
 }
 

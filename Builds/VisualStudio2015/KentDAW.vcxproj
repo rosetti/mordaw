@@ -1765,6 +1765,8 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Resources\Images\forward.png"/>
+    <None Include="..\..\Source\Resources\Images\rewind.png"/>
     <None Include="..\..\Source\Resources\Images\pause.png"/>
     <None Include="..\..\Source\Resources\Images\play.png"/>
     <None Include="..\..\JuceModules\juce_audio_basics\juce_module_info"/>

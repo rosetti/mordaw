@@ -3068,6 +3068,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Resources\Images\forward.png">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
+    <None Include="..\..\Source\Resources\Images\rewind.png">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
     <None Include="..\..\Source\Resources\Images\pause.png">
       <Filter>KentDAW\Resources\Images</Filter>
     </None>
