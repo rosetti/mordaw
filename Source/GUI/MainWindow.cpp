@@ -11,7 +11,7 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow(ApplicationCommandManager &commands) :
-    DocumentWindow("KentDAW", Colours::darkgrey, TitleBarButtons::allButtons), 
+    DocumentWindow("KentDAW", Colours::darkgrey, allButtons),
     _commands(commands), 
     _menu(commands),
     Content(commands)
@@ -20,9 +20,8 @@ MainWindow::MainWindow(ApplicationCommandManager &commands) :
     setUsingNativeTitleBar(true);
     centreWithSize(800, 600);
     maximiseButtonPressed();
-
+    setResizable(true, true);
     initializeContent();
-
     setVisible(true);
     addToDesktop();
 }

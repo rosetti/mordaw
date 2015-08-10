@@ -179,9 +179,11 @@ void TransportControls::paint (Graphics& g)
     g.fillRect(getLocalBounds());
 
     g.setColour (Colours::green);
-    g.setFont(20.0f); 
-    g.drawText (_currentTimeCode, getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+    g.setFont(20.0f);
+    if(_isRecording)
+        g.setColour(Colours::red);
+    g.drawText (_currentTimeCode,  getLocalBounds(),
+                Justification::centred, true);
 }
 
 void TransportControls::resized()
