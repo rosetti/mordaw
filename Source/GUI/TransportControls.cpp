@@ -182,8 +182,15 @@ void TransportControls::paint (Graphics& g)
     g.setFont(20.0f);
     if(_isRecording)
         g.setColour(Colours::red);
-    g.drawText (_currentTimeCode,  getLocalBounds(),
-                Justification::centred, true);
+    if(getWidth() < 275)
+    {}
+    else if(getWidth() < 475)
+        g.drawText (_currentTimeCode,  getLocalBounds(),
+                Justification::right, true);
+    
+    else
+        g.drawText (_currentTimeCode,  getLocalBounds(),
+                    Justification::centred, true);
 }
 
 void TransportControls::resized()
@@ -192,5 +199,11 @@ void TransportControls::resized()
     _startButton->setBounds(50, 0, 50, 50);
     _recordButton->setBounds(100, 0, 50, 50);
     _forwardButton->setBounds(150, 0, 50, 50);
-
+    if(getWidth() < 200)
+    {
+        _rewindButton->setBounds(0, 0, 0, 0);
+        _startButton->setBounds(0, 0, 0, 0);
+        _recordButton->setBounds(0, 0, 0, 0);
+        _forwardButton->setBounds(0, 0, 0, 0);
+    }
 }
