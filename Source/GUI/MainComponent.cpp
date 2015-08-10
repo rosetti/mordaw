@@ -49,7 +49,8 @@ void MainComponent::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     _leftSide.setBounds(0, 0, 300, getHeight());
-    _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 200, getWidth() - _leftSide.getWidth(), 200);
+    // getHeight() - 200
+    _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
 }
 
 bool MainComponent::keyPressed(const KeyPress & key, Component * originatingComponent)

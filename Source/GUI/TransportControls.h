@@ -11,8 +11,8 @@
 #ifndef TRANSPORTCONTROLS_H_INCLUDED
 #define TRANSPORTCONTROLS_H_INCLUDED
 
-#include "../Resources/Images/TransportImages.h"
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Resources/Images/TransportImages.h"
 #include "Conversion.h"
 //==============================================================================
 /*
@@ -37,7 +37,9 @@ public:
     void resized();
     
     void setButtonImages();
+    void drawButtons();
     
+    void addListeners();
     void addListener(TransportControls::Listener* listener);
     void removeListener(TransportControls::Listener* listener);
     virtual void buttonClicked(Button* button);
@@ -47,12 +49,12 @@ private:
     ListenerList<TransportControls::Listener> listenerList;
     
     Image _image;
-    ScopedPointer<ImageButton> _startButton, _rewindButton, _forwardButton;
+    ScopedPointer<ImageButton> _startButton, _rewindButton, _forwardButton, _recordButton;
     
     int64 timerAmount;
     double _milliseconds;
     String _currentTimeCode;
-    bool _isPlaying;
+    bool _isPlaying, _isRecording;
     int64 _totalLength;
     
     const ApplicationCommandManager &_commands;

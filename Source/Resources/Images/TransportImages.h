@@ -20,12 +20,18 @@ namespace TransportImages
     
     extern const char*   rewind_png;
     const int            rewind_pngSize = 4258;
+    
+    extern const char*   record_png;
+    const int            record_pngSize = 3744;
+    
+    extern const char*   record_enabled_png;
+    const int            record_enabled_pngSize = 3516;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
 
     // Number of elements in the namedResourceList array.
-    const int namedResourceListSize = 4;
+    const int namedResourceListSize = 6;
 
     // If you provide the name of one of the binary resource variables above, this function will
     // return the corresponding data and its size (or a null pointer if the name isn't found).
