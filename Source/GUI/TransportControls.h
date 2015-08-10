@@ -11,6 +11,7 @@
 #ifndef TRANSPORTCONTROLS_H_INCLUDED
 #define TRANSPORTCONTROLS_H_INCLUDED
 
+#include "../Resources/Images/TransportImages.h"
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "Conversion.h"
 //==============================================================================
@@ -32,6 +33,7 @@ public:
     void paint (Graphics&);
     void resized();
     
+    
     void addListener(TransportControls::Listener* listener);
     void removeListener(TransportControls::Listener* listener);
     virtual void buttonClicked(Button* button);
@@ -43,8 +45,9 @@ private:
     double milliseconds;
     String currentTimeCode;
     const ApplicationCommandManager &_commands;
-    ScopedPointer<TextButton> startButton;
-    
+    ScopedPointer<ImageButton> startButton;
+    Image image;
+    bool _isPlaying;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportControls)
 };

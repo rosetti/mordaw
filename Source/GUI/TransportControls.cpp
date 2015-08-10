@@ -8,15 +8,18 @@
   ==============================================================================
 */
 
+#include "../Resources/Images/TransportImages.h"
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TransportControls.h"
 
 //==============================================================================
-TransportControls::TransportControls(const ApplicationCommandManager &commands) : _commands(commands)
+TransportControls::TransportControls(const ApplicationCommandManager &commands) : _commands(commands), _isPlaying(false)
 {
     currentTimeCode = samplesToTimeCode(0, 44100.0);
     timerAmount = 60;
-    startButton = new TextButton("Start");
+    startButton = new ImageButton("Start");
+    image = ImageCache::getFromMemory(TransportImages::play_png, TransportImages::play_pngSize);
+    startButton->setImages(false, true, true, image, 0.5f, Colours::transparentBlack, image, 0.7f, Colours::transparentWhite, image, 1.0f, Colours::transparentWhite);
     addAndMakeVisible(startButton);
     startButton->addListener(this);
 }
@@ -48,7 +51,21 @@ void TransportControls::removeListener(TransportControls::Listener *listener)
 void TransportControls::buttonClicked(Button* button)
 {
     if(button == startButton)
-        start();
+    {
+        _isPlaying = !_isPlaying;
+        if(_isPlaying)
+        {
+            image = ImageCache::getFromMemory(TransportImages::pause_png, TransportImages::pause_pngSize);
+            startButton->setImages(false, true, true, image, 0.5f, Colours::transparentBlack, image, 0.7f, Colours::transparentWhite, image, 1.0f, Colours::transparentWhite);
+            start();
+        }
+        else if(!_isPlaying)
+        {
+            image = ImageCache::getFromMemory(TransportImages::play_png, TransportImages::play_pngSize);
+            startButton->setImages(false, true, true, image, 0.5f, Colours::transparentBlack, image, 0.7f, Colours::transparentWhite, image, 1.0f, Colours::transparentWhite);
+            stopTimer();
+        }
+    }
 }
 
 void TransportControls::timerCallback()

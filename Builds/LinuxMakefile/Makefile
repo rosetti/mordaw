@@ -49,6 +49,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
+  $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
   $(OBJDIR)/TransportControls_13276ec.o \
   $(OBJDIR)/LeftSide_f50f27fb.o \
@@ -95,6 +96,11 @@ clean:
 strip:
 	@echo Stripping KentDAW
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
+
+$(OBJDIR)/TransportImages_4b3c351d.o: ../../Source/Resources/Images/TransportImages.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling TransportImages.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)

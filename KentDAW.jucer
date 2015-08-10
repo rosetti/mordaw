@@ -4,6 +4,16 @@
               bundleIdentifier="DawnOfAudio.DAW" includeBinaryInAppConfig="1"
               jucerVersion="3.2.0">
   <MAINGROUP id="rLaEhK" name="KentDAW">
+    <GROUP id="{51132C53-0A2A-C4FB-FE7C-D29417E9F85F}" name="Resources">
+      <GROUP id="{FD440D3D-7A6B-1B59-607B-DA719225E245}" name="Images">
+        <FILE id="PVvCnk" name="TransportImages.cpp" compile="1" resource="0"
+              file="Source/Resources/Images/TransportImages.cpp"/>
+        <FILE id="WziGYX" name="TransportImages.h" compile="0" resource="0"
+              file="Source/Resources/Images/TransportImages.h"/>
+        <FILE id="IzflRc" name="pause.png" compile="0" resource="0" file="Source/Resources/Images/pause.png"/>
+        <FILE id="eJzeDa" name="play.png" compile="0" resource="0" file="Source/Resources/Images/play.png"/>
+      </GROUP>
+    </GROUP>
     <GROUP id="{E5F16C16-8665-4C0D-DBF9-8FAEE72BEC9A}" name="Source">
       <GROUP id="{940EBB6C-A21C-A53D-3EEA-CD545655FD3C}" name="Utility">
         <FILE id="XwjyGj" name="Conversion.h" compile="1" resource="0" file="Source/Utility/Conversion.h"/>

@@ -5,6 +5,12 @@
     <Filter Include="KentDAW">
       <UniqueIdentifier>{15AFAC0B-2059-F283-532D-906B8A23A3DA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Resources">
+      <UniqueIdentifier>{0100A4BE-AC3B-E6D1-0E3D-2B7707D62333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KentDAW\Resources\Images">
+      <UniqueIdentifier>{A3C5E8F2-F1CD-A9F7-CFEC-62129F0A651E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KentDAW\Source">
       <UniqueIdentifier>{5AFC75CE-07DD-2E28-300F-794DC0EFB426}</UniqueIdentifier>
     </Filter>
@@ -337,6 +343,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp">
       <Filter>KentDAW\Source\Core</Filter>
     </ClCompile>
@@ -1626,6 +1635,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Utility\Conversion.h">
       <Filter>KentDAW\Source\Utility</Filter>
     </ClInclude>
@@ -3056,6 +3068,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Resources\Images\pause.png">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
+    <None Include="..\..\Source\Resources\Images\play.png">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
     <None Include="..\..\JuceModules\juce_audio_basics\juce_module_info">
       <Filter>Juce Modules\juce_audio_basics</Filter>
     </None>

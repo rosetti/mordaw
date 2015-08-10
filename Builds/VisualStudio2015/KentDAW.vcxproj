@@ -129,6 +129,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TransportControls.cpp"/>
     <ClCompile Include="..\..\Source\GUI\LeftSide.cpp"/>
@@ -1285,6 +1286,7 @@
     <ClCompile Include="..\..\JuceModules\juce_video\juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
     <ClInclude Include="..\..\Source\GUI\TransportControls.h"/>
@@ -1763,6 +1765,8 @@
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Resources\Images\pause.png"/>
+    <None Include="..\..\Source\Resources\Images\play.png"/>
     <None Include="..\..\JuceModules\juce_audio_basics\juce_module_info"/>
     <None Include="..\..\JuceModules\juce_audio_devices\juce_module_info"/>
     <None Include="..\..\JuceModules\juce_audio_formats\juce_module_info"/>
