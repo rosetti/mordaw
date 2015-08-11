@@ -131,6 +131,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\MixerView.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\Arrangement.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TransportControls.cpp"/>
     <ClCompile Include="..\..\Source\GUI\LeftSide.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MainComponent.cpp"/>
@@ -1289,6 +1291,8 @@
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
+    <ClInclude Include="..\..\Source\GUI\MixerView.h"/>
+    <ClInclude Include="..\..\Source\GUI\Arrangement.h"/>
     <ClInclude Include="..\..\Source\GUI\TransportControls.h"/>
     <ClInclude Include="..\..\Source\GUI\LeftSide.h"/>
     <ClInclude Include="..\..\Source\GUI\MainComponent.h"/>

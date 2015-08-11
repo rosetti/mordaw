@@ -22,6 +22,7 @@ public:
 
     void addFileMenu(ApplicationCommandManager* commands);
     void addEditMenu(ApplicationCommandManager* commands);
+    void addViewMenu(ApplicationCommandManager* commands);
     void addTransportMenu(ApplicationCommandManager* commands);
 
     // Inherited via MenuBarModel

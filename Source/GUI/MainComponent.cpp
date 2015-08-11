@@ -12,11 +12,10 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent(const ApplicationCommandManager &manager) : _commands(manager), _leftSide(manager), _transportControls(manager)
+MainComponent::MainComponent(const ApplicationCommandManager &manager) : _commands(manager), _leftSide(manager), _arrangement(manager), _mixerView(manager), _transportControls(manager)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
     addAndMakeVisible(_leftSide);
+    addAndMakeVisible(_arrangement);
     addAndMakeVisible(_transportControls);
 }
 
@@ -49,8 +48,63 @@ void MainComponent::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     _leftSide.setBounds(0, 0, 300, getHeight());
+    _arrangement.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
+    _mixerView.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
+
     // getHeight() - 200
     _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
+}
+
+void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
+    const String view("View");
+    int flags;
+    
+    switch (commandID) {
+        case showArrangement:
+            flags = _arrangement.isShowing() ? ApplicationCommandInfo::isDisabled : 0;
+            result.setInfo("Show Arrangement", "Display the arrangement in the main window.", view, flags);
+            result.addDefaultKeypress(KeyPress::tabKey, 0);
+            break;
+        case showMixer:
+            flags = _mixerView.isShowing() ? ApplicationCommandInfo::isDisabled : 0;
+            result.setInfo("Show Mixer", "Display the mixer in the main window.", view, flags);
+            result.addDefaultKeypress(KeyPress::tabKey, 0);
+            break;
+        default:
+            break;
+    }
+}
+
+void MainComponent::getAllCommands(Array<CommandID>& commands) const {
+    const CommandID ids[] = {
+        showArrangement,
+        showMixer
+    };
+    
+    commands.addArray(ids, numElementsInArray(ids));
+}
+
+bool MainComponent::perform(const ApplicationCommandTarget::InvocationInfo& info) {
+    switch (info.commandID) {
+        case showArrangement:
+            if(_arrangement.isShowing())
+            {
+                _arrangement.setVisible(false);
+                _mixerView.setVisible(true);
+            }
+            return true;
+            
+        case showMixer:
+            if(_mixerView.isShowing())
+            {
+                _mixerView.setVisible(false);
+                _arrangement.setVisible(true);
+            }
+            return true;
+            
+        default:
+            return false;
+    }
 }
 
 bool MainComponent::keyPressed(const KeyPress & key, Component * originatingComponent)

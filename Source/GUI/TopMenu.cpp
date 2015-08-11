@@ -9,6 +9,7 @@ Author:  Thomas
 */
 
 #include "TopMenu.h"
+#include "MainComponent.h"
 #include "../Core/ProjectManager.h"
 #include "../Audio/Engine.h"
 
@@ -17,6 +18,7 @@ TopMenu::TopMenu(ApplicationCommandManager& commandsManager) : MenuBarModel(), _
 
     addFileMenu(commands);
     addEditMenu(commands);
+    addViewMenu(commands);
     addTransportMenu(commands);
 
     menuItemsChanged();
@@ -51,6 +53,14 @@ void TopMenu::addEditMenu(ApplicationCommandManager* commands) {
     editMenu.addCommandItem(commands, StandardApplicationCommandIDs::copy);
     editMenu.addCommandItem(commands, StandardApplicationCommandIDs::paste);
     _menus.push_back(std::pair<String, PopupMenu>("Edit", editMenu));
+}
+
+void TopMenu::addViewMenu(ApplicationCommandManager* commands) {
+    PopupMenu viewMenu;
+    
+    viewMenu.addCommandItem(commands, MainComponent::showArrangement);
+    viewMenu.addCommandItem(commands, MainComponent::showMixer);
+    _menus.push_back(std::pair<String, PopupMenu>("View", viewMenu));
 }
 
 void TopMenu::addTransportMenu(ApplicationCommandManager* commands) {
