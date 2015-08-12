@@ -14,7 +14,7 @@
 #include "TopMenu.h"
 #include "MainComponent.h"
 
-class MainWindow : public DocumentWindow
+class MainWindow : public DocumentWindow, public KeyListener
 {
 public:
     MainWindow(ApplicationCommandManager &commands);
@@ -23,6 +23,15 @@ public:
     MainComponent Content;
 
     void closeButtonPressed() override;
+    bool keyPressed(const KeyPress& key, Component* originatingComponent) override;
+
+    void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
+    void getAllCommands(Array<CommandID>& commands) const;
+    bool perform(const ApplicationCommandTarget::InvocationInfo & info);
+
+    enum Commands {
+        refreshComponents = 0x300,
+    };
 
 private:
     void initializeContent();

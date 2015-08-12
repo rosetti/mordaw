@@ -13,7 +13,10 @@
 #include "TransportControls.h"
 
 //==============================================================================
-TransportControls::TransportControls(const ApplicationCommandManager &commands) : _commands(commands), _isPlaying(false), _isRecording(false)
+TransportControls::TransportControls(const ApplicationCommandManager &commands) :
+    _commands(commands), 
+    _isPlaying(false), 
+    _isRecording(false)
 {
     _totalLength = 750000;
     resetTimecode(44100.0f);

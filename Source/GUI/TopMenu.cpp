@@ -14,7 +14,7 @@ Author:  Thomas
 #include "../Audio/Engine.h"
 
 TopMenu::TopMenu(ApplicationCommandManager& commandsManager) : MenuBarModel(), _commandsManager(commandsManager) {
-    ApplicationCommandManager* commands = &_commandsManager;
+    auto commands = &_commandsManager;
 
     addFileMenu(commands);
     addEditMenu(commands);
@@ -88,5 +88,15 @@ PopupMenu TopMenu::getMenuForIndex(int topLevelMenuIndex, const String& menuName
 }
 
 void TopMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex) {
-    
+}
+
+void TopMenu::refresh() {
+    _menus.clear();
+
+    addFileMenu(&_commandsManager);
+    addEditMenu(&_commandsManager);
+    addViewMenu(&_commandsManager);
+    addTransportMenu(&_commandsManager);
+
+    menuItemsChanged();
 }

@@ -10,9 +10,15 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
+#include "MainWindow.h"
 
 //==============================================================================
-MainComponent::MainComponent(const ApplicationCommandManager &manager) : _commands(manager), _leftSide(manager), _arrangement(manager), _mixerView(manager), _transportControls(manager)
+MainComponent::MainComponent(const ApplicationCommandManager &manager) :
+    _leftSide(manager), 
+    _arrangement(manager),
+    _mixerView(manager), 
+    _transportControls(manager), 
+    _commands(manager)
 {
     addAndMakeVisible(_leftSide);
     addAndMakeVisible(_arrangement);
@@ -105,11 +111,4 @@ bool MainComponent::perform(const ApplicationCommandTarget::InvocationInfo& info
         default:
             return false;
     }
-}
-
-bool MainComponent::keyPressed(const KeyPress & key, Component * originatingComponent)
-{
-    auto keyMapping = _commands.getKeyMappings();
-
-    return keyMapping->keyPressed(key, originatingComponent);
 }

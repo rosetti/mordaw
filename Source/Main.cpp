@@ -18,7 +18,7 @@ class KentDAWApplication  : public JUCEApplication
 {
 public:
     //==============================================================================
-    KentDAWApplication() {}
+    KentDAWApplication() : _engine(&_commandsManager) {}
 
     const String getApplicationName() override       { return ProjectInfo::projectName; }
     const String getApplicationVersion() override    { return ProjectInfo::versionString; }
@@ -51,6 +51,7 @@ public:
         JUCEApplication::getAllCommands(commands);
         _projectManager.getAllCommands(commands);
         _engine.getAllCommands(commands);
+        _mainWindow->getAllCommands(commands);
     }
 
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
@@ -58,6 +59,7 @@ public:
         JUCEApplication::getCommandInfo(commandID, result);
         _projectManager.getCommandInfo(commandID, result);
         _engine.getCommandInfo(commandID, result);
+        _mainWindow->getCommandInfo(commandID, result);
     }
 
     bool perform(const InvocationInfo & info) override
@@ -72,6 +74,10 @@ public:
 
         if (commandInfo.categoryName == "Audio") {
             return _engine.perform(info);
+        }
+
+        if (commandInfo.categoryName == "Global") {
+            return _mainWindow->perform(info);
         }
 
         return JUCEApplication::perform(info);
@@ -91,9 +97,9 @@ public:
     }
 
 private:
-    Audio::Engine _engine;
     ProjectManager _projectManager;
     ScopedPointer<MainWindow> _mainWindow;
+    Audio::Engine _engine;
     ApplicationCommandManager _commandsManager;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(KentDAWApplication)

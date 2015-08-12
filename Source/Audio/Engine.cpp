@@ -11,10 +11,11 @@
 #include "Engine.h"
 #include "Track.h"
 #include "SampleRegion.h"
+#include "../GUI/MainWindow.h"
 
 namespace Audio
 {
-    Engine::Engine() {
+    Engine::Engine(ApplicationCommandManager *commands) : _commands(commands) {
         AudioIODevice* current;
 
         _formats.registerBasicFormats();
@@ -44,8 +45,6 @@ namespace Audio
         track2->add(region->getTotalLength() / 2, region3);
         _mixer->add(track);
         _mixer->add(track2);
-
-        //_mixer->startPlayingAt(0);
     }
 
     Engine::~Engine() {
@@ -96,18 +95,19 @@ namespace Audio
         case start:
             // @todo replace 0 with timeline position
             _mixer->startPlayingAt(0);
-            return true;
-
+            break;
         case pause:
             // Pause the mixer
-            return true;
-
+            break;
         case stop:
             _mixer->stop();
-            return true;
-
+            break;
         default:
             return false;
         }
+
+        _commands->invokeDirectly(MainWindow::refreshComponents, true);
+
+        return true;
     }
 }

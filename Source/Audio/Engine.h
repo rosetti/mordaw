@@ -17,7 +17,7 @@ namespace Audio
 {
     class Engine {
     public:
-        Engine();
+        Engine(ApplicationCommandManager *commands);
         ~Engine();
 
         void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
@@ -35,6 +35,7 @@ namespace Audio
         AudioFormatManager _formats;
         ScopedPointer<Mixer> _mixer;
         AudioProcessorPlayer _player;
+        ApplicationCommandManager *_commands;
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Engine)
     };

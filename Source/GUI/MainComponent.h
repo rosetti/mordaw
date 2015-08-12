@@ -18,7 +18,7 @@
 //==============================================================================
 /*
 */
-class MainComponent : public Component, public KeyListener
+class MainComponent : public Component
 {
 public:
     MainComponent(const ApplicationCommandManager &manager);
@@ -27,12 +27,9 @@ public:
     void paint(Graphics&);
     void resized();
 
-    // Inherited via KeyListener
-    virtual bool keyPressed(const KeyPress & key, Component * originatingComponent) override;
-
     enum Commands {
         showArrangement = 0x500,
-        showMixer = 0x501
+        showMixer = 0x501,
     };
     
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
@@ -46,7 +43,6 @@ private:
     TransportControls _transportControls;
     
     const ApplicationCommandManager &_commands;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
 

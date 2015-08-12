@@ -12,9 +12,9 @@
 
 MainWindow::MainWindow(ApplicationCommandManager &commands) :
     DocumentWindow("KentDAW", Colours::darkgrey, allButtons),
-    _commands(commands), 
+    Content(commands), 
     _menu(commands),
-    Content(commands)
+    _commands(commands)
 {
     setLookAndFeel(&_lookAndFeel);
     setUsingNativeTitleBar(true);
@@ -40,11 +40,50 @@ void MainWindow::initializeContent()
 {
     initializeMenu();
     setContentOwned(&Content, false);
-    getTopLevelComponent()->addKeyListener(&Content);
+    getTopLevelComponent()->addKeyListener(this);
 }
 
 void MainWindow::initializeMenu()
 {
     setMenuBar(&_menu);
     getMenuBarComponent()->setColour(PopupMenu::backgroundColourId, Colours::lightgrey);
+}
+
+bool MainWindow::keyPressed(const KeyPress & key, Component * originatingComponent)
+{
+    auto keyMapping = _commands.getKeyMappings();
+
+    return keyMapping->keyPressed(key, originatingComponent);
+}
+
+void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
+    const String global("Global");
+    int flags;
+
+    switch (commandID) {
+    case refreshComponents:
+        result.setInfo("Refresh Components", "Internal command to refresh all components.", global, 0);
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::getAllCommands(Array<CommandID>& commands) const {
+    const CommandID ids[] = {
+        refreshComponents
+    };
+
+    commands.addArray(ids, numElementsInArray(ids));
+}
+
+bool MainWindow::perform(const ApplicationCommandTarget::InvocationInfo& info) {
+    switch (info.commandID) {
+    case refreshComponents:
+        _menu.refresh();
+        return true;
+
+    default:
+        return false;
+    }
 }

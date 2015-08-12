@@ -29,7 +29,7 @@ public:
     virtual StringArray getMenuBarNames() override;
     virtual PopupMenu getMenuForIndex(int topLevelMenuIndex, const String & menuName) override;
     virtual void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
-
+    void refresh();
 private:
     StringArray _menusNames;
     std::list<std::pair<String, PopupMenu>> _menus;
