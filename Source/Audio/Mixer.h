@@ -29,6 +29,7 @@ namespace Audio
         AudioProcessorGraph *getProcessorGraph();
 
         bool isPlaying() const;
+        void goToTheEnd();
 
         enum NodeIDs
         {
