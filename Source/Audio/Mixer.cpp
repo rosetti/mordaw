@@ -95,4 +95,18 @@ namespace Audio
     bool Mixer::isPlaying() const {
         return _isPlaying;
     }
+
+    void Mixer::goToTheEnd() {
+        auto maxLength = 0, tmp = 0;
+
+        for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
+            if ((tmp = current->first->getTotalLength()) > maxLength) {
+                maxLength = tmp;
+            }
+        }
+
+        for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
+            current->second->getSource().setNextReadPosition(maxLength);
+        }
+    }
 }

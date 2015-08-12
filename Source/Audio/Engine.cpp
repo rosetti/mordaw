@@ -75,6 +75,16 @@ namespace Audio
             result.addDefaultKeypress(KeyPress::escapeKey, 0);
             break;
 
+        case rewind:
+            result.setInfo("Rewind", "Rewind to the beginning of the timeline.", audio, 0);
+            result.addDefaultKeypress('R', ModifierKeys::commandModifier);
+            break;
+
+        case forward:
+            result.setInfo("Forward", "Forward to the end of the timeline.", audio, 0);
+            result.addDefaultKeypress('F', ModifierKeys::commandModifier);
+            break;
+
         default:
             break;
         }
@@ -85,6 +95,8 @@ namespace Audio
             start,
             pause,
             stop,
+            rewind,
+            forward,
         };
 
         commands.addArray(ids, numElementsInArray(ids));
@@ -102,6 +114,17 @@ namespace Audio
         case stop:
             _mixer->stop();
             break;
+
+        case rewind:
+            _mixer->stop();
+            _mixer->startPlayingAt(0);
+            break;
+
+        case forward:
+            _mixer->stop();
+            _mixer->goToTheEnd();
+            break;
+
         default:
             return false;
         }

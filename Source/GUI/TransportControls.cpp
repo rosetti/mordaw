@@ -33,9 +33,11 @@ TransportControls::~TransportControls()
 void TransportControls::drawButtons()
 {
     _startButton = new ImageButton("Start");
-    _startButton->setCommandToTrigger(&_commands, Audio::Engine::start, true);
+    _startButton->setCommandToTrigger(&_commands, _engine.start, true);
     _rewindButton = new ImageButton("Rewind");
+    _rewindButton->setCommandToTrigger(&_commands, _engine.rewind, true);
     _forwardButton = new ImageButton("Forward");
+    _forwardButton->setCommandToTrigger(&_commands, _engine.forward, true);
     _recordButton = new ImageButton(("Record"));
     setButtonImages();
     addAndMakeVisible(_startButton);

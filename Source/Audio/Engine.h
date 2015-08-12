@@ -29,6 +29,8 @@ namespace Audio
             start = 0x200,
             stop = 0x201,
             pause = 0x202,
+            rewind = 0x203,
+            forward = 0x204,
         };
 
     private:
