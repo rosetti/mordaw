@@ -110,4 +110,8 @@ namespace Audio
 
         return true;
     }
+
+    Mixer* Engine::getMixer() const {
+        return _mixer;
+    }
 }

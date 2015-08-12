@@ -12,8 +12,7 @@
 #define TRANSPORTCONTROLS_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "../Resources/Images/TransportImages.h"
-#include "../Utility/Conversion.h"
+#include "../Audio/Engine.h"
 
 //==============================================================================
 /*
@@ -23,7 +22,7 @@ class TransportControls    : public Component,
                              public Button::Listener
 {
 public:
-    TransportControls(const ApplicationCommandManager &commands);
+    TransportControls(ApplicationCommandManager &commands, const Audio::Engine &engine);
     ~TransportControls();
     
     void start();
@@ -44,7 +43,7 @@ public:
     void addListener(TransportControls::Listener* listener);
     void removeListener(TransportControls::Listener* listener);
     virtual void buttonClicked(Button* button);
-    
+    void refresh();
 
 private:
     ListenerList<TransportControls::Listener> listenerList;
@@ -58,7 +57,8 @@ private:
     bool _isPlaying, _isRecording;
     int64 _totalLength;
     
-    const ApplicationCommandManager &_commands;
+    ApplicationCommandManager &_commands;
+    const Audio::Engine &_engine;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TransportControls)
 };

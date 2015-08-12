@@ -10,9 +10,9 @@
 
 #include "MainWindow.h"
 
-MainWindow::MainWindow(ApplicationCommandManager &commands) :
+MainWindow::MainWindow(ApplicationCommandManager &commands, const Audio::Engine &engine) :
     DocumentWindow("KentDAW", Colours::darkgrey, allButtons),
-    Content(commands), 
+    Content(commands, engine), 
     _menu(commands),
     _commands(commands)
 {
@@ -81,6 +81,7 @@ bool MainWindow::perform(const ApplicationCommandTarget::InvocationInfo& info) {
     switch (info.commandID) {
     case refreshComponents:
         _menu.refresh();
+        Content.getTransportControls()->refresh();
         return true;
 
     default:

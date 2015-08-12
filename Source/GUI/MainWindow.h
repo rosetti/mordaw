@@ -17,7 +17,7 @@
 class MainWindow : public DocumentWindow, public KeyListener
 {
 public:
-    MainWindow(ApplicationCommandManager &commands);
+    MainWindow(ApplicationCommandManager &commands, const Audio::Engine &engine);
     ~MainWindow();
 
     MainComponent Content;

@@ -21,11 +21,12 @@
 class MainComponent : public Component
 {
 public:
-    MainComponent(const ApplicationCommandManager &manager);
+    MainComponent(ApplicationCommandManager &manager, const Audio::Engine &engine);
     ~MainComponent();
 
     void paint(Graphics&);
     void resized();
+    TransportControls *getTransportControls();
 
     enum Commands {
         showArrangement = 0x500,
@@ -42,7 +43,7 @@ private:
     MixerView _mixerView;
     TransportControls _transportControls;
     
-    const ApplicationCommandManager &_commands;
+    ApplicationCommandManager &_commands;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
 

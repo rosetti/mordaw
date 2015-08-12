@@ -23,6 +23,7 @@ namespace Audio
         void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
         void getAllCommands(Array<CommandID>& commands) const;
         bool perform(const ApplicationCommandTarget::InvocationInfo & info);
+        Mixer *getMixer() const;
 
         enum Commands {
             start = 0x200,

@@ -13,12 +13,12 @@
 #include "MainWindow.h"
 
 //==============================================================================
-MainComponent::MainComponent(const ApplicationCommandManager &manager) :
-    _leftSide(manager), 
-    _arrangement(manager),
-    _mixerView(manager), 
-    _transportControls(manager), 
-    _commands(manager)
+MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::Engine &engine) :
+    _leftSide(commands),
+    _arrangement(commands),
+    _mixerView(commands),
+    _transportControls(commands, engine),
+    _commands(commands)
 {
     addAndMakeVisible(_leftSide);
     addAndMakeVisible(_arrangement);
@@ -59,6 +59,10 @@ void MainComponent::resized()
 
     // getHeight() - 200
     _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
+}
+
+TransportControls* MainComponent::getTransportControls() {
+    return &_transportControls;
 }
 
 void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {

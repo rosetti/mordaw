@@ -9,11 +9,12 @@
 */
 
 #include "../Resources/Images/TransportImages.h"
-#include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Utility/Conversion.h"
 #include "TransportControls.h"
 
 //==============================================================================
-TransportControls::TransportControls(const ApplicationCommandManager &commands) :
+TransportControls::TransportControls(ApplicationCommandManager &commands, const Audio::Engine &engine) :
+    _engine(engine),
     _commands(commands), 
     _isPlaying(false), 
     _isRecording(false)
@@ -32,6 +33,7 @@ TransportControls::~TransportControls()
 void TransportControls::drawButtons()
 {
     _startButton = new ImageButton("Start");
+    _startButton->setCommandToTrigger(&_commands, Audio::Engine::start, true);
     _rewindButton = new ImageButton("Rewind");
     _forwardButton = new ImageButton("Forward");
     _recordButton = new ImageButton(("Record"));
@@ -91,23 +93,7 @@ void TransportControls::removeListener(TransportControls::Listener *listener)
 
 void TransportControls::buttonClicked(Button* button)
 {
-    if(button == _startButton)
-    {
-        _isPlaying = !_isPlaying;
-        if(_isPlaying)
-        {
-            _image = ImageCache::getFromMemory(TransportImages::pause_png, TransportImages::pause_pngSize);
-            _startButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
-            start();
-        }
-        else if(!_isPlaying)
-        {
-            _image = ImageCache::getFromMemory(TransportImages::play_png, TransportImages::play_pngSize);
-            _startButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
-            stop();
-        }
-    }
-    else if(button == _recordButton)
+     if(button == _recordButton)
     {
         _isRecording = !_isRecording;
         if(_isRecording)
@@ -149,6 +135,23 @@ void TransportControls::buttonClicked(Button* button)
         }
         repaint();
     }
+}
+
+void TransportControls::refresh() {
+    auto isPlaying = _engine.getMixer()->isPlaying();
+
+    if (isPlaying)
+    {
+        _image = ImageCache::getFromMemory(TransportImages::pause_png, TransportImages::pause_pngSize);
+        _startButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
+        start();
+
+        return;
+    }
+
+    _image = ImageCache::getFromMemory(TransportImages::play_png, TransportImages::play_pngSize);
+    _startButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
+    stop();
 }
 
 void TransportControls::setTimeCodePosition(int64 position)

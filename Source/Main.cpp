@@ -28,7 +28,7 @@ public:
     void initialise (const String& commandLine) override
     {
         registerCommands();
-        _mainWindow = new MainWindow(_commandsManager);
+        _mainWindow = new MainWindow(_commandsManager, _engine);
     }
 
     void shutdown() override
