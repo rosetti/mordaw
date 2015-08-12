@@ -1770,6 +1770,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Resources\Images\record_enabled.png"/>
+    <None Include="..\..\Source\Resources\Images\stop.png"/>
     <None Include="..\..\Source\Resources\Images\record.png"/>
     <None Include="..\..\Source\Resources\Images\forward.png"/>
     <None Include="..\..\Source\Resources\Images\rewind.png"/>

@@ -3083,6 +3083,9 @@
     <None Include="..\..\Source\Resources\Images\record_enabled.png">
       <Filter>KentDAW\Resources\Images</Filter>
     </None>
+    <None Include="..\..\Source\Resources\Images\stop.png">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
     <None Include="..\..\Source\Resources\Images\record.png">
       <Filter>KentDAW\Resources\Images</Filter>
     </None>

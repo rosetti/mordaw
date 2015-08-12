@@ -22,6 +22,7 @@
 		421C1D055C6A586E764C7352 = {isa = PBXBuildFile; fileRef = 40EB10373BD814F32D81A3F5; };
 		67194FB4CE77A177EEC6CFC8 = {isa = PBXBuildFile; fileRef = 7670ED2D483B2786CB849B9C; };
 		6EB3A80B9A0C659F8BAF3B98 = {isa = PBXBuildFile; fileRef = 44F9B8C846747C5298C37705; };
+		EBDDDB5BB00F584D3B0200AC = {isa = PBXBuildFile; fileRef = 177D2E1488464716D2A7E22B; };
 		225F8CEFEAA7CA181EF753B1 = {isa = PBXBuildFile; fileRef = E7C563EDB4A88272C72C8E50; };
 		A97F88C4BEEC883510FE7FB0 = {isa = PBXBuildFile; fileRef = EE093DCD74F69B657D11827D; };
 		93FA3E1814B204DC22758997 = {isa = PBXBuildFile; fileRef = E6588B2C253A56AB4B53EB5C; };
@@ -147,6 +148,7 @@
 		16F287651E5EECA55F3CEDAD = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "juce_mac_SystemStats.mm"; path = "../../JuceModules/juce_core/native/juce_mac_SystemStats.mm"; sourceTree = "SOURCE_ROOT"; };
 		172B86A653A3DCE5D23D650D = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_Toolbar.h"; path = "../../JuceModules/juce_gui_basics/widgets/juce_Toolbar.h"; sourceTree = "SOURCE_ROOT"; };
 		177B0452B8FF12D642CBF32D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "juce_mac_Windowing.mm"; path = "../../JuceModules/juce_gui_basics/native/juce_mac_Windowing.mm"; sourceTree = "SOURCE_ROOT"; };
+		177D2E1488464716D2A7E22B = {isa = PBXFileReference; lastKnownFileType = image.png; name = stop.png; path = ../../Source/Resources/Images/stop.png; sourceTree = "SOURCE_ROOT"; };
 		17DD7727A2E870FDB7018281 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_RelativeCoordinate.h"; path = "../../JuceModules/juce_gui_basics/positioning/juce_RelativeCoordinate.h"; sourceTree = "SOURCE_ROOT"; };
 		17DE2A0E8C65368B6942340E = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_CameraDevice.h"; path = "../../JuceModules/juce_video/capture/juce_CameraDevice.h"; sourceTree = "SOURCE_ROOT"; };
 		1830F4E6F52DE801CBE97A4C = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ComboBox.h"; path = "../../JuceModules/juce_gui_basics/widgets/juce_ComboBox.h"; sourceTree = "SOURCE_ROOT"; };
@@ -1013,6 +1015,7 @@
 					7670ED2D483B2786CB849B9C,
 					D07060932BF68F1E849B0C14,
 					44F9B8C846747C5298C37705,
+					177D2E1488464716D2A7E22B,
 					E7C563EDB4A88272C72C8E50,
 					EE093DCD74F69B657D11827D,
 					E6588B2C253A56AB4B53EB5C,
@@ -2170,6 +2173,7 @@
 					535C7F82847BAD75A7E3E84D,
 					40EB10373BD814F32D81A3F5,
 					44F9B8C846747C5298C37705,
+					177D2E1488464716D2A7E22B,
 					E7C563EDB4A88272C72C8E50,
 					EE093DCD74F69B657D11827D,
 					E6588B2C253A56AB4B53EB5C,
@@ -2279,6 +2283,7 @@
 		C31B698C16FAD260E334860F = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (
 					421C1D055C6A586E764C7352,
 					6EB3A80B9A0C659F8BAF3B98,
+					EBDDDB5BB00F584D3B0200AC,
 					225F8CEFEAA7CA181EF753B1,
 					A97F88C4BEEC883510FE7FB0,
 					93FA3E1814B204DC22758997,
