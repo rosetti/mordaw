@@ -13,7 +13,8 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Resources/Images/TransportImages.h"
-#include "Conversion.h"
+#include "../Utility/Conversion.h"
+
 //==============================================================================
 /*
 */
