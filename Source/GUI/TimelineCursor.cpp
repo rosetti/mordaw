@@ -78,6 +78,7 @@ void TimelineCursor::setCursorVisability(bool displayCursor)
 
 void TimelineCursor::resized()
 {
+    _rangePixels = getParentWidth() - 200;
     _cursor = Image(Image::RGB, 3, jmax(10, getHeight()), true);
     Graphics g(_cursor);
     g.fillAll(Colours::black);

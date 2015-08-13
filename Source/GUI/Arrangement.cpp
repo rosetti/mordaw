@@ -19,6 +19,7 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     _addTrackButton = new TextButton("Add a track");
     _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
     addAndMakeVisible(_cursor);
+    _cursor->setAlwaysOnTop(true);
     addAndMakeVisible(_addTrackButton);
 }
 
@@ -51,7 +52,7 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-    _cursor->setBounds(0, 0, getParentWidth(), getParentHeight());
+    _cursor->setBounds(200, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
 
     auto i = 0;
