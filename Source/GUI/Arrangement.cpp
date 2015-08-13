@@ -11,9 +11,10 @@
 #include "Arrangement.h"
 
 //==============================================================================
-Arrangement::Arrangement(const ApplicationCommandManager &commands)
+Arrangement::Arrangement(const ApplicationCommandManager &commands, const Audio::Engine &engine)
+: _engine(engine)
 {
-    _cursor = new TimelineCursor(56000.0);
+    _cursor = new TimelineCursor(_engine.getTotalLength());
     addAndMakeVisible(_cursor);
 }
 

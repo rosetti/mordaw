@@ -13,6 +13,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineCursor.h"
+#include "Engine.h"
 
 //==============================================================================
 /*
@@ -20,7 +21,7 @@
 class Arrangement    : public Component
 {
 public:
-    Arrangement(const ApplicationCommandManager &commands);
+    Arrangement(const ApplicationCommandManager &commands, const Audio::Engine &engine);
     ~Arrangement();
 
     void paint (Graphics&);
@@ -28,6 +29,7 @@ public:
 
 private:
     ScopedPointer<TimelineCursor> _cursor;
+    const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
 
