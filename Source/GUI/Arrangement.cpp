@@ -13,7 +13,7 @@
 
 //==============================================================================
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
-: _engine(engine)
+: _engine(engine), _commands(commands)
 {
     _cursor = new TimelineCursor(_engine.getTotalLength());
     _addTrackButton = new TextButton("Add a track");
@@ -62,7 +62,7 @@ void Arrangement::resized()
 }
 
 void Arrangement::addTrack(Audio::Track* track) {
-    auto trackComponent = new TrackComponent(track);
+    auto trackComponent = new TrackComponent(_commands, track);
 
     _tracks.add(trackComponent);
     addAndMakeVisible(trackComponent);
