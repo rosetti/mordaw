@@ -18,7 +18,7 @@ TimelineCursor::TimelineCursor(int64 lengthSamples)
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
 
-    _lengthSamples = lengthSamples;
+    _lengthSamples = lengthSamples;    
     _showCursor = true;
 }
 
@@ -39,7 +39,6 @@ void TimelineCursor::mouseDown(const MouseEvent &e)
     {
         setMouseCursor(MouseCursor::IBeamCursor);
         _currentXCoords = e.x;
-        //setPlayerPosition(e.x);
         _stopTimer = false;
         startTimer(40);
         repaint();
@@ -59,6 +58,7 @@ void TimelineCursor::mouseDrag(const MouseEvent &e)
     if(_showCursor)
     {
         _currentXCoords = e.x;
+        _positionInSamples = pixelsToSamples(_currentXCoords, getParentWidth()-200, _lengthSamples);
         repaint();
     }
 }
