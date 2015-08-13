@@ -61,6 +61,10 @@ void MainComponent::resized()
     _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
 }
 
+void MainComponent::addTrack(Audio::Track* track) {
+    _arrangement.addTrack(track);
+}
+
 TransportControls* MainComponent::getTransportControls() {
     return &_transportControls;
 }

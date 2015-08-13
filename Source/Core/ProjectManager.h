@@ -12,11 +12,13 @@
 #define PROJECTMANAGER_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Audio/Engine.h"
+#include "../GUI/MainWindow.h"
 
 class ProjectManager
 {
 public:
-    ProjectManager();
+    explicit ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window);
     ~ProjectManager();
 
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
@@ -28,7 +30,13 @@ public:
         openProject = 0x101,
         saveProject = 0x102,
         saveProjectAs = 0x103,
+        addTrack = 0x104,
     };
+
+private:
+    ApplicationCommandManager &_commands;
+    Audio::Engine &_engine;
+    MainWindow &_mainWindow;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectManager)
 };

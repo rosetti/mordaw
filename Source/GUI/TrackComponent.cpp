@@ -8,11 +8,10 @@
   ==============================================================================
 */
 
-#include "../../JuceLibraryCode/JuceHeader.h"
 #include "TrackComponent.h"
 
 //==============================================================================
-TrackComponent::TrackComponent()
+TrackComponent::TrackComponent(Audio::Track *track) : _track(track)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.

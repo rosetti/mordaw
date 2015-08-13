@@ -10,7 +10,10 @@ Author:  Thomas
 
 #include "ProjectManager.h"
 
-ProjectManager::ProjectManager()
+ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window) : 
+    _engine(engine), 
+    _commands(commands),
+    _mainWindow(window)
 {
 }
 
@@ -28,6 +31,7 @@ void ProjectManager::getAllCommands(Array<CommandID>& commands) const
         StandardApplicationCommandIDs::cut,
         StandardApplicationCommandIDs::copy,
         StandardApplicationCommandIDs::paste,
+        addTrack,
     };
 
     commands.addArray(ids, numElementsInArray(ids));
@@ -76,12 +80,19 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
         result.addDefaultKeypress('V', ModifierKeys::commandModifier);
         break;
 
+    case addTrack:
+        result.setInfo("Add track", "Add a track to the project.", projectManagement, 0);
+        result.addDefaultKeypress('+', 0);
+        break;
+
     default:
         break;
     }
 }
 bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & info)
 {
+    Audio::Track *track = nullptr;
+
     switch (info.commandID) {
     case newProject:
         // Close current project
@@ -118,6 +129,12 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
         // Verify that something is in the clipboard
         // Verify that that thing can be pasted where the user wants to
         // Paste it, or do nothing
+        return true;
+
+    case addTrack:
+        track = new Audio::Track();
+        _engine.getMixer()->add(track);
+        _mainWindow.Content.addTrack(track);
         return true;
 
     default:

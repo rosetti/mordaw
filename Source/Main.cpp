@@ -18,7 +18,10 @@ class KentDAWApplication  : public JUCEApplication
 {
 public:
     //==============================================================================
-    KentDAWApplication() : _engine(&_commandsManager) {}
+    KentDAWApplication() :
+        _engine(&_commandsManager) {
+        
+    }
 
     const String getApplicationName() override       { return ProjectInfo::projectName; }
     const String getApplicationVersion() override    { return ProjectInfo::versionString; }
@@ -29,6 +32,7 @@ public:
     {
         registerCommands();
         _mainWindow = new MainWindow(_commandsManager, _engine);
+        _projectManager = new ProjectManager(_commandsManager, _engine, *_mainWindow);
     }
 
     void shutdown() override
@@ -49,7 +53,7 @@ public:
     void getAllCommands(Array<CommandID>& commands) override
     {
         JUCEApplication::getAllCommands(commands);
-        _projectManager.getAllCommands(commands);
+        _projectManager->getAllCommands(commands);
         _engine.getAllCommands(commands);
         _mainWindow->getAllCommands(commands);
     }
@@ -57,7 +61,7 @@ public:
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo & result) override
     {
         JUCEApplication::getCommandInfo(commandID, result);
-        _projectManager.getCommandInfo(commandID, result);
+        _projectManager->getCommandInfo(commandID, result);
         _engine.getCommandInfo(commandID, result);
         _mainWindow->getCommandInfo(commandID, result);
     }
@@ -69,7 +73,7 @@ public:
         getCommandInfo(info.commandID, commandInfo);
 
         if (commandInfo.categoryName == "Project Management" || commandInfo.categoryName == "Selection") {
-            return _projectManager.perform(info);
+            return _projectManager->perform(info);
         }
 
         if (commandInfo.categoryName == "Audio") {
@@ -97,7 +101,7 @@ public:
     }
 
 private:
-    ProjectManager _projectManager;
+    ScopedPointer<ProjectManager> _projectManager;
     ScopedPointer<MainWindow> _mainWindow;
     Audio::Engine _engine;
     ApplicationCommandManager _commandsManager;

@@ -9,17 +9,24 @@
 */
 
 #include "Arrangement.h"
+#include "../Core/ProjectManager.h"
 
 //==============================================================================
-Arrangement::Arrangement(const ApplicationCommandManager &commands, const Audio::Engine &engine)
+Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
 : _engine(engine)
 {
     _cursor = new TimelineCursor(_engine.getTotalLength());
+    _addTrackButton = new TextButton("Add a track");
+    _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
     addAndMakeVisible(_cursor);
+    addAndMakeVisible(_addTrackButton);
 }
 
 Arrangement::~Arrangement()
 {
+    for (auto track : _tracks) {
+        delete track;
+    }
 }
 
 void Arrangement::paint (Graphics& g)
@@ -45,5 +52,18 @@ void Arrangement::paint (Graphics& g)
 void Arrangement::resized()
 {
     _cursor->setBounds(0, 0, getParentWidth(), getParentHeight());
+    _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
 
+    auto i = 0;
+    for (auto track : _tracks) {
+        track->setBounds(0, 100 * i++, getWidth(), 100);
+    }
+}
+
+void Arrangement::addTrack(Audio::Track* track) {
+    auto trackComponent = new TrackComponent(track);
+
+    _tracks.add(trackComponent);
+    addAndMakeVisible(trackComponent);
+    resized();
 }

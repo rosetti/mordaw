@@ -24,8 +24,9 @@ public:
     MainComponent(ApplicationCommandManager &manager, const Audio::Engine &engine);
     ~MainComponent();
 
-    void paint(Graphics&);
-    void resized();
+    void paint(Graphics&) override;
+    void resized() override;
+    void addTrack(Audio::Track* track);
     TransportControls *getTransportControls();
 
     enum Commands {

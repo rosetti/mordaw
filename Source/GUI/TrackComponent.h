@@ -12,6 +12,7 @@
 #define TRACKCOMPONENT_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Audio/Track.h"
 
 //==============================================================================
 /*
@@ -19,13 +20,15 @@
 class TrackComponent    : public Component
 {
 public:
-    TrackComponent();
+    TrackComponent(Audio::Track *track);
     ~TrackComponent();
 
     void paint (Graphics&);
     void resized();
 
 private:
+    Audio::Track *_track;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackComponent)
 };
 

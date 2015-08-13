@@ -21,16 +21,17 @@
 */
 class Arrangement : public Component {
 public:
-    Arrangement(const ApplicationCommandManager &commands, const Audio::Engine &engine);
+    Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine);
     ~Arrangement();
 
     void paint(Graphics&);
     void resized();
+    void addTrack(Audio::Track* track);
 
 private:
-    Array<TrackComponent *> tracks;
-
+    Array<TrackComponent *> _tracks;
     ScopedPointer<TimelineCursor> _cursor;
+    ScopedPointer<TextButton> _addTrackButton;
     const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
