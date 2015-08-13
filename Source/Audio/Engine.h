@@ -12,6 +12,8 @@ Author:  Thomas
 #define ENGINE_H_INCLUDED
 
 #include "Mixer.h"
+#include "Track.h"
+
 
 namespace Audio
 {
@@ -43,6 +45,8 @@ namespace Audio
         ScopedPointer<Mixer> _mixer;
         AudioProcessorPlayer _player;
         ApplicationCommandManager *_commands;
+        
+        OwnedArray<Track> tracks;
         
         int64 _totalLength;
         

@@ -9,7 +9,6 @@
 */
 
 #include "Engine.h"
-#include "Track.h"
 #include "SampleRegion.h"
 #include "../GUI/MainWindow.h"
 

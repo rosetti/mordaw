@@ -12,6 +12,7 @@
 #define ARRANGEMENT_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "TimelineCursor.h"
 
 //==============================================================================
 /*
@@ -26,6 +27,7 @@ public:
     void resized();
 
 private:
+    ScopedPointer<TimelineCursor> _cursor;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
 

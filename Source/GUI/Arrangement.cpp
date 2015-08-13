@@ -13,9 +13,8 @@
 //==============================================================================
 Arrangement::Arrangement(const ApplicationCommandManager &commands)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
+    _cursor = new TimelineCursor(56000.0);
+    addAndMakeVisible(_cursor);
 }
 
 Arrangement::~Arrangement()
@@ -44,7 +43,6 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
+    _cursor->setBounds(0, 0, getParentWidth(), getParentHeight());
 
 }
