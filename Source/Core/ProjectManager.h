@@ -31,6 +31,7 @@ public:
         saveProject = 0x102,
         saveProjectAs = 0x103,
         addTrack = 0x104,
+        addRegion = 0x105,
     };
 
 private:

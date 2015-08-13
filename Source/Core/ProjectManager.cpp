@@ -32,6 +32,7 @@ void ProjectManager::getAllCommands(Array<CommandID>& commands) const
         StandardApplicationCommandIDs::copy,
         StandardApplicationCommandIDs::paste,
         addTrack,
+        addRegion,
     };
 
     commands.addArray(ids, numElementsInArray(ids));
@@ -85,6 +86,10 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
         result.addDefaultKeypress('+', 0);
         break;
 
+    case addRegion:
+        result.setInfo("Add region", "Add a region to the selected track.", projectManagement, 0);
+        break;
+
     default:
         break;
     }
@@ -92,6 +97,7 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
 bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & info)
 {
     Audio::Track *track = nullptr;
+    TrackComponent *trackComponent = nullptr;
 
     switch (info.commandID) {
     case newProject:
@@ -135,6 +141,10 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
         track = new Audio::Track();
         _engine.getMixer()->add(track);
         _mainWindow.Content.addTrack(track);
+        return true;
+
+    case addRegion:
+        trackComponent = dynamic_cast<TrackComponent *>(info.originatingComponent);
         return true;
 
     default:

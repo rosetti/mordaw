@@ -17,19 +17,22 @@
 //==============================================================================
 /*
 */
-class TrackComponent    : public Component
+class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
-    TrackComponent(Audio::Track *track);
+    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track);
     ~TrackComponent();
 
     void paint (Graphics&);
     void resized();
     void createRegionGUI(Audio::Region* region, AudioFormatManager& formatManager, File& audioFile);
+    bool isInterestedInFileDrag(const StringArray& files) override;
+    void filesDropped(const StringArray& files, int x, int y) override;
 
 private:
     Audio::Track *_track;
     std::vector<RegionComponent *> _regions;
+    ApplicationCommandManager &_commands;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackComponent)
 };

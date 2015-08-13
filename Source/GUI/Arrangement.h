@@ -32,6 +32,7 @@ private:
     Array<TrackComponent *> _tracks;
     ScopedPointer<TimelineCursor> _cursor;
     ScopedPointer<TextButton> _addTrackButton;
+    ApplicationCommandManager &_commands;
     const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
