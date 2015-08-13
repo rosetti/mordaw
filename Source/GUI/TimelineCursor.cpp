@@ -10,6 +10,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineCursor.h"
+#include "Conversion.h"
 
 //==============================================================================
 TimelineCursor::TimelineCursor(int64 lengthSamples)
@@ -17,6 +18,7 @@ TimelineCursor::TimelineCursor(int64 lengthSamples)
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
 
+    _lengthSamples = lengthSamples;
     _showCursor = true;
 }
 
@@ -84,5 +86,4 @@ void TimelineCursor::resized()
     g.fillAll(Colours::black);
     g.setColour(Colours::grey);
     g.drawVerticalLine(1, 0.0f, (float) _cursor.getHeight());
-
 }
