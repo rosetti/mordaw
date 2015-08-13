@@ -64,6 +64,46 @@ static inline double midiToFrequency (double noteNumber)
     return 440.0 * pow(2.0, (noteNumber - 69.0) / 12.0);
 }
 
+static inline int64 remapRange(int64 x, int64 oMin, int64 oMax, int64 nMin, int64 nMax)
+{
+    jassert(oMin != oMax);
+    jassert(nMin != nMax);
+    
+    bool reverseInput = false;
+    int64 oldMin = std::min(oMin, oMax);
+    int64 oldMax = std::max(oMin, oMax);
+    
+    if(oldMin != oMin)
+        reverseInput = true;
+    
+    bool reverseOutput = false;
+    
+    int64 newMin = std::min(nMin, nMax);
+    int64 newMax = std::max(nMin, nMax);
+    
+    if(newMin != nMin)
+        reverseOutput = true;
+    
+    int64 portion = (x-oldMin)*(newMax-newMin)/(oldMax-oldMin);
+    if(reverseInput)
+        portion = (oldMax-x)*(newMax-newMin)/(oldMax-oldMin);
+    int64 result = portion + newMin;
+    if(reverseOutput)
+        result = newMax - portion;
+    
+    return result;
+}
+
+static inline int64 pixelsToSamples(int64 x, int64 numPixels, int64 lengthSamples)
+{
+    return remapRange(x, 0, numPixels, 0, lengthSamples);
+}
+
+static inline int64 samplesToPixels(int64 x, int64 lengthSamples, int64 numPixels)
+{
+    return remapRange(x, 0, lengthSamples, 0, numPixels);
+}
+
 static const String samplesToTimeCode(int64 samples, double sampleRate)
 {
     String str = "";
