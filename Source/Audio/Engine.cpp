@@ -24,7 +24,6 @@ namespace Audio
         
         current = _devices.getCurrentAudioDevice();
 
-        _sampleRate = current->getCurrentSampleRate();
         _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
         _player.setProcessor(_mixer->getProcessorGraph());
         _devices.addAudioCallback(&_player);
