@@ -15,7 +15,7 @@
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
 : _engine(engine), _commands(commands)
 {
-    _cursor = new TimelineCursor(_engine.getTotalLength());
+    _cursor = new TimelineCursor(_engine);
     _addTrackButton = new TextButton("Add a track");
     _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
     addAndMakeVisible(_cursor);

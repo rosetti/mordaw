@@ -13,12 +13,13 @@
 #include "Conversion.h"
 
 //==============================================================================
-TimelineCursor::TimelineCursor(int64 lengthSamples)
+TimelineCursor::TimelineCursor(const Audio::Engine &engine)
+: _engine(engine)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-
-    _lengthSamples = lengthSamples;    
+    
+    _lengthSamples = engine.getTotalLength();
     _showCursor = true;
 }
 
@@ -50,6 +51,9 @@ void TimelineCursor::mouseUp(const MouseEvent &e)
     if(_showCursor)
     {
         setMouseCursor(MouseCursor::NormalCursor);
+        if(_engine.getMixer()->isPlaying())
+            _engine.getMixer()->stop();
+        _engine.getMixer()->startPlayingAt(_positionInSamples);
     }
 }
 

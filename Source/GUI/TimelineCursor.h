@@ -12,6 +12,7 @@
 #define TIMELINECURSOR_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "Engine.h"
 
 //==============================================================================
 /*
@@ -21,7 +22,7 @@ class TimelineCursor    : public Component,
 
 {
 public:
-    TimelineCursor(int64 lengthSamples);
+    TimelineCursor(const Audio::Engine &engine);
     ~TimelineCursor();
     
     void setZoomRatio(double zoomRatio);
@@ -45,6 +46,7 @@ private:
     bool _showCursor, _stopTimer;
     Image _cursor;
     int _currentXCoords;
+    const Audio::Engine& _engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TimelineCursor)
 };
 
