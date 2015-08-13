@@ -141,7 +141,8 @@ namespace Audio
     
     double Engine::getCurrentSamplerate() const
     {
-        return _sampleRate;
+        AudioIODevice*  current = _devices.getCurrentAudioDevice();
+        return current->getCurrentSampleRate();
     }
     
     int64 Engine::getTotalLength() const

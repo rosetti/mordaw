@@ -44,7 +44,6 @@ namespace Audio
         AudioProcessorPlayer _player;
         ApplicationCommandManager *_commands;
         
-        double _sampleRate;
         int64 _totalLength;
         
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Engine)
