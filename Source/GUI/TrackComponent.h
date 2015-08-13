@@ -11,8 +11,8 @@
 #ifndef TRACKCOMPONENT_H_INCLUDED
 #define TRACKCOMPONENT_H_INCLUDED
 
-#include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Audio/Track.h"
+#include "RegionComponent.h"
 
 //==============================================================================
 /*
@@ -25,9 +25,11 @@ public:
 
     void paint (Graphics&);
     void resized();
+    void createRegionGUI(Audio::Region* region, AudioFormatManager& formatManager, File& audioFile);
 
 private:
     Audio::Track *_track;
+    std::vector<RegionComponent *> _regions;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackComponent)
 };
