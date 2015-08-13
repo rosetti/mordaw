@@ -40,6 +40,7 @@ public:
 
 private:
     int64 _lengthSamples;
+    int64 _rangePixels;
     bool _showCursor, _stopTimer;
     Image _cursor;
     int _currentXCoords;
