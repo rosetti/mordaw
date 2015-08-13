@@ -30,6 +30,10 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
+        <FILE id="JhqDnS" name="TrackComponent.cpp" compile="1" resource="0"
+              file="Source/GUI/TrackComponent.cpp"/>
+        <FILE id="Q8b98c" name="TrackComponent.h" compile="0" resource="0"
+              file="Source/GUI/TrackComponent.h"/>
         <FILE id="ErLWDR" name="MixerView.cpp" compile="1" resource="0" file="Source/GUI/MixerView.cpp"/>
         <FILE id="bJsLOf" name="MixerView.h" compile="0" resource="0" file="Source/GUI/MixerView.h"/>
         <FILE id="NLKjt4" name="Arrangement.cpp" compile="1" resource="0" file="Source/GUI/Arrangement.cpp"/>

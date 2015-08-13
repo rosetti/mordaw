@@ -11,23 +11,25 @@
 #ifndef ARRANGEMENT_H_INCLUDED
 #define ARRANGEMENT_H_INCLUDED
 
-#include "../../JuceLibraryCode/JuceHeader.h"
+#include "TrackComponent.h"
 
 //==============================================================================
 /*
 */
-class Arrangement    : public Component
-{
+class Arrangement : public Component {
 public:
-    Arrangement(const ApplicationCommandManager &commands);
+    Arrangement(const ApplicationCommandManager& commands);
     ~Arrangement();
 
-    void paint (Graphics&);
+    void paint(Graphics&);
     void resized();
 
 private:
+    Array<TrackComponent *> tracks;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
 
 
-#endif  // ARRANGEMENT_H_INCLUDED
+#endif // ARRANGEMENT_H_INCLUDED
+
