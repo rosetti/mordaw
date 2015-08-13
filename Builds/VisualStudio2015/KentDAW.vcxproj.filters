@@ -352,6 +352,9 @@
     <ClCompile Include="..\..\Source\GUI\TrackComponent.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\GUI\TimelineCursor.cpp">
+      <Filter>KentDAW\Source\GUI</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\GUI\MixerView.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
@@ -1654,6 +1657,9 @@
       <Filter>KentDAW\Source\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\TrackComponent.h">
+      <Filter>KentDAW\Source\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\TimelineCursor.h">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\MixerView.h">
@@ -3087,6 +3093,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Resources\Images\record_enabled.png">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
+    <None Include="..\..\Source\Resources\Images\stop.png">
       <Filter>KentDAW\Resources\Images</Filter>
     </None>
     <None Include="..\..\Source\Resources\Images\record.png">

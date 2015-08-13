@@ -12,6 +12,8 @@ Author:  Thomas
 #define ENGINE_H_INCLUDED
 
 #include "Mixer.h"
+#include "Track.h"
+
 
 namespace Audio
 {
@@ -23,7 +25,11 @@ namespace Audio
         void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
         void getAllCommands(Array<CommandID>& commands) const;
         bool perform(const ApplicationCommandTarget::InvocationInfo & info);
+        double getCurrentSamplerate() const;
+        // just temporary until we have a proper way of adding tracks.
+        int64 getTotalLength() const;
         Mixer *getMixer() const;
+        
 
         enum Commands {
             start = 0x200,
@@ -39,7 +45,11 @@ namespace Audio
         ScopedPointer<Mixer> _mixer;
         AudioProcessorPlayer _player;
         ApplicationCommandManager *_commands;
-
+        
+        OwnedArray<Track> tracks;
+        
+        int64 _totalLength;
+        
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Engine)
     };
 }

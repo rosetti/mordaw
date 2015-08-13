@@ -12,13 +12,16 @@
 #define ARRANGEMENT_H_INCLUDED
 
 #include "TrackComponent.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
+#include "TimelineCursor.h"
+#include "../Audio/Engine.h"
 
 //==============================================================================
 /*
 */
 class Arrangement : public Component {
 public:
-    Arrangement(const ApplicationCommandManager& commands);
+    Arrangement(const ApplicationCommandManager &commands, const Audio::Engine &engine);
     ~Arrangement();
 
     void paint(Graphics&);
@@ -27,6 +30,8 @@ public:
 private:
     Array<TrackComponent *> tracks;
 
+    ScopedPointer<TimelineCursor> _cursor;
+    const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
 

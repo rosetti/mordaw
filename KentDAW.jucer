@@ -12,6 +12,7 @@
               file="Source/Resources/Images/TransportImages.h"/>
         <FILE id="UdgxDa" name="record_enabled.png" compile="0" resource="0"
               file="Source/Resources/Images/record_enabled.png"/>
+        <FILE id="W3P1Ey" name="stop.png" compile="0" resource="0" file="Source/Resources/Images/stop.png"/>
         <FILE id="Nztn6P" name="record.png" compile="0" resource="0" file="Source/Resources/Images/record.png"/>
         <FILE id="ZouB6s" name="forward.png" compile="0" resource="0" file="Source/Resources/Images/forward.png"/>
         <FILE id="ie2Qgi" name="rewind.png" compile="0" resource="0" file="Source/Resources/Images/rewind.png"/>
@@ -34,6 +35,10 @@
               file="Source/GUI/TrackComponent.cpp"/>
         <FILE id="Q8b98c" name="TrackComponent.h" compile="0" resource="0"
               file="Source/GUI/TrackComponent.h"/>
+        <FILE id="tyZ9u2" name="TimelineCursor.cpp" compile="1" resource="0"
+              file="Source/GUI/TimelineCursor.cpp"/>
+        <FILE id="qZceVI" name="TimelineCursor.h" compile="0" resource="0"
+              file="Source/GUI/TimelineCursor.h"/>
         <FILE id="ErLWDR" name="MixerView.cpp" compile="1" resource="0" file="Source/GUI/MixerView.cpp"/>
         <FILE id="bJsLOf" name="MixerView.h" compile="0" resource="0" file="Source/GUI/MixerView.h"/>
         <FILE id="NLKjt4" name="Arrangement.cpp" compile="1" resource="0" file="Source/GUI/Arrangement.cpp"/>

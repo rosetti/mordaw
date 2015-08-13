@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TrackComponent.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\TimelineCursor.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MixerView.cpp"/>
     <ClCompile Include="..\..\Source\GUI\Arrangement.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TransportControls.cpp"/>
@@ -1293,6 +1294,7 @@
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
     <ClInclude Include="..\..\Source\GUI\TrackComponent.h"/>
+    <ClInclude Include="..\..\Source\GUI\TimelineCursor.h"/>
     <ClInclude Include="..\..\Source\GUI\MixerView.h"/>
     <ClInclude Include="..\..\Source\GUI\Arrangement.h"/>
     <ClInclude Include="..\..\Source\GUI\TransportControls.h"/>
@@ -1772,6 +1774,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Resources\Images\record_enabled.png"/>
+    <None Include="..\..\Source\Resources\Images\stop.png"/>
     <None Include="..\..\Source\Resources\Images\record.png"/>
     <None Include="..\..\Source\Resources\Images\forward.png"/>
     <None Include="..\..\Source\Resources\Images\rewind.png"/>

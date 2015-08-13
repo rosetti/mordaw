@@ -49,8 +49,9 @@ private:
     ListenerList<TransportControls::Listener> listenerList;
     
     Image _image;
-    ScopedPointer<ImageButton> _startButton, _rewindButton, _forwardButton, _recordButton;
+    ScopedPointer<ImageButton> _startButton, _rewindButton, _forwardButton, _recordButton, _stopButton;
     
+    double _sampleRate;
     int64 timerAmount;
     double _milliseconds;
     String _currentTimeCode;

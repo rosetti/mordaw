@@ -15,7 +15,7 @@
 //==============================================================================
 MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::Engine &engine) :
     _leftSide(commands),
-    _arrangement(commands),
+    _arrangement(commands, engine),
     _mixerView(commands),
     _transportControls(commands, engine),
     _commands(commands)
