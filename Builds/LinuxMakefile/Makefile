@@ -51,6 +51,7 @@ endif
 OBJECTS := \
   $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
+  $(OBJDIR)/TrackComponent_d82131ef.o \
   $(OBJDIR)/TimelineCursor_f1957674.o \
   $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/Arrangement_15b9fd77.o \
@@ -108,6 +109,11 @@ $(OBJDIR)/TransportImages_4b3c351d.o: ../../Source/Resources/Images/TransportIma
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/TrackComponent_d82131ef.o: ../../Source/GUI/TrackComponent.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling TrackComponent.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TimelineCursor_f1957674.o: ../../Source/GUI/TimelineCursor.cpp

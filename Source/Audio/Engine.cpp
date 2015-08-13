@@ -119,8 +119,13 @@ namespace Audio
             break;
 
         case rewind:
-            _mixer->stop();
-            _mixer->startPlayingAt(0);
+            if (_mixer->isPlaying()) {
+                _mixer->stop();
+                _mixer->startPlayingAt(0);
+            } else {
+                _mixer->stop();
+            }
+
             break;
 
         case forward:
