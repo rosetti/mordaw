@@ -19,8 +19,8 @@ TransportControls::TransportControls(ApplicationCommandManager &commands, const 
     _isPlaying(false), 
     _isRecording(false)
 {
-    _totalLength = 750000;
-    resetTimecode(44100.0f);
+    _totalLength = engine.getTotalLength();
+    resetTimecode(_engine.getCurrentSamplerate());
     timerAmount = 60;
     drawButtons();
     addListeners();
@@ -39,11 +39,14 @@ void TransportControls::drawButtons()
     _forwardButton = new ImageButton("Forward");
     _forwardButton->setCommandToTrigger(&_commands, _engine.forward, true);
     _recordButton = new ImageButton(("Record"));
+    _stopButton = new ImageButton(("Stop"));
+    _stopButton->setCommandToTrigger(&_commands, _engine.stop, true);
     setButtonImages();
     addAndMakeVisible(_startButton);
     addAndMakeVisible(_rewindButton);
     addAndMakeVisible(_forwardButton);
     addAndMakeVisible(_recordButton);
+    addAndMakeVisible(_stopButton);
 }
 
 
@@ -57,6 +60,8 @@ void TransportControls::setButtonImages()
     _recordButton->setImages(false, true, true, _image, 0.5f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 1.0f, Colours::transparentWhite);
     _image = ImageCache::getFromMemory(TransportImages::forward_png, TransportImages::forward_pngSize);
     _forwardButton->setImages(false, true, true, _image, 0.5f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 1.0f, Colours::transparentWhite);
+    _image = ImageCache::getFromMemory(TransportImages::stop_png, TransportImages::stop_pngSize);
+    _stopButton->setImages(false, true, true, _image, 0.5f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 1.0f, Colours::transparentWhite);
 }
 
 void TransportControls::start()
@@ -81,6 +86,7 @@ void TransportControls::addListeners()
     _rewindButton->addListener(this);
     _forwardButton->addListener(this);
     _recordButton->addListener(this);
+    _stopButton->addListener(this);
 }
 
 void TransportControls::addListener(TransportControls::Listener *listener)
@@ -115,12 +121,12 @@ void TransportControls::buttonClicked(Button* button)
         if(_isPlaying)
         {
             stop();
-            resetTimecode(44100.0);
+            resetTimecode(_engine.getCurrentSamplerate());
             start();
         }
         else if(!_isPlaying)
         {
-            resetTimecode(44100.0);
+            resetTimecode(_engine.getCurrentSamplerate());
             repaint();
         }
     }
@@ -135,6 +141,20 @@ void TransportControls::buttonClicked(Button* button)
         {
             setTimeCodePosition(_totalLength);
         }
+        repaint();
+    }
+    else if(button == _stopButton)
+    {
+        if(_isPlaying)
+        {
+            stop();
+            setTimeCodePosition(0);
+        }
+        else if(!_isPlaying)
+        {
+            setTimeCodePosition(0);
+        }
+        resetTimecode(_engine.getCurrentSamplerate());
         repaint();
     }
 }
@@ -158,7 +178,7 @@ void TransportControls::refresh() {
 
 void TransportControls::setTimeCodePosition(int64 position)
 {
-    _currentTimeCode = samplesToTimeCode(position, 44100.0);
+    _currentTimeCode = samplesToTimeCode(position, _engine.getCurrentSamplerate());
 }
 
 void TransportControls::setTotalLength(int64 samples)
@@ -168,11 +188,11 @@ void TransportControls::setTotalLength(int64 samples)
 
 void TransportControls::timerCallback()
 {
-    if(millisecondsToSamples(_milliseconds, 44100.0) < _totalLength)
+    if(millisecondsToSamples(_milliseconds, _engine.getCurrentSamplerate()) < _totalLength)
     {
         _milliseconds += timerAmount;
-        int64 samples = millisecondsToSamples(_milliseconds, 44100.0);
-        _currentTimeCode = samplesToTimeCode(samples, 44100.0);
+        int64 samples = millisecondsToSamples(_milliseconds, _engine.getCurrentSamplerate());
+        _currentTimeCode = samplesToTimeCode(samples, _engine.getCurrentSamplerate());
         repaint();
     }
 }
@@ -207,7 +227,8 @@ void TransportControls::resized()
     _startButton->setBounds(50, 0, 50, 50);
     _recordButton->setBounds(100, 0, 50, 50);
     _forwardButton->setBounds(150, 0, 50, 50);
-    if(getWidth() < 200)
+    _stopButton->setBounds(200, 0, 50, 50);
+    if(getWidth() < 250)
     {
         _rewindButton->setBounds(0, 0, 0, 0);
         _startButton->setBounds(0, 0, 0, 0);

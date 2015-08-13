@@ -16,12 +16,15 @@
 namespace Audio
 {
     Engine::Engine(ApplicationCommandManager *commands) : _commands(commands) {
+
         AudioIODevice* current;
 
         _formats.registerBasicFormats();
         _devices.initialiseWithDefaultDevices(2, 2);
+        
         current = _devices.getCurrentAudioDevice();
 
+        _sampleRate = current->getCurrentSampleRate();
         _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
         _player.setProcessor(_mixer->getProcessorGraph());
         _devices.addAudioCallback(&_player);
@@ -45,13 +48,15 @@ namespace Audio
         track2->add(region->getTotalLength() / 2, region3);
         _mixer->add(track);
         _mixer->add(track2);
+        
+        _totalLength = track->getTotalLength();
     }
 
     Engine::~Engine() {
         _mixer->stop();
         _devices.removeAudioCallback(&_player);
     }
-
+    
     void Engine::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
         const String audio("Audio");
         int flags;
@@ -132,6 +137,16 @@ namespace Audio
         _commands->invokeDirectly(MainWindow::refreshComponents, true);
 
         return true;
+    }
+    
+    double Engine::getCurrentSamplerate() const
+    {
+        return _sampleRate;
+    }
+    
+    int64 Engine::getTotalLength() const
+    {
+        return _totalLength;
     }
 
     Mixer* Engine::getMixer() const {
