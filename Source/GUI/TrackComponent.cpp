@@ -50,9 +50,10 @@ void TrackMixerComponent::resized()
 }
 
 //==============================================================================
-TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track) : _track(track), _commands(commands)
+TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID)
+: _track(track), _commands(commands), _trackID(trackID)
 {
-    addAndMakeVisible(_trackMixer = new TrackMixerComponent(1));
+    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID));
 }
 
 TrackComponent::~TrackComponent()

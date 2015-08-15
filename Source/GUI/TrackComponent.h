@@ -39,7 +39,7 @@ private:
 class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
-    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track);
+    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID);
     ~TrackComponent();
 
     void paint (Graphics&);
@@ -47,8 +47,10 @@ public:
     void createRegionGUI(Audio::Region* region, AudioFormatManager& formatManager, File& audioFile);
     bool isInterestedInFileDrag(const StringArray& files) override;
     void filesDropped(const StringArray& files, int x, int y) override;
+    
 
 private:
+    int _trackID;
     Audio::Track *_track;
     ScopedPointer<TrackMixerComponent> _trackMixer;
     std::vector<RegionComponent *> _regions;
