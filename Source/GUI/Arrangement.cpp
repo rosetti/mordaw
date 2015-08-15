@@ -9,6 +9,7 @@
 */
 
 #include "Arrangement.h"
+
 #include "../Core/ProjectManager.h"
 
 //==============================================================================
@@ -19,8 +20,8 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     _addTrackButton = new TextButton("Add a track");
     _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
     addAndMakeVisible(_cursor);
-    _cursor->setAlwaysOnTop(true);
     addAndMakeVisible(_addTrackButton);
+    _cursor->setAlwaysOnTop(true);
 }
 
 Arrangement::~Arrangement()

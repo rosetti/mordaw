@@ -17,6 +17,24 @@
 //==============================================================================
 /*
 */
+class TrackMixerComponent : public Component
+                            //public ButtonListener
+{
+public:
+    TrackMixerComponent(const int trackID);
+    ~TrackMixerComponent();
+    
+    void paint (Graphics&);
+    void resized();
+    
+private:
+    const int _trackID;
+    ScopedPointer<ToggleButton> _muteButton, _soloButton;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackMixerComponent)
+
+};
+
+
 class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
@@ -31,6 +49,7 @@ public:
 
 private:
     Audio::Track *_track;
+    ScopedPointer<TrackMixerComponent> _trackMixer;
     std::vector<RegionComponent *> _regions;
     ApplicationCommandManager &_commands;
 
