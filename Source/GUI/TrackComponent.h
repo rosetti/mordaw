@@ -29,6 +29,7 @@ public:
     
 private:
     const int _trackID;
+    ScopedPointer<Label> _trackLabel;
     ScopedPointer<ToggleButton> _muteButton, _soloButton;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackMixerComponent)
 

@@ -13,6 +13,8 @@
 TrackMixerComponent::TrackMixerComponent(const int trackID)
 : _trackID(trackID)
 {
+    addAndMakeVisible(_trackLabel = new Label("Track " + String (trackID)));
+    
     addAndMakeVisible(_muteButton = new ToggleButton("Mute"));
     _muteButton->setColour(TextButton::buttonColourId, Colours::blue);
     //_muteButton->addListener(this);
@@ -32,13 +34,19 @@ void TrackMixerComponent::paint(Graphics &g)
     g.setColour(Colours::darkgrey);
     g.fillAll();
     g.drawRect(0, 0, 200, getParentHeight());
+    
+    g.setColour(Colours::white);
 }
 
 void TrackMixerComponent::resized()
 {
     int buttonSize = 16;
-    _muteButton->setBounds(0, buttonSize * 3, getWidth(), buttonSize);
-    _soloButton->setBounds(0, buttonSize * 2, getWidth(), buttonSize);
+    _muteButton->setBounds(0, buttonSize * 3, getWidth()/2, buttonSize);
+    _soloButton->setBounds(0, buttonSize * 2, getWidth()/2, buttonSize);
+    _trackLabel->setText("Track " + String (_trackID), NotificationType::dontSendNotification);
+    _trackLabel->setBounds(getWidth()/2+20, getParentHeight()/2, getWidth()/2, buttonSize);
+
+
 }
 
 //==============================================================================

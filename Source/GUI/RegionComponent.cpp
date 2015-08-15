@@ -9,6 +9,7 @@
 */
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Utility/Conversion.h"
 #include "RegionComponent.h"
 
 //==============================================================================
@@ -30,7 +31,10 @@ RegionComponent::~RegionComponent()
 void RegionComponent::paint (Graphics& g)
 {
     auto bounds = getLocalBounds();
-    bounds.setWidth(static_cast<int>(_thumbnail.getTotalLength()));
+    int totalLength = _thumbnail.getTotalLength();
+    int64 sampsLength = secondsToSamples(totalLength, 44100.0f);
+    int64 pixels = samplesToPixels(sampsLength, sampsLength, getParentWidth());
+    bounds.setWidth(static_cast<int>(pixels));
 
     g.drawRect(bounds);
     g.setColour(Colours::black);
