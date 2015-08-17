@@ -140,8 +140,12 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
 
         AudioFormatReader* reader = formatManager.createReaderFor(file);
         Audio::Region* region = new Audio::SampleRegion(reader, 1);
-        int64 positionSamples = pixelsToSamples(x, getWidth(), 44100);
-         
+        // 100 represents the number of seconds
+        int64 samplesRange = secondsToSamples(100, 44100);
+        // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+        // generated values.
+        int64 positionSamples = pixelsToSamples(x, 100*20, samplesRange);
+            
         _track->add(positionSamples, region);
         createRegionGUI(x, region, formatManager, file);
         }
