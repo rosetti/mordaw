@@ -51,8 +51,13 @@ void TrackMixerComponent::resized()
 }
 
 //==============================================================================
-TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, double sampleRate)
-: _track(track), _commands(commands), _trackID(trackID), _sampleRate(sampleRate), _mixerOffset(200)
+TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, double sampleRate, int64 pixelsPerClip)
+: _track(track),
+  _commands(commands),
+  _trackID(trackID),
+  _sampleRate(sampleRate),
+  _mixerOffset(200),
+  _pixelsPerClip(pixelsPerClip)
 {
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID));
     _trackMixer->setAlwaysOnTop(true);
@@ -65,7 +70,7 @@ TrackComponent::~TrackComponent()
 
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
 {
-    auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile);
+    auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile, _pixelsPerClip);
 
     _regions.push_back(regionGUI);
     _posX.push_back(posX);
@@ -88,11 +93,21 @@ void TrackComponent::resized()
 
         r.setX(_posX.at(current));
         int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
-        r.setWidth(lengthSeconds * 20);
+        r.setWidth(lengthSeconds * _pixelsPerClip);
         r.removeFromBottom(6);
         _regions.at(current)->setBounds(r.removeFromBottom(90));
     }
     _trackMixer->setBounds(0, 0, _mixerOffset, getParentHeight());
+    repaint();
+}
+
+void TrackComponent::setPixelsPerClip(int64 pixels)
+{
+    _pixelsPerClip = pixels;
+    for(auto region : _regions)
+    {
+        region->setPixelsPerClip(_pixelsPerClip);
+    }
     repaint();
 }
 
@@ -144,7 +159,7 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
             int64 samplesRange = secondsToSamples(100, _sampleRate);
             // 20 represents the size of a second in pixels - this all needs replacing with dynamically
             // generated values.
-            int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100*20, samplesRange);
+            int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
             
             _track->add(positionSamples, region);
             createRegionGUI(x, region, formatManager, file);

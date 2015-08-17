@@ -20,16 +20,17 @@
 class RegionComponent    : public Component
 {
 public:
-    RegionComponent(int64 x, double sampleRate, Audio::Region* region, AudioFormatManager& formatManager, const File& file);
+    RegionComponent(int64 x, double sampleRate, Audio::Region* region, AudioFormatManager& formatManager, const File& file, int64 pixelsPerClip);
     ~RegionComponent();
+    
+    void setPixelsPerClip(int64 pixels);
 
     void paint (Graphics&);
     void resized();
-    
-    int64 lengthInSamples();
-    
+        
 private:
     double _sampleRate;
+    int64 _pixelsPerClip;
     String _filename;
     int64 _posX;
     Audio::Region* _region;

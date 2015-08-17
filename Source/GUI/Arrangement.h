@@ -28,13 +28,15 @@ public:
     void paint(Graphics&);
     void resized();
     void addTrack(Audio::Track* track);
+    void setPixelsPerClip(int64 pixels);
 
 private:
-    int64 _mixerOffset, _timelineOffset;
+    int64 _mixerOffset, _pixelsPerClip;
     Array<TrackComponent *> _tracks;
     ScopedPointer<TimelineComponent> _timeline;
     ScopedPointer<TimelineCursor> _cursor;
     ScopedPointer<TextButton> _addTrackButton;
+    ScopedPointer<TextButton> _zoomInButton;
     ApplicationCommandManager &_commands;
     const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)

@@ -21,7 +21,7 @@ TimelineComponent::TimelineComponent(int64 numberOfClips, int64 mixerOffset)
         TimelineClip* clip = new TimelineClip(clips);
         addAndMakeVisible(clip);
         if(clips == 0)
-            clip->setBounds(mixerOffset, 0, _pixelsPerClip, 20);
+            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
         else
         {
             pixels += _pixelsPerClip;
@@ -40,7 +40,7 @@ TimelineComponent::TimelineComponent(int64 numberOfClips, int64 pixelsPerClip, i
         TimelineClip* clip = new TimelineClip(clips);
         addAndMakeVisible(clip);
         if(clips == 0)
-            clip->setBounds(0, 0, _pixelsPerClip, 20);
+            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
         else
         {
             pixels += _pixelsPerClip;

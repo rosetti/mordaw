@@ -13,15 +13,18 @@
 
 //==============================================================================
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
-: _engine(engine), _commands(commands), _mixerOffset(200), _timelineOffset(20)
+: _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(20)
 {
     _timeline = new TimelineComponent(100, _mixerOffset);
     _cursor = new TimelineCursor(_engine);
     _addTrackButton = new TextButton("Add a track");
     _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
+    _zoomInButton= new TextButton("+");
     //addAndMakeVisible(_cursor);
+    addAndMakeVisible(_zoomInButton);
     addAndMakeVisible(_addTrackButton);
     addAndMakeVisible(_timeline);
+    //setPixelsPerClip(40);
 }
 
 Arrangement::~Arrangement()
@@ -53,18 +56,30 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-    _timeline->setBounds(0,0, getWidth(), _timelineOffset);
+    _timeline->setBounds(0,0, getWidth(), 20);
     _cursor->setBounds(_mixerOffset, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
+    _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 10, 10);
 
     auto i = 0;
     for (auto track : _tracks) {
-        track->setBounds(0, (100 * i++) + _timelineOffset, getWidth(), 100);
+        track->setBounds(0, (100 * i++) + 20, getWidth(), 100);
+    }
+}
+
+void Arrangement::setPixelsPerClip(int64 pixels)
+{
+    _pixelsPerClip = pixels;
+    _timeline = new TimelineComponent(100, _pixelsPerClip, _mixerOffset);
+    addAndMakeVisible(_timeline);
+    for(auto track : _tracks)
+    {
+        track->setPixelsPerClip(_pixelsPerClip);
     }
 }
 
 void Arrangement::addTrack(Audio::Track* track) {
-    auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine.getCurrentSamplerate());
+    auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine.getCurrentSamplerate(), _pixelsPerClip);
     _tracks.add(trackComponent);
     addAndMakeVisible(trackComponent);
     resized();
