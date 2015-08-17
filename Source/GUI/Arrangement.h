@@ -20,7 +20,7 @@
 //==============================================================================
 /*
 */
-class Arrangement : public Component {
+class Arrangement : public Component, ButtonListener {
 public:
     Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine);
     ~Arrangement();
@@ -29,6 +29,8 @@ public:
     void resized();
     void addTrack(Audio::Track* track);
     void setPixelsPerClip(int64 pixels);
+    
+    virtual void buttonClicked(Button* button) override;
 
 private:
     int64 _mixerOffset, _pixelsPerClip;
@@ -39,6 +41,7 @@ private:
     ScopedPointer<TextButton> _zoomInButton;
     ApplicationCommandManager &_commands;
     const Audio::Engine &_engine;
+    Button::Listener *listener;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
 

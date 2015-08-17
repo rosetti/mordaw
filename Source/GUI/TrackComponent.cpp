@@ -46,8 +46,6 @@ void TrackMixerComponent::resized()
     _soloButton->setBounds(0, buttonSize * 2, getWidth()/2, buttonSize);
     _trackLabel->setText("Track " + String (_trackID), NotificationType::dontSendNotification);
     _trackLabel->setBounds(getWidth()/2+20, getParentHeight()/2, getWidth()/2, buttonSize);
-
-
 }
 
 //==============================================================================
@@ -109,6 +107,7 @@ void TrackComponent::setPixelsPerClip(int64 pixels)
         region->setPixelsPerClip(_pixelsPerClip);
     }
     repaint();
+    resized();
 }
 
 bool TrackComponent::isInterestedInFileDrag(const StringArray & files)

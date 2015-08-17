@@ -58,6 +58,7 @@ void RegionComponent::setPixelsPerClip(int64 pixels)
 {
     _pixelsPerClip = pixels;
     repaint();
+    resized();
 }
 
 void RegionComponent::resized()

@@ -20,6 +20,7 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     _addTrackButton = new TextButton("Add a track");
     _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
     _zoomInButton= new TextButton("+");
+    _zoomInButton->addListener(this);
     //addAndMakeVisible(_cursor);
     addAndMakeVisible(_zoomInButton);
     addAndMakeVisible(_addTrackButton);
@@ -31,6 +32,15 @@ Arrangement::~Arrangement()
 {
     for (auto track : _tracks) {
         delete track;
+    }
+}
+
+void Arrangement::buttonClicked(Button* button)
+{
+    if(button == _zoomInButton)
+    {
+        setPixelsPerClip(_pixelsPerClip += 10);
+        repaint();
     }
 }
 
@@ -59,7 +69,7 @@ void Arrangement::resized()
     _timeline->setBounds(0,0, getWidth(), 20);
     _cursor->setBounds(_mixerOffset, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
-    _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 10, 10);
+    _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
 
     auto i = 0;
     for (auto track : _tracks) {
@@ -76,6 +86,8 @@ void Arrangement::setPixelsPerClip(int64 pixels)
     {
         track->setPixelsPerClip(_pixelsPerClip);
     }
+    repaint();
+    resized();
 }
 
 void Arrangement::addTrack(Audio::Track* track) {
