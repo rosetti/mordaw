@@ -144,7 +144,7 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
         int64 samplesRange = secondsToSamples(100, 44100);
         // 20 represents the size of a second in pixels - this all needs replacing with dynamically
         // generated values.
-        int64 positionSamples = pixelsToSamples(x, 100*20, samplesRange);
+        int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100*20, samplesRange);
             
         _track->add(positionSamples, region);
         createRegionGUI(x, region, formatManager, file);
