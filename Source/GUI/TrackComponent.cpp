@@ -51,8 +51,8 @@ void TrackMixerComponent::resized()
 }
 
 //==============================================================================
-TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID)
-: _track(track), _commands(commands), _trackID(trackID), _mixerOffset(200)
+TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, double sampleRate)
+: _track(track), _commands(commands), _trackID(trackID), _sampleRate(sampleRate), _mixerOffset(200)
 {
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID));
     _trackMixer->setAlwaysOnTop(true);
@@ -65,35 +65,35 @@ TrackComponent::~TrackComponent()
 
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
 {
-    auto regionGUI = new RegionComponent(posX, region, formatManager, audioFile);
+    auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile);
 
     _regions.push_back(regionGUI);
     _posX.push_back(posX);
+    _sizeSamps.push_back(region->getLengthInSamples());
     addAndMakeVisible(regionGUI);
     resized();
-    setOpaque(true);
+    //setOpaque(true);
 }
 
 void TrackComponent::paint (Graphics& g)
 {
     g.setColour(Colours::grey);
     g.fillAll();
-    g.setColour(Colours::black);
-    g.drawRect(getBounds());
 }
 
 void TrackComponent::resized()
 {
     for(auto current = 0; current < _regions.size(); ++current){
-    //for (auto current = _regions.begin(), end = _regions.end(); current != end; ++current) {
         auto r(getLocalBounds().reduced(4));
 
         r.setX(_posX.at(current));
+        int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
+        r.setWidth(lengthSeconds * 20);
         r.removeFromBottom(6);
-        _regions.at(current)->setBounds(r.removeFromBottom(140));
-        //(current)->setBounds(r.removeFromBottom(140));
+        _regions.at(current)->setBounds(r.removeFromBottom(90));
     }
     _trackMixer->setBounds(0, 0, _mixerOffset, getParentHeight());
+    repaint();
 }
 
 bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
@@ -132,22 +132,27 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
             format = "AIFF";
         else if(fileString.contains(".flac"))
             format = "FLAC";
+            File file(fileString);
+            AudioFormatManager formatManager;
+            formatManager.registerBasicFormats();
+
+            AudioFormatReader* reader = formatManager.createReaderFor(file);
+            Audio::Region* region = new Audio::SampleRegion(reader, 1);
         if(x > _mixerOffset)
         {
-        File file(fileString);
-        AudioFormatManager formatManager;
-        formatManager.registerBasicFormats();
-
-        AudioFormatReader* reader = formatManager.createReaderFor(file);
-        Audio::Region* region = new Audio::SampleRegion(reader, 1);
-        // 100 represents the number of seconds
-        int64 samplesRange = secondsToSamples(100, 44100);
-        // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-        // generated values.
-        int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100*20, samplesRange);
+            // 100 represents the number of seconds
+            int64 samplesRange = secondsToSamples(100, _sampleRate);
+            // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+            // generated values.
+            int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100*20, samplesRange);
             
-        _track->add(positionSamples, region);
-        createRegionGUI(x, region, formatManager, file);
+            _track->add(positionSamples, region);
+            createRegionGUI(x, region, formatManager, file);
+        }
+        else if(x < _mixerOffset)
+        {
+            _track->add(0, region);
+            createRegionGUI(_mixerOffset, region, formatManager, file);
         }
     }
 }

@@ -38,7 +38,7 @@ private:
 class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
-    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID);
+    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, double sampleRate);
     ~TrackComponent();
 
     void paint (Graphics&);
@@ -50,11 +50,12 @@ public:
 
 private:
     int _trackID;
+    double _sampleRate;
     int64 _mixerOffset;
     Audio::Track *_track;
     ScopedPointer<TrackMixerComponent> _trackMixer;
     std::vector<RegionComponent *> _regions;
-    std::vector<int64> _posX;
+    std::vector<int64> _posX, _sizeSamps;
     ApplicationCommandManager &_commands;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackComponent)

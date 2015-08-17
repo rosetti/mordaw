@@ -64,7 +64,7 @@ void Arrangement::resized()
 }
 
 void Arrangement::addTrack(Audio::Track* track) {
-    auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1);
+    auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine.getCurrentSamplerate());
     _tracks.add(trackComponent);
     addAndMakeVisible(trackComponent);
     resized();

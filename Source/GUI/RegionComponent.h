@@ -20,19 +20,23 @@
 class RegionComponent    : public Component
 {
 public:
-    RegionComponent(int64 x, Audio::Region* region, AudioFormatManager& formatManager, const File& file);
+    RegionComponent(int64 x, double sampleRate, Audio::Region* region, AudioFormatManager& formatManager, const File& file);
     ~RegionComponent();
 
     void paint (Graphics&);
     void resized();
-
+    
+    int64 lengthInSamples();
+    
 private:
-    String filename;
+    double _sampleRate;
+    String _filename;
     int64 _posX;
     Audio::Region* _region;
     FileInputSource _inputSource;
     AudioThumbnail _thumbnail;
     AudioThumbnailCache _thumbnailCache;
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RegionComponent)
 };

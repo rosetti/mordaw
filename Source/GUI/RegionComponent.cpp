@@ -13,17 +13,18 @@
 #include "RegionComponent.h"
 
 //==============================================================================
-RegionComponent::RegionComponent(int64 x, Audio::Region* region, AudioFormatManager& formatManager, const File& file)
+RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* region, AudioFormatManager& formatManager, const File& file)
     : _region(region),
     _inputSource(file),
     _thumbnail(1024, formatManager, _thumbnailCache),
     _thumbnailCache(100),
-    _posX(x)
+    _posX(x),
+    _sampleRate(sampleRate)
 {
     _thumbnail.setSource(&_inputSource);
     setOpaque(true);
     setAlwaysOnTop(true);
-    filename = file.getFileName();
+    _filename = file.getFileName();
 }
 
 RegionComponent::~RegionComponent()
@@ -34,21 +35,21 @@ RegionComponent::~RegionComponent()
 
 void RegionComponent::paint (Graphics& g)
 {
-    g.fillAll(Colours::grey);
-    int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
-    int64 posSeconds = samplesToSeconds(posSamples, 44100.f);
-    int64 lengthSeconds = samplesToSeconds(_region->getLengthInSamples(), 44100.f);
-    
     Rectangle<int> bounds;
+    int64 lengthSeconds = samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
     bounds.setHeight(getParentHeight());
     bounds.setWidth(lengthSeconds * 20);
+    g.reduceClipRegion(bounds);
+    g.fillAll(Colours::grey);
+    //int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
+    //int64 posSeconds = samplesToSeconds(posSamples, 44100.f);
     g.setColour(Colours::black);
     g.fillRect(bounds);
     g.setColour(Colours::green);
     _thumbnail.drawChannels(g, bounds, 0.0f, lengthSeconds, 0.5f);
     g.setColour(Colours::white);
     g.setFont(8.0f);
-    g.drawText(filename, bounds, Justification::topLeft);
+    g.drawText(_filename, bounds, Justification::topLeft);
     repaint();
 }
 
