@@ -85,7 +85,7 @@ void TimelineCursor::timerCallback()
     }*/
     if(_engine.getMixer()->isPlaying())
     {
-
+        
     }
 }
 

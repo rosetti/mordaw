@@ -9,19 +9,19 @@
 */
 
 #include "Arrangement.h"
-
 #include "../Core/ProjectManager.h"
 
 //==============================================================================
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
-: _engine(engine), _commands(commands)
+: _engine(engine), _commands(commands), _mixerOffset(200), _timelineOffset(20)
 {
+    _timeline = new TimelineComponent(100, _mixerOffset);
     _cursor = new TimelineCursor(_engine);
     _addTrackButton = new TextButton("Add a track");
     _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
-    addAndMakeVisible(_cursor);
+    //addAndMakeVisible(_cursor);
     addAndMakeVisible(_addTrackButton);
-    _cursor->setAlwaysOnTop(true);
+    addAndMakeVisible(_timeline);
 }
 
 Arrangement::~Arrangement()
@@ -46,19 +46,20 @@ void Arrangement::paint (Graphics& g)
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 
     g.setColour (Colours::lightblue);
-    g.setFont (14.0f);
+    g.setFont (15.0f);
     g.drawText ("Arrangement", getLocalBounds(),
                 Justification::centred, true);   // draw some placeholder text
 }
 
 void Arrangement::resized()
 {
-    _cursor->setBounds(200, 0, getParentWidth(), getParentHeight());
+    _timeline->setBounds(0,0, getWidth(), _timelineOffset);
+    _cursor->setBounds(_mixerOffset, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
 
     auto i = 0;
     for (auto track : _tracks) {
-        track->setBounds(0, 100 * i++, getWidth(), 100);
+        track->setBounds(0, (100 * i++) + _timelineOffset, getWidth(), 100);
     }
 }
 

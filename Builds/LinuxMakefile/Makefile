@@ -53,6 +53,7 @@ OBJECTS := \
   $(OBJDIR)/ProjectManager_74d90745.o \
   $(OBJDIR)/RegionComponent_b9723f56.o \
   $(OBJDIR)/TrackComponent_d82131ef.o \
+  $(OBJDIR)/TimelineComponent_3d790929.o \
   $(OBJDIR)/TimelineCursor_f1957674.o \
   $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/Arrangement_15b9fd77.o \
@@ -120,6 +121,11 @@ $(OBJDIR)/RegionComponent_b9723f56.o: ../../Source/GUI/RegionComponent.cpp
 $(OBJDIR)/TrackComponent_d82131ef.o: ../../Source/GUI/TrackComponent.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling TrackComponent.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/TimelineComponent_3d790929.o: ../../Source/GUI/TimelineComponent.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling TimelineComponent.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TimelineCursor_f1957674.o: ../../Source/GUI/TimelineCursor.cpp

@@ -18,6 +18,11 @@ namespace Audio {
     Region::~Region()
     {
     }
+    
+    int64 Region::getLengthInSamples()
+    {
+        return _totalLength;
+    }
 
     bool Region::overlaps(int64 position, int64 startPosition) {
         return position >= startPosition && position < getTotalLength() + startPosition;

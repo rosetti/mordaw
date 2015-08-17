@@ -20,13 +20,15 @@
 class RegionComponent    : public Component
 {
 public:
-    RegionComponent(Audio::Region* region, AudioFormatManager& formatManager, const File& file);
+    RegionComponent(int64 x, Audio::Region* region, AudioFormatManager& formatManager, const File& file);
     ~RegionComponent();
 
     void paint (Graphics&);
     void resized();
 
 private:
+    String filename;
+    int64 _posX;
     Audio::Region* _region;
     FileInputSource _inputSource;
     AudioThumbnail _thumbnail;

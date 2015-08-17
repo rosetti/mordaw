@@ -133,6 +133,7 @@
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
     <ClCompile Include="..\..\Source\GUI\RegionComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TrackComponent.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\TimelineComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TimelineCursor.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MixerView.cpp"/>
     <ClCompile Include="..\..\Source\GUI\Arrangement.cpp"/>
@@ -1296,6 +1297,8 @@
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
     <ClInclude Include="..\..\Source\GUI\RegionComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TrackComponent.h"/>
+    <ClInclude Include="..\..\Source\GUI\TimelineComponent.h"/>
+    <ClInclude Include="..\..\Source\GUI\TimelineClip.h"/>
     <ClInclude Include="..\..\Source\GUI\TimelineCursor.h"/>
     <ClInclude Include="..\..\Source\GUI\MixerView.h"/>
     <ClInclude Include="..\..\Source\GUI\Arrangement.h"/>

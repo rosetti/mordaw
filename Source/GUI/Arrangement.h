@@ -14,6 +14,7 @@
 #include "TrackComponent.h"
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineCursor.h"
+#include "TimelineComponent.h"
 #include "../Audio/Engine.h"
 
 //==============================================================================
@@ -29,7 +30,9 @@ public:
     void addTrack(Audio::Track* track);
 
 private:
+    int64 _mixerOffset, _timelineOffset;
     Array<TrackComponent *> _tracks;
+    ScopedPointer<TimelineComponent> _timeline;
     ScopedPointer<TimelineCursor> _cursor;
     ScopedPointer<TextButton> _addTrackButton;
     ApplicationCommandManager &_commands;

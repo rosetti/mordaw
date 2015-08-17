@@ -19,7 +19,7 @@ TransportControls::TransportControls(ApplicationCommandManager &commands, const 
     _isPlaying(false), 
     _isRecording(false)
 {
-    _totalLength = _engine.getTotalLength();
+    _totalLength = 15004043003;
     resetTimecode(_engine.getCurrentSamplerate());
     timerAmount = 60;
     drawButtons();

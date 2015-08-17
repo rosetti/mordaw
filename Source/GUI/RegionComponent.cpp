@@ -13,36 +13,46 @@
 #include "RegionComponent.h"
 
 //==============================================================================
-RegionComponent::RegionComponent(Audio::Region* region, AudioFormatManager& formatManager, const File& file)
+RegionComponent::RegionComponent(int64 x, Audio::Region* region, AudioFormatManager& formatManager, const File& file)
     : _region(region),
     _inputSource(file),
     _thumbnail(1024, formatManager, _thumbnailCache),
-    _thumbnailCache(5)
+    _thumbnailCache(100),
+    _posX(x)
 {
     _thumbnail.setSource(&_inputSource);
     setOpaque(true);
     setAlwaysOnTop(true);
+    filename = file.getFileName();
 }
 
 RegionComponent::~RegionComponent()
 {
+    //_thumbnailCache.clear();
+    _thumbnail.clear();
 }
 
 void RegionComponent::paint (Graphics& g)
 {
-    auto bounds = getLocalBounds();
-    int totalLength = _thumbnail.getTotalLength();
-    int64 sampsLength = secondsToSamples(totalLength, 44100.0f);
-    int64 pixels = samplesToPixels(sampsLength, sampsLength, getParentWidth());
-    bounds.setWidth(static_cast<int>(pixels));
-
-    g.drawRect(bounds);
+    g.fillAll(Colours::grey);
+    int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
+    int64 posSeconds = samplesToSeconds(posSamples, 44100.f);
+    int64 lengthSeconds = samplesToSeconds(_region->getLengthInSamples(), 44100.f);
+    
+    Rectangle<int> bounds;
+    bounds.setHeight(getParentHeight());
+    bounds.setWidth(lengthSeconds * 20);
     g.setColour(Colours::black);
     g.fillRect(bounds);
     g.setColour(Colours::green);
-    _thumbnail.drawChannels(g, bounds.reduced(2), 0.0f, _thumbnail.getTotalLength(), 1.0f);
+    _thumbnail.drawChannels(g, bounds, 0.0f, lengthSeconds, 0.5f);
+    g.setColour(Colours::white);
+    g.setFont(8.0f);
+    g.drawText(filename, bounds, Justification::topLeft);
+    repaint();
 }
 
 void RegionComponent::resized()
 {
+    repaint();
 }

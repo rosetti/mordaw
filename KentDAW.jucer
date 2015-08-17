@@ -31,14 +31,19 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
-        <FILE id="hGO2yG" name="RegionComponent.cpp" compile="1" resource="0"
+        <FILE id="E2sCOh" name="RegionComponent.cpp" compile="1" resource="0"
               file="Source/GUI/RegionComponent.cpp"/>
-        <FILE id="dKsCIc" name="RegionComponent.h" compile="0" resource="0"
+        <FILE id="SSH1AY" name="RegionComponent.h" compile="0" resource="0"
               file="Source/GUI/RegionComponent.h"/>
-        <FILE id="JhqDnS" name="TrackComponent.cpp" compile="1" resource="0"
+        <FILE id="pCWmv3" name="TrackComponent.cpp" compile="1" resource="0"
               file="Source/GUI/TrackComponent.cpp"/>
-        <FILE id="Q8b98c" name="TrackComponent.h" compile="0" resource="0"
+        <FILE id="T4xvj5" name="TrackComponent.h" compile="0" resource="0"
               file="Source/GUI/TrackComponent.h"/>
+        <FILE id="kYmyb3" name="TimelineComponent.cpp" compile="1" resource="0"
+              file="Source/GUI/TimelineComponent.cpp"/>
+        <FILE id="IyZ8oH" name="TimelineComponent.h" compile="0" resource="0"
+              file="Source/GUI/TimelineComponent.h"/>
+        <FILE id="iGKNa4" name="TimelineClip.h" compile="0" resource="0" file="Source/GUI/TimelineClip.h"/>
         <FILE id="tyZ9u2" name="TimelineCursor.cpp" compile="1" resource="0"
               file="Source/GUI/TimelineCursor.cpp"/>
         <FILE id="qZceVI" name="TimelineCursor.h" compile="0" resource="0"

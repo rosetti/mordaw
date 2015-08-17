@@ -9,6 +9,8 @@
 */
 
 #include "TrackComponent.h"
+#include "../Utility/Conversion.h"
+#include "SampleRegion.h"
 
 TrackMixerComponent::TrackMixerComponent(const int trackID)
 : _trackID(trackID)
@@ -33,9 +35,8 @@ void TrackMixerComponent::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey);
     g.fillAll();
+    g.setColour(Colours::black);
     g.drawRect(0, 0, 200, getParentHeight());
-    
-    g.setColour(Colours::white);
 }
 
 void TrackMixerComponent::resized()
@@ -51,20 +52,23 @@ void TrackMixerComponent::resized()
 
 //==============================================================================
 TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID)
-: _track(track), _commands(commands), _trackID(trackID)
+: _track(track), _commands(commands), _trackID(trackID), _mixerOffset(200)
 {
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID));
+    _trackMixer->setAlwaysOnTop(true);
+
 }
 
 TrackComponent::~TrackComponent()
 {
 }
 
-void TrackComponent::createRegionGUI(Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
+void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
 {
-    auto regionGUI = new RegionComponent(region, formatManager, audioFile);
+    auto regionGUI = new RegionComponent(posX, region, formatManager, audioFile);
 
     _regions.push_back(regionGUI);
+    _posX.push_back(posX);
     addAndMakeVisible(regionGUI);
     resized();
     setOpaque(true);
@@ -74,17 +78,22 @@ void TrackComponent::paint (Graphics& g)
 {
     g.setColour(Colours::grey);
     g.fillAll();
+    g.setColour(Colours::black);
+    g.drawRect(getBounds());
 }
 
 void TrackComponent::resized()
 {
-    for (auto current = _regions.begin(), end = _regions.end(); current != end; ++current) {
+    for(auto current = 0; current < _regions.size(); ++current){
+    //for (auto current = _regions.begin(), end = _regions.end(); current != end; ++current) {
         auto r(getLocalBounds().reduced(4));
 
+        r.setX(_posX.at(current));
         r.removeFromBottom(6);
-        (*current)->setBounds(r.removeFromBottom(140));
+        _regions.at(current)->setBounds(r.removeFromBottom(140));
+        //(current)->setBounds(r.removeFromBottom(140));
     }
-    _trackMixer->setBounds(0, 0, 200, getParentHeight());
+    _trackMixer->setBounds(0, 0, _mixerOffset, getParentHeight());
 }
 
 bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
@@ -113,7 +122,28 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
 
 void TrackComponent::filesDropped(const StringArray & files, int x, int y)
 {
-    for (auto current = files.begin(), end = files.end(); current != end; ++current) {
+    for (auto current = files.begin(), end = files.end(); current != end; ++current)
+    {
+        const String fileString = *current;
+        String format;
+        if(fileString.contains(".wav"))
+            format = "WAV";
+        else if(fileString.contains(".aif") || fileString.contains(".aiff"))
+            format = "AIFF";
+        else if(fileString.contains(".flac"))
+            format = "FLAC";
+        if(x > _mixerOffset)
+        {
+        File file(fileString);
+        AudioFormatManager formatManager;
+        formatManager.registerBasicFormats();
 
+        AudioFormatReader* reader = formatManager.createReaderFor(file);
+        Audio::Region* region = new Audio::SampleRegion(reader, 1);
+        int64 positionSamples = pixelsToSamples(x, getWidth(), 44100);
+         
+        _track->add(positionSamples, region);
+        createRegionGUI(x, region, formatManager, file);
+        }
     }
 }

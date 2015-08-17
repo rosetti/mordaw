@@ -21,6 +21,7 @@ namespace Audio
         virtual ~Region();
 
         bool overlaps(int64 position, int64 startPosition);
+        int64 getLengthInSamples();
 
         virtual double getBaseSampleRate() const = 0;
 
