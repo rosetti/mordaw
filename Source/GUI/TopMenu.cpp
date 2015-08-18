@@ -19,6 +19,7 @@ TopMenu::TopMenu(ApplicationCommandManager& commandsManager) : MenuBarModel(), _
     addFileMenu(commands);
     addEditMenu(commands);
     addViewMenu(commands);
+	addProjectMenu(commands);
     addTransportMenu(commands);
 
     menuItemsChanged();
@@ -61,6 +62,14 @@ void TopMenu::addViewMenu(ApplicationCommandManager* commands) {
     viewMenu.addCommandItem(commands, MainComponent::showArrangement);
     viewMenu.addCommandItem(commands, MainComponent::showMixer);
     _menus.push_back(std::pair<String, PopupMenu>("View", viewMenu));
+}
+
+void TopMenu::addProjectMenu(ApplicationCommandManager* commands) {
+	PopupMenu projectMenu;
+
+	projectMenu.addCommandItem(commands, ProjectManager::addTrack);
+	projectMenu.addCommandItem(commands, ProjectManager::addRegion);
+	_menus.push_back(std::pair<String, PopupMenu>("Project", projectMenu));
 }
 
 void TopMenu::addTransportMenu(ApplicationCommandManager* commands) {

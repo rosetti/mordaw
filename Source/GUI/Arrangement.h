@@ -28,6 +28,7 @@ public:
     void paint(Graphics&);
     void resized();
     void addTrack(Audio::Track* track);
+	void addRegionToTrack(int _trackID);
     void setPixelsPerClip(int64 pixels);
     
     virtual void buttonClicked(Button* button) override;

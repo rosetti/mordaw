@@ -88,7 +88,11 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
 
     case addRegion:
         result.setInfo("Add region", "Add a region to the selected track.", projectManagement, 0);
-        break;
+		break;
+
+	case addRegionToTrack:
+		result.setInfo("Add region to track", "Add region to a specific track", projectManagement, 0);
+		break;
 
     default:
         break;

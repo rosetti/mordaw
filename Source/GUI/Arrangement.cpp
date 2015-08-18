@@ -66,9 +66,9 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-	setSize((100 * _pixelsPerClip) + _mixerOffset, 100 + (_tracks.size() * 100));
-    _timeline->setBounds(0,0, (100 * _pixelsPerClip)+ _mixerOffset, 20);
-    _cursor->setBounds(_mixerOffset, 0, getParentWidth(), getParentHeight());
+	setSize((100 * (int)_pixelsPerClip) + (int)_mixerOffset, 100 + (_tracks.size() * 100));
+    _timeline->setBounds(0,0, (100 * (int)_pixelsPerClip)+ (int)_mixerOffset, 20);
+    _cursor->setBounds((int)_mixerOffset, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
     _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
 
@@ -96,4 +96,8 @@ void Arrangement::addTrack(Audio::Track* track) {
     _tracks.add(trackComponent);
     addAndMakeVisible(trackComponent);
     resized();
+}
+
+void Arrangement::addRegionToTrack(int _trackID) {
+
 }

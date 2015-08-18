@@ -25,13 +25,14 @@ public:
     void getAllCommands(Array<CommandID>& commands) const;
     bool perform(const ApplicationCommandTarget::InvocationInfo & info);
 
-    enum Commands {
-        newProject = 0x100,
-        openProject = 0x101,
-        saveProject = 0x102,
-        saveProjectAs = 0x103,
-        addTrack = 0x104,
-        addRegion = 0x105,
+	enum Commands {
+		newProject = 0x100,
+		openProject = 0x101,
+		saveProject = 0x102,
+		saveProjectAs = 0x103,
+		addTrack = 0x104,
+		addRegion = 0x105,
+		addRegionToTrack = 0x106,
     };
 
 private:
