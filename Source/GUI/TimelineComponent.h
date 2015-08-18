@@ -26,9 +26,12 @@ public:
 
     void paint (Graphics&);
     void resized();
+    
+    void setNumberOfClips(int64 numberOfClips);
 
 private:
     std::vector<TimelineClip*> _clips;
+    int64 _mixerOffset;
     int64 _numberOfClips;
     int64 _pixelsPerClip;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TimelineComponent)

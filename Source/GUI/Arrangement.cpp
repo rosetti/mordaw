@@ -13,7 +13,7 @@
 
 //==============================================================================
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
-: _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(20)
+: _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(30)
 {
     _timeline = new TimelineComponent(100, _mixerOffset);
     _cursor = new TimelineCursor(_engine);
@@ -25,8 +25,12 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     addAndMakeVisible(_zoomInButton);
     addAndMakeVisible(_addTrackButton);
     addAndMakeVisible(_timeline);
+<<<<<<< HEAD
 	
     //setPixelsPerClip(40);
+=======
+    setPixelsPerClip(30);
+>>>>>>> origin/master
 }
 
 Arrangement::~Arrangement()

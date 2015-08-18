@@ -49,6 +49,8 @@ public:
     
     void setPixelsPerClip(int64 pixels);
     
+    void mouseDown (const MouseEvent& e);
+    void mouseDrag (const MouseEvent& e);
 
 private:
     int _trackID;
@@ -60,6 +62,7 @@ private:
     std::vector<RegionComponent *> _regions;
     std::vector<int64> _posX, _sizeSamps;
     ApplicationCommandManager &_commands;
+    ComponentDragger dragger;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackComponent)
 };
