@@ -67,7 +67,7 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-	setSize((100 * _pixelsPerClip) + _mixerOffset, getHeight());
+	setSize((100 * _pixelsPerClip) + _mixerOffset, 100 + (_tracks.size() * 100));
     _timeline->setBounds(0,0, (100 * _pixelsPerClip)+ _mixerOffset, 20);
     _cursor->setBounds(_mixerOffset, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
