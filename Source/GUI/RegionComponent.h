@@ -34,9 +34,9 @@ private:
     String _filename;
     int64 _posX;
     Audio::Region* _region;
-    FileInputSource _inputSource;
-    AudioThumbnail _thumbnail;
-    AudioThumbnailCache _thumbnailCache;
+    ScopedPointer<FileInputSource> _inputSource;
+    ScopedPointer<AudioThumbnail> _thumbnail;
+    ScopedPointer<AudioThumbnailCache> _thumbnailCache;
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RegionComponent)

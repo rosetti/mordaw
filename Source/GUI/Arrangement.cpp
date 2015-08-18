@@ -44,6 +44,20 @@ void Arrangement::buttonClicked(Button* button)
     }
 }
 
+void Arrangement::mouseDown(const MouseEvent &e) {
+
+	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+
+	// check the mod keys ..
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+	{
+		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+		arrangeMenu_->clear();
+		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+		arrangeMenu_->show();
+	}
+}
+
 void Arrangement::paint (Graphics& g)
 {
     /* This demo code just fills the component's background and

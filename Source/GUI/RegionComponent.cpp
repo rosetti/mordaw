@@ -15,14 +15,14 @@
 //==============================================================================
 RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* region, AudioFormatManager& formatManager, const File& file, int64 pixelsPerClip)
     : _region(region),
-    _inputSource(file),
-    _thumbnail(1024, formatManager, _thumbnailCache),
-    _thumbnailCache(100),
     _posX(x),
     _sampleRate(sampleRate),
     _pixelsPerClip(pixelsPerClip)
 {
-    _thumbnail.setSource(&_inputSource);
+	_inputSource = new FileInputSource(file),
+	_thumbnailCache = new AudioThumbnailCache(100);
+	_thumbnail = new AudioThumbnail(1024, formatManager, *_thumbnailCache);
+    _thumbnail->setSource(_inputSource);
     setOpaque(true);
     setAlwaysOnTop(true);
     _filename = file.getFileName();
@@ -30,8 +30,10 @@ RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* regi
 
 RegionComponent::~RegionComponent()
 {
-    //_thumbnailCache.clear();
-    _thumbnail.clear();
+	_thumbnail->setSource(nullptr);
+	_thumbnail->clear();
+    _thumbnailCache->clear();
+    //_thumbnail->clear();
 }
 
 void RegionComponent::paint (Graphics& g)
@@ -47,7 +49,7 @@ void RegionComponent::paint (Graphics& g)
     g.setColour(Colours::black);
     g.fillRect(bounds_);
     g.setColour(Colours::green);
-    _thumbnail.drawChannels(g, bounds_, 0.0f, (int)lengthSeconds, 0.5f);
+    _thumbnail->drawChannels(g, bounds_, 0.0f, (int)lengthSeconds, 0.5f);
     g.setColour(Colours::white);
     g.setFont(8.0f);
     g.drawText(_filename, bounds_, Justification::topLeft);

@@ -33,6 +33,8 @@ public:
     
     virtual void buttonClicked(Button* button) override;
 
+	void mouseDown(const MouseEvent & e);
+
 private:
     int64 _mixerOffset, _pixelsPerClip;
     Array<TrackComponent *> _tracks;

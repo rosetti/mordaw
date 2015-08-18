@@ -11,6 +11,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
 #include "MainWindow.h"
+#include "../Core/ProjectManager.h"
 
 //==============================================================================
 MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::Engine &engine) :
@@ -64,6 +65,20 @@ void MainComponent::resized()
 
     // getHeight() - 200
     _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
+}
+
+void MainComponent::mouseDown(const MouseEvent &e) {
+
+	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+
+	// check the mod keys ..
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+	{
+		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+		arrangeMenu_->clear();
+		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+		arrangeMenu_->show();
+	}
 }
 
 void MainComponent::addTrack(Audio::Track* track) {
