@@ -25,6 +25,7 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     addAndMakeVisible(_zoomInButton);
     addAndMakeVisible(_addTrackButton);
     addAndMakeVisible(_timeline);
+	
     //setPixelsPerClip(40);
 }
 
@@ -66,7 +67,8 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-    _timeline->setBounds(0,0, getWidth(), 20);
+	setSize((100 * _pixelsPerClip) + _mixerOffset, getHeight());
+    _timeline->setBounds(0,0, (100 * _pixelsPerClip)+ _mixerOffset, 20);
     _cursor->setBounds(_mixerOffset, 0, getParentWidth(), getParentHeight());
     _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
     _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
