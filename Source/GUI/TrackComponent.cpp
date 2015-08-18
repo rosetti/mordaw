@@ -181,7 +181,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
 	// check the mod keys ..
-	if (modifiers.isRightButtonDown() || modifiers.isCtrlDown())
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
 	{
 		PopupMenu *trackMenu_ = new PopupMenu();
 		trackMenu_->clear();
@@ -192,7 +192,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 			if (result = 1) {
 				FileChooser chooser("Select an audio file to add...",
 					File::nonexistent,
-					"*.wav;*aif;*.flac");
+					"*.wav; *aif; *.flac");
 				if (chooser.browseForFileToOpen()) {
 					File audioFile(chooser.getResult());
 					const String fileString = audioFile.getFullPathName();
