@@ -10,7 +10,7 @@
 
 #include "TrackComponent.h"
 #include "../Utility/Conversion.h"
-#include "SampleRegion.h"
+#include "../Audio/SampleRegion.h"
 
 TrackMixerComponent::TrackMixerComponent(const int trackID)
 : _trackID(trackID)

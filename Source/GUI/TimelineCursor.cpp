@@ -10,7 +10,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineCursor.h"
-#include "Conversion.h"
+#include "../Utility/Conversion.h"
 
 //==============================================================================
 TimelineCursor::TimelineCursor(const Audio::Engine &engine)
