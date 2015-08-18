@@ -86,12 +86,12 @@ void TrackComponent::paint (Graphics& g)
 
 void TrackComponent::resized()
 {
-    for(auto current = 0; current < _regions.size(); ++current){
+    for(size_t current = 0; current < _regions.size(); ++current){
         auto r(getLocalBounds().reduced(4));
 
-        r.setX(_posX.at(current));
-        int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
-        r.setWidth(lengthSeconds * _pixelsPerClip);
+        r.setX((int)_posX.at(current));
+        int64 lengthSeconds = (int64)samplesToSeconds(_sizeSamps.at(current), (int64)_sampleRate);
+        r.setWidth((int)lengthSeconds * _pixelsPerClip);
         r.removeFromBottom(6);
         _regions.at(current)->setBounds(r.removeFromBottom(90));
     }

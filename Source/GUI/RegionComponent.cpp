@@ -36,21 +36,21 @@ RegionComponent::~RegionComponent()
 
 void RegionComponent::paint (Graphics& g)
 {
-    Rectangle<int> bounds;
-    int64 lengthSeconds = samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
-    bounds.setHeight(getParentHeight());
-    bounds.setWidth(lengthSeconds * _pixelsPerClip);
-    g.reduceClipRegion(bounds);
+    Rectangle<int> bounds_;
+    int64 lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), (int64)_sampleRate);
+    bounds_.setHeight(getParentHeight());
+    bounds_.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
+    g.reduceClipRegion(bounds_);
     g.fillAll(Colours::grey);
     //int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
     //int64 posSeconds = samplesToSeconds(posSamples, 44100.f);
     g.setColour(Colours::black);
-    g.fillRect(bounds);
+    g.fillRect(bounds_);
     g.setColour(Colours::green);
-    _thumbnail.drawChannels(g, bounds, 0.0f, lengthSeconds, 0.5f);
+    _thumbnail.drawChannels(g, bounds_, 0.0f, (int)lengthSeconds, 0.5f);
     g.setColour(Colours::white);
     g.setFont(8.0f);
-    g.drawText(_filename, bounds, Justification::topLeft);
+    g.drawText(_filename, bounds_, Justification::topLeft);
     repaint();
 }
 
