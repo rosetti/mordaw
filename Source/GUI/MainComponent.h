@@ -40,6 +40,7 @@ public:
     
 private:
     LeftSide _leftSide;
+	Viewport _arrangementView;
     Arrangement _arrangement;
     MixerView _mixerView;
     TransportControls _transportControls;

@@ -12,7 +12,7 @@
 #define TIMELINECURSOR_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "Engine.h"
+#include "../Audio/Engine.h"
 
 //==============================================================================
 /*

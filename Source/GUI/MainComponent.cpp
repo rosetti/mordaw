@@ -16,12 +16,16 @@
 MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::Engine &engine) :
     _leftSide(commands),
     _arrangement(commands, engine),
+	_arrangementView(),
     _mixerView(commands),
     _transportControls(commands, engine),
     _commands(commands)
 {
     addAndMakeVisible(_leftSide);
     addAndMakeVisible(_arrangement);
+	addAndMakeVisible(_arrangementView);
+	_arrangementView.setViewedComponent(&_arrangement);
+	_arrangementView.setScrollBarsShown(true, true, false, false);
     addAndMakeVisible(_transportControls);
 }
 
@@ -54,6 +58,7 @@ void MainComponent::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     _leftSide.setBounds(0, 0, 300, getHeight());
+	_arrangementView.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
     _arrangement.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
     _mixerView.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
 
