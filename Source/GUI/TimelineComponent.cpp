@@ -13,7 +13,7 @@
 
 //==============================================================================
 TimelineComponent::TimelineComponent(int64 numberOfClips, int64 mixerOffset)
-: _numberOfClips(numberOfClips), _pixelsPerClip(20)
+: _numberOfClips(numberOfClips), _pixelsPerClip(20), _mixerOffset(mixerOffset)
 {
     auto pixels = mixerOffset;
     for(auto clips = 0; clips < numberOfClips; ++clips)
@@ -32,7 +32,7 @@ TimelineComponent::TimelineComponent(int64 numberOfClips, int64 mixerOffset)
 }
 
 TimelineComponent::TimelineComponent(int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
-: _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip)
+: _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset)
 {
     auto pixels = mixerOffset;
     for(auto clips = 0; clips < numberOfClips; ++clips)
@@ -55,6 +55,26 @@ TimelineComponent::~TimelineComponent()
     for(auto clip : _clips)
         delete clip;
 }
+
+void TimelineComponent::setNumberOfClips(int64 numberOfClips)
+{
+    auto pixels = _mixerOffset;
+    _clips.clear();
+    for(auto clips = 0; clips < numberOfClips; ++clips)
+    {
+        TimelineClip* clip = new TimelineClip(clips);
+        addAndMakeVisible(clip);
+        if(clips == 0)
+            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
+        else
+        {
+            pixels += _pixelsPerClip;
+            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
+        }
+        _clips.push_back(clip);
+    }
+}
+
 
 void TimelineComponent::paint (Graphics& g)
 {

@@ -51,13 +51,12 @@ void RegionComponent::paint (Graphics& g)
     g.setColour(Colours::white);
     g.setFont(8.0f);
     g.drawText(_filename, bounds, Justification::topLeft);
-    repaint();
+    resized();
 }
 
 void RegionComponent::setPixelsPerClip(int64 pixels)
 {
     _pixelsPerClip = pixels;
-    repaint();
     resized();
 }
 

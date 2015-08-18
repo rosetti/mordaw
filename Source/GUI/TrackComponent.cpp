@@ -66,6 +66,16 @@ TrackComponent::~TrackComponent()
 {
 }
 
+void TrackComponent::mouseDown (const MouseEvent& e)
+{
+    dragger.startDraggingComponent (getComponentAt(e.x, e.y), e);
+}
+
+void TrackComponent::mouseDrag (const MouseEvent& e)
+{
+
+}
+
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
 {
     auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile, _pixelsPerClip);
@@ -89,6 +99,7 @@ void TrackComponent::resized()
     for(auto current = 0; current < _regions.size(); ++current){
         auto r(getLocalBounds().reduced(4));
 
+    
         r.setX(_posX.at(current));
         int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
         r.setWidth(lengthSeconds * _pixelsPerClip);
