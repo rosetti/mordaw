@@ -25,12 +25,7 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     addAndMakeVisible(_zoomInButton);
     addAndMakeVisible(_addTrackButton);
     addAndMakeVisible(_timeline);
-<<<<<<< HEAD
-	
-    //setPixelsPerClip(40);
-=======
     setPixelsPerClip(30);
->>>>>>> origin/master
 }
 
 Arrangement::~Arrangement()

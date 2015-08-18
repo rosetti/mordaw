@@ -50,13 +50,8 @@ void RegionComponent::paint (Graphics& g)
     _thumbnail.drawChannels(g, bounds_, 0.0f, (int)lengthSeconds, 0.5f);
     g.setColour(Colours::white);
     g.setFont(8.0f);
-<<<<<<< HEAD
     g.drawText(_filename, bounds_, Justification::topLeft);
-    repaint();
-=======
-    g.drawText(_filename, bounds, Justification::topLeft);
     resized();
->>>>>>> origin/master
 }
 
 void RegionComponent::setPixelsPerClip(int64 pixels)

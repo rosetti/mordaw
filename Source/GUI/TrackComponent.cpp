@@ -99,16 +99,9 @@ void TrackComponent::resized()
     for(size_t current = 0; current < _regions.size(); ++current){
         auto r(getLocalBounds().reduced(4));
 
-<<<<<<< HEAD
         r.setX((int)_posX.at(current));
         int64 lengthSeconds = (int64)samplesToSeconds(_sizeSamps.at(current), (int64)_sampleRate);
         r.setWidth((int)lengthSeconds * _pixelsPerClip);
-=======
-    
-        r.setX(_posX.at(current));
-        int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
-        r.setWidth(lengthSeconds * _pixelsPerClip);
->>>>>>> origin/master
         r.removeFromBottom(6);
         _regions.at(current)->setBounds(r.removeFromBottom(90));
     }
