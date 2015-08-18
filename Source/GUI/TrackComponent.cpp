@@ -183,50 +183,48 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 	// check the mod keys ..
 	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
 	{
-		PopupMenu *trackMenu_ = new PopupMenu();
+		ScopedPointer<PopupMenu> trackMenu_ = new PopupMenu();
 		trackMenu_->clear();
 		trackMenu_->addItem(1, "Add Region", true);
-		int result = trackMenu_->show();
-		
-		if (result != 0) {
-			if (result = 1) {
-				FileChooser chooser("Select an audio file to add...",
-					File::nonexistent,
-					"*.wav; *aif; *.flac");
-				if (chooser.browseForFileToOpen()) {
-					File audioFile(chooser.getResult());
-					const String fileString = audioFile.getFullPathName();
-					String format;
-					if (fileString.contains(".wav"))
-						format = "WAV";
-					else if (fileString.contains(".aif") || fileString.contains(".aiff"))
-						format = "AIFF";
-					else if (fileString.contains(".flac"))
-						format = "FLAC";
-					AudioFormatManager formatManager;
-					formatManager.registerBasicFormats();
 
-					AudioFormatReader* reader = formatManager.createReaderFor(audioFile);
-					Audio::Region* region = new Audio::SampleRegion(reader, 1);
-					Point<int> position = e.getPosition();
-					int x = position.getX();
-					
-					if (x > _mixerOffset)
-					{
-						// 100 represents the number of seconds
-						int64 samplesRange = secondsToSamples(100, _sampleRate);
-						// 20 represents the size of a second in pixels - this all needs replacing with dynamically
-						// generated values.
-						int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+		if (trackMenu_->show() == 1)
+		{
+			FileChooser chooser("Select an audio file to add...",
+				File::nonexistent,
+				"*.wav; *aif; *.flac");
+			if (chooser.browseForFileToOpen()) {
+				File audioFile(chooser.getResult());
+				const String fileString = audioFile.getFullPathName();
+				String format;
+				if (fileString.contains(".wav"))
+					format = "WAV";
+				else if (fileString.contains(".aif") || fileString.contains(".aiff"))
+					format = "AIFF";
+				else if (fileString.contains(".flac"))
+					format = "FLAC";
+				AudioFormatManager formatManager;
+				formatManager.registerBasicFormats();
 
-						_track->add(positionSamples, region);
-						createRegionGUI(x, region, formatManager, audioFile);
-					}
-					else if (x < _mixerOffset)
-					{
-						_track->add(0, region);
-						createRegionGUI(_mixerOffset, region, formatManager, audioFile);
-					}
+				AudioFormatReader* reader = formatManager.createReaderFor(audioFile);
+				Audio::Region* region = new Audio::SampleRegion(reader, 1);
+				Point<int> position = e.getPosition();
+				int x = position.getX();
+				
+				if (x > _mixerOffset)
+				{
+					// 100 represents the number of seconds
+					int64 samplesRange = secondsToSamples(100, _sampleRate);
+					// 20 represents the size of a second in pixels - this all needs replacing with dynamically
+					// generated values.
+					int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+
+					_track->add(positionSamples, region);
+					createRegionGUI(x, region, formatManager, audioFile);
+				}
+				else if (x < _mixerOffset)
+				{
+					_track->add(0, region);
+					createRegionGUI(_mixerOffset, region, formatManager, audioFile);
 				}
 			}
 		}
