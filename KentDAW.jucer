@@ -67,6 +67,10 @@
         <FILE id="HQJuWs" name="MainWindow.h" compile="0" resource="0" file="Source/GUI/MainWindow.h"/>
       </GROUP>
       <GROUP id="{5CC0F50A-2D80-8B2D-AD3D-0F3E9BC6C6A9}" name="Audio">
+        <FILE id="MRAe8M" name="ChannelStripProcessor.cpp" compile="1" resource="0"
+              file="Source/Audio/ChannelStripProcessor.cpp"/>
+        <FILE id="zenPsW" name="ChannelStripProcessor.h" compile="0" resource="0"
+              file="Source/Audio/ChannelStripProcessor.h"/>
         <FILE id="Sm33ff" name="TrackProcessor.cpp" compile="1" resource="0"
               file="Source/Audio/TrackProcessor.cpp"/>
         <FILE id="LpbSVN" name="TrackProcessor.h" compile="0" resource="0"

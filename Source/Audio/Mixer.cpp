@@ -40,15 +40,25 @@ namespace Audio
     {
         TrackProcessor *processor = new TrackProcessor(track, &_thread);
         processor->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
+        
+        ChannelStripProcessor *strip = new ChannelStripProcessor();
+        strip->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
 
         track->prepareToPlay(_bufferSize, _sampleRate);
         _tracks.insert(std::pair<Track *, TrackProcessor *>(track, processor));
+        
+        strip->prepareToPlay(_bufferSize, _sampleRate);
+        _strips.insert(std::pair<TrackProcessor *, ChannelStripProcessor *>(processor, strip));
 
-        auto node = _processorGraph.addNode(processor, _nextNodeID);
-        _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
-        _processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
+        auto tNode = _processorGraph.addNode(processor, _nextNodeID);
+        auto cNode = _processorGraph.addNode(strip, _nextNodeID + 1000);
+        _processorGraph.addConnection(tNode->nodeId, 0, cNode->nodeId, 0);
+        _processorGraph.addConnection(tNode->nodeId, 1, cNode->nodeId, 1);
+        _processorGraph.addConnection(cNode->nodeId, 0, OUTPUT_NODE_ID, 0);
+        _processorGraph.addConnection(cNode->nodeId, 1, OUTPUT_NODE_ID, 1);
 
         _nextNodeID += 1;
+        
     }
 
     void Mixer::startPlayingAt(int64 position)

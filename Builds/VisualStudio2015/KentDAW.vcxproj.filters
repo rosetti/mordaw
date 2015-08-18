@@ -382,6 +382,9 @@
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\ChannelStripProcessor.cpp">
+      <Filter>KentDAW\Source\Audio</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClCompile>
@@ -1697,6 +1700,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h">
       <Filter>KentDAW\Source\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h">
+      <Filter>KentDAW\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\TrackProcessor.h">
       <Filter>KentDAW\Source\Audio</Filter>

@@ -142,6 +142,7 @@
     <ClCompile Include="..\..\Source\GUI\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TopMenu.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\ChannelStripProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Mixer.cpp"/>
     <ClCompile Include="..\..\Source\Audio\SampleRegion.cpp"/>
@@ -1307,6 +1308,7 @@
     <ClInclude Include="..\..\Source\GUI\MainComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TopMenu.h"/>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h"/>
+    <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\TrackProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\Mixer.h"/>
     <ClInclude Include="..\..\Source\Audio\SampleRegion.h"/>

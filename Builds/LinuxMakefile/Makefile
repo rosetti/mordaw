@@ -62,6 +62,7 @@ OBJECTS := \
   $(OBJDIR)/MainComponent_7cc716b1.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
+  $(OBJDIR)/ChannelStripProcessor_f3990705.o \
   $(OBJDIR)/TrackProcessor_c8552789.o \
   $(OBJDIR)/Mixer_d22926d1.o \
   $(OBJDIR)/SampleRegion_6518a500.o \
@@ -166,6 +167,11 @@ $(OBJDIR)/TopMenu_34ea79c1.o: ../../Source/GUI/TopMenu.cpp
 $(OBJDIR)/MainWindow_ca618186.o: ../../Source/GUI/MainWindow.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling MainWindow.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/ChannelStripProcessor_f3990705.o: ../../Source/Audio/ChannelStripProcessor.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling ChannelStripProcessor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TrackProcessor_c8552789.o: ../../Source/Audio/TrackProcessor.cpp
