@@ -73,6 +73,7 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
         }
         _clips.push_back(clip);
     }
+    repaint();
 }
 
 
