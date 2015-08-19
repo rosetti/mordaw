@@ -34,6 +34,8 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
+        <FILE id="nyHrHN" name="ProjectTab.cpp" compile="1" resource="0" file="Source/GUI/ProjectTab.cpp"/>
+        <FILE id="zgBM7D" name="ProjectTab.h" compile="0" resource="0" file="Source/GUI/ProjectTab.h"/>
         <FILE id="E2sCOh" name="RegionComponent.cpp" compile="1" resource="0"
               file="Source/GUI/RegionComponent.cpp"/>
         <FILE id="SSH1AY" name="RegionComponent.h" compile="0" resource="0"

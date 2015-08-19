@@ -52,6 +52,7 @@ OBJECTS := \
   $(OBJDIR)/SplashImage_48f94350.o \
   $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
+  $(OBJDIR)/ProjectTab_b868ab9.o \
   $(OBJDIR)/RegionComponent_b9723f56.o \
   $(OBJDIR)/TrackComponent_d82131ef.o \
   $(OBJDIR)/TimelineComponent_3d790929.o \
@@ -118,6 +119,11 @@ $(OBJDIR)/TransportImages_4b3c351d.o: ../../Source/Resources/Images/TransportIma
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/ProjectTab_b868ab9.o: ../../Source/GUI/ProjectTab.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling ProjectTab.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/RegionComponent_b9723f56.o: ../../Source/GUI/RegionComponent.cpp

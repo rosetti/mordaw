@@ -32,6 +32,7 @@
 		DC9C1AA33A9C15951883B84F = {isa = PBXBuildFile; fileRef = FCC02B8735C79BF2E3ED571C; };
 		96EF650C48F77C44C803B9C9 = {isa = PBXBuildFile; fileRef = 0FB940842E4D51EE28ED94D6; };
 		DDCF97372E631DFBD317E3D3 = {isa = PBXBuildFile; fileRef = 279A0CECC4448FCB09F5C612; };
+		AC238EAB3C91028F6A5C6E86 = {isa = PBXBuildFile; fileRef = 58A168ECEEA222A3F8BC5BBC; };
 		12DA42207CF92F439951021C = {isa = PBXBuildFile; fileRef = DFC3D046D98A5C754FAE01AC; };
 		CA5D9A2B00922C95921C6CCB = {isa = PBXBuildFile; fileRef = E5D2060387B387C821227960; };
 		BAE07AB763AB47A1C2AADAB5 = {isa = PBXBuildFile; fileRef = 9BB26D7071D2FBA365BD36E4; };
@@ -415,6 +416,7 @@
 		57D1EE1C2251326DA499C1A3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_GZIPCompressorOutputStream.h"; path = "../../JuceModules/juce_core/zip/juce_GZIPCompressorOutputStream.h"; sourceTree = "SOURCE_ROOT"; };
 		57F78822C6DD850A8080FFC4 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_Path.cpp"; path = "../../JuceModules/juce_graphics/geometry/juce_Path.cpp"; sourceTree = "SOURCE_ROOT"; };
 		589B4ED592EEE0C4B154E576 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_FileChooserDialogBox.cpp"; path = "../../JuceModules/juce_gui_basics/filebrowser/juce_FileChooserDialogBox.cpp"; sourceTree = "SOURCE_ROOT"; };
+		58A168ECEEA222A3F8BC5BBC = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectTab.cpp; path = ../../Source/GUI/ProjectTab.cpp; sourceTree = "SOURCE_ROOT"; };
 		58B61C406378F954264B8A8F = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_Uuid.h"; path = "../../JuceModules/juce_core/misc/juce_Uuid.h"; sourceTree = "SOURCE_ROOT"; };
 		59283390E2A16B1ED85ADC0A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_DrawablePath.h"; path = "../../JuceModules/juce_gui_basics/drawables/juce_DrawablePath.h"; sourceTree = "SOURCE_ROOT"; };
 		5A2D860D5AE4BA05355F805D = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_Primes.h"; path = "../../JuceModules/juce_cryptography/encryption/juce_Primes.h"; sourceTree = "SOURCE_ROOT"; };
@@ -876,6 +878,7 @@
 		D4F5D01630418A7443794FBB = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_MouseCursor.cpp"; path = "../../JuceModules/juce_gui_basics/mouse/juce_MouseCursor.cpp"; sourceTree = "SOURCE_ROOT"; };
 		D50DB5EE7795B8724CA38A11 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_AudioProcessorPlayer.cpp"; path = "../../JuceModules/juce_audio_utils/players/juce_AudioProcessorPlayer.cpp"; sourceTree = "SOURCE_ROOT"; };
 		D5CF19BE8382EA9FD96965B2 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_FileFilter.cpp"; path = "../../JuceModules/juce_core/files/juce_FileFilter.cpp"; sourceTree = "SOURCE_ROOT"; };
+		D620A48E5B8DEAD0CF7680F9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProjectTab.h; path = ../../Source/GUI/ProjectTab.h; sourceTree = "SOURCE_ROOT"; };
 		D6D06F70012008FA78434B2E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_MidiMessageSequence.cpp"; path = "../../JuceModules/juce_audio_basics/midi/juce_MidiMessageSequence.cpp"; sourceTree = "SOURCE_ROOT"; };
 		D6DCD1044D1C74EE786416E1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_PreferencesPanel.h"; path = "../../JuceModules/juce_gui_extra/misc/juce_PreferencesPanel.h"; sourceTree = "SOURCE_ROOT"; };
 		D75FA082449F270D0E7D74C8 = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -1053,6 +1056,8 @@
 					279A0CECC4448FCB09F5C612,
 					D78329EE462A9B414DA8FB53, ); name = Core; sourceTree = "<group>"; };
 		6FE6D715823C3C991A4E28E3 = {isa = PBXGroup; children = (
+					58A168ECEEA222A3F8BC5BBC,
+					D620A48E5B8DEAD0CF7680F9,
 					DFC3D046D98A5C754FAE01AC,
 					9F29BB74C8180FB8A7C60856,
 					E5D2060387B387C821227960,
@@ -2331,6 +2336,7 @@
 					67194FB4CE77A177EEC6CFC8,
 					96EF650C48F77C44C803B9C9,
 					DDCF97372E631DFBD317E3D3,
+					AC238EAB3C91028F6A5C6E86,
 					12DA42207CF92F439951021C,
 					CA5D9A2B00922C95921C6CCB,
 					BAE07AB763AB47A1C2AADAB5,
