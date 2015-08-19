@@ -25,6 +25,8 @@ class TrackMixerComponent : public Component,
 public:
     TrackMixerComponent(const int trackID, const Audio::Engine& engine);
     ~TrackMixerComponent();
+
+	void mouseDown(const MouseEvent & e);
     
     void paint (Graphics&);
     void resized();
@@ -35,6 +37,7 @@ public:
 private:
     const Audio::Engine& _engine;
     const int _trackID;
+	ApplicationCommandManager& _commands;
     ScopedPointer<Label> _trackLabel;
     ScopedPointer<ToggleButton> _muteButton, _soloButton;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackMixerComponent)

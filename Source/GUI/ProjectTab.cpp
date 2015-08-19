@@ -10,7 +10,7 @@
 
 #include "ProjectTab.h"
 
-ProjectTab::ProjectTab(const ApplicationCommandManager& commands) //: _commands(commands)
+ProjectTab::ProjectTab(ApplicationCommandManager& commands) : _commands(commands)
 {
 	drawButtons();
 }

@@ -13,7 +13,7 @@
 
 //==============================================================================
 
-LeftSide::LeftSide(const ApplicationCommandManager &commands) : _commands(commands),
+LeftSide::LeftSide(ApplicationCommandManager &commands) : _commands(commands),
 	_tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft),
 	_tsThread("File Tree"),
 	_directoryList(nullptr, _tsThread)

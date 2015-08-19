@@ -20,7 +20,7 @@
 class LeftSide    : public Component
 {
 public:
-    LeftSide(const ApplicationCommandManager &manager);
+    LeftSide(ApplicationCommandManager &commands);
 	~LeftSide();
 
 	void addTabs();
@@ -29,7 +29,7 @@ public:
     void resized();
 
 private:
-    const ApplicationCommandManager &_commands;
+    ApplicationCommandManager &_commands;
 		
 	TimeSliceThread _tsThread;
 	DirectoryContentsList _directoryList;

@@ -11,6 +11,7 @@
 #include "TrackComponent.h"
 #include "../Utility/Conversion.h"
 #include "../Audio/SampleRegion.h"
+#include "../Core/ProjectManager.h"
 
 TrackMixerComponent::TrackMixerComponent(const int trackID, const Audio::Engine& engine)
 : _trackID(trackID), _engine(engine)
