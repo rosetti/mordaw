@@ -89,7 +89,7 @@ void Arrangement::setPixelsPerClip(int64 pixels)
 }
 
 void Arrangement::addTrack(Audio::Track* track) {
-    auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine.getCurrentSamplerate(), _pixelsPerClip);
+    auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine, _pixelsPerClip);
     _tracks.add(trackComponent);
     addAndMakeVisible(trackComponent);
     resized();

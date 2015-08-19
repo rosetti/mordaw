@@ -12,22 +12,28 @@
 #define TRACKCOMPONENT_H_INCLUDED
 
 #include "../Audio/Track.h"
+#include "../Audio/Engine.h"
 #include "RegionComponent.h"
+
 
 //==============================================================================
 /*
 */
-class TrackMixerComponent : public Component
-                            //public ButtonListener
+class TrackMixerComponent : public Component,
+                            public ButtonListener
 {
 public:
-    TrackMixerComponent(const int trackID);
+    TrackMixerComponent(const int trackID, const Audio::Engine& engine);
     ~TrackMixerComponent();
     
     void paint (Graphics&);
     void resized();
     
+    void buttonClicked(Button* button);
+    void buttonStateChanged(Button* button);
+    
 private:
+    const Audio::Engine& _engine;
     const int _trackID;
     ScopedPointer<Label> _trackLabel;
     ScopedPointer<ToggleButton> _muteButton, _soloButton;
@@ -38,7 +44,7 @@ private:
 class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
-    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, double sampleRate, int64 pixelsPerClip);
+    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip);
     ~TrackComponent();
 
     void paint (Graphics&);
@@ -54,6 +60,7 @@ public:
 
 private:
     int _trackID;
+    const Audio::Engine& _engine;
     double _sampleRate;
     int64 _mixerOffset;
     int64 _pixelsPerClip;

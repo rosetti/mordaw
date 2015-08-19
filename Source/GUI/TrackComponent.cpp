@@ -12,23 +12,36 @@
 #include "../Utility/Conversion.h"
 #include "../Audio/SampleRegion.h"
 
-TrackMixerComponent::TrackMixerComponent(const int trackID)
-: _trackID(trackID)
+TrackMixerComponent::TrackMixerComponent(const int trackID, const Audio::Engine& engine)
+: _trackID(trackID), _engine(engine)
 {
     addAndMakeVisible(_trackLabel = new Label("Track " + String (trackID)));
     
     addAndMakeVisible(_muteButton = new ToggleButton("Mute"));
     _muteButton->setColour(TextButton::buttonColourId, Colours::blue);
-    //_muteButton->addListener(this);
+    _muteButton->addListener(this);
     
     addAndMakeVisible(_soloButton = new ToggleButton("Solo"));
     _soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
-    //_soloButton->addListener(this);
+    _soloButton->addListener(this);
 }
 
 TrackMixerComponent::~TrackMixerComponent()
 {
     
+}
+
+void TrackMixerComponent::buttonClicked(Button* button)
+{
+    
+}
+
+void TrackMixerComponent::buttonStateChanged(Button* button)
+{
+    if(button == _muteButton)
+        _engine.getMixer();
+    else if(button == _soloButton)
+        _engine.getMixer()->soloTrack(_trackID);
 }
 
 void TrackMixerComponent::paint(Graphics &g)
@@ -47,15 +60,17 @@ void TrackMixerComponent::resized()
 }
 
 //==============================================================================
-TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, double sampleRate, int64 pixelsPerClip)
+TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip)
 : _track(track),
   _commands(commands),
   _trackID(trackID),
-  _sampleRate(sampleRate),
+  _engine(engine),
+  _sampleRate(0),
   _mixerOffset(200),
   _pixelsPerClip(pixelsPerClip)
 {
-    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID));
+    _sampleRate = (double) _engine.getCurrentSamplerate();
+    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine));
     _trackMixer->setAlwaysOnTop(true);
 
 }
