@@ -23,7 +23,7 @@ class TrackMixerComponent : public Component,
                             public ButtonListener
 {
 public:
-    TrackMixerComponent(const int trackID, const Audio::Engine& engine);
+    TrackMixerComponent(const int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands);
     ~TrackMixerComponent();
 
 	void mouseDown(const MouseEvent & e);
@@ -47,7 +47,7 @@ private:
 class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
-    TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip);
+    TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip);
     ~TrackComponent();
 
     void paint (Graphics&);

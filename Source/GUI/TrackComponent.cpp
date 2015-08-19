@@ -13,8 +13,10 @@
 #include "../Audio/SampleRegion.h"
 #include "../Core/ProjectManager.h"
 
-TrackMixerComponent::TrackMixerComponent(const int trackID, const Audio::Engine& engine)
-: _trackID(trackID), _engine(engine)
+TrackMixerComponent::TrackMixerComponent(const int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands)
+: _trackID(trackID),
+_commands(commands),
+_engine(engine)
 {
     addAndMakeVisible(_trackLabel = new Label("Track " + String (trackID)));
     
@@ -36,6 +38,10 @@ void TrackMixerComponent::buttonClicked(Button* button)
 {
     
 }
+void TrackMixerComponent::mouseDown(const MouseEvent &e)
+{
+    
+}
 
 void TrackMixerComponent::buttonStateChanged(Button* button)
 {
@@ -43,8 +49,18 @@ void TrackMixerComponent::buttonStateChanged(Button* button)
         _engine.getMixer();
     else if(button == _soloButton)
         _engine.getMixer()->soloTrack(_trackID);
-}
+	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
+	// check the mod keys ..
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+	{
+		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+		arrangeMenu_->clear();
+		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+		arrangeMenu_->show();
+	}
+}
+    
 void TrackMixerComponent::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey);
@@ -61,17 +77,16 @@ void TrackMixerComponent::resized()
 }
 
 //==============================================================================
-TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip)
+TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip)
 : _track(track),
   _commands(commands),
   _trackID(trackID),
   _engine(engine),
-  _sampleRate(0),
+  _sampleRate(_engine.getCurrentSamplerate()),
   _mixerOffset(200),
   _pixelsPerClip(pixelsPerClip)
 {
-    _sampleRate = (double) _engine.getCurrentSamplerate();
-    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine));
+    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine, _commands));
     _trackMixer->setAlwaysOnTop(true);
 
 }
