@@ -16,8 +16,6 @@ LeftSide::LeftSide(const ApplicationCommandManager &commands) : _commands(comman
 {
 	tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
 	addAndMakeVisible(tabbedComponent);
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
 }
 
 LeftSide::~LeftSide()
