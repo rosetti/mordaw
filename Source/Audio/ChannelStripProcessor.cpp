@@ -30,80 +30,63 @@ int ChannelStripProcessor::getNumParameters()
 
 float ChannelStripProcessor::getParameter(int index)
 {
-	if (index == 1)
-	{
-		return _gain;
-	}
-	else if (index == 2)
-	{
-		return _panning;
-	}
-	else if (index == 3)
-	{
-		return _muteGain;
-	}
-	else
-	{
-		return 0.0f;
-	}
+    switch(index)
+    {
+        case StripParameter::GAIN:
+            return _gain;
+        case StripParameter::PAN:
+            return _panning;
+        case StripParameter::MUTE:
+            return _muteGain;
+        default:
+            return 0.0f;
+    }
 }
 
 void ChannelStripProcessor::setParameter(int index, float newValue)
 {
-	if (index == 1)
-	{
+    if (index == StripParameter::GAIN)
 		_gain = newValue;
-	}
-	else if (index == 2)
-	{
+    else if (index == StripParameter::PAN)
 		_panning = newValue;
-	}
 }
 
 void ChannelStripProcessor::setMuteParameter()
 {
 	if (_muted)
-	{
 		_muted = false;
-	}
 	else
-	{
 		_muted = true;
-	}
 }
 
 const String ChannelStripProcessor::getParameterName(int index)
 {
-	if (index == 1)
-	{
-		return "Gain";
-	}
-	else if (index == 2)
-	{
-		return "Panning";
-	}
-	else if (index == 3)
-	{
-		return "Mute";
-	}
-	return "Bad Selection";
+    switch (index)
+    {
+        case StripParameter::GAIN:
+            return "Gain";
+        case StripParameter::PAN:
+            return "Panning";
+        case StripParameter::MUTE:
+            return "Mute";
+        default:
+            return "Bad Selection";
+    }
 }
 
 const String ChannelStripProcessor::getParameterText(int index)
 {
-	if (index == 1)
-	{
-		return String(_gain);
-	}
-	else if (index == 2)
-	{
-		return String(_panning);
-	}
-	else if (index == 3)
-	{
-		return String(_muted);
-	}
-	return "Bad Selection";
+    switch (index)
+    {
+        case StripParameter::GAIN:
+            return String(_gain);
+        case StripParameter::PAN:
+            return String(_panning);
+        case StripParameter::MUTE:
+            return String(_muted);
+        default:
+            return "Bad Selection";
+    }
 }
 
 const String ChannelStripProcessor::getInputChannelName(int channelIndex) const
@@ -202,9 +185,14 @@ void ChannelStripProcessor::setStateInformation(const void*, int)
 	// whose contents will have been created by the getStateInformation() call.
 }
 
-const String ChannelStripProcessor::getName() const
+const void ChannelStripProcessor::setID(int ident)
 {
-	return "Channel Strip";
+    _id = ident;
+}
+
+const int ChannelStripProcessor::getID()
+{
+    return _id;
 }
 
 bool ChannelStripProcessor::hasEditor() const

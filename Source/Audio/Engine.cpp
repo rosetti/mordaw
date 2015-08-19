@@ -65,7 +65,6 @@ namespace Audio
             result.setInfo("Forward", "Forward to the end of the timeline.", audio, 0);
             result.addDefaultKeypress('F', ModifierKeys::commandModifier);
             break;
-
         default:
             break;
         }

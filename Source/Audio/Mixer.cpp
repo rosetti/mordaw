@@ -49,9 +49,10 @@ namespace Audio
         
         strip->prepareToPlay(_bufferSize, _sampleRate);
         _strips.insert(std::pair<TrackProcessor *, ChannelStripProcessor *>(processor, strip));
+        strip->setID(_nextNodeID + 0x1000);
 
         auto tNode = _processorGraph.addNode(processor, _nextNodeID);
-        auto cNode = _processorGraph.addNode(strip, _nextNodeID + 1000);
+        auto cNode = _processorGraph.addNode(strip, _nextNodeID + 0x1000);
         _processorGraph.addConnection(tNode->nodeId, 0, cNode->nodeId, 0);
         _processorGraph.addConnection(tNode->nodeId, 1, cNode->nodeId, 1);
         _processorGraph.addConnection(cNode->nodeId, 0, OUTPUT_NODE_ID, 0);
@@ -96,6 +97,29 @@ namespace Audio
             _isPlaying = false;
         }
     }
+    
+    void Mixer::muteTrack(int trackIndex)
+    {
+        for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
+        {
+            if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackIndex - 1))
+            {
+                current->second->setMuteParameter();
+            }
+        }
+    }
+    
+    void Mixer::soloTrack(int trackIndex)
+    {
+        for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
+        {
+            if(current->second->getID() != NodeIDs::STRIP_BASE_NODE_ID + (trackIndex - 1))
+            {
+                current->second->setMuteParameter();
+            }
+        }
+    }
+
 
     AudioProcessorGraph *Mixer::getProcessorGraph()
     {

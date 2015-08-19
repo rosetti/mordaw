@@ -19,6 +19,13 @@ class ChannelStripProcessor : public AudioProcessor
 public:
 	ChannelStripProcessor();
 	~ChannelStripProcessor();
+    
+    enum StripParameter
+    {
+        GAIN = 1,
+        PAN = 2,
+        MUTE = 3
+    };
 
 	void prepareToPlay(double sampleRate, int samplesPerBlock) override;
 	void releaseResources() override;
@@ -52,7 +59,9 @@ public:
 	void getStateInformation(MemoryBlock& destData) override;
 	void setStateInformation(const void* data, int sizeInBytes) override;
 
-	const String getName() const override;
+    const void setID(int ident);
+    const int getID();
+    const String getName() const override { return "Channel Strip" + (String) _id;};
 	AudioProcessorEditor* createEditor() override;
 	bool hasEditor() const override;
     
@@ -61,6 +70,7 @@ private:
     float _panning;
     float _muteGain;
     bool _muted;
+    int _id;
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ChannelStripProcessor)
 };
 

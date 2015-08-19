@@ -26,6 +26,9 @@ namespace Audio
         void startPlayingAt(int64 position = -1);
         void pause();
         void stop();
+        
+        void muteTrack(int trackIndex);
+        void soloTrack(int trackIndex);
 
         AudioProcessorGraph *getProcessorGraph();
 
@@ -36,6 +39,8 @@ namespace Audio
         {
             INPUT_NODE_ID = 0x100,
             OUTPUT_NODE_ID = 0x200,
+            
+            STRIP_BASE_NODE_ID = 0x11000,
         };
 
     private:
