@@ -18,7 +18,7 @@ class ProjectTab :	public Component,
 					public Button::Listener
 {
 public:
-	ProjectTab(const ApplicationCommandManager& commands);
+	ProjectTab(ApplicationCommandManager& commands);
 	~ProjectTab();
 
 	void drawButtons();
@@ -29,7 +29,7 @@ private:
 	ScopedPointer<Button> _newProjectButton, _saveProjectButton, loadProjectButton, closeProjectButton;
 	ScopedPointer<Button> _addTrackButton, _removeTrackButton;
 
-	//ApplicationCommandManager &_commands;
+	ApplicationCommandManager &_commands;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectTab)
 };

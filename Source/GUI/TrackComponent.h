@@ -21,14 +21,17 @@ class TrackMixerComponent : public Component
                             //public ButtonListener
 {
 public:
-    TrackMixerComponent(const int trackID);
+    TrackMixerComponent(const int trackID, ApplicationCommandManager& commands);
     ~TrackMixerComponent();
+
+	void mouseDown(const MouseEvent & e);
     
     void paint (Graphics&);
     void resized();
     
 private:
     const int _trackID;
+	ApplicationCommandManager& _commands;
     ScopedPointer<Label> _trackLabel;
     ScopedPointer<ToggleButton> _muteButton, _soloButton;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackMixerComponent)

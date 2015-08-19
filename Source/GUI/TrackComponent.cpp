@@ -11,9 +11,11 @@
 #include "TrackComponent.h"
 #include "../Utility/Conversion.h"
 #include "../Audio/SampleRegion.h"
+#include "../Core/ProjectManager.h"
 
-TrackMixerComponent::TrackMixerComponent(const int trackID)
-: _trackID(trackID)
+TrackMixerComponent::TrackMixerComponent(const int trackID, ApplicationCommandManager& commands)
+: _trackID(trackID),
+_commands(commands)
 {
     addAndMakeVisible(_trackLabel = new Label("Track " + String (trackID)));
     
@@ -29,6 +31,20 @@ TrackMixerComponent::TrackMixerComponent(const int trackID)
 TrackMixerComponent::~TrackMixerComponent()
 {
     
+}
+
+void TrackMixerComponent::mouseDown(const MouseEvent &e) {
+
+	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+
+	// check the mod keys ..
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+	{
+		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+		arrangeMenu_->clear();
+		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+		arrangeMenu_->show();
+	}
 }
 
 void TrackMixerComponent::paint(Graphics &g)
@@ -55,7 +71,7 @@ TrackComponent::TrackComponent(ApplicationCommandManager &commands, Audio::Track
   _mixerOffset(200),
   _pixelsPerClip(pixelsPerClip)
 {
-    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID));
+    addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _commands));
     _trackMixer->setAlwaysOnTop(true);
 
 }
