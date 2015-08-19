@@ -22,12 +22,14 @@ public:
 	~ProjectTab();
 
 	void drawButtons();
-
 	virtual void buttonClicked(Button* button);
 
+	void paint(Graphics&);
+	void resized();
+
 private:
-	ScopedPointer<Button> _newProjectButton, _saveProjectButton, loadProjectButton, closeProjectButton;
-	ScopedPointer<Button> _addTrackButton, _removeTrackButton;
+	ScopedPointer<TextButton> _newProjectButton, _saveProjectButton, _saveProjectAsButton, _openProjectButton, _closeProjectButton;
+	ScopedPointer<TextButton> _addTrackButton, _removeTrackButton;
 
 	ApplicationCommandManager &_commands;
 
