@@ -12,9 +12,19 @@
 #include "LeftSide.h"
 
 //==============================================================================
-LeftSide::LeftSide(const ApplicationCommandManager &commands) : _commands(commands)
+LeftSide::LeftSide(const ApplicationCommandManager &commands) : _commands(commands),
+	tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft)
+	//tsThread("File Tree"),
+	//directoryList(nullptr, tsThread),
+	//fileTree(directoryList)
 {
-	tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
+	/*
+	tabbedComponent.addTab("Files",
+		Colours::darkgrey,
+		&fileTree,
+		false);
+	*/
+
 	addAndMakeVisible(tabbedComponent);
 }
 
@@ -29,5 +39,5 @@ void LeftSide::paint (Graphics& g)
 
 void LeftSide::resized()
 {
-	tabbedComponent->setBounds(0, 0, 300, getHeight());
+	tabbedComponent.setBounds(0, 0, 300, getHeight());
 }

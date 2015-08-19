@@ -27,7 +27,11 @@ public:
 
 private:
     const ApplicationCommandManager &_commands;
-	ScopedPointer<TabbedComponent> tabbedComponent;
+	TabbedComponent tabbedComponent;
+	
+	//TimeSliceThread tsThread;
+	//DirectoryContentsList directoryList;
+	//FileTreeComponent fileTree;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LeftSide)
 };
