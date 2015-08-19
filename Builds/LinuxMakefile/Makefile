@@ -49,6 +49,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS := \
+  $(OBJDIR)/SplashImage_48f94350.o \
   $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
   $(OBJDIR)/RegionComponent_b9723f56.o \
@@ -103,6 +104,11 @@ clean:
 strip:
 	@echo Stripping KentDAW
 	-@strip --strip-unneeded $(OUTDIR)/$(TARGET)
+
+$(OBJDIR)/SplashImage_48f94350.o: ../../Source/Resources/Images/SplashImage.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling SplashImage.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/TransportImages_4b3c351d.o: ../../Source/Resources/Images/TransportImages.cpp
 	-@mkdir -p $(OBJDIR)

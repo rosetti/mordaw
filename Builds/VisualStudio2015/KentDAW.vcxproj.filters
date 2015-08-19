@@ -343,6 +343,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Resources\Images\SplashImage.cpp">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp">
       <Filter>KentDAW\Resources\Images</Filter>
     </ClCompile>
@@ -1656,6 +1659,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Resources\Images\SplashImage.h">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h">
       <Filter>KentDAW\Resources\Images</Filter>
     </ClInclude>
@@ -3113,6 +3119,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\Resources\Images\mordaw.jpg">
+      <Filter>KentDAW\Resources\Images</Filter>
+    </None>
     <None Include="..\..\Source\Resources\Images\record_enabled.png">
       <Filter>KentDAW\Resources\Images</Filter>
     </None>

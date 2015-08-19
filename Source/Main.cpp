@@ -12,6 +12,7 @@
 #include "Audio/Engine.h"
 #include "GUI/MainWindow.h"
 #include "Core/ProjectManager.h"
+#include "Resources/Images/SplashImage.h"
 
 //==============================================================================
 class KentDAWApplication  : public JUCEApplication
@@ -30,9 +31,14 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
+		Image image_ = ImageCache::getFromMemory(SplashImage::mordaw_jpg, SplashImage::mordaw_jpgSize);
+		SplashScreen splash_("Welcome to morDAW",
+			image_,
+			true);
         registerCommands();
         _mainWindow = new MainWindow(_commandsManager, _engine);
         _projectManager = new ProjectManager(_commandsManager, _engine, *_mainWindow);
+		splash_.deleteAfterDelay(RelativeTime::seconds(4), false);
     }
 
     void shutdown() override

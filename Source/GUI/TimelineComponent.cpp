@@ -79,12 +79,6 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
 
 void TimelineComponent::paint (Graphics& g)
 {
-    g.fillAll (Colours::white);   // clear the background
-
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (Colours::lightblue);
 }
 
 void TimelineComponent::resized()

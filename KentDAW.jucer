@@ -6,10 +6,13 @@
   <MAINGROUP id="rLaEhK" name="KentDAW">
     <GROUP id="{51132C53-0A2A-C4FB-FE7C-D29417E9F85F}" name="Resources">
       <GROUP id="{FD440D3D-7A6B-1B59-607B-DA719225E245}" name="Images">
+        <FILE id="Nnodcr" name="SplashImage.cpp" compile="1" resource="0" file="Source/Resources/Images/SplashImage.cpp"/>
+        <FILE id="k73uHD" name="SplashImage.h" compile="0" resource="0" file="Source/Resources/Images/SplashImage.h"/>
         <FILE id="PVvCnk" name="TransportImages.cpp" compile="1" resource="0"
               file="Source/Resources/Images/TransportImages.cpp"/>
         <FILE id="WziGYX" name="TransportImages.h" compile="0" resource="0"
               file="Source/Resources/Images/TransportImages.h"/>
+        <FILE id="fEY83x" name="mordaw.jpg" compile="0" resource="0" file="Source/Resources/Images/mordaw.jpg"/>
         <FILE id="UdgxDa" name="record_enabled.png" compile="0" resource="0"
               file="Source/Resources/Images/record_enabled.png"/>
         <FILE id="W3P1Ey" name="stop.png" compile="0" resource="0" file="Source/Resources/Images/stop.png"/>

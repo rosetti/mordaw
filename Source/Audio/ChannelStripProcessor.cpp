@@ -13,7 +13,7 @@
 //==============================================================================
 ChannelStripProcessor::ChannelStripProcessor()
 {
-	_gain = 0.01f;
+	_gain = 1.0f;
 	_panning = 0.5f;
 	_muteGain = 0.0f;
 	_muted = false;

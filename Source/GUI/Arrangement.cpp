@@ -17,13 +17,10 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
 {
     _timeline = new TimelineComponent(100, _mixerOffset);
     _cursor = new TimelineCursor(_engine);
-    _addTrackButton = new TextButton("Add a track");
-    _addTrackButton->setCommandToTrigger(&commands, ProjectManager::addTrack, true);
     _zoomInButton= new TextButton("+");
     _zoomInButton->addListener(this);
     //addAndMakeVisible(_cursor);
     addAndMakeVisible(_zoomInButton);
-    addAndMakeVisible(_addTrackButton);
     addAndMakeVisible(_timeline);
     setPixelsPerClip(30);
 }
@@ -60,22 +57,9 @@ void Arrangement::mouseDown(const MouseEvent &e) {
 
 void Arrangement::paint (Graphics& g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
-
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll (Colours::white);   // clear the background
-
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (Colours::lightblue);
-    g.setFont (15.0f);
-    g.drawText ("Arrangement", getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+	g.setGradientFill(ColourGradient(Colours::darkgrey, 1, 1, Colours::darkorange, 10, 10, true));
+	//g.setColour(Colours::darkorange);
+	//g.drawRect(0, 0, getWidth(), getParentHeight());
 }
 
 void Arrangement::resized()
@@ -83,7 +67,6 @@ void Arrangement::resized()
 	setSize((100 * (int)_pixelsPerClip) + (int)_mixerOffset, 100 + (_tracks.size() * 100));
     _timeline->setBounds(0,0, (100 * (int)_pixelsPerClip)+ (int)_mixerOffset, 20);
     _cursor->setBounds((int)_mixerOffset, 0, getParentWidth(), getParentHeight());
-    _addTrackButton->setBounds(30, _tracks.size() * 100 + 35, 100, 30);
     _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
 
     auto i = 0;

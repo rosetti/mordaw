@@ -35,8 +35,6 @@ void TrackMixerComponent::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey);
     g.fillAll();
-    g.setColour(Colours::black);
-    g.drawRect(0, 0, 200, getParentHeight());
 }
 
 void TrackMixerComponent::resized()

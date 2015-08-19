@@ -27,7 +27,8 @@ public:
 
 private:
     const ApplicationCommandManager &_commands;
-  
+	ScopedPointer<TabbedComponent> tabbedComponent;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LeftSide)
 };
 
