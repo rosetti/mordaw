@@ -22,11 +22,16 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
     _transportControls(commands, engine),
     _commands(commands)
 {
+	//Left Side
     addAndMakeVisible(_leftSide);
+
+	//Arrangement and Viewport
     addAndMakeVisible(_arrangement);
 	addAndMakeVisible(_arrangementView);
 	_arrangementView.setViewedComponent(&_arrangement);
 	_arrangementView.setScrollBarsShown(true, true, false, false);
+
+	//Transport
     addAndMakeVisible(_transportControls);
 }
 

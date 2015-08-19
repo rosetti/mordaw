@@ -132,6 +132,7 @@
     <ClCompile Include="..\..\Source\Resources\Images\SplashImage.cpp"/>
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\ProjectTab.cpp"/>
     <ClCompile Include="..\..\Source\GUI\RegionComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TrackComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TimelineComponent.cpp"/>
@@ -1298,6 +1299,7 @@
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
+    <ClInclude Include="..\..\Source\GUI\ProjectTab.h"/>
     <ClInclude Include="..\..\Source\GUI\RegionComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TrackComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TimelineComponent.h"/>

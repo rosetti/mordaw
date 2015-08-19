@@ -352,6 +352,9 @@
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp">
       <Filter>KentDAW\Source\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\GUI\ProjectTab.cpp">
+      <Filter>KentDAW\Source\GUI</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\GUI\RegionComponent.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
@@ -1670,6 +1673,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h">
       <Filter>KentDAW\Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\GUI\ProjectTab.h">
+      <Filter>KentDAW\Source\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\RegionComponent.h">
       <Filter>KentDAW\Source\GUI</Filter>
