@@ -23,7 +23,7 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
     _commands(commands)
 {
 	//Left Side
-    addAndMakeVisible(_leftSide);
+   // addAndMakeVisible(_leftSide);
 
 	//Arrangement and Viewport
     addAndMakeVisible(_arrangement);
