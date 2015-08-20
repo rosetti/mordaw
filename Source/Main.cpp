@@ -31,13 +31,16 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
+		/*
 		Image image_ = ImageCache::getFromMemory(SplashImage::mordaw_jpg, SplashImage::mordaw_jpgSize);
 		SplashScreen splash_("Welcome to morDAW",
 			image_, 
 			false);
-        registerCommands();
+        
         
 		splash_.deleteAfterDelay(RelativeTime::seconds(4), false);
+		*/
+		registerCommands();
 
 		_mainWindow = new MainWindow(_commandsManager, _engine);
 		_projectManager = new ProjectManager(_commandsManager, _engine, *_mainWindow);

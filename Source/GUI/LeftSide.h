@@ -42,7 +42,7 @@ private:
 	AudioFormatManager _formats;
 	KnownPluginList _plugins;
 	
-	TabbedComponent _tabbedComponent;
+	ScopedPointer<TabbedComponent> _tabbedComponent;
 	ScopedPointer<FileTreeComponent> _fileTree;
 	ScopedPointer<ProjectTab> _projectTab;
 	ScopedPointer<PluginListComponent> _pluginList;
