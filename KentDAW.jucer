@@ -34,10 +34,10 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
-        <FILE id="fEjX5V" name="ChannelStripComponent.cpp" compile="1" resource="0"
-              file="../../../Documents/KentDAW/KentDAW/Source/ui/ChannelStripComponent.cpp"/>
-        <FILE id="wDH1S1" name="ChannelStripComponent.h" compile="0" resource="0"
-              file="../../../Documents/KentDAW/KentDAW/Source/ui/ChannelStripComponent.h"/>
+        <FILE id="R1XK2X" name="ChannelStripComponent.cpp" compile="1" resource="0"
+              file="Source/GUI/ChannelStripComponent.cpp"/>
+        <FILE id="SovZuk" name="ChannelStripComponent.h" compile="0" resource="0"
+              file="Source/GUI/ChannelStripComponent.h"/>
         <FILE id="MF2SEp" name="MixerView.cpp" compile="1" resource="0" file="Source/GUI/MixerView.cpp"/>
         <FILE id="xYM6QK" name="MixerView.h" compile="0" resource="0" file="Source/GUI/MixerView.h"/>
         <FILE id="nyHrHN" name="ProjectTab.cpp" compile="1" resource="0" file="Source/GUI/ProjectTab.cpp"/>

@@ -52,7 +52,7 @@ OBJECTS := \
   $(OBJDIR)/SplashImage_48f94350.o \
   $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
-  $(OBJDIR)/ChannelStripComponent_d1e64166.o \
+  $(OBJDIR)/ChannelStripComponent_a4a2f215.o \
   $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/ProjectTab_b868ab9.o \
   $(OBJDIR)/RegionComponent_b9723f56.o \
@@ -122,7 +122,7 @@ $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	@echo "Compiling ProjectManager.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/ChannelStripComponent_d1e64166.o: ../../../../../Documents/KentDAW/KentDAW/Source/ui/ChannelStripComponent.cpp
+$(OBJDIR)/ChannelStripComponent_a4a2f215.o: ../../Source/GUI/ChannelStripComponent.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ChannelStripComponent.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"

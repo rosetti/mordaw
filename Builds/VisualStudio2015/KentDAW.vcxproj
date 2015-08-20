@@ -132,7 +132,7 @@
     <ClCompile Include="..\..\Source\Resources\Images\SplashImage.cpp"/>
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
-    <ClCompile Include="..\..\..\..\..\Documents\KentDAW\KentDAW\Source\ui\ChannelStripComponent.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\ChannelStripComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MixerView.cpp"/>
     <ClCompile Include="..\..\Source\GUI\ProjectTab.cpp"/>
     <ClCompile Include="..\..\Source\GUI\RegionComponent.cpp"/>
@@ -1300,7 +1300,7 @@
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
-    <ClInclude Include="..\..\..\..\..\Documents\KentDAW\KentDAW\Source\ui\ChannelStripComponent.h"/>
+    <ClInclude Include="..\..\Source\GUI\ChannelStripComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\MixerView.h"/>
     <ClInclude Include="..\..\Source\GUI\ProjectTab.h"/>
     <ClInclude Include="..\..\Source\GUI\RegionComponent.h"/>
