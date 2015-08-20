@@ -39,6 +39,7 @@ private:
     ApplicationCommandManager &_commands;
     Audio::Engine &_engine;
     MainWindow &_mainWindow;
+	ScopedPointer<XmlElement>pElements;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectManager)
 };

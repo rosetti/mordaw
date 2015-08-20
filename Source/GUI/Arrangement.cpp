@@ -55,6 +55,11 @@ void Arrangement::mouseDown(const MouseEvent &e) {
 	}
 }
 
+void Arrangement::mouseDoubleClick(const MouseEvent & e)
+{
+	ProjectManager::addTrack;
+}
+
 void Arrangement::paint (Graphics& g)
 {
 	g.setGradientFill(ColourGradient(Colours::darkgrey, 1, 1, Colours::darkorange, 10, 10, true));

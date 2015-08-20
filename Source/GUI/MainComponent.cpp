@@ -72,6 +72,11 @@ void MainComponent::mouseDown(const MouseEvent &e) {
 	}
 }
 
+void MainComponent::mouseDoubleClick(const MouseEvent & e)
+{
+	ProjectManager::addTrack;
+}
+
 void MainComponent::addTrack(Audio::Track* track) {
     _arrangement.addTrack(track);
 }

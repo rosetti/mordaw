@@ -15,6 +15,7 @@ ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engin
     _commands(commands),
     _mainWindow(window)
 {
+	pElements = new XmlElement("Project_Elements");
 }
 
 ProjectManager::~ProjectManager()
@@ -102,6 +103,7 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
 {
     Audio::Track *track = nullptr;
     TrackComponent *trackComponent = nullptr;
+	FileChooser *locationChooser = nullptr;
 
     switch (info.commandID) {
     case newProject:
@@ -117,12 +119,37 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
 
     case saveProject:
         // Choose destination if project is new
-        // Save existing project
+		// Save existing project
         return true;
 
     case saveProjectAs:
         // Choose destination
+		locationChooser = new FileChooser("Save your project...", File::getSpecialLocation
+			(File::userHomeDirectory), "*.mor");
+
+		if (locationChooser->browseForFileToSave(false))
+		{
+			File savedFile(locationChooser->getResult());
+			String stringFile = savedFile.getFullPathName();
+
+			bool overwrite = true;
+			if (savedFile.existsAsFile())
+			{
+				overwrite = AlertWindow::showOkCancelBox(
+					AlertWindow::WarningIcon, "A project by this name already exists!", "Would you like to overwrite this project file?");
+			}
+
+			if (overwrite == true)
+			{
+				savedFile.deleteFile();
+				savedFile.create();
         // Save existing project to the destination
+				//Create XML
+				String xmlDoc = pElements->createDocument(String::empty, false);
+				//Append to savefile
+				savedFile.appendText(xmlDoc);
+			}
+		}
         return true;
 
     case StandardApplicationCommandIDs::cut:
