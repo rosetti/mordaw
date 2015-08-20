@@ -52,12 +52,13 @@ OBJECTS := \
   $(OBJDIR)/SplashImage_48f94350.o \
   $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
+  $(OBJDIR)/ChannelStripComponent_d1e64166.o \
+  $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/ProjectTab_b868ab9.o \
   $(OBJDIR)/RegionComponent_b9723f56.o \
   $(OBJDIR)/TrackComponent_d82131ef.o \
   $(OBJDIR)/TimelineComponent_3d790929.o \
   $(OBJDIR)/TimelineCursor_f1957674.o \
-  $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/Arrangement_15b9fd77.o \
   $(OBJDIR)/TransportControls_13276ec.o \
   $(OBJDIR)/LeftSide_f50f27fb.o \
@@ -121,6 +122,16 @@ $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	@echo "Compiling ProjectManager.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
+$(OBJDIR)/ChannelStripComponent_d1e64166.o: ../../../../../Documents/KentDAW/KentDAW/Source/ui/ChannelStripComponent.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling ChannelStripComponent.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/MixerView_2ce514bb.o: ../../Source/GUI/MixerView.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling MixerView.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
 $(OBJDIR)/ProjectTab_b868ab9.o: ../../Source/GUI/ProjectTab.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectTab.cpp"
@@ -144,11 +155,6 @@ $(OBJDIR)/TimelineComponent_3d790929.o: ../../Source/GUI/TimelineComponent.cpp
 $(OBJDIR)/TimelineCursor_f1957674.o: ../../Source/GUI/TimelineCursor.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling TimelineCursor.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/MixerView_2ce514bb.o: ../../Source/GUI/MixerView.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling MixerView.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Arrangement_15b9fd77.o: ../../Source/GUI/Arrangement.cpp

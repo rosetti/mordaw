@@ -12,6 +12,7 @@
 #define MIXERVIEW_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "ChannelStripComponent.h"
 
 //==============================================================================
 /*
@@ -24,8 +25,12 @@ public:
 
     void paint (Graphics&);
     void resized();
+    
+    void addTrack(int trackIndex);
 
 private:
+
+    Array<ChannelStripComponent*> _strips;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixerView)
 };
 

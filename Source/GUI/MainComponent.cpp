@@ -33,6 +33,11 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
 
 	//Transport
     addAndMakeVisible(_transportControls);
+    
+    addAndMakeVisible(_mixerView);
+    _mixerView.addTrack(1);
+    _mixerView.addTrack(2);
+    _mixerView.setAlwaysOnTop(true);
 }
 
 MainComponent::~MainComponent()

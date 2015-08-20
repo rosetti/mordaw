@@ -57,7 +57,7 @@ void Arrangement::mouseDown(const MouseEvent &e) {
 
 void Arrangement::mouseDoubleClick(const MouseEvent & e)
 {
-	ProjectManager::addTrack;
+	//ProjectManager::addTrack;
 }
 
 void Arrangement::paint (Graphics& g)
