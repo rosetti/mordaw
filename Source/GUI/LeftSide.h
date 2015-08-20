@@ -20,8 +20,12 @@
 class LeftSide    : public Component
 {
 public:
-    LeftSide(ApplicationCommandManager &commands);
+    LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine);
 	~LeftSide();
+
+	void prepareFileTree();
+
+	void preparePluginList();
 
 	void addTabs();
 
@@ -30,13 +34,18 @@ public:
 
 private:
     ApplicationCommandManager &_commands;
-		
+
 	TimeSliceThread _tsThread;
 	DirectoryContentsList _directoryList;
+
+	const Audio::Engine &_engine;
+	AudioFormatManager _formats;
+	KnownPluginList _plugins;
 	
 	TabbedComponent _tabbedComponent;
 	ScopedPointer<FileTreeComponent> _fileTree;
 	ScopedPointer<ProjectTab> _projectTab;
+	ScopedPointer<PluginListComponent> _pluginList;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LeftSide)
 };

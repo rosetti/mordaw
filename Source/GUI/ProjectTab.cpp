@@ -55,11 +55,11 @@ void ProjectTab::paint(Graphics &)
 
 void ProjectTab::resized()
 {
-	_newProjectButton->setBounds(0, 0, getWidth(), 50);
-	_saveProjectButton->setBounds(0, 50, getWidth(), 50);
-	_saveProjectAsButton->setBounds(0, 100, getWidth(), 50);
-	_openProjectButton->setBounds(0, 150, getWidth(), 50);
+	_newProjectButton->setBounds(0, 0, getWidth(), 20);
+	_saveProjectButton->setBounds(0, 20, getWidth(), 20);
+	_saveProjectAsButton->setBounds(0, 40, getWidth(), 20);
+	_openProjectButton->setBounds(0, 60, getWidth(), 20);
 
-	_addTrackButton->setBounds(0, 250, getWidth(), 50);
+	_addTrackButton->setBounds(0, 100, getWidth(), 20);
 }
 

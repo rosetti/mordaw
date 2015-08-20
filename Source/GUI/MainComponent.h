@@ -45,6 +45,7 @@ private:
     Arrangement _arrangement;
     MixerView _mixerView;
     TransportControls _transportControls;
+	AudioFormatManager _formatManager;
     
     ApplicationCommandManager &_commands;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

@@ -29,7 +29,6 @@ namespace Audio
         // just temporary until we have a proper way of adding tracks.
         int64 getTotalLength() const;
         Mixer *getMixer() const;
-        
 
         enum Commands {
             start = 0x200,

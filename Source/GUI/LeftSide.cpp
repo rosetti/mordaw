@@ -13,25 +13,44 @@
 
 //==============================================================================
 
-LeftSide::LeftSide(ApplicationCommandManager &commands) : _commands(commands),
+LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine) : _commands(commands),
+	_engine(engine),
 	_tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft),
 	_tsThread("File Tree"),
 	_directoryList(nullptr, _tsThread)
 {
-	//Set Up the File Tree and Directories
+	//Set Up the Project Tab
 	_projectTab = new ProjectTab(_commands);
-	_fileTree = new FileTreeComponent(_directoryList);
-	_directoryList.setDirectory(File::getSpecialLocation(File::userHomeDirectory), true, true);
-	_tsThread.startThread(3);
+	//Set Up the File Tree and Directories
+	prepareFileTree();
+	//Set Up the Plugin List
+	/*
+	_formats.registerBasicFormats();
 
+	_pluginList = new PluginListComponent(_formats, _plugins, nullptr, nullptr);
+	preparePluginList();
+	*/
 	//Add Tabs to the component
 	addTabs();
-
 	addAndMakeVisible(_tabbedComponent);
 }
 
 LeftSide::~LeftSide()
 {
+
+}
+
+void LeftSide::prepareFileTree()
+{
+	_fileTree = new FileTreeComponent(_directoryList);
+	_directoryList.setDirectory(File::getSpecialLocation(File::userHomeDirectory), true, true);
+	_tsThread.startThread(3);
+	_fileTree->setDragAndDropDescription("File Tree Drag and Drop");
+}
+
+void LeftSide::preparePluginList()
+{
+	
 }
 
 void LeftSide::addTabs()

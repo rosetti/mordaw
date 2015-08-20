@@ -14,7 +14,9 @@
 
 namespace Audio
 {
-    Engine::Engine(ApplicationCommandManager *commands) : _commands(commands) {
+    Engine::Engine(ApplicationCommandManager *commands) : _commands(commands),
+	_formats()
+	{
 
         AudioIODevice* current;
 
