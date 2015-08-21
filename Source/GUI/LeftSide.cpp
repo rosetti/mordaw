@@ -16,11 +16,14 @@
 LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine) : _commands(commands),
 	_engine(engine),
 	_tsThread("File Tree"),
-	_directoryList(nullptr, _tsThread)
+	_directoryList(nullptr, _tsThread),
+	_tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft),
+	_projectTab(_commands),
+	_fileTree(_directoryList)
 {
-	_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
+	//_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
 	//Set Up the Project Tab
-	_projectTab = new ProjectTab(_commands);
+	//_projectTab = new ProjectTab(_commands);
 	//Set Up the File Tree and Directories
 	prepareFileTree();
 	//Set Up the Plugin List
@@ -37,15 +40,15 @@ LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &eng
 
 LeftSide::~LeftSide()
 {
-
+	_tabbedComponent.removeAllChildren();
 }
 
 void LeftSide::prepareFileTree()
 {
-	_fileTree = new FileTreeComponent(_directoryList);
+	//_fileTree = new FileTreeComponent(_directoryList);
 	_directoryList.setDirectory(File::getSpecialLocation(File::userHomeDirectory), true, true);
 	_tsThread.startThread(3);
-	_fileTree->setDragAndDropDescription("File Tree Drag and Drop");
+	//_fileTree->setDragAndDropDescription("File Tree Drag and Drop");
 }
 
 void LeftSide::preparePluginList()
@@ -55,9 +58,9 @@ void LeftSide::preparePluginList()
 
 void LeftSide::addTabs()
 {
-	_tabbedComponent->addTab("Project", Colours::darkgrey, _projectTab, false);
-	_tabbedComponent->addTab("Files", Colours::darkgrey, _fileTree, false);
-	_tabbedComponent->addTab("Plugins", Colours::darkgrey, nullptr, false);
+	_tabbedComponent.addTab("Project", Colours::darkgrey, &_projectTab, false);
+	_tabbedComponent.addTab("Files", Colours::darkgrey, &_fileTree, false);
+	_tabbedComponent.addTab("Plugins", Colours::darkgrey, nullptr, false);
 }
 
 void LeftSide::paint (Graphics& g)
@@ -67,5 +70,5 @@ void LeftSide::paint (Graphics& g)
 
 void LeftSide::resized()
 {
-	_tabbedComponent->setBounds(0, 0, getWidth(), getHeight());
+	_tabbedComponent.setBounds(0, 0, getWidth(), getHeight());
 }

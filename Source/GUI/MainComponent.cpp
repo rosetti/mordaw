@@ -24,7 +24,7 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
     _commands(commands)
 {
 	//Left Side
-	//addAndMakeVisible(_leftSide);
+	addAndMakeVisible(_leftSide);
 
 	//Arrangement and Viewport
 	addAndMakeVisible(_arrangePort);
@@ -126,6 +126,7 @@ int MainComponent::getCurrentViewState(String view)
 			return 0;
 		}
 	}
+	return 0;
 }
 
 
@@ -136,10 +137,8 @@ void MainComponent::showArrangement()
 	_arrangement.setVisible(true);
 	_arrangePort.setVisible(true);
 	_arrangement.setOpaque(true);
-	
-	
-	//_mixerView.setAlwaysOnTop(false);
-	//_arrangement.setAlwaysOnTop(true);
+	//_mixPort.setAlwaysOnTop(false);
+	//_arrangePort.setAlwaysOnTop(true);
 }
 
 void MainComponent::showMixer()
@@ -149,7 +148,7 @@ void MainComponent::showMixer()
 	_mixerView.setVisible(true);
 	_mixPort.setVisible(true);
 	_mixerView.setOpaque(true);
-	//_arrangement.setAlwaysOnTop(false);
-	//_mixerView.setAlwaysOnTop(true);
+	//_arrangePort.setAlwaysOnTop(false);
+	//_mixPort.setAlwaysOnTop(true);
 }
 

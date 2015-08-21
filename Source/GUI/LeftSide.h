@@ -42,9 +42,9 @@ private:
 	AudioFormatManager _formats;
 	KnownPluginList _plugins;
 	
-	ScopedPointer<TabbedComponent> _tabbedComponent;
-	ScopedPointer<FileTreeComponent> _fileTree;
-	ScopedPointer<ProjectTab> _projectTab;
+	TabbedComponent _tabbedComponent;
+	FileTreeComponent _fileTree;
+	ProjectTab _projectTab;
 	ScopedPointer<PluginListComponent> _pluginList;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LeftSide)
