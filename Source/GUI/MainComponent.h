@@ -24,8 +24,6 @@ public:
     MainComponent(ApplicationCommandManager &manager, const Audio::Engine &engine);
     ~MainComponent();
 
-	void addAllChildrenComponents();
-
     void paint(Graphics&) override;
     void resized() override;
 	void mouseDown(const MouseEvent & e);
