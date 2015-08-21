@@ -12,7 +12,7 @@
 #define CHANNELSTRIPCOMPONENT_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "Engine.h"
+#include "../Audio/Engine.h"
 
 //==============================================================================
 /*
@@ -35,9 +35,9 @@ public:
     void resized();
     
 private:
-    Label* label;
-    Slider* volumeSlider;
-    Slider* panPot;
+    ScopedPointer<Label> label;
+    ScopedPointer<Slider> volumeSlider;
+    ScopedPointer<Slider> panPot;
     
     ToggleButton* muteButton;
     ToggleButton* soloButton;

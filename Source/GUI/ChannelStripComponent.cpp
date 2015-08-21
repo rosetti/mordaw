@@ -11,7 +11,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include <list>
 #include "ChannelStripComponent.h"
-#include "ChannelStripProcessor.h"
+#include "../Audio/ChannelStripProcessor.h"
 
 //==============================================================================
 ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &engine) : _trackID(trackID), _engine(engine)
@@ -56,7 +56,12 @@ ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &e
 
 ChannelStripComponent::~ChannelStripComponent()
 {
-    deleteAllChildren();
+	volumeSlider->removeListener(this);
+	panPot->removeListener(this);
+	muteButton->removeListener(this);
+	soloButton->removeListener(this);
+
+	removeAllChildren();
 }
 
 void ChannelStripComponent::paint (Graphics& g)

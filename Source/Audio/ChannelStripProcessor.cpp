@@ -9,7 +9,7 @@
 */
 
 #include "ChannelStripProcessor.h"
-#include "Conversion.h"
+#include "../Utility/Conversion.h"
 
 //==============================================================================
 ChannelStripProcessor::ChannelStripProcessor()

@@ -51,6 +51,7 @@ void Arrangement::mouseDown(const MouseEvent &e) {
 		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
 		arrangeMenu_->clear();
 		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+		arrangeMenu_->addCommandItem(&_commands, MainWindow::showMixer);
 		arrangeMenu_->show();
 	}
 }

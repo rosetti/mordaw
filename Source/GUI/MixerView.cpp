@@ -9,10 +9,12 @@
 */
 
 #include "MixerView.h"
+#include "MainWindow.h"
+#include "../Core/ProjectManager.h"
 
 //==============================================================================
-MixerView::MixerView(ApplicationCommandManager &commands, const Audio::Engine &engine)
-: _commands(commands), _engine(engine)
+MixerView::MixerView(ApplicationCommandManager &commands, const Audio::Engine &engine)	: _commands(commands),
+	_engine(engine)
 {
 }
 
@@ -27,9 +29,23 @@ void MixerView::addTrack(int trackIndex) {
     resized();
 }
 
+void MixerView::mouseDown(const MouseEvent &e) {
+
+	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+
+	// check the mod keys ..
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+	{
+		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+		arrangeMenu_->clear();
+		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+		arrangeMenu_->addCommandItem(&_commands, MainWindow::showArrangement);
+		arrangeMenu_->show();
+	}
+}
+
 void MixerView::paint (Graphics& g)
 {
-    g.fillAll (Colours::white);   // clear the background
 }
 
 void MixerView::resized()

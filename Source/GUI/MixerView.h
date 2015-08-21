@@ -11,7 +11,7 @@
 #ifndef MIXERVIEW_H_INCLUDED
 #define MIXERVIEW_H_INCLUDED
 
-#include "Engine.h"
+#include "../Audio/Engine.h"
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "ChannelStripComponent.h"
 
@@ -29,9 +29,11 @@ public:
     
     void addTrack(int trackIndex);
 
+	void mouseDown(const MouseEvent & e);
+
 private:
     const Audio::Engine &_engine;
-    const ApplicationCommandManager &_commands;
+    ApplicationCommandManager& _commands;
     Array<ChannelStripComponent*> _strips;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixerView)
 };
