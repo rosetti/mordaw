@@ -16,8 +16,9 @@ MainWindow::MainWindow(ApplicationCommandManager &commands, const Audio::Engine 
 	_menu(commands),
 	_commands(commands)
 {
-	_arrangeEnabled = 1;
-	_mixerEnabled = 0;
+	_arrangeVisible = true;
+	_mixVisible = false;
+
     setLookAndFeel(&_lookAndFeel);
     setUsingNativeTitleBar(true);
     centreWithSize(800, 600);
@@ -70,12 +71,13 @@ void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& res
         break;
 	case showArrangement:
 		//THE NEXT LINE BREAKS THE BUILD FOR SOME REASON
-		//flags = _arrangementShowing ? ApplicationCommandInfo::isDisabled : 0;
+		//flags = Content.arrangeIsShowing() ? ApplicationCommandInfo::isDisabled : 0;
 		result.setInfo("Show Arrangement", "Display the arrangement in the main window.", global, 0);
 		result.addDefaultKeypress(KeyPress::tabKey, 0);
 		break;
 	case showMixer:
 		//THE NEXT LINE BREAKS THE BUILD FOR SOME REASON
+		//flags = Content.mixerIsShowing() ? 0 : ApplicationCommandInfo::isDisabled;
 		result.setInfo("Show Mixer", "Display the mixer in the main window.", global, 0);
 		result.addDefaultKeypress(KeyPress::tabKey, 0);
 		break;
@@ -101,14 +103,10 @@ bool MainWindow::perform(const ApplicationCommandTarget::InvocationInfo& info) {
 	
 	case showArrangement:
 		Content.switchView(false);
-		_arrangeEnabled = 1;
-		_mixerEnabled = 0;
 		return true;
 
 	case showMixer:
 		Content.switchView(true);
-		_mixerEnabled = 1;
-		_arrangeEnabled = 0;
 		return true;
 
     default:

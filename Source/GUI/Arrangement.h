@@ -28,6 +28,7 @@ public:
     void paint(Graphics&);
     void resized();
     void addTrack(Audio::Track* track);
+	void removeTrack(int trackNumber);
 	void addRegionToTrack(int _trackID);
     void setPixelsPerClip(int64 pixels);
     

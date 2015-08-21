@@ -62,6 +62,11 @@ namespace Audio
         
     }
 
+	void Mixer::remove()
+	{
+
+	}
+
     void Mixer::startPlayingAt(int64 position)
     {
         if (!_isPlaying) {

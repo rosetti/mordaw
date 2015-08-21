@@ -35,6 +35,9 @@ public:
 	Arrangement *getArrangement();
 	MixerView *getMixer();
 
+	bool arrangeIsShowing() const;
+	bool mixerIsShowing() const;
+
 	void switchView(bool arrangeEnabled);
 
 private:
@@ -46,6 +49,9 @@ private:
     TransportControls _transportControls;
 	AudioFormatManager _formatManager;
     ApplicationCommandManager &_commands;
+
+	bool _arrangeVisible;
+	bool _mixerVisible;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

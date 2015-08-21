@@ -23,20 +23,23 @@ class TrackMixerComponent : public Component,
                             public ButtonListener
 {
 public:
-    TrackMixerComponent(const int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands);
+    TrackMixerComponent(int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands);
     ~TrackMixerComponent();
 
 	void mouseDown(const MouseEvent & e);
     
     void paint (Graphics&);
     void resized();
+
+	int getTrackID();
+	void setTrackID(int trackID);
     
     void buttonClicked(Button* button);
     void buttonStateChanged(Button* button);
     
 private:
     const Audio::Engine& _engine;
-    const int _trackID;
+    int _trackID;
 	ApplicationCommandManager& _commands;
     ScopedPointer<Label> _trackLabel;
     ScopedPointer<ToggleButton> _muteButton, _soloButton;
@@ -56,6 +59,9 @@ public:
     bool isInterestedInFileDrag(const StringArray& files) override;
     void filesDropped(const StringArray& files, int x, int y) override;
     
+	int getTrackID();
+	void setTrackID(int trackID);
+
     void setPixelsPerClip(int64 pixels);
     
     void mouseDown (const MouseEvent& e);

@@ -22,6 +22,7 @@ namespace Audio
         ~Mixer();
 
         void add(Track *track);
+		void remove();
 
         void startPlayingAt(int64 position = -1);
         void pause();

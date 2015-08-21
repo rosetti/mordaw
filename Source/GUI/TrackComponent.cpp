@@ -13,7 +13,7 @@
 #include "../Audio/SampleRegion.h"
 #include "../Core/ProjectManager.h"
 
-TrackMixerComponent::TrackMixerComponent(const int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands)
+TrackMixerComponent::TrackMixerComponent(int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands)
 : _trackID(trackID),
 _commands(commands),
 _engine(engine)
@@ -75,6 +75,16 @@ void TrackMixerComponent::resized()
     _trackLabel->setBounds(getWidth()/2+20, getParentHeight()/2, getWidth()/2, buttonSize);
 }
 
+int TrackMixerComponent::getTrackID()
+{
+	return _trackID;
+}
+
+void TrackMixerComponent::setTrackID(int trackID)
+{
+	_trackID = trackID;
+}
+
 //==============================================================================
 TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip)
 : _track(track),
@@ -92,6 +102,7 @@ TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track
 
 TrackComponent::~TrackComponent()
 {
+	removeAllChildren();
 }
 
 void TrackComponent::mouseDrag (const MouseEvent& e)
@@ -202,6 +213,16 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
             createRegionGUI(_mixerOffset, region, formatManager, file);
         }
     }
+}
+
+int TrackComponent::getTrackID()
+{
+	return _trackID;
+}
+
+void TrackComponent::setTrackID(int trackID)
+{
+	_trackID = trackID;
 }
 
 void TrackComponent::mouseDown(const MouseEvent &e) {
