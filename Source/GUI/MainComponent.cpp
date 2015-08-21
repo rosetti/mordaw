@@ -29,8 +29,8 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
 	//Arrangement and Viewport
 	addAndMakeVisible(_arrangePort);
     addAndMakeVisible(_arrangement);
-	addChildComponent(_mixerView);
 	addChildComponent(_mixPort);
+	addChildComponent(_mixerView);
 	_arrangePort.setViewedComponent(&_arrangement);
 	_arrangePort.setScrollBarsShown(true, true, false, false);
 	_mixPort.setViewedComponent(&_mixerView);
@@ -135,6 +135,9 @@ void MainComponent::showArrangement()
 	_mixPort.setVisible(false);
 	_arrangement.setVisible(true);
 	_arrangePort.setVisible(true);
+	_arrangement.setOpaque(true);
+	
+	
 	//_mixerView.setAlwaysOnTop(false);
 	//_arrangement.setAlwaysOnTop(true);
 }
@@ -145,6 +148,7 @@ void MainComponent::showMixer()
 	_arrangePort.setVisible(false);
 	_mixerView.setVisible(true);
 	_mixPort.setVisible(true);
+	_mixerView.setOpaque(true);
 	//_arrangement.setAlwaysOnTop(false);
 	//_mixerView.setAlwaysOnTop(true);
 }

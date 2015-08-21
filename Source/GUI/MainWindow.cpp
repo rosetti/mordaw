@@ -70,12 +70,14 @@ void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& res
     default:
         break;
 	case showArrangement:
-//		flags = _arrangementShowing ? ApplicationCommandInfo::isDisabled : 0;
+		//THE NEXT LINE BREAKS THE BUILD FOR SOME REASON
+		//flags = _arrangementShowing ? ApplicationCommandInfo::isDisabled : 0;
 		result.setInfo("Show Arrangement", "Display the arrangement in the main window.", global, 0);
 		result.addDefaultKeypress(KeyPress::tabKey, 0);
 		break;
 	case showMixer:
-	//	flags = _mixerShowing ? ApplicationCommandInfo::isDisabled : 0;
+		//THE NEXT LINE BREAKS THE BUILD FOR SOME REASON
+		//flags = _mixerShowing ? ApplicationCommandInfo::isDisabled : 0;
 		result.setInfo("Show Mixer", "Display the mixer in the main window.", global, 0);
 		result.addDefaultKeypress(KeyPress::tabKey, 0);
 		break;
