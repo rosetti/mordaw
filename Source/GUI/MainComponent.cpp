@@ -24,6 +24,8 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
     _commands(commands),
     _trackCounter(0)
 {
+	_arrangeVisible = true;
+	_mixerVisible = false;
 	//Left Side
 	addAndMakeVisible(_leftSide);
 
@@ -98,6 +100,22 @@ Arrangement * MainComponent::getArrangement()
 MixerView * MainComponent::getMixer()
 {
 	return &_mixerView;
+}
+
+bool MainComponent::arrangeIsShowing() const
+{
+	if (_arrangeVisible) {
+		return true;
+	}
+	return false;
+}
+
+bool MainComponent::mixerIsShowing() const
+{
+	if (_mixerVisible) {
+		return true;
+	}
+	return false;
 }
 
 void MainComponent::switchView(bool arrangeEnabled)

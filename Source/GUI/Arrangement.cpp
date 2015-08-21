@@ -100,6 +100,17 @@ void Arrangement::addTrack(Audio::Track* track) {
     resized();
 }
 
+void Arrangement::removeTrack(int trackNumber) {
+	for (auto track : _tracks) {
+		if (track->getTrackID() == trackNumber) {
+
+		}
+		else if (track->getTrackID() > trackNumber) {
+
+		}
+	}
+}
+
 void Arrangement::addRegionToTrack(int _trackID) {
 
 }

@@ -39,12 +39,13 @@ private:
     void initializeContent();
     void initializeMenu();
 
-	bool _arrangementShowing;
-	bool _mixerShowing;
-   
+	bool _arrangeVisible;
+	bool _mixVisible;
+
     TopMenu _menu;
     LookAndFeel_V3 _lookAndFeel;
     ApplicationCommandManager &_commands;
+
   
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 };

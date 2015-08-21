@@ -13,7 +13,9 @@ Author:  Thomas
 ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window) : 
     _engine(engine), 
     _commands(commands),
-    _mainWindow(window)
+    _mainWindow(window),
+	_saveChooser("Save your project...", File::getSpecialLocation
+		(File::userHomeDirectory), "*.mor")
 {
 	pElements = new XmlElement("Project_Elements");
 }
@@ -124,10 +126,7 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
 
     case saveProjectAs:
         // Choose destination
-		locationChooser = new FileChooser("Save your project...", File::getSpecialLocation
-			(File::userHomeDirectory), "*.mor");
-
-		if (locationChooser->browseForFileToSave(false))
+		if (_saveChooser.browseForFileToSave(false))
 		{
 			File savedFile(locationChooser->getResult());
 			String stringFile = savedFile.getFullPathName();
