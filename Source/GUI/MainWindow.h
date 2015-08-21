@@ -31,11 +31,16 @@ public:
 
     enum Commands {
         refreshComponents = 0x300,
+		showArrangement = 0x301,
+		showMixer = 0x302,
     };
 
 private:
     void initializeContent();
     void initializeMenu();
+
+	bool _arrangementShowing;
+	bool _mixerShowing;
    
     TopMenu _menu;
     LookAndFeel_V3 _lookAndFeel;

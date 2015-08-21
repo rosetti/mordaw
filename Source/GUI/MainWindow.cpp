@@ -16,6 +16,9 @@ MainWindow::MainWindow(ApplicationCommandManager &commands, const Audio::Engine 
     _menu(commands),
     _commands(commands)
 {
+	_arrangementShowing = true;
+	_mixerShowing = false;
+
     setLookAndFeel(&_lookAndFeel);
     setUsingNativeTitleBar(true);
     centreWithSize(800, 600);
@@ -66,12 +69,24 @@ void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& res
         break;
     default:
         break;
+	case showArrangement:
+//		flags = _arrangementShowing ? ApplicationCommandInfo::isDisabled : 0;
+		result.setInfo("Show Arrangement", "Display the arrangement in the main window.", global, 0);
+		result.addDefaultKeypress(KeyPress::tabKey, 0);
+		break;
+	case showMixer:
+	//	flags = _mixerShowing ? ApplicationCommandInfo::isDisabled : 0;
+		result.setInfo("Show Mixer", "Display the mixer in the main window.", global, 0);
+		result.addDefaultKeypress(KeyPress::tabKey, 0);
+		break;
     }
 }
 
 void MainWindow::getAllCommands(Array<CommandID>& commands) const {
     const CommandID ids[] = {
-        refreshComponents
+        refreshComponents,
+		showArrangement,
+		showMixer
     };
 
     commands.addArray(ids, numElementsInArray(ids));
@@ -83,6 +98,24 @@ bool MainWindow::perform(const ApplicationCommandTarget::InvocationInfo& info) {
         _menu.refresh();
         Content.getTransportControls()->refresh();
         return true;
+	
+	case showArrangement:
+		Content.showArrangement();
+		/*
+		Content.getMixer()->setVisible(false);
+		Content.getArrangement()->setVisible(true);
+		Content.getViewport()->setViewedComponent(Content.getArrangement());
+		return true;
+		*/
+
+	case showMixer:
+		Content.showMixer();
+		/*
+		Content.getArrangement()->setVisible(false);
+		Content.getMixer()->setVisible(true);
+		Content.getViewport()->setViewedComponent(Content.getMixer());
+		*/
+		return true;
 
     default:
         return false;

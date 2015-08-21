@@ -59,8 +59,8 @@ void TopMenu::addEditMenu(ApplicationCommandManager* commands) {
 void TopMenu::addViewMenu(ApplicationCommandManager* commands) {
     PopupMenu viewMenu;
     
-    viewMenu.addCommandItem(commands, MainComponent::showArrangement);
-    viewMenu.addCommandItem(commands, MainComponent::showMixer);
+    viewMenu.addCommandItem(commands, MainWindow::showArrangement);
+    viewMenu.addCommandItem(commands, MainWindow::showMixer);
     _menus.push_back(std::pair<String, PopupMenu>("View", viewMenu));
 }
 

@@ -17,27 +17,34 @@
 MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::Engine &engine) :
     _leftSide(commands, engine),
     _arrangement(commands, engine),
-	_arrangementView(),
+	_arrangePort(),
+	_mixPort(),
     _mixerView(commands),
     _transportControls(commands, engine),
     _commands(commands)
 {
 	//Left Side
-   // addAndMakeVisible(_leftSide);
+	//addAndMakeVisible(_leftSide);
 
 	//Arrangement and Viewport
+	addAndMakeVisible(_arrangePort);
     addAndMakeVisible(_arrangement);
-	addAndMakeVisible(_arrangementView);
-	_arrangementView.setViewedComponent(&_arrangement);
-	_arrangementView.setScrollBarsShown(true, true, false, false);
-
+	addChildComponent(_mixerView);
+	addChildComponent(_mixPort);
+	_arrangePort.setViewedComponent(&_arrangement);
+	_arrangePort.setScrollBarsShown(true, true, false, false);
+	_mixPort.setViewedComponent(&_mixerView);
+	_mixPort.setScrollBarsShown(true, true, false, false);
+	
 	//Transport
     addAndMakeVisible(_transportControls);
     
-    addAndMakeVisible(_mixerView);
-    _mixerView.addTrack(1);
-    _mixerView.addTrack(2);
-    _mixerView.setAlwaysOnTop(true);
+	
+    //addAndMakeVisible(_mixerView);
+    //_mixerView.addTrack(1);
+    //_mixerView.addTrack(2);
+    //_mixerView.setAlwaysOnTop(true);
+	
 }
 
 MainComponent::~MainComponent()
@@ -55,7 +62,8 @@ void MainComponent::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     _leftSide.setBounds(0, 0, 300, getHeight());
-	_arrangementView.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
+	_arrangePort.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
+	_mixPort.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
     _arrangement.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
     _mixerView.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
 
@@ -90,54 +98,54 @@ TransportControls* MainComponent::getTransportControls() {
     return &_transportControls;
 }
 
-void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
-    const String view("View");
-    int flags;
-    
-    switch (commandID) {
-        case showArrangement:
-            flags = _arrangement.isShowing() ? ApplicationCommandInfo::isDisabled : 0;
-            result.setInfo("Show Arrangement", "Display the arrangement in the main window.", view, flags);
-            result.addDefaultKeypress(KeyPress::tabKey, 0);
-            break;
-        case showMixer:
-            flags = _mixerView.isShowing() ? ApplicationCommandInfo::isDisabled : 0;
-            result.setInfo("Show Mixer", "Display the mixer in the main window.", view, flags);
-            result.addDefaultKeypress(KeyPress::tabKey, 0);
-            break;
-        default:
-            break;
-    }
+Arrangement * MainComponent::getArrangement()
+{
+	return &_arrangement;
 }
 
-void MainComponent::getAllCommands(Array<CommandID>& commands) const {
-    const CommandID ids[] = {
-        showArrangement,
-        showMixer
-    };
-    
-    commands.addArray(ids, numElementsInArray(ids));
+MixerView * MainComponent::getMixer()
+{
+	return &_mixerView;
 }
 
-bool MainComponent::perform(const ApplicationCommandTarget::InvocationInfo& info) {
-    switch (info.commandID) {
-        case showArrangement:
-            if(_arrangement.isShowing())
-            {
-                _arrangement.setVisible(false);
-                _mixerView.setVisible(true);
-            }
-            return true;
-            
-        case showMixer:
-            if(_mixerView.isShowing())
-            {
-                _mixerView.setVisible(false);
-                _arrangement.setVisible(true);
-            }
-            return true;
-            
-        default:
-            return false;
-    }
+int MainComponent::getCurrentViewState(String view)
+{
+	if (view == "mixer") {
+		if (_mixerView.isShowing()) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	else if (view == "arrangement") {
+		if (_arrangement.isShowing()) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
 }
+
+
+void MainComponent::showArrangement()
+{
+	_mixerView.setVisible(false);
+	_mixPort.setVisible(false);
+	_arrangement.setVisible(true);
+	_arrangePort.setVisible(true);
+	//_mixerView.setAlwaysOnTop(false);
+	//_arrangement.setAlwaysOnTop(true);
+}
+
+void MainComponent::showMixer()
+{
+	_arrangement.setVisible(false);
+	_arrangePort.setVisible(false);
+	_mixerView.setVisible(true);
+	_mixPort.setVisible(true);
+	//_arrangement.setAlwaysOnTop(false);
+	//_mixerView.setAlwaysOnTop(true);
+}
+

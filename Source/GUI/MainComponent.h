@@ -30,20 +30,20 @@ public:
 	void mouseDoubleClick(const MouseEvent & e);
 	
     void addTrack(Audio::Track* track);
-    TransportControls *getTransportControls();
 
-    enum Commands {
-        showArrangement = 0x500,
-        showMixer = 0x501,
-    };
-    
-    void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
-    void getAllCommands(Array<CommandID>& commands) const;
-    bool perform(const ApplicationCommandTarget::InvocationInfo & info);
-    
+	void showArrangement();
+	void showMixer();
+
+    TransportControls *getTransportControls();
+	Arrangement *getArrangement();
+	MixerView *getMixer();
+
+	int getCurrentViewState(String view);
+
 private:
     LeftSide _leftSide;
-	Viewport _arrangementView;
+	Viewport _arrangePort;
+	Viewport _mixPort;
     Arrangement _arrangement;
     MixerView _mixerView;
     TransportControls _transportControls;
