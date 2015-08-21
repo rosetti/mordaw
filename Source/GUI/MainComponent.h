@@ -24,6 +24,8 @@ public:
     MainComponent(ApplicationCommandManager &manager, const Audio::Engine &engine);
     ~MainComponent();
 
+	void addAllChildrenComponents();
+
     void paint(Graphics&) override;
     void resized() override;
 	void mouseDown(const MouseEvent & e);
@@ -31,14 +33,11 @@ public:
 	
     void addTrack(Audio::Track* track);
 
-	void showArrangement();
-	void showMixer();
-
     TransportControls *getTransportControls();
 	Arrangement *getArrangement();
 	MixerView *getMixer();
 
-	int getCurrentViewState(String view);
+	void switchView(bool arrangeEnabled);
 
 private:
     LeftSide _leftSide;
@@ -48,8 +47,8 @@ private:
     MixerView _mixerView;
     TransportControls _transportControls;
 	AudioFormatManager _formatManager;
-    
     ApplicationCommandManager &_commands;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
 

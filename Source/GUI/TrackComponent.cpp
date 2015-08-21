@@ -31,7 +31,6 @@ _engine(engine)
 
 TrackMixerComponent::~TrackMixerComponent()
 {
-    
 }
 
 void TrackMixerComponent::buttonClicked(Button* button)

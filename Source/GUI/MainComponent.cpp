@@ -26,25 +26,19 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
 	//Left Side
 	addAndMakeVisible(_leftSide);
 
-	//Arrangement and Viewport
-	addAndMakeVisible(_arrangePort);
-    addAndMakeVisible(_arrangement);
+	//Arrangement, Mixer and Viewports
+	addChildComponent(_arrangePort);
+	addChildComponent(_arrangement);
 	addChildComponent(_mixPort);
 	addChildComponent(_mixerView);
 	_arrangePort.setViewedComponent(&_arrangement);
 	_arrangePort.setScrollBarsShown(true, true, false, false);
 	_mixPort.setViewedComponent(&_mixerView);
 	_mixPort.setScrollBarsShown(true, true, false, false);
+	switchView(false);
 	
 	//Transport
     addAndMakeVisible(_transportControls);
-    
-	
-    //addAndMakeVisible(_mixerView);
-    //_mixerView.addTrack(1);
-    //_mixerView.addTrack(2);
-    //_mixerView.setAlwaysOnTop(true);
-	
 }
 
 MainComponent::~MainComponent()
@@ -59,15 +53,11 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    // This method is where you should set the bounds of any child
-    // components that your component contains..
     _leftSide.setBounds(0, 0, 300, getHeight());
 	_arrangePort.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
 	_mixPort.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
     _arrangement.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
     _mixerView.setBounds(_leftSide.getWidth(), 0, getWidth() - _leftSide.getWidth(), getHeight() - 50);
-
-    // getHeight() - 200
     _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
 }
 
@@ -108,47 +98,24 @@ MixerView * MainComponent::getMixer()
 	return &_mixerView;
 }
 
-int MainComponent::getCurrentViewState(String view)
+void MainComponent::switchView(bool arrangeEnabled)
 {
-	if (view == "mixer") {
-		if (_mixerView.isShowing()) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+	if (!arrangeEnabled)
+	{
+		//Disable the Mixer
+		_mixerView.setVisible(false);
+		_mixPort.setVisible(false);
+		//Enable the Arrange
+		_arrangement.setVisible(true);
+		_arrangePort.setVisible(true);
 	}
-	else if (view == "arrangement") {
-		if (_arrangement.isShowing()) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+	else
+	{
+		//Disable the Arrange
+		_arrangement.setVisible(false);
+		_arrangePort.setVisible(false);
+		//Enable the Mixer
+		_mixerView.setVisible(true);
+		_mixPort.setVisible(true);
 	}
-	return 0;
 }
-
-
-void MainComponent::showArrangement()
-{
-	_mixerView.setVisible(false);
-	_mixPort.setVisible(false);
-	_arrangement.setVisible(true);
-	_arrangePort.setVisible(true);
-	_arrangement.setOpaque(true);
-	//_mixPort.setAlwaysOnTop(false);
-	//_arrangePort.setAlwaysOnTop(true);
-}
-
-void MainComponent::showMixer()
-{
-	_arrangement.setVisible(false);
-	_arrangePort.setVisible(false);
-	_mixerView.setVisible(true);
-	_mixPort.setVisible(true);
-	_mixerView.setOpaque(true);
-	//_arrangePort.setAlwaysOnTop(false);
-	//_mixPort.setAlwaysOnTop(true);
-}
-

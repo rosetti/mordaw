@@ -102,21 +102,11 @@ bool MainWindow::perform(const ApplicationCommandTarget::InvocationInfo& info) {
         return true;
 	
 	case showArrangement:
-		Content.showArrangement();
-		/*
-		Content.getMixer()->setVisible(false);
-		Content.getArrangement()->setVisible(true);
-		Content.getViewport()->setViewedComponent(Content.getArrangement());
+		Content.switchView(false);
 		return true;
-		*/
 
 	case showMixer:
-		Content.showMixer();
-		/*
-		Content.getArrangement()->setVisible(false);
-		Content.getMixer()->setVisible(true);
-		Content.getViewport()->setViewedComponent(Content.getMixer());
-		*/
+		Content.switchView(true);
 		return true;
 
     default:
