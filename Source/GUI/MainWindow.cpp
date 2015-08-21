@@ -11,14 +11,13 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow(ApplicationCommandManager &commands, const Audio::Engine &engine) :
-    DocumentWindow("KentDAW", Colours::darkgrey, allButtons),
-    Content(commands, engine), 
-    _menu(commands),
-    _commands(commands)
+	DocumentWindow("KentDAW", Colours::darkgrey, allButtons),
+	Content(commands, engine),
+	_menu(commands),
+	_commands(commands)
 {
-	_arrangementShowing = true;
-	_mixerShowing = false;
-
+	_arrangeEnabled = 1;
+	_mixerEnabled = 0;
     setLookAndFeel(&_lookAndFeel);
     setUsingNativeTitleBar(true);
     centreWithSize(800, 600);
@@ -77,7 +76,6 @@ void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& res
 		break;
 	case showMixer:
 		//THE NEXT LINE BREAKS THE BUILD FOR SOME REASON
-		//flags = _mixerShowing ? ApplicationCommandInfo::isDisabled : 0;
 		result.setInfo("Show Mixer", "Display the mixer in the main window.", global, 0);
 		result.addDefaultKeypress(KeyPress::tabKey, 0);
 		break;
@@ -103,10 +101,14 @@ bool MainWindow::perform(const ApplicationCommandTarget::InvocationInfo& info) {
 	
 	case showArrangement:
 		Content.switchView(false);
+		_arrangeEnabled = 1;
+		_mixerEnabled = 0;
 		return true;
 
 	case showMixer:
 		Content.switchView(true);
+		_mixerEnabled = 1;
+		_arrangeEnabled = 0;
 		return true;
 
     default:

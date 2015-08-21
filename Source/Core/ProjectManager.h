@@ -41,6 +41,8 @@ private:
     MainWindow &_mainWindow;
 	ScopedPointer<XmlElement>pElements;
 
+	FileChooser _saveChooser;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectManager)
 };
 
