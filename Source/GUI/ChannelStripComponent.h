@@ -12,6 +12,7 @@
 #define CHANNELSTRIPCOMPONENT_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "Engine.h"
 
 //==============================================================================
 /*
@@ -20,15 +21,15 @@ class ChannelStripComponent    : public Component,
                                  public SliderListener,
                                  public ButtonListener,
                                  public LabelListener
-                                 //public FileDragAndDropTarget
 {
 public:
-    ChannelStripComponent(int trackID);
+    ChannelStripComponent(int trackID, const Audio::Engine &engine);
     ~ChannelStripComponent();
     
-    void sliderValueChanged(Slider* movedSlider);
-    void buttonClicked(Button* clickedButton);
-    void labelTextChanged(Label* changedLabel);
+    void sliderValueChanged(Slider* movedSlider) override;
+    void buttonClicked(Button* clickedButton) override;    
+    void buttonStateChanged(Button* clickedButton) override;
+    void labelTextChanged(Label* changedLabel) override;
     
     void paint(Graphics& g);
     void resized();
@@ -42,6 +43,7 @@ private:
     ToggleButton* soloButton;
     
     int _trackID;
+    const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChannelStripComponent)
 
 };

@@ -11,9 +11,10 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include <list>
 #include "ChannelStripComponent.h"
+#include "ChannelStripProcessor.h"
 
 //==============================================================================
-ChannelStripComponent::ChannelStripComponent(int trackID) : _trackID(trackID)
+ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &engine) : _trackID(trackID), _engine(engine)
 {
     // just for testing purposes
     addAndMakeVisible(label = new Label(String::empty, String::empty));
@@ -23,18 +24,19 @@ ChannelStripComponent::ChannelStripComponent(int trackID) : _trackID(trackID)
     label->addListener(this);
     
     // some method should be used to return the name of a track
-    String trackLabel = "Track";
+    String trackLabel = "Track" + (String) trackID;
     label->setText(trackLabel, NotificationType::sendNotification);
     
     addAndMakeVisible(volumeSlider = new Slider(trackLabel + " v"));
     volumeSlider->setSliderStyle(Slider::SliderStyle::LinearVertical);
-    volumeSlider->setRange(0.000001, 1.25, 0.000001);
+    volumeSlider->setRange(0.0f, 1.0f);
     volumeSlider->setSkewFactor(0.5f);
     volumeSlider->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
-    volumeSlider->setValue(1.0f);
+    volumeSlider->setValue(0.7f);
+    volumeSlider->addListener(this);
     
     addAndMakeVisible(panPot = new Slider(trackLabel + " p"));
-    panPot->setRange(0, 1, 0.00001);
+    panPot->setRange(0.0f, 1.0f);
     panPot->setSliderStyle(Slider::RotaryVerticalDrag);
     panPot->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     panPot->setColour(Slider::rotarySliderFillColourId, Colour(0x7fffff));
@@ -99,11 +101,11 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
 {
     if(movedSlider == volumeSlider)
     {
-
+        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, movedSlider->getValue());
     }
     else if(movedSlider == panPot)
     {
-        // set something
+        _engine.getMixer()->changeGain(ChannelStripProcessor::PAN, movedSlider->getValue());
     }
 }
 
@@ -113,21 +115,20 @@ void ChannelStripComponent::labelTextChanged(Label*)
     //label->setText("This text has been changed", NotificationType::dontSendNotification);
 }
 
+
+void ChannelStripComponent::buttonStateChanged(Button* clickedButton)
+{
+    /*if(clickedButton == muteButton)
+        _engine.getMixer()->muteTrack(_trackID);
+    else if(clickedButton == soloButton)
+        _engine.getMixer()->soloTrack(_trackID);*/
+}
+
 void ChannelStripComponent::buttonClicked(Button* clickedButton)
 {
     if(clickedButton == muteButton)
-    {
-        const bool isMuted = clickedButton->getToggleState();
-        
-        if(isMuted)
-        {
-
-        }
-    }
+        _engine.getMixer()->muteTrack(_trackID);
     else if(clickedButton == soloButton)
-    {
-        // ask parent to mute everything else somehow
-    }
+        _engine.getMixer()->soloTrack(_trackID);
 }
-
 

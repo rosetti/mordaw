@@ -26,6 +26,7 @@ public:
     TrackMixerComponent(const int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands);
     ~TrackMixerComponent();
 
+    void mouseDrag(const MouseEvent& e);
 	void mouseDown(const MouseEvent & e);
     
     void paint (Graphics&);

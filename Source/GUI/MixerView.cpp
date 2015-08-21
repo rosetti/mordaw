@@ -11,11 +11,9 @@
 #include "MixerView.h"
 
 //==============================================================================
-MixerView::MixerView(const ApplicationCommandManager &commands)
+MixerView::MixerView(ApplicationCommandManager &commands, const Audio::Engine &engine)
+: _commands(commands), _engine(engine)
 {
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
-
 }
 
 MixerView::~MixerView()
@@ -23,7 +21,7 @@ MixerView::~MixerView()
 }
 
 void MixerView::addTrack(int trackIndex) {
-    auto stripComponent = new ChannelStripComponent(trackIndex);
+    auto stripComponent = new ChannelStripComponent(trackIndex, _engine);
     _strips.add(stripComponent);
     addAndMakeVisible(stripComponent);
     resized();

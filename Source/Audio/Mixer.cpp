@@ -98,26 +98,54 @@ namespace Audio
         }
     }
     
-    void Mixer::muteTrack(int trackIndex)
+    void Mixer::muteTrack(int trackID)
     {
         for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
         {
-            if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackIndex - 1))
+            if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))
             {
                 current->second->setMuteParameter();
             }
         }
     }
     
-    void Mixer::soloTrack(int trackIndex)
+    
+    void Mixer::soloTrack(int trackID)
     {
         for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
         {
-            if(current->second->getID() != NodeIDs::STRIP_BASE_NODE_ID + (trackIndex - 1))
+            if(current->second->getID() != NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))
             {
                 current->second->setMuteParameter();
             }
         }
+    }
+    
+    void Mixer::changeGain(int trackID, float gain)
+    {
+        for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
+        {
+            if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))
+            {
+                current->second->setParameter(StripParameter::GAIN, gain);
+            }
+        }
+    }
+    
+    void Mixer::changePan(int trackID, float pan)
+    {
+        for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
+        {
+            if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))
+            {
+                current->second->setParameter(StripParameter::PAN, pan);
+            }
+        }
+    }
+    
+    int Mixer::getNumberOfStrips()
+    {
+        return _strips.size();
     }
 
 

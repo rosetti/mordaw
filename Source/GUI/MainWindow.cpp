@@ -70,7 +70,6 @@ void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& res
     default:
         break;
 	case showArrangement:
-		//THE NEXT LINE BREAKS THE BUILD FOR SOME REASON
 		//flags = _arrangementShowing ? ApplicationCommandInfo::isDisabled : 0;
 		result.setInfo("Show Arrangement", "Display the arrangement in the main window.", global, 0);
 		result.addDefaultKeypress(KeyPress::tabKey, 0);

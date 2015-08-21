@@ -27,13 +27,24 @@ namespace Audio
         void pause();
         void stop();
         
-        void muteTrack(int trackIndex);
-        void soloTrack(int trackIndex);
+        enum StripParameter
+        {
+            GAIN = 1,
+            PAN = 2,
+            MUTE = 3
+        };
+        
+        void muteTrack(int trackID);
+        void soloTrack(int trackID);
+        void changeGain(int trackID, float gain);
+        void changePan(int trackID, float pan);
 
         AudioProcessorGraph *getProcessorGraph();
 
         bool isPlaying() const;
         void goToTheEnd();
+        
+        int getNumberOfStrips();
 
         enum NodeIDs
         {

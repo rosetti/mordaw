@@ -9,6 +9,7 @@
 */
 
 #include "ChannelStripProcessor.h"
+#include "Conversion.h"
 
 //==============================================================================
 ChannelStripProcessor::ChannelStripProcessor()
@@ -148,6 +149,7 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
 	if (!_muted)
 	{
+        
 		if (_panning == 0.5)
 		{
 			buffer.applyGain(_gain);
@@ -163,7 +165,7 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 			buffer.applyGain(1, 0, buffer.getNumSamples(), _gain);
 		}
 	}
-	else if (_muted)
+	if (_muted)
 	{
 		buffer.applyGain(0.0);
 	}

@@ -19,9 +19,10 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
     _arrangement(commands, engine),
 	_arrangePort(),
 	_mixPort(),
-    _mixerView(commands),
+    _mixerView(commands, engine),
     _transportControls(commands, engine),
-    _commands(commands)
+    _commands(commands),
+    _trackCounter(0)
 {
 	//Left Side
 	addAndMakeVisible(_leftSide);
@@ -77,11 +78,12 @@ void MainComponent::mouseDown(const MouseEvent &e) {
 
 void MainComponent::mouseDoubleClick(const MouseEvent & e)
 {
-	ProjectManager::addTrack;
 }
 
 void MainComponent::addTrack(Audio::Track* track) {
+    _trackCounter++;
     _arrangement.addTrack(track);
+    _mixerView.addTrack(_trackCounter);
 }
 
 TransportControls* MainComponent::getTransportControls() {

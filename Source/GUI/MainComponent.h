@@ -40,6 +40,7 @@ public:
 	void switchView(bool arrangeEnabled);
 
 private:
+    int _trackCounter;
     LeftSide _leftSide;
 	Viewport _arrangePort;
 	Viewport _mixPort;

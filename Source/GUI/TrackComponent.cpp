@@ -33,6 +33,12 @@ TrackMixerComponent::~TrackMixerComponent()
 {
 }
 
+void TrackMixerComponent::mouseDrag(const MouseEvent &e)
+{
+    int x = e.x;
+    int y = e.y;
+}
+
 void TrackMixerComponent::buttonClicked(Button* button)
 {
     
@@ -92,11 +98,6 @@ TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track
 
 TrackComponent::~TrackComponent()
 {
-}
-
-void TrackComponent::mouseDrag (const MouseEvent& e)
-{
-
 }
 
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
@@ -165,6 +166,12 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
         }
     }
     return true;
+}
+
+void TrackComponent::mouseDrag(const MouseEvent &e)
+{
+    int x = e.x;
+    int y = e.y;
 }
 
 void TrackComponent::filesDropped(const StringArray & files, int x, int y)
