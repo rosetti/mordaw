@@ -63,6 +63,8 @@ public:
 	int getTrackID();
 	void setTrackID(int trackID);
 
+	std::map<int64*, String*> *getRegionMap();
+
     void setPixelsPerClip(int64 pixels);
     
     void mouseDown (const MouseEvent& e);
@@ -76,8 +78,9 @@ private:
     int64 _pixelsPerClip;
     Audio::Track *_track;
     ScopedPointer<TrackMixerComponent> _trackMixer;
-    std::vector<RegionComponent *> _regions;
+    std::vector<RegionComponent *> _regionComponents;
     std::vector<int64> _posX, _sizeSamps;
+	std::map< int64*, String*> _regions;
     ApplicationCommandManager &_commands;
     ComponentDragger dragger;
 

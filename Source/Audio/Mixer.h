@@ -41,11 +41,14 @@ namespace Audio
         void changePan(int trackID, float pan);
 
         AudioProcessorGraph *getProcessorGraph();
+		std::map<Track *, TrackProcessor *> *getTrackMap();
+		std::map<TrackProcessor *, ChannelStripProcessor *> *getStripMap();
 
         bool isPlaying() const;
         void goToTheEnd();
         
         int getNumberOfStrips();
+		int getNumberOfTracks();
 
         enum NodeIDs
         {

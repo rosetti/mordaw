@@ -44,6 +44,7 @@ public:
 
 		_mainWindow = new MainWindow(_commandsManager, _engine);
 		_projectManager = new ProjectManager(_commandsManager, _engine, *_mainWindow);
+		_projectManager->createBasicProjectFramework("Untitled_Project");
     }
 
     void shutdown() override

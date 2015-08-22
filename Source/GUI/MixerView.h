@@ -29,12 +29,14 @@ public:
     
     void addTrack(int trackIndex);
 
+	std::vector<ChannelStripComponent*> *getChannelStrips();
+
 	void mouseDown(const MouseEvent & e);
 
 private:
     const Audio::Engine &_engine;
     ApplicationCommandManager& _commands;
-    Array<ChannelStripComponent*> _strips;
+	std::vector<ChannelStripComponent*> _strips;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixerView)
 };
 

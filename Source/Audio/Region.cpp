@@ -15,7 +15,13 @@ namespace Audio {
     {
     }
 
-    Region::~Region()
+
+	Region::Region(int64 length, File file)	:	_currentPosition(0), _totalLength(length), _file(file)
+	{
+
+	}
+
+	Region::~Region()
     {
     }
     
@@ -57,4 +63,8 @@ namespace Audio {
     {
         return false;
     }
+	File & Region::getFile()
+	{
+		return _file;
+	}
 }

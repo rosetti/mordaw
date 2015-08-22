@@ -24,9 +24,14 @@ MixerView::~MixerView()
 
 void MixerView::addTrack(int trackIndex) {
     auto stripComponent = new ChannelStripComponent(trackIndex, _engine);
-    _strips.add(stripComponent);
+    _strips.push_back(stripComponent);
     addAndMakeVisible(stripComponent);
     resized();
+}
+
+std::vector<ChannelStripComponent*>* MixerView::getChannelStrips()
+{
+	return &_strips;
 }
 
 void MixerView::mouseDown(const MouseEvent &e) {

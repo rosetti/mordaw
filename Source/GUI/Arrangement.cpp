@@ -23,13 +23,16 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     addAndMakeVisible(_zoomInButton);
     addAndMakeVisible(_timeline);
     setPixelsPerClip(30);
+	_trackNumber = 1;
 }
 
 Arrangement::~Arrangement()
 {
+	/*
     for (auto track : _tracks) {
         delete track;
     }
+	*/
 }
 
 void Arrangement::buttonClicked(Button* button)
@@ -76,8 +79,8 @@ void Arrangement::resized()
     _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
 
     auto i = 0;
-    for (auto track : _tracks) {
-        track->setBounds(0, (100 * i++) + 20, getWidth(), 100);
+	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
+        currentTrack->first->setBounds(0, (100 * i++) + 20, getWidth(), 100);
     }
 }
 
@@ -86,27 +89,29 @@ void Arrangement::setPixelsPerClip(int64 pixels)
     _pixelsPerClip = pixels;
     _timeline = new TimelineComponent(100, _pixelsPerClip, _mixerOffset);
     addAndMakeVisible(_timeline);
-    for(auto track : _tracks)
-    {
-        track->setPixelsPerClip(_pixelsPerClip);
+	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
+        currentTrack->first->setPixelsPerClip(_pixelsPerClip);
     }
     repaint();
     resized();
 }
 
+std::map<TrackComponent*, int*>* Arrangement::getTrackMap()
+{
+	return &_tracks;
+}
+
 void Arrangement::addTrack(Audio::Track* track) {
     auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine, _pixelsPerClip);
-    _tracks.add(trackComponent);
+	_tracks.insert(std::pair<TrackComponent *, int*>(trackComponent, &_trackNumber));
+	_trackNumber++;
     addAndMakeVisible(trackComponent);
     resized();
 }
 
 void Arrangement::removeTrack(int trackNumber) {
-	for (auto track : _tracks) {
-		if (track->getTrackID() == trackNumber) {
-
-		}
-		else if (track->getTrackID() > trackNumber) {
+	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
+		if (currentTrack->first->getTrackID() == trackNumber) {
 
 		}
 	}

@@ -18,13 +18,17 @@ namespace Audio
     class SampleRegion : public Region
     {
     public:
-        SampleRegion(AudioFormatReader *fileFormatReader, double resampleRatio);
+        SampleRegion(AudioFormatReader *fileFormatReader, double resampleRatio, File* file);
         ~SampleRegion();
 
         double getBaseSampleRate() const;
+		String getFilePath();
+
+		File & getFile();
 
     private:
         AudioFormatReader *_reader;
+		File *_file;
 
         // Inherited via Region
         virtual void getNextAudioBlock(const AudioSourceChannelInfo & bufferToFill) override;

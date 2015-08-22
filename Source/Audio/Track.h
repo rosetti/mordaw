@@ -37,6 +37,8 @@ namespace Audio
         virtual int64 getTotalLength() const override;
         virtual bool isLooping() const override;
 
+		std::map<int64, Region *> *getRegionMap();
+
     private:
         int _samples;
         double _rate;
