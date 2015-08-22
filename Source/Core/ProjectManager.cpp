@@ -98,9 +98,30 @@ void ProjectManager::saveCurrentProject(File savedFile)
 		XmlElement* strip_ = new XmlElement(stripName_);
 		projectElements
 			->getChildByName("Strips")->addChildElement(strip_);
-		//TODO: STORE CHANNELSTRIP STATE INFORMATION
+		//Add the current mute state
+		bool mute_ = currentStrip->getButtonState("mute");
+		projectElements
+			->getChildByName("Strips")
+				->getChildByName(stripName_)->setAttribute("Mute", (int)mute_);
+		//Add the current solo state
+		bool solo_ = currentStrip->getButtonState("solo");
+		projectElements
+			->getChildByName("Strips")
+				->getChildByName(stripName_)->setAttribute("Solo", (int)solo_);
+		//Add the current volume state
+		float volume_ = currentStrip->getSliderValue("gain");
+		projectElements
+			->getChildByName("Strips")
+				->getChildByName(stripName_)->setAttribute("Gain", (double)volume_);
+		//Add the current panning state
+		float panning_ = currentStrip->getSliderValue("panning");
+		projectElements
+			->getChildByName("Strips")
+				->getChildByName(stripName_)->setAttribute("Panning", (double)panning_);
+		trackNumber_++;
 	}
 
+	//reset the file
 	_projectFile.deleteFile();
 	_projectFile.create();
 	// Save existing project to the destination

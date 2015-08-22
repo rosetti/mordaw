@@ -22,13 +22,9 @@ namespace Audio
         ~SampleRegion();
 
         double getBaseSampleRate() const;
-		String getFilePath();
-
-		File & getFile();
 
     private:
         AudioFormatReader *_reader;
-		File *_file;
 
         // Inherited via Region
         virtual void getNextAudioBlock(const AudioSourceChannelInfo & bufferToFill) override;

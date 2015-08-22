@@ -126,8 +126,4 @@ namespace Audio
     bool Track::isLooping() const {
         return false;
     }
-	std::map<int64, Region*>* Track::getRegionMap()
-	{
-		return &_regions;
-	}
 }

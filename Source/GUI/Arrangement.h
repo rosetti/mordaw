@@ -42,7 +42,6 @@ public:
 private:
 	int _trackNumber;
     int64 _mixerOffset, _pixelsPerClip;
-    //Array<TrackComponent *> _tracks;
 	std::map<TrackComponent *, int*> _tracks;
     ScopedPointer<TimelineComponent> _timeline;
     ScopedPointer<TimelineCursor> _cursor;

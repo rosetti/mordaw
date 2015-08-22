@@ -120,6 +120,28 @@ void ChannelStripComponent::labelTextChanged(Label*)
     //label->setText("This text has been changed", NotificationType::dontSendNotification);
 }
 
+bool ChannelStripComponent::getButtonState(String button)
+{
+	if (!button.compare("mute")) {
+		return muteButton->getToggleState();
+	}
+	else if (!button.compare("solo")) {
+		return soloButton->getToggleState();
+	}
+	return false;
+}
+
+float ChannelStripComponent::getSliderValue(String slider)
+{
+	if (!slider.compare("gain")) {
+		return (float)volumeSlider->getValue();
+	}
+	if (!slider.compare("panning")) {
+		return (float)panPot->getValue();
+	}
+	return 0.0f;
+}
+
 
 void ChannelStripComponent::buttonStateChanged(Button* clickedButton)
 {

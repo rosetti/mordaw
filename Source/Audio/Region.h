@@ -18,7 +18,6 @@ namespace Audio
     class Region : public PositionableAudioSource
     {
     public:
-		Region(int64 length, File file);
         virtual ~Region();
 
         bool overlaps(int64 position, int64 startPosition);
@@ -34,8 +33,6 @@ namespace Audio
         virtual int64 getTotalLength() const override;
         virtual bool isLooping() const override;
 
-		File & getFile();
-
     protected:
         Region(int64 length);
 
@@ -43,7 +40,6 @@ namespace Audio
         double _rate;
         int64 _currentPosition;
         int64 _totalLength;
-		File _file;
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Region)
 
