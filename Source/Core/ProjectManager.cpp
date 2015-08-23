@@ -82,7 +82,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 				->getChildByName(trackName_)
 					->getChildByName(regionName_)->setAttribute("File_Path", *regionPath_);
 			//Add the regions position to the respective region entry
-			int64 regionPosition_ = currentRegion->first;
+			int regionPosition_ = (int64) currentRegion->first;
 			projectElements->getChildByName("Tracks")
 				->getChildByName(trackName_)
 				->getChildByName(regionName_)->setAttribute("Region_Position", regionPosition_);
