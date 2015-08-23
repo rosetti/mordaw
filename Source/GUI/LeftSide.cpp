@@ -22,7 +22,6 @@ LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &eng
 	_fileTree(_directoryList),
     _pluginManager(_pluginManager)
 {
-    _plugins.scanAndAddDragAndDroppedFiles(pluginManager, stringArray, typesFound);
     //_pluginManager.addDefaultFormats();
     _pluginList = new PluginListComponent(_pluginManager, _plugins, File::nonexistent, nullptr);
 	//_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
