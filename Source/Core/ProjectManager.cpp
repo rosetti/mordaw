@@ -49,6 +49,8 @@ void ProjectManager::createBasicProjectFramework(const String& projectName)
 	//STRIPS AND TRACKS SHOULD BE LINKED
 }
 
+
+
 void ProjectManager::saveCurrentProject(File savedFile)
 {
 	_projectFile = savedFile;
@@ -75,21 +77,27 @@ void ProjectManager::saveCurrentProject(File savedFile)
 			XmlElement* region_ = new XmlElement(regionName_);
 			projectElements
 				->getChildByName("Tracks")
-				->getChildByName(trackName_)->addChildElement(region_);
+				->getChildByName(trackName_)
+				->addChildElement(region_);
 			//Add the regions file path to the respective region entry
 			String *regionPath_ = currentRegion->second;
 			projectElements->getChildByName("Tracks")
 				->getChildByName(trackName_)
-					->getChildByName(regionName_)->setAttribute("File_Path", *regionPath_);
+				->getChildByName(regionName_)
+				//->addTextElement(*regionPath_);
+				->setAttribute("File_Path", (String)*regionPath_);
 			//Add the regions position to the respective region entry
 			int regionPosition_ = (int64) currentRegion->first;
 			projectElements->getChildByName("Tracks")
 				->getChildByName(trackName_)
-				->getChildByName(regionName_)->setAttribute("Region_Position", regionPosition_);
+				->getChildByName(regionName_)
+				//->addTextElement((String)regionPosition_);
+				->setAttribute("Region_Position", (String)regionPosition_);
 			regionNumber_++;
 		}
 		trackNumber_++;
 	}
+
 	//Reset the track number for the channel strips
 	trackNumber_ = 1;
 	//Retrieve a map of all the strips
@@ -99,27 +107,36 @@ void ProjectManager::saveCurrentProject(File savedFile)
 		String stripName_ = "TrackStrip_" + (String)trackNumber_;
 		XmlElement* strip_ = new XmlElement(stripName_);
 		projectElements
-			->getChildByName("Strips")->addChildElement(strip_);
+			->getChildByName("Strips")
+			->addChildElement(strip_);
 		//Add the current mute state
 		bool mute_ = currentStrip->getButtonState("mute");
 		projectElements
 			->getChildByName("Strips")
-				->getChildByName(stripName_)->setAttribute("Mute", (int)mute_);
+			->getChildByName(stripName_)
+			//->addTextElement((String)mute_);
+			->setAttribute("Mute", (String)mute_);
 		//Add the current solo state
 		bool solo_ = currentStrip->getButtonState("solo");
 		projectElements
 			->getChildByName("Strips")
-				->getChildByName(stripName_)->setAttribute("Solo", (int)solo_);
+			->getChildByName(stripName_)
+			//->addTextElement((String)solo_);
+			->setAttribute("Solo", (String)solo_);
 		//Add the current volume state
 		float volume_ = currentStrip->getSliderValue("gain");
 		projectElements
 			->getChildByName("Strips")
-				->getChildByName(stripName_)->setAttribute("Gain", (double)volume_);
+			->getChildByName(stripName_)
+			//->addTextElement((String)volume_);
+			->setAttribute("Gain", (String)volume_);
 		//Add the current panning state
 		float panning_ = currentStrip->getSliderValue("panning");
 		projectElements
 			->getChildByName("Strips")
-				->getChildByName(stripName_)->setAttribute("Panning", (double)panning_);
+			->getChildByName(stripName_)
+			//->addTextElement((String)panning_);
+			->setAttribute("Panning", (String)panning_);
 		trackNumber_++;
 	}
 
@@ -152,10 +169,14 @@ void ProjectManager::saveCurrentProjectAs()
 		_projectFile = _saveChooser.getResult();
 		//Get the File path where the project will be saved
 		String stringFile = _projectFile.getFullPathName();
-		projectElements->getChildByName("Settings")->setAttribute("Project_File_Path", stringFile);
+		projectElements
+			->getChildByName("Settings")
+			->setAttribute("Project_File_Path", stringFile);
 		//Get the File name to be used as the project name
 		String projectName = _projectFile.getFileNameWithoutExtension();
-		projectElements->getChildByName("Settings")->setAttribute("Project_Name", projectName);
+		projectElements
+			->getChildByName("Settings")
+			->setAttribute("Project_Name", projectName);
 
 		bool overwrite = true;
 		if (_projectFile.existsAsFile())
@@ -266,9 +287,10 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
 
     switch (info.commandID) {
     case newProject:
+		// Close current project
+		//TODO CLOSE THE CURRENT PROJECT
+		// Create new project
 		createBasicProjectFramework("Untitled_Project");
-        // Close current project
-        // Create new project
         return true;
 
     case openProject:

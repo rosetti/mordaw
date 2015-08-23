@@ -60,8 +60,8 @@ namespace Audio
         };
         
         void addPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
-        void removePlugin(const uint32 filterUID);
-        void disconnectPlugin(const uint32 filterUID);
+        //void removePlugin(const uint32 filterUID);
+        //void disconnectPlugin(const uint32 filterUID);
         
         void removeIllegalConnections();
         
