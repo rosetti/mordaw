@@ -63,6 +63,8 @@ public:
 	int getTrackID();
 	void setTrackID(int trackID);
 
+	int64 getMixerOffset();
+
 	std::map<int64, String> *getRegionMap();
 
     void setPixelsPerClip(int64 pixels);
