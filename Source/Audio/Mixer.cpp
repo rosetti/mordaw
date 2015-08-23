@@ -24,14 +24,14 @@ namespace Audio
     
     {
         _vstFormat = new VSTPluginFormat();
-        _auFormat = new AudioUnitPluginFormat();
-        _pluginManager.addDefaultFormats();
-        _pluginManager.addFormat(_vstFormat);
-        _pluginManager.addFormat(_auFormat);
         FileSearchPath path("/Library/Audio/Plug-Ins/VST");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
+        #if defined(__APPLE__)
+        _auFormat = new AudioUnitPluginFormat();
+        _pluginManager.addDefaultFormats();
         FileSearchPath path2("/Library/Audio/Plug-Ins/Components");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_auFormat, path2, true, File::nonexistent);
+        #endif
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 

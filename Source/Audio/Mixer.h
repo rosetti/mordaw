@@ -73,7 +73,9 @@ namespace Audio
         KnownPluginList _knownPlugins;
         ScopedPointer<PluginDirectoryScanner> scanner;
         VSTPluginFormat* _vstFormat;
+        #if defined(__APPLE__)
         AudioUnitPluginFormat* _auFormat;
+        #endif
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
 
