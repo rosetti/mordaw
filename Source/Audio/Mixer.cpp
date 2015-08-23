@@ -19,7 +19,9 @@ namespace Audio
         _numOutput(numOutputChannels), 
         _sampleRate(sampleRate), 
         _bufferSize(bufferSize),
-        _isPlaying(false)
+        _isPlaying(false),
+        _knownPlugins()
+    
     {
         _pluginManager.addDefaultFormats();
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);

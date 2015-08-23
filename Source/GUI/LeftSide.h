@@ -47,6 +47,8 @@ private:
 	FileTreeComponent _fileTree;
 	ProjectTab _projectTab;
     
+    StringArray _strings;
+    
 	ScopedPointer<PluginListComponent> _pluginList;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LeftSide)

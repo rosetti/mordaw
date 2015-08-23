@@ -74,6 +74,7 @@ namespace Audio
         TimeSliceThread _thread;
         AudioProcessorGraph _processorGraph;
         AudioPluginFormatManager _pluginManager;
+        KnownPluginList _knownPlugins;
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
 
