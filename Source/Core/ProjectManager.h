@@ -33,8 +33,12 @@ public:
 
 	void createBasicProjectFramework(const String& projectName);
 	void saveCurrentProject(File savedFile);
-	void projectExisting();
 	void saveCurrentProjectAs();
+	void projectExisting();
+	void loadExistingProject();
+
+	void loadTracks();
+	void addRegionGUIs(std::vector<Track*> audioTracks_);
 
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
     void getAllCommands(Array<CommandID>& commands) const;

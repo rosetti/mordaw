@@ -96,6 +96,16 @@ void Arrangement::setPixelsPerClip(int64 pixels)
     resized();
 }
 
+int64 Arrangement::getPixelsPerClip()
+{
+	return _pixelsPerClip;
+}
+
+int64 Arrangement::getMixerOffset()
+{
+	return _mixerOffset;
+}
+
 std::map<TrackComponent*, int*>* Arrangement::getTrackMap()
 {
 	return &_tracks;

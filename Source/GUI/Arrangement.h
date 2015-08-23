@@ -31,6 +31,8 @@ public:
 	void removeTrack(int trackNumber);
 	void addRegionToTrack(int _trackID);
     void setPixelsPerClip(int64 pixels);
+	int64 getPixelsPerClip();
+	int64 getMixerOffset();
 
 	std::map<TrackComponent*, int*>* getTrackMap();
     

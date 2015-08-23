@@ -193,11 +193,11 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
     {
         const String fileString = *current;
         String format;
-        if(fileString.contains(".wav"))
+        if(fileString.contains(".wav") || fileString.contains(".WAV"))
             format = "WAV";
-        else if(fileString.contains(".aif") || fileString.contains(".aiff"))
+        else if(fileString.contains(".aif") || fileString.contains(".aiff") || fileString.contains(".AIF") || fileString.contains(".AIFF"))
             format = "AIFF";
-        else if(fileString.contains(".flac"))
+        else if(fileString.contains(".flac") || fileString.contains(".FLAC"))
             format = "FLAC";
             File file(fileString);
             AudioFormatManager formatManager;
@@ -232,6 +232,11 @@ int TrackComponent::getTrackID()
 void TrackComponent::setTrackID(int trackID)
 {
 	_trackID = trackID;
+}
+
+int64 TrackComponent::getMixerOffset()
+{
+	return _mixerOffset;
 }
 
 std::map<int64, String>* TrackComponent::getRegionMap()
