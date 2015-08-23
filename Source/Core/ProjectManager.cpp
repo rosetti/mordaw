@@ -113,14 +113,14 @@ void ProjectManager::saveCurrentProject(File savedFile)
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			//->addTextElement((String)mute_);
-			->setAttribute("Mute", (String)mute_);
+			->setAttribute("Mute", (int)mute_);
 		//Add the current solo state
 		bool solo_ = currentStrip->getButtonState("solo");
 		projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			//->addTextElement((String)solo_);
-			->setAttribute("Solo", (String)solo_);
+			->setAttribute("Solo", (int)solo_);
 		//Add the current volume state
 		float volume_ = currentStrip->getSliderValue("gain");
 		projectElements
