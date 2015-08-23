@@ -77,12 +77,11 @@ namespace Audio
                 node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
             if(node != 0)
             {
-                // currently just adds it to the first track
-                _processorGraph.removeConnection(0x11000, 0, OUTPUT_NODE_ID, 0);
-                _processorGraph.removeConnection(0x11000, 0, OUTPUT_NODE_ID, 0);
+                _processorGraph.removeConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, OUTPUT_NODE_ID, 0);
+                _processorGraph.removeConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, OUTPUT_NODE_ID, 0);
                 
-                _processorGraph.addConnection(0x11000, 0, node->nodeId, 0);
-                _processorGraph.addConnection(0x11000, 0, node->nodeId, 0);
+                _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
+                _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
                 _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
                 _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
             }

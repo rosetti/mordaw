@@ -11,6 +11,7 @@ Author:  Thomas
 #include "ProjectManager.h"
 #include "../Audio/TrackProcessor.h"
 #include "../Audio/Track.h"
+#include "../Audio/SampleRegion.h"
 
 ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window) :
 	_engine(engine),
@@ -22,8 +23,7 @@ ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engin
 		(File::userHomeDirectory), "*.mor"),
 	_projectFile()
 {
-	pElements = new XmlElement("Project_Elements");
-    
+	projectElements = new XmlElement("Project_Elements");
 }
 
 ProjectManager::~ProjectManager()
