@@ -181,11 +181,26 @@ namespace Audio
         return _strips.size();
     }
 
+	int Mixer::getNumberOfTracks()
+	{
+		return _tracks.size();
+	}
+
 
     AudioProcessorGraph *Mixer::getProcessorGraph()
     {
         return &_processorGraph;
     }
+
+	std::map<Track*, TrackProcessor*>* Mixer::getTrackMap()
+	{
+		return &_tracks;
+	}
+
+	std::map<TrackProcessor*, ChannelStripProcessor*>* Mixer::getStripMap()
+	{
+		return &_strips;
+	}
 
     bool Mixer::isPlaying() const {
         return _isPlaying;

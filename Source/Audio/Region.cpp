@@ -11,50 +11,50 @@ Author:  Thomas
 #include "Region.h"
 
 namespace Audio {
-    Region::Region(int64 length) : _currentPosition(0), _totalLength(length)
-    {
-    }
+	Region::Region(int64 length) : _currentPosition(0), _totalLength(length)
+	{
+	}
 
-    Region::~Region()
-    {
-    }
-    
-    int64 Region::getLengthInSamples()
-    {
-        return _totalLength;
-    }
+	Region::~Region()
+	{
+	}
 
-    bool Region::overlaps(int64 position, int64 startPosition) {
-        return position >= startPosition && position < getTotalLength() + startPosition;
-    }
+	int64 Region::getLengthInSamples()
+	{
+		return _totalLength;
+	}
 
-    void Region::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
-    {
-        _samples = samplesPerBlockExpected;
-        _rate = sampleRate;
-    }
+	bool Region::overlaps(int64 position, int64 startPosition) {
+		return position >= startPosition && position < getTotalLength() + startPosition;
+	}
 
-    void Region::releaseResources()
-    {
-    }
+	void Region::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
+	{
+		_samples = samplesPerBlockExpected;
+		_rate = sampleRate;
+	}
 
-    void Region::setNextReadPosition(int64 newPosition)
-    {
-        _currentPosition = newPosition;
-    }
+	void Region::releaseResources()
+	{
+	}
 
-    int64 Region::getNextReadPosition() const
-    {
-        return _currentPosition;
-    }
+	void Region::setNextReadPosition(int64 newPosition)
+	{
+		_currentPosition = newPosition;
+	}
 
-    int64 Region::getTotalLength() const
-    {
-        return _totalLength;
-    }
+	int64 Region::getNextReadPosition() const
+	{
+		return _currentPosition;
+	}
 
-    bool Region::isLooping() const
-    {
-        return false;
-    }
+	int64 Region::getTotalLength() const
+	{
+		return _totalLength;
+	}
+
+	bool Region::isLooping() const
+	{
+		return false;
+	}
 }

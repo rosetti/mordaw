@@ -115,8 +115,10 @@ void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFor
 {
     auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile, _pixelsPerClip);
 
-    _regions.push_back(regionGUI);
+    _regionComponents.push_back(regionGUI);
     _posX.push_back(posX);
+	String filePath = audioFile.getFullPathName();
+	_regions.insert(std::pair<int64 *, String*>(&posX, &filePath));
     _sizeSamps.push_back(region->getLengthInSamples());
     addAndMakeVisible(regionGUI);
     resized();
@@ -138,7 +140,7 @@ void TrackComponent::resized()
         int64 lengthSeconds = (int64)samplesToSeconds(_sizeSamps.at(current), (int64)_sampleRate);
         r.setWidth((int)lengthSeconds * _pixelsPerClip);
         r.removeFromBottom(6);
-        _regions.at(current)->setBounds(r.removeFromBottom(90));
+        _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
     }
     _trackMixer->setBounds(0, 0, _mixerOffset, getParentHeight());
     repaint();
@@ -147,7 +149,7 @@ void TrackComponent::resized()
 void TrackComponent::setPixelsPerClip(int64 pixels)
 {
     _pixelsPerClip = pixels;
-    for(auto region : _regions)
+    for(auto region : _regionComponents)
     {
         region->setPixelsPerClip(_pixelsPerClip);
     }
@@ -202,7 +204,7 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int y)
             formatManager.registerBasicFormats();
 
             AudioFormatReader* reader = formatManager.createReaderFor(file);
-            Audio::Region* region = new Audio::SampleRegion(reader, 1);
+            Region* region = new SampleRegion(reader, 1, &file);
         if(x > _mixerOffset)
         {
             // 100 represents the number of seconds
@@ -230,6 +232,11 @@ int TrackComponent::getTrackID()
 void TrackComponent::setTrackID(int trackID)
 {
 	_trackID = trackID;
+}
+
+std::map<int64*, String*>* TrackComponent::getRegionMap()
+{
+	return &_regions;
 }
 
 void TrackComponent::mouseDown(const MouseEvent &e) {
@@ -262,7 +269,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 				formatManager.registerBasicFormats();
 
 				AudioFormatReader* reader = formatManager.createReaderFor(audioFile);
-				Audio::Region* region = new Audio::SampleRegion(reader, 1);
+				Audio::Region* region = new Audio::SampleRegion(reader, 1, &audioFile);
 				Point<int> position = e.getPosition();
 				int x = position.getX();
 				

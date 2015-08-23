@@ -30,6 +30,9 @@ public:
     void buttonClicked(Button* clickedButton) override;    
     void buttonStateChanged(Button* clickedButton) override;
     void labelTextChanged(Label* changedLabel) override;
+
+	bool getButtonState(String button);
+	float getSliderValue(String slider);
     
     void paint(Graphics& g);
     void resized();

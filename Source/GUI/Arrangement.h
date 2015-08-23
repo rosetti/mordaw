@@ -31,6 +31,8 @@ public:
 	void removeTrack(int trackNumber);
 	void addRegionToTrack(int _trackID);
     void setPixelsPerClip(int64 pixels);
+
+	std::map<TrackComponent*, int*>* getTrackMap();
     
     virtual void buttonClicked(Button* button) override;
 
@@ -38,8 +40,9 @@ public:
 	void mouseDoubleClick(const MouseEvent &e);
 
 private:
+	int _trackNumber;
     int64 _mixerOffset, _pixelsPerClip;
-    Array<TrackComponent *> _tracks;
+	std::map<TrackComponent *, int*> _tracks;
     ScopedPointer<TimelineComponent> _timeline;
     ScopedPointer<TimelineCursor> _cursor;
     ScopedPointer<TextButton> _addTrackButton;

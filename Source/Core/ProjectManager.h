@@ -13,13 +13,28 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Audio/Engine.h"
+#include "../Audio/TrackProcessor.h"
+#include "../Audio/Track.h"
+#include "../Audio/ChannelStripProcessor.h"
 #include "../GUI/MainWindow.h"
+
+#include "../GUI/Arrangement.h"
+#include "../GUI/RegionComponent.h"
+#include "../GUI/TrackComponent.h"
+#include "../GUI/MixerView.h"
+
+using namespace Audio;
 
 class ProjectManager
 {
 public:
     explicit ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window);
     ~ProjectManager();
+
+	void createBasicProjectFramework(const String& projectName);
+	void saveCurrentProject(File savedFile);
+	void projectExisting();
+	void saveCurrentProjectAs();
 
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
     void getAllCommands(Array<CommandID>& commands) const;
@@ -30,6 +45,8 @@ public:
 		openProject = 0x101,
 		saveProject = 0x102,
 		saveProjectAs = 0x103,
+		closeProject = 0x107,
+		exportAudio = 0x108,
 		addTrack = 0x104,
 		addRegion = 0x105,
 		addRegionToTrack = 0x106,
@@ -39,9 +56,11 @@ private:
     ApplicationCommandManager &_commands;
     Audio::Engine &_engine;
     MainWindow &_mainWindow;
-	ScopedPointer<XmlElement>pElements;
+	ScopedPointer<XmlElement>projectElements;
 
 	FileChooser _saveChooser;
+	FileChooser _loadChooser;
+	File _projectFile;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectManager)
 };

@@ -12,7 +12,7 @@
 
 namespace Audio
 {
-    SampleRegion::SampleRegion(AudioFormatReader* fileFormatReader, double resampleRatio)
+    SampleRegion::SampleRegion(AudioFormatReader* fileFormatReader, double resampleRatio, File* file)
         : Region(static_cast<int64>(ceil(fileFormatReader->lengthInSamples / resampleRatio))), _reader(fileFormatReader) {
     }
 
