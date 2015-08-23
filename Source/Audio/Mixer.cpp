@@ -66,7 +66,7 @@ namespace Audio
         
     }
     
-    void Mixer::addPlugin(int trackNumber, const PluginDescription *desc)
+    void Mixer::addPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
         {
@@ -86,6 +86,9 @@ namespace Audio
                 _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
                 _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
                 _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
+                
+                node->properties.set("x", x);
+                node->properties.set("y", y);
             }
             
         }
