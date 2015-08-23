@@ -13,14 +13,17 @@
 
 //==============================================================================
 
-LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine) : _commands(commands),
+LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine, AudioPluginFormatManager &pluginManager) : _commands(commands),
 	_engine(engine),
 	_tsThread("File Tree"),
 	_directoryList(nullptr, _tsThread),
 	_tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft),
 	_projectTab(_commands),
-	_fileTree(_directoryList)
+	_fileTree(_directoryList),
+    _pluginManager(_pluginManager)
 {
+    //_pluginManager.addDefaultFormats();
+    _pluginList = new PluginListComponent(_pluginManager, _plugins, File::nonexistent, nullptr);
 	//_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
 	//Set Up the Project Tab
 	//_projectTab = new ProjectTab(_commands);
@@ -60,7 +63,7 @@ void LeftSide::addTabs()
 {
 	_tabbedComponent.addTab("Project", Colours::darkgrey, &_projectTab, false);
 	_tabbedComponent.addTab("Files", Colours::darkgrey, &_fileTree, false);
-	_tabbedComponent.addTab("Plugins", Colours::darkgrey, nullptr, false);
+    _tabbedComponent.addTab("Plugins", Colours::darkgrey, _pluginList, false);
 }
 
 void LeftSide::paint (Graphics& g)

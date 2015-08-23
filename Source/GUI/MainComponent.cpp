@@ -15,15 +15,17 @@
 
 //==============================================================================
 MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::Engine &engine) :
-    _leftSide(commands, engine),
+    _leftSide(commands, engine, _pluginManager),
     _arrangement(commands, engine),
 	_arrangePort(),
 	_mixPort(),
     _mixerView(commands, engine),
     _transportControls(commands, engine),
     _commands(commands),
-    _trackCounter(0)
+    _trackCounter(0),
+    _pluginManager()
 {
+    _pluginManager.addDefaultFormats();
 	_arrangeVisible = true;
 	_mixerVisible = false;
 	//Left Side

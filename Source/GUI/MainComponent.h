@@ -49,6 +49,7 @@ private:
     MixerView _mixerView;
     TransportControls _transportControls;
 	AudioFormatManager _formatManager;
+    AudioPluginFormatManager _pluginManager;
     ApplicationCommandManager &_commands;
 
 	bool _arrangeVisible;

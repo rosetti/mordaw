@@ -21,6 +21,7 @@ namespace Audio
         _bufferSize(bufferSize),
         _isPlaying(false)
     {
+        _pluginManager.addDefaultFormats();
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 
@@ -34,6 +35,7 @@ namespace Audio
     {
         _thread.stopThread(0);
         stop();
+        _processorGraph.clear();
     }
 
     void Mixer::add(Track * track)
@@ -60,6 +62,32 @@ namespace Audio
 
         _nextNodeID += 1;
         
+    }
+    
+    void Mixer::addPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
+    {
+        if(desc != 0)
+        {
+            String errorMessage;
+            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+        
+            AudioProcessorGraph::Node* node = 0;
+            
+            if(instance != 0)
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
+            if(node != 0)
+            {
+                // currently just adds it to the first track
+                _processorGraph.removeConnection(0x11000, 0, OUTPUT_NODE_ID, 0);
+                _processorGraph.removeConnection(0x11000, 0, OUTPUT_NODE_ID, 0);
+                
+                _processorGraph.addConnection(0x11000, 0, node->nodeId, 0);
+                _processorGraph.addConnection(0x11000, 0, node->nodeId, 0);
+                _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
+                _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
+            }
+            
+        }
     }
 
 	void Mixer::remove()

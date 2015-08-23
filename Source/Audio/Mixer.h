@@ -51,15 +51,26 @@ namespace Audio
         {
             INPUT_NODE_ID = 0x100,
             OUTPUT_NODE_ID = 0x200,
-            
+            TRACK_BASE_NODE_ID = 0x10000,
             STRIP_BASE_NODE_ID = 0x11000,
+            PLUGIN_BASE_NODE_ID = 0x20000
         };
-
+        
+        void addPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
+        void removePlugin(const uint32 filterUID);
+        void disconnectPlugin(const uint32 filterUID);
+        
+        void removeIllegalConnections();
+        
+        void setNodePosition (const int nodeId, double x, double y);
+        void getNodePosition (const int nodeId, double& x, double& y) const;
+        
     private:
         int _nextNodeID;
         bool _isPlaying;
         TimeSliceThread _thread;
         AudioProcessorGraph _processorGraph;
+        AudioPluginFormatManager _pluginManager;
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
 
