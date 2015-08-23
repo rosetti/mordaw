@@ -66,7 +66,7 @@ namespace Audio
         
     }
     
-    void Mixer::addPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
+    void Mixer::addPlugin(int trackNumber, const PluginDescription *desc)
     {
         if(desc != 0)
         {
