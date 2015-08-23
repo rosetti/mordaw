@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="KE999T" name="KentDAW" projectType="guiapp" version="1.0.0"
               bundleIdentifier="DawnOfAudio.DAW" includeBinaryInAppConfig="1"
-              jucerVersion="3.2.0">
+              jucerVersion="3.2.0" defines="">
   <MAINGROUP id="rLaEhK" name="KentDAW">
     <GROUP id="{51132C53-0A2A-C4FB-FE7C-D29417E9F85F}" name="Resources">
       <GROUP id="{FD440D3D-7A6B-1B59-607B-DA719225E245}" name="Images">
@@ -34,8 +34,6 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
-        <FILE id="Lcf6rg" name="PluginHost.cpp" compile="1" resource="0" file="Source/GUI/PluginHost.cpp"/>
-        <FILE id="uFY0mo" name="PluginHost.h" compile="0" resource="0" file="Source/GUI/PluginHost.h"/>
         <FILE id="R1XK2X" name="ChannelStripComponent.cpp" compile="1" resource="0"
               file="Source/GUI/ChannelStripComponent.cpp"/>
         <FILE id="SovZuk" name="ChannelStripComponent.h" compile="0" resource="0"
@@ -78,6 +76,13 @@
         <FILE id="HQJuWs" name="MainWindow.h" compile="0" resource="0" file="Source/GUI/MainWindow.h"/>
       </GROUP>
       <GROUP id="{5CC0F50A-2D80-8B2D-AD3D-0F3E9BC6C6A9}" name="Audio">
+        <GROUP id="{CCFD9A55-A867-1EA8-582F-C6C891C8586C}" name="pluginterfaces">
+          <GROUP id="{85DBFF13-1929-CF28-309A-5D2DB3C9E7EE}" name="vst2.x">
+            <FILE id="HkS1KV" name="aeffect.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/aeffect.h"/>
+            <FILE id="oyEWNt" name="aeffectx.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/aeffectx.h"/>
+            <FILE id="Y1HfMv" name="vstfxstore.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/vstfxstore.h"/>
+          </GROUP>
+        </GROUP>
         <FILE id="MRAe8M" name="ChannelStripProcessor.cpp" compile="1" resource="0"
               file="Source/Audio/ChannelStripProcessor.cpp"/>
         <FILE id="zenPsW" name="ChannelStripProcessor.h" compile="0" resource="0"
@@ -199,5 +204,6 @@
     <MODULES id="juce_tracktion_marketplace" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
-  <JUCEOPTIONS/>
+  <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_VST3="disabled"
+               JUCE_PLUGINHOST_AU="enabled"/>
 </JUCERPROJECT>

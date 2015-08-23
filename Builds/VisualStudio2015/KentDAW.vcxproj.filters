@@ -26,6 +26,12 @@
     <Filter Include="KentDAW\Source\Audio">
       <UniqueIdentifier>{376CECC7-7BD5-69C8-9EAF-90CDD1BB987A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Source\Audio\pluginterfaces">
+      <UniqueIdentifier>{2E39A312-BCA1-5AE1-88BE-C588796FBE02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KentDAW\Source\Audio\pluginterfaces\vst2.x">
+      <UniqueIdentifier>{95BED227-F206-C890-F4A6-74F91A477AB0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Juce Modules">
       <UniqueIdentifier>{422C46B7-0467-2DB0-BF3C-16DFCAFD69AC}</UniqueIdentifier>
     </Filter>
@@ -351,9 +357,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp">
       <Filter>KentDAW\Source\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\GUI\PluginHost.cpp">
-      <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\GUI\ChannelStripComponent.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
@@ -1680,9 +1683,6 @@
     <ClInclude Include="..\..\Source\Core\ProjectManager.h">
       <Filter>KentDAW\Source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\GUI\PluginHost.h">
-      <Filter>KentDAW\Source\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\GUI\ChannelStripComponent.h">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClInclude>
@@ -1724,6 +1724,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h">
       <Filter>KentDAW\Source\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h">
+      <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffectx.h">
+      <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h">
+      <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h">
       <Filter>KentDAW\Source\Audio</Filter>

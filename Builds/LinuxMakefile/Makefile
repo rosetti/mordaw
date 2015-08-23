@@ -52,7 +52,6 @@ OBJECTS := \
   $(OBJDIR)/SplashImage_48f94350.o \
   $(OBJDIR)/TransportImages_4b3c351d.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
-  $(OBJDIR)/PluginHost_ed5020f8.o \
   $(OBJDIR)/ChannelStripComponent_a4a2f215.o \
   $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/ProjectTab_b868ab9.o \
@@ -121,11 +120,6 @@ $(OBJDIR)/TransportImages_4b3c351d.o: ../../Source/Resources/Images/TransportIma
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectManager.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/PluginHost_ed5020f8.o: ../../Source/GUI/PluginHost.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling PluginHost.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/ChannelStripComponent_a4a2f215.o: ../../Source/GUI/ChannelStripComponent.cpp

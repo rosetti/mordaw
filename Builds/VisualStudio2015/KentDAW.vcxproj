@@ -132,7 +132,6 @@
     <ClCompile Include="..\..\Source\Resources\Images\SplashImage.cpp"/>
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
-    <ClCompile Include="..\..\Source\GUI\PluginHost.cpp"/>
     <ClCompile Include="..\..\Source\GUI\ChannelStripComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MixerView.cpp"/>
     <ClCompile Include="..\..\Source\GUI\ProjectTab.cpp"/>
@@ -1301,7 +1300,6 @@
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
-    <ClInclude Include="..\..\Source\GUI\PluginHost.h"/>
     <ClInclude Include="..\..\Source\GUI\ChannelStripComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\MixerView.h"/>
     <ClInclude Include="..\..\Source\GUI\ProjectTab.h"/>
@@ -1316,6 +1314,9 @@
     <ClInclude Include="..\..\Source\GUI\MainComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TopMenu.h"/>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h"/>
+    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h"/>
+    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffectx.h"/>
+    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h"/>
     <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\TrackProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\Mixer.h"/>

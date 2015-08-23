@@ -75,6 +75,7 @@ namespace Audio
         AudioProcessorGraph _processorGraph;
         AudioPluginFormatManager _pluginManager;
         KnownPluginList _knownPlugins;
+        VSTPluginFormat vstFormat;
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
 
