@@ -39,6 +39,9 @@ namespace Audio
         void soloTrack(int trackID);
         void changeGain(int trackID, float gain);
         void changePan(int trackID, float pan);
+        
+        KnownPluginList& getKnownPluginList();
+        AudioPluginFormatManager& getFormatManager();
 
         AudioProcessorGraph *getProcessorGraph();
 		std::map<Track *, TrackProcessor *> *getTrackMap();
@@ -60,14 +63,7 @@ namespace Audio
         };
         
         void addPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
-        //void removePlugin(const uint32 filterUID);
-        //void disconnectPlugin(const uint32 filterUID);
-        
-        void removeIllegalConnections();
-        
-        void setNodePosition (const int nodeId, double x, double y);
-        void getNodePosition (const int nodeId, double& x, double& y) const;
-        
+
     private:
         int _nextNodeID;
         bool _isPlaying;
@@ -75,7 +71,9 @@ namespace Audio
         AudioProcessorGraph _processorGraph;
         AudioPluginFormatManager _pluginManager;
         KnownPluginList _knownPlugins;
-        VSTPluginFormat vstFormat;
+        ScopedPointer<PluginDirectoryScanner> scanner;
+        VSTPluginFormat* _vstFormat;
+        AudioUnitPluginFormat* _auFormat;
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
 

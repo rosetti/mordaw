@@ -23,7 +23,15 @@ namespace Audio
         _knownPlugins()
     
     {
+        _vstFormat = new VSTPluginFormat();
+        _auFormat = new AudioUnitPluginFormat();
         _pluginManager.addDefaultFormats();
+        _pluginManager.addFormat(_vstFormat);
+        _pluginManager.addFormat(_auFormat);
+        FileSearchPath path("/Library/Audio/Plug-Ins/VST");
+        scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
+        FileSearchPath path2("/Library/Audio/Plug-Ins/Components");
+        scanner = new PluginDirectoryScanner(_knownPlugins, *_auFormat, path2, true, File::nonexistent);
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 
@@ -190,6 +198,15 @@ namespace Audio
 		return _tracks.size();
 	}
 
+    KnownPluginList& Mixer::getKnownPluginList()
+    {
+        return _knownPlugins;
+    }
+    
+    AudioPluginFormatManager& Mixer::getFormatManager()
+    {
+        return _pluginManager;
+    }
 
     AudioProcessorGraph *Mixer::getProcessorGraph()
     {

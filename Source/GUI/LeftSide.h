@@ -39,7 +39,6 @@ private:
 	DirectoryContentsList _directoryList;
 
 	const Audio::Engine &_engine;
-    AudioPluginFormatManager &_pluginManager;
 	AudioFormatManager _formats;
 	KnownPluginList _plugins;
 	

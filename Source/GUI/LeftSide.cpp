@@ -10,6 +10,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "LeftSide.h"
+#include "Mixer.h"
 
 //==============================================================================
 
@@ -19,11 +20,9 @@ LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &eng
 	_directoryList(nullptr, _tsThread),
 	_tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft),
 	_projectTab(_commands),
-	_fileTree(_directoryList),
-    _pluginManager(_pluginManager)
+	_fileTree(_directoryList)
 {
-    //_pluginManager.addDefaultFormats();
-    _pluginList = new PluginListComponent(_pluginManager, _plugins, File::nonexistent, nullptr);
+    _pluginList = new PluginListComponent(_engine.getMixer()->getFormatManager(), _engine.getMixer()->getKnownPluginList(), File::nonexistent, nullptr);
 	//_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
 	//Set Up the Project Tab
 	//_projectTab = new ProjectTab(_commands);
