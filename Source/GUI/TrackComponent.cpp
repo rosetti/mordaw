@@ -118,7 +118,7 @@ void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFor
     _regionComponents.push_back(regionGUI);
     _posX.push_back(posX);
 	String filePath = audioFile.getFullPathName();
-	_regions.insert(std::pair<int64 *, String*>(&posX, &filePath));
+	_regions.insert(std::pair<int64, String>(posX, filePath));
     _sizeSamps.push_back(region->getLengthInSamples());
     addAndMakeVisible(regionGUI);
     resized();
@@ -234,7 +234,7 @@ void TrackComponent::setTrackID(int trackID)
 	_trackID = trackID;
 }
 
-std::map<int64*, String*>* TrackComponent::getRegionMap()
+std::map<int64, String>* TrackComponent::getRegionMap()
 {
 	return &_regions;
 }

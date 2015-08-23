@@ -67,7 +67,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 			->getChildByName("Tracks")->addChildElement(track_);
 
 		//Retrieve a map of all the tracks regions
-		std::map<int64*, String *>* regions_ = currentTrack->first->getRegionMap();
+		std::map<int64, String>* regions_ = currentTrack->first->getRegionMap();
 		//Create XML elements for each region
 		int regionNumber_ = 1;
 		for (auto currentRegion = regions_->begin(), end = regions_->end(); currentRegion != end; ++currentRegion)
@@ -80,19 +80,17 @@ void ProjectManager::saveCurrentProject(File savedFile)
 				->getChildByName(trackName_)
 				->addChildElement(region_);
 			//Add the regions file path to the respective region entry
-			String *regionPath_ = currentRegion->second;
+			String regionPath_ = currentRegion->second;
 			projectElements->getChildByName("Tracks")
 				->getChildByName(trackName_)
 				->getChildByName(regionName_)
-				//->addTextElement(*regionPath_);
-				->setAttribute("File_Path", (String)*regionPath_);
+				->setAttribute("File_Path", regionPath_);
 			//Add the regions position to the respective region entry
-			int regionPosition_ = (int64) currentRegion->first;
+			int regionPosition_ = (int) currentRegion->first;
 			projectElements->getChildByName("Tracks")
 				->getChildByName(trackName_)
 				->getChildByName(regionName_)
-				//->addTextElement((String)regionPosition_);
-				->setAttribute("Region_Position", (String)regionPosition_);
+				->setAttribute("Region_Position", regionPosition_);
 			regionNumber_++;
 		}
 		trackNumber_++;

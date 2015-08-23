@@ -63,7 +63,7 @@ public:
 	int getTrackID();
 	void setTrackID(int trackID);
 
-	std::map<int64*, String*> *getRegionMap();
+	std::map<int64, String> *getRegionMap();
 
     void setPixelsPerClip(int64 pixels);
     
@@ -80,7 +80,7 @@ private:
     ScopedPointer<TrackMixerComponent> _trackMixer;
     std::vector<RegionComponent *> _regionComponents;
     std::vector<int64> _posX, _sizeSamps;
-	std::map< int64*, String*> _regions;
+	std::map< int64, String> _regions;
     ApplicationCommandManager &_commands;
     ComponentDragger dragger;
 
