@@ -40,11 +40,11 @@ TimelineComponent::TimelineComponent(int64 numberOfClips, int64 pixelsPerClip, i
         TimelineClip* clip = new TimelineClip(clips);
         addAndMakeVisible(clip);
         if(clips == 0)
-            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
+            clip->setBounds((int)pixels, 0, (int)_pixelsPerClip, 20);
         else
         {
             pixels += _pixelsPerClip;
-            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
+            clip->setBounds((int)pixels, 0, (int)_pixelsPerClip, 20);
         }
         _clips.push_back(clip);
     }
@@ -65,11 +65,11 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
         TimelineClip* clip = new TimelineClip(clips);
         addAndMakeVisible(clip);
         if(clips == 0)
-            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
+            clip->setBounds((int)pixels, 0, (int)_pixelsPerClip, 20);
         else
         {
             pixels += _pixelsPerClip;
-            clip->setBounds(pixels, 0, _pixelsPerClip, 20);
+            clip->setBounds((int)pixels, 0, (int)_pixelsPerClip, 20);
         }
         _clips.push_back(clip);
     }
@@ -77,7 +77,7 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
 }
 
 
-void TimelineComponent::paint (Graphics& g)
+void TimelineComponent::paint (Graphics&)
 {
 }
 

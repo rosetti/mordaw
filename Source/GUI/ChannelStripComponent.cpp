@@ -81,12 +81,12 @@ void ChannelStripComponent::resized()
     int panSize = 32;
     int volumeWidth = 15;
     int volumeHeight = 127;
-    int meterWidth = 6;
+    //int meterWidth = 6;
     int labelHeight = 14;
     
     int remainingWidth = (getWidth() - volumeWidth) / 2;
-    int offsetY = (getHeight() - volumeHeight - panSize - labelHeight);
-    int totalHeight = volumeHeight - 7;
+    //int offsetY = (getHeight() - volumeHeight - panSize - labelHeight);
+    //int totalHeight = volumeHeight - 7;
     
     int buttonSize = 16;
     int buttonsOffset = (getHeight() - volumeHeight - panSize - labelHeight) - 5;
@@ -106,11 +106,11 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
 {
     if(movedSlider == volumeSlider)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, movedSlider->getValue());
+        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, (float)movedSlider->getValue());
     }
     else if(movedSlider == panPot)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::PAN, movedSlider->getValue());
+        _engine.getMixer()->changeGain(ChannelStripProcessor::PAN, (float)movedSlider->getValue());
     }
 }
 

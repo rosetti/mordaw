@@ -48,9 +48,9 @@ public:
     
     int getNumPrograms() override { return 0;};
     int getCurrentProgram() override { return 0;};
-    void setCurrentProgram (int index) override {};
-    const String getProgramName (int index) override { return "ChannelStrip";};
-    void changeProgramName (int index, const String& newName) {};
+    void setCurrentProgram (int) override {};
+    const String getProgramName (int) override { return "ChannelStrip";};
+    void changeProgramName (int, const String&) {};
 
 	bool acceptsMidi() const override;
 	bool producesMidi() const override;
