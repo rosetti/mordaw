@@ -149,7 +149,6 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
 	if (!_muted)
 	{
-        
 		if (_panning == 0.5)
 		{
 			buffer.applyGain(_gain);

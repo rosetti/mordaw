@@ -81,7 +81,7 @@ namespace Audio
 
         _nextNodeID += 1;
         
-        addPreFaderPlugin(1, _knownPlugins.getType(2), 0, 0);
+        //addPreFaderPlugin(1, _knownPlugins.getType(2), 0, 0);
     }
     
     void Mixer::addPostFaderPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
@@ -125,15 +125,54 @@ namespace Audio
                 node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
             if(node != 0)
             {
-                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber -1), 0);
+                if(_processorGraph.getNodeForId(PLUGIN_BASE_NODE_ID + (100 * trackNumber)) == nullptr)
+                {
+                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
                 _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
                 
                 _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
                 _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
-                _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
+
                 _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
                 _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
-
+                }
+                else if(_processorGraph.getNodeForId(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1) == nullptr)
+                {
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 0,STRIP_BASE_NODE_ID + (trackNumber -1), 0);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                    
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 0, node->nodeId, 0);
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 1, node->nodeId, 1);
+                    
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                }
+                else if(_processorGraph.getNodeForId(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2) == nullptr)
+                {
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 1), 0,STRIP_BASE_NODE_ID + (trackNumber -1), 0);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                    
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 1), 0, node->nodeId, 0);
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 1), 1, node->nodeId, 1);
+                    
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                }
+                else if(_processorGraph.getNodeForId(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 3) == nullptr)
+                {
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 3);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 2), 0,STRIP_BASE_NODE_ID + (trackNumber -1), 0);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 2), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                    
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 2), 0, node->nodeId, 0);
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber + 2), 1, node->nodeId, 1);
+                    
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                }
+                
                 
                 node->properties.set("x", x);
                 node->properties.set("y", y);

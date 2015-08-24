@@ -57,6 +57,6 @@ void MixerView::resized()
 {
     auto i = 0;
     for (auto strip : _strips) {
-        strip->setBounds((100 * i++) + 20, 0, 100, getHeight());
+        strip->setBounds((150 * i++) + 20, 0, 100, getHeight());
     }
 }

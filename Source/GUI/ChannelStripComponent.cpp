@@ -13,6 +13,7 @@
 #include "ChannelStripComponent.h"
 #include "../Audio/ChannelStripProcessor.h"
 
+
 //==============================================================================
 ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &engine) : _trackID(trackID), _engine(engine)
 {
@@ -52,6 +53,20 @@ ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &e
     soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
     soloButton->addListener(this);
     
+    KnownPluginList& plugins = _engine.getMixer()->getKnownPluginList();
+
+    
+    addAndMakeVisible(plugins1 = new TextButton("Plugins 1"));
+    plugins1->addListener(this);
+    
+    addAndMakeVisible(plugins2 = new TextButton("Plugins 2"));
+    plugins2->addListener(this);
+    
+    addAndMakeVisible(plugins3 = new TextButton("Plugins 3"));
+    plugins3->addListener(this);
+    
+    addAndMakeVisible(plugins4 = new TextButton("Plugins 4"));
+    plugins4->addListener(this);
 }
 
 ChannelStripComponent::~ChannelStripComponent()
@@ -100,6 +115,11 @@ void ChannelStripComponent::resized()
     
     label->setBounds(0, getHeight() - labelHeight, getWidth(), labelHeight);
     
+    plugins1->setBounds(0, buttonsOffset - buttonSize * 8, getWidth(), buttonSize);
+    plugins2->setBounds(0, buttonsOffset - buttonSize * 7, getWidth(), buttonSize);
+    plugins3->setBounds(0, buttonsOffset - buttonSize * 6, getWidth(), buttonSize);
+    plugins4->setBounds(0, buttonsOffset - buttonSize * 5, getWidth(), buttonSize);
+
 }
 
 void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
@@ -157,5 +177,15 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         _engine.getMixer()->muteTrack(_trackID);
     else if(clickedButton == soloButton)
         _engine.getMixer()->soloTrack(_trackID);
+    else if(clickedButton == plugins1)
+    {
+        KnownPluginList& pluginsList = _engine.getMixer()->getKnownPluginList();
+        pluginsList.addToMenu(plugins, KnownPluginList::sortAlphabetically);
+        const int index = plugins.show();
+        const int pluginIndex = pluginsList.getIndexChosenByMenu(index);
+        PluginDescription* desc = pluginsList.getType(pluginIndex);
+        _engine.getMixer()->addPostFaderPlugin(_trackID, desc, 0, 0);
+        
+    }
 }
 

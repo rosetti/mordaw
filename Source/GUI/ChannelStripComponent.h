@@ -45,6 +45,13 @@ private:
     ToggleButton* muteButton;
     ToggleButton* soloButton;
     
+    TextButton* plugins1;
+    TextButton* plugins2;
+    TextButton* plugins3;
+    TextButton* plugins4;
+    
+    PopupMenu plugins;
+    
     int _trackID;
     const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChannelStripComponent)
