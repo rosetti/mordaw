@@ -33,7 +33,7 @@ TransportControls::~TransportControls()
     _startButton.release();
     _forwardButton.release();
     _rewindButton.release();
-    removeAllChildren();
+    deleteAllChildren();
 }
 
 void TransportControls::drawButtons()
