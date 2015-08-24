@@ -61,7 +61,7 @@ bool MainWindow::keyPressed(const KeyPress & key, Component * originatingCompone
 
 void MainWindow::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
     const String global("Global");
-    int flags;
+    //int flags_;
 
     switch (commandID) {
     case refreshComponents:

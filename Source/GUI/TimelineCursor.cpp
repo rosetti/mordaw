@@ -47,7 +47,7 @@ void TimelineCursor::mouseDown(const MouseEvent &e)
     }
 }
 
-void TimelineCursor::mouseUp(const MouseEvent &e)
+void TimelineCursor::mouseUp(const MouseEvent &)
 {
     if(_showCursor)
     {

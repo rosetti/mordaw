@@ -40,7 +40,7 @@ namespace Audio {
         _source.releaseResources();
     }
 
-    void TrackProcessor::processBlock(AudioSampleBuffer & buffer, MidiBuffer & midiMessages)
+    void TrackProcessor::processBlock(AudioSampleBuffer & buffer, MidiBuffer &)
     {
         AudioSourceChannelInfo channelInfo;
         
@@ -60,12 +60,12 @@ namespace Audio {
         return String(channelIndex + 1);
     }
 
-    bool TrackProcessor::isInputChannelStereoPair(int index) const
+    bool TrackProcessor::isInputChannelStereoPair(int ) const
     {
         return false;
     }
 
-    bool TrackProcessor::isOutputChannelStereoPair(int index) const
+    bool TrackProcessor::isOutputChannelStereoPair(int) const
     {
         return false;
     }
@@ -110,24 +110,24 @@ namespace Audio {
         return 0;
     }
 
-    void TrackProcessor::setCurrentProgram(int index)
+    void TrackProcessor::setCurrentProgram(int	)
     {
     }
 
-    const String TrackProcessor::getProgramName(int index)
+    const String TrackProcessor::getProgramName(int)
     {
         return String::empty;
     }
 
-    void TrackProcessor::changeProgramName(int index, const String & newName)
+    void TrackProcessor::changeProgramName(int, const String &)
     {
     }
 
-    void TrackProcessor::getStateInformation(juce::MemoryBlock & destData)
+    void TrackProcessor::getStateInformation(juce::MemoryBlock &)
     {
     }
 
-    void TrackProcessor::setStateInformation(const void * data, int sizeInBytes)
+    void TrackProcessor::setStateInformation(const void *, int)
     {
     }
 

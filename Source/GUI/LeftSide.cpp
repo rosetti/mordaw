@@ -14,7 +14,7 @@
 
 //==============================================================================
 
-LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine, AudioPluginFormatManager &pluginManager) : _commands(commands),
+LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &engine, AudioPluginFormatManager &) : _commands(commands),
 	_engine(engine),
 	_tsThread("File Tree"),
 	_directoryList(nullptr, _tsThread),
@@ -69,7 +69,7 @@ void LeftSide::addTabs()
     _tabbedComponent.addTab("Plugins", Colours::darkgrey, _pluginList, false);
 }
 
-void LeftSide::paint (Graphics& g)
+void LeftSide::paint (Graphics&)
 {
 
 }

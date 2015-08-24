@@ -34,7 +34,7 @@ std::vector<ChannelStripComponent*>* MixerView::getChannelStrips()
 	return &_strips;
 }
 
-void MixerView::mouseDown(const MouseEvent &e) {
+void MixerView::mouseDown(const MouseEvent &) {
 
 	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
@@ -49,7 +49,7 @@ void MixerView::mouseDown(const MouseEvent &e) {
 	}
 }
 
-void MixerView::paint (Graphics& g)
+void MixerView::paint (Graphics&)
 {
 }
 

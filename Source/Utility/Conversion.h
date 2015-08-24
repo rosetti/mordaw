@@ -49,9 +49,11 @@ inline static double samplesToMilliseconds(int64 samples, double sampleRate)
     return 1000.0 * (samples / sampleRate);
 }
 
-inline static int64 samplesToSeconds(int64 samples, double sampleRate)
+
+inline static int samplesToSeconds(int64 samples, double sampleRate)
 {
-    return (double)samples / sampleRate;
+	int seconds_ = (int)samples / (int)sampleRate;
+	return seconds_;
 }
 
 static inline double frequencyToNoteNumber(double frequency)
