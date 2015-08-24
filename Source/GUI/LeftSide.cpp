@@ -10,7 +10,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "LeftSide.h"
-#include "Mixer.h"
+#include "../Audio/Mixer.h"
 
 //==============================================================================
 

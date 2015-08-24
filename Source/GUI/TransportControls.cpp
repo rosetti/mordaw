@@ -28,7 +28,7 @@ TransportControls::TransportControls(ApplicationCommandManager &commands, const 
 
 TransportControls::~TransportControls()
 {
-    deleteAllChildren();
+    removeAllChildren();
 }
 
 void TransportControls::drawButtons()

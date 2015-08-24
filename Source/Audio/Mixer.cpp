@@ -68,7 +68,7 @@ namespace Audio
         track->prepareToPlay(_bufferSize, _sampleRate);
         _tracks.insert(std::pair<Track *, TrackProcessor *>(track, processor));
         
-        strip->prepareToPlay(_bufferSize, _sampleRate);
+        strip->prepareToPlay(_bufferSize, (int)_sampleRate);
         _strips.insert(std::pair<TrackProcessor *, ChannelStripProcessor *>(processor, strip));
         strip->setID(_nextNodeID + 0x1000);
 
@@ -271,7 +271,7 @@ namespace Audio
         auto maxLength = 0, tmp = 0;
 
         for (auto current = _tracks.begin(), end = _tracks.end(); current != end; ++current) {
-            if ((tmp = current->first->getTotalLength()) > maxLength) {
+            if ((tmp = (int)current->first->getTotalLength()) > maxLength) {
                 maxLength = tmp;
             }
         }
