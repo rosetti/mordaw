@@ -61,7 +61,7 @@ ChannelStripComponent::~ChannelStripComponent()
 	muteButton->removeListener(this);
 	soloButton->removeListener(this);
 
-	removeAllChildren();
+	deleteAllChildren();
 }
 
 void ChannelStripComponent::paint (Graphics& g)
