@@ -143,7 +143,7 @@ float ChannelStripComponent::getSliderValue(String slider)
 }
 
 
-void ChannelStripComponent::buttonStateChanged(Button* clickedButton)
+void ChannelStripComponent::buttonStateChanged(Button*)
 {
     /*if(clickedButton == muteButton)
         _engine.getMixer()->muteTrack(_trackID);

@@ -44,7 +44,7 @@ void Arrangement::buttonClicked(Button* button)
     }
 }
 
-void Arrangement::mouseDown(const MouseEvent &e) {
+void Arrangement::mouseDown(const MouseEvent &) {
 
 	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
@@ -59,7 +59,7 @@ void Arrangement::mouseDown(const MouseEvent &e) {
 	}
 }
 
-void Arrangement::mouseDoubleClick(const MouseEvent & e)
+void Arrangement::mouseDoubleClick(const MouseEvent &)
 {
 	//ProjectManager::addTrack;
 }
@@ -127,6 +127,6 @@ void Arrangement::removeTrack(int trackNumber) {
 	}
 }
 
-void Arrangement::addRegionToTrack(int _trackID) {
+void Arrangement::addRegionToTrack(int) {
 
 }

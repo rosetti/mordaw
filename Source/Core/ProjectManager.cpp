@@ -57,7 +57,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 	std::map<TrackComponent*, int*> *tracks_ = _mainWindow.Content.getArrangement()->getTrackMap();
 	//Create XML elements for each track
 	int trackNumber_ = 1;
-	for (auto currentTrack = tracks_->begin(), end = tracks_->end(); currentTrack != end; ++currentTrack)
+	for (auto currentTrack = tracks_->begin(), tracksEnd = tracks_->end(); currentTrack != tracksEnd; ++currentTrack)
 	{
 		//Create an entry for the track and add it to projectTracks
 		String trackName_ = "Track_" + (String)trackNumber_;
@@ -69,7 +69,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 		std::map<int64, String>* regions_ = currentTrack->first->getRegionMap();
 		//Create XML elements for each region
 		int regionNumber_ = 1;
-		for (auto currentRegion = regions_->begin(), end = regions_->end(); currentRegion != end; ++currentRegion)
+		for (auto currentRegion = regions_->begin(), regionsEnd = regions_->end(); currentRegion != regionsEnd; ++currentRegion)
 		{
 			String regionName_ = "Region_" + (String)regionNumber_;
 			//Create an entry for the region and add it to the respective track entry

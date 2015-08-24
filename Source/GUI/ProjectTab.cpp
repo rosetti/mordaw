@@ -45,7 +45,7 @@ void ProjectTab::drawButtons()
 	addAndMakeVisible(_addTrackButton);
 }
 
-void ProjectTab::buttonClicked(Button * button)
+void ProjectTab::buttonClicked(Button *)
 {
 }
 

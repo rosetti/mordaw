@@ -50,7 +50,7 @@ MainComponent::~MainComponent()
 {
 }
 
-void MainComponent::paint (Graphics& g)
+void MainComponent::paint (Graphics&)
 {
 	//g.setColour(Colours::darkorange);
     //g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
@@ -66,7 +66,7 @@ void MainComponent::resized()
     _transportControls.setBounds(_leftSide.getWidth(), getHeight() - 50, getWidth() - _leftSide.getWidth(), 50);
 }
 
-void MainComponent::mouseDown(const MouseEvent &e) {
+void MainComponent::mouseDown(const MouseEvent &) {
 
 	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
@@ -81,7 +81,7 @@ void MainComponent::mouseDown(const MouseEvent &e) {
 	}
 }
 
-void MainComponent::mouseDoubleClick(const MouseEvent & e)
+void MainComponent::mouseDoubleClick(const MouseEvent &)
 {
 }
 

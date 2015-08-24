@@ -67,7 +67,7 @@ void TransportControls::setButtonImages()
 
 void TransportControls::start()
 {
-    startTimer(timerAmount);
+    startTimer((int)timerAmount);
 }
 
 void TransportControls::stop()

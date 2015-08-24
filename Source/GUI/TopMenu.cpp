@@ -86,7 +86,7 @@ StringArray TopMenu::getMenuBarNames() {
     return _menusNames;
 }
 
-PopupMenu TopMenu::getMenuForIndex(int topLevelMenuIndex, const String& menuName) {
+PopupMenu TopMenu::getMenuForIndex(int, const String& menuName) {
     for (auto it = _menus.begin(), end = _menus.end(); it != end; ++it) {
         if (it->first == menuName) {
             return it->second;
@@ -96,7 +96,7 @@ PopupMenu TopMenu::getMenuForIndex(int topLevelMenuIndex, const String& menuName
     return PopupMenu();
 }
 
-void TopMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex) {
+void TopMenu::menuItemSelected(int, int) {
 }
 
 void TopMenu::refresh() {

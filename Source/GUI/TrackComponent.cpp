@@ -33,17 +33,17 @@ TrackMixerComponent::~TrackMixerComponent()
 {
 }
 
-void TrackMixerComponent::mouseDrag(const MouseEvent &e)
+void TrackMixerComponent::mouseDrag(const MouseEvent &)
 {
-    int x = e.x;
-    int y = e.y;
+    //int x = e.x;
+    //int y = e.y;
 }
 
-void TrackMixerComponent::buttonClicked(Button* button)
+void TrackMixerComponent::buttonClicked(Button*)
 {
     
 }
-void TrackMixerComponent::mouseDown(const MouseEvent &e)
+void TrackMixerComponent::mouseDown(const MouseEvent &)
 {
     
 }
@@ -137,12 +137,12 @@ void TrackComponent::resized()
         auto r(getLocalBounds().reduced(4));
 
         r.setX((int)_posX.at(current));
-        int64 lengthSeconds = (int64)samplesToSeconds(_sizeSamps.at(current), (int64)_sampleRate);
-        r.setWidth((int)lengthSeconds * _pixelsPerClip);
+        int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
+        r.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
         r.removeFromBottom(6);
         _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
     }
-    _trackMixer->setBounds(0, 0, _mixerOffset, getParentHeight());
+    _trackMixer->setBounds(0, 0, (int)_mixerOffset, getParentHeight());
     repaint();
 }
 
@@ -200,7 +200,7 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
 }
 
 
-void TrackComponent::filesDropped(const StringArray & files, int x, int y)
+void TrackComponent::filesDropped(const StringArray & files, int x, int)
 {
     for (auto current = files.begin(), end = files.end(); current != end; ++current)
     {
