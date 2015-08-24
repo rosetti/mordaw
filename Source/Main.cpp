@@ -29,7 +29,7 @@ public:
     bool moreThanOneInstanceAllowed() override       { return true; }
 
     //==============================================================================
-    void initialise (const String& commandLine) override
+    void initialise (const String&) override
     {
 		/*
 		Image image_ = ImageCache::getFromMemory(SplashImage::mordaw_jpg, SplashImage::mordaw_jpgSize);

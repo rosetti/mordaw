@@ -107,32 +107,29 @@ void ProjectManager::saveCurrentProject(File savedFile)
 			->getChildByName("Strips")
 			->addChildElement(strip_);
 		//Add the current mute state
-		bool mute_ = currentStrip->getButtonState("mute");
+		bool mute_ = currentStrip->getButtonState("Mute");
 		projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
-			//->addTextElement((String)mute_);
-			->setAttribute("Mute", (int)mute_);
+			->setAttribute("Mute", mute_);
 		//Add the current solo state
-		bool solo_ = currentStrip->getButtonState("solo");
+		bool solo_ = currentStrip->getButtonState("Solo");
 		projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
-			//->addTextElement((String)solo_);
 			->setAttribute("Solo", (int)solo_);
 		//Add the current volume state
-		float volume_ = currentStrip->getSliderValue("gain");
+		float volume_ = currentStrip->getSliderValue("Gain");
 		projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			//->addTextElement((String)volume_);
 			->setAttribute("Gain", (double)volume_);
 		//Add the current panning state
-		float panning_ = currentStrip->getSliderValue("panning");
+		float panning_ = currentStrip->getSliderValue("Panning");
 		projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
-			//->addTextElement((String)panning_);
 			->setAttribute("Panning", (double)panning_);
 		trackNumber_++;
 	}
@@ -221,11 +218,13 @@ void ProjectManager::loadTracks()
 		currentTrack_++;
 	}
 	addRegionGUIs(audioTracks_);
+	loadChannelStripSettings();
 }
 
 void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 {
 	std::map<TrackComponent*, int*> *trackComponents_ = _mainWindow.Content.getArrangement()->getTrackMap();
+	
 	//Create XML elements for each track
 	int trackNumber_ = 1;
 	for (auto currentTrack = trackComponents_->begin(), end = trackComponents_->end(); currentTrack != end; ++currentTrack)
@@ -289,6 +288,42 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 			}
 			currentRegion_++;
 		}
+	}
+}
+
+void ProjectManager::loadChannelStripSettings()
+{
+	std::vector<ChannelStripComponent*>* strips_ = _mainWindow.Content.getMixer()->getChannelStrips();
+
+	int trackNumber_ = 1;
+	for (auto strip : *strips_)
+	{
+		String stripName_ = "TrackStrip_" + (String)trackNumber_;
+		bool mute = projectElements
+			->getChildByName("Strips")
+			->getChildByName(stripName_)
+			->getBoolAttribute("Mute");
+		strip->setButtonState("Mute", mute);
+
+		bool solo = projectElements
+			->getChildByName("Strips")
+			->getChildByName(stripName_)
+			->getBoolAttribute("Solo");
+		strip->setButtonState("Solo", solo);
+		
+		double gain = projectElements
+			->getChildByName("Strips")
+			->getChildByName(stripName_)
+			->getDoubleAttribute("Gain");
+		strip->setSliderValue("Gain", gain);
+
+		double panning = projectElements
+			->getChildByName("Strips")
+			->getChildByName(stripName_)
+			->getDoubleAttribute("Panning");
+		strip->setSliderValue("Panning", panning);
+		
+		trackNumber_++;
 	}
 }
 

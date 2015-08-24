@@ -76,7 +76,7 @@ ChannelStripComponent::~ChannelStripComponent()
 	muteButton->removeListener(this);
 	soloButton->removeListener(this);
 
-	deleteAllChildren();
+	removeAllChildren();
 }
 
 void ChannelStripComponent::paint (Graphics& g)
@@ -142,24 +142,44 @@ void ChannelStripComponent::labelTextChanged(Label*)
 
 bool ChannelStripComponent::getButtonState(String button)
 {
-	if (!button.compare("mute")) {
+	if (!button.compare("Mute")) {
 		return muteButton->getToggleState();
 	}
-	else if (!button.compare("solo")) {
+	else if (!button.compare("Solo")) {
 		return soloButton->getToggleState();
 	}
 	return false;
 }
 
+void ChannelStripComponent::setButtonState(String button, bool buttonState)
+{
+	if (!button.compare("Mute")) {
+		muteButton->setToggleState(buttonState, sendNotificationAsync);
+	}
+	else if (!button.compare("Solo")) {
+		soloButton->setToggleState(buttonState, sendNotificationAsync);
+	}
+}
+
 float ChannelStripComponent::getSliderValue(String slider)
 {
-	if (!slider.compare("gain")) {
+	if (!slider.compare("Gain")) {
 		return (float)volumeSlider->getValue();
 	}
-	if (!slider.compare("panning")) {
+	if (!slider.compare("Panning")) {
 		return (float)panPot->getValue();
 	}
 	return 0.0f;
+}
+
+void ChannelStripComponent::setSliderValue(String slider, double sliderValue)
+{
+	if (!slider.compare("Gain")) {
+		volumeSlider->setValue((float)sliderValue, sendNotificationAsync);
+	}
+	else if (!slider.compare("Panning")) {
+		panPot->setValue((float)sliderValue, sendNotificationAsync);
+	}
 }
 
 
