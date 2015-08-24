@@ -34,11 +34,11 @@ namespace Audio
         #endif
         #ifdef WIN32
         _vstFormat = new VSTPluginFormat();
-        FileSearchPath path("C:\Program Files\Steinberg\VstPlugins");
+        FileSearchPath path("C:/Program Files/Steinberg/VstPlugins");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
         #elif WIN64
         _vstFormat = new VSTPluginFormat();
-        FileSearchPath path("C:\Program Files (x86)\Common Files\Steinberg\VSTPlugins;C:\Program Files\Steinberg\VSTPlugins");
+        FileSearchPath path("C:/Program Files (x86)/Common Files/Steinberg/VSTPlugins;C:/Program Files/Steinberg/VSTPlugins");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
         #endif
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
