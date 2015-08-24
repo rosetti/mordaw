@@ -67,6 +67,7 @@ namespace Audio
 
 
     private:
+        int _index;
         int _nextNodeID;
         bool _isPlaying;
         TimeSliceThread _thread;
