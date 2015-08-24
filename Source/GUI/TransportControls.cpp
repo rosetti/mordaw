@@ -28,6 +28,11 @@ TransportControls::TransportControls(ApplicationCommandManager &commands, const 
 
 TransportControls::~TransportControls()
 {
+    _recordButton.release();
+    _stopButton.release();
+    _startButton.release();
+    _forwardButton.release();
+    _rewindButton.release();
     deleteAllChildren();
 }
 

@@ -49,7 +49,7 @@ inline static double samplesToMilliseconds(int64 samples, double sampleRate)
     return 1000.0 * (samples / sampleRate);
 }
 
-inline static double samplesToSeconds(int64 samples, double sampleRate)
+inline static int64 samplesToSeconds(int64 samples, double sampleRate)
 {
     return samples / sampleRate;
 }
