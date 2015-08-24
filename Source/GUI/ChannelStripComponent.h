@@ -32,7 +32,9 @@ public:
     void labelTextChanged(Label* changedLabel) override;
 
 	bool getButtonState(String button);
+	void setButtonState(String button, bool buttonState);
 	float getSliderValue(String slider);
+	void setSliderValue(String slider, double sliderValue);
     
     void paint(Graphics& g);
     void resized();

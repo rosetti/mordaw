@@ -39,6 +39,7 @@ public:
 
 	void loadTracks();
 	void addRegionGUIs(std::vector<Track*> audioTracks_);
+	void loadChannelStripSettings();
 
     void getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const;
     void getAllCommands(Array<CommandID>& commands) const;
