@@ -42,6 +42,11 @@ private:
 
 	const Audio::Engine &_engine;
 	AudioFormatManager _formats;
+    
+    #if defined(__APPLE__)
+    AudioUnitPluginFormat _auFormat;
+    #endif
+    VSTPluginFormat _vstFormat;
 	
 	TabbedComponent _tabbedComponent;
 	FileTreeComponent _fileTree;
