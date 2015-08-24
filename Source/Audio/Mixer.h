@@ -62,7 +62,9 @@ namespace Audio
             PLUGIN_BASE_NODE_ID = 0x20000
         };
         
-        void addPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
+        void addPostFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
+        void addPreFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
+
 
     private:
         int _nextNodeID;

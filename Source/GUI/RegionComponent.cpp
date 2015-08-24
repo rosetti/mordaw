@@ -60,6 +60,12 @@ void RegionComponent::setPixelsPerClip(int64 pixels)
     resized();
 }
 
+Audio::Region* RegionComponent::getRegion()
+{
+    return _region;
+}
+
+
 void RegionComponent::resized()
 {
     repaint();

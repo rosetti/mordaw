@@ -31,6 +31,8 @@ public:
 
     void paint (Graphics&);
     void resized();
+    
+    void menuItemSelected();
 
 private:
     ApplicationCommandManager &_commands;
@@ -40,7 +42,6 @@ private:
 
 	const Audio::Engine &_engine;
 	AudioFormatManager _formats;
-	KnownPluginList _plugins;
 	
 	TabbedComponent _tabbedComponent;
 	FileTreeComponent _fileTree;

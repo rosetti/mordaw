@@ -183,9 +183,22 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
 
 void TrackComponent::mouseDrag(const MouseEvent &e)
 {
-    int x = e.x;
-    int y = e.y;
+    dragger.dragComponent(_regionComponents.at(_trackID-1), e, nullptr);
+    /*if(e.x > _mixerOffset)
+    {
+        // 100 represents the number of seconds
+        int64 samplesRange = secondsToSamples(100, _sampleRate);
+        // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+        // generated values.
+        int64 positionSamples = pixelsToSamples(e.x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+        _track->move(_regionComponents.at(_trackID-1)->getRegion(), positionSamples);
+    }
+    else if(e.x < _mixerOffset)
+    {
+        _track->move(_regionComponents.at(_trackID-1)->getRegion(), 0);
+    }*/
 }
+
 
 void TrackComponent::filesDropped(const StringArray & files, int x, int y)
 {
@@ -299,7 +312,8 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 	}
 	else
 	{
-		dragger.startDraggingComponent(getComponentAt(e.x, e.y), e);
+        dragger.startDraggingComponent(_regionComponents.at(_trackID-1), e);
+
 	}
 
 }

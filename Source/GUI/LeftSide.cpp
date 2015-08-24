@@ -23,6 +23,7 @@ LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &eng
 	_fileTree(_directoryList)
 {
     _pluginList = new PluginListComponent(_engine.getMixer()->getFormatManager(), _engine.getMixer()->getKnownPluginList(), File::nonexistent, nullptr);
+    
 	//_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
 	//Set Up the Project Tab
 	//_projectTab = new ProjectTab(_commands);

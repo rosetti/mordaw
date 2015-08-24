@@ -52,7 +52,7 @@ namespace Audio
         return _regions;
     }
 
-    bool Track::move(const Region *region, int64 position) {
+    bool Track::move(Region *region, int64 position) {
         for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
             if (current->second == region) {
                 Region *regionAtPosition = findRegionAt(position);
