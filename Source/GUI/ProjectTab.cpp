@@ -49,17 +49,19 @@ void ProjectTab::buttonClicked(Button *)
 {
 }
 
-void ProjectTab::paint(Graphics &)
+void ProjectTab::paint(Graphics &g)
 {
+	//g.setColour(Colours::darkorange);
+	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
 }
 
 void ProjectTab::resized()
 {
-	_newProjectButton->setBounds(0, 0, getWidth(), 20);
-	_saveProjectButton->setBounds(0, 20, getWidth(), 20);
-	_saveProjectAsButton->setBounds(0, 40, getWidth(), 20);
-	_openProjectButton->setBounds(0, 60, getWidth(), 20);
+	_newProjectButton->setBounds(10, 10, getWidth() - 20, 20);
+	_saveProjectButton->setBounds(10, 31, getWidth() - 20, 20);
+	_saveProjectAsButton->setBounds(10, 52, getWidth() - 20, 20);
+	_openProjectButton->setBounds(10, 73, getWidth() - 20, 20);
 
-	_addTrackButton->setBounds(0, 100, getWidth(), 20);
+	_addTrackButton->setBounds(10, 115, getWidth() - 20, 20);
 }
 

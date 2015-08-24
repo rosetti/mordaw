@@ -49,14 +49,25 @@ void MixerView::mouseDown(const MouseEvent &) {
 	}
 }
 
-void MixerView::paint (Graphics&)
+void MixerView::paint (Graphics& g)
 {
+	//g.setColour(Colours::darkorange);
+	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
 }
 
 void MixerView::resized()
 {
     auto i = 0;
+	int j = 0;
     for (auto strip : _strips) {
-        strip->setBounds((150 * i++) + 20, 0, 100, getHeight());
+		if (i < 10) {
+			strip->setBounds((100 * i++) + 32, 0, 100, getHeight() / 2);
+		}
+		else if (i > 9) {
+			int test = getHeight() / 2;
+			std::cout << test;
+			strip->setBounds((100 * j++) + 32, getHeight() / 2 - 1, 100, getHeight() / 2);
+			i++;
+		}
     }
 }
