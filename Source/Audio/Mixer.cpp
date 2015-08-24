@@ -23,14 +23,23 @@ namespace Audio
         _knownPlugins()
     
     {
+        #if defined(__APPLE__)
         _vstFormat = new VSTPluginFormat();
         FileSearchPath path("/Library/Audio/Plug-Ins/VST");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
-        #if defined(__APPLE__)
         _auFormat = new AudioUnitPluginFormat();
         _pluginManager.addDefaultFormats();
         FileSearchPath path2("/Library/Audio/Plug-Ins/Components");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_auFormat, path2, true, File::nonexistent);
+        #endif
+        #ifdef WIN32
+        _vstFormat = new VSTPluginFormat();
+        FileSearchPath path("C:\Program Files\Steinberg\VstPlugins");
+        scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
+        #elif WIN64
+        _vstFormat = new VSTPluginFormat();
+        FileSearchPath path("C:\Program Files (x86)\Common Files\Steinberg\VST2;C:\Program Files\Steinberg\VSTPlugins");
+        scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
         #endif
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
