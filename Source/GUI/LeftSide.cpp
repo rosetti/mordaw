@@ -26,7 +26,6 @@ LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &eng
     #if defined(__APPLE__)
     _pluginList->scanFor(_auFormat);
     #endif
-    _pluginList->scanFor(_vstFormat);
 
 	//_tabbedComponent = new TabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft);
 	//Set Up the Project Tab

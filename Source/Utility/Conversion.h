@@ -49,7 +49,11 @@ inline static double samplesToMilliseconds(int64 samples, double sampleRate)
     return 1000.0 * (samples / sampleRate);
 }
 
+<<<<<<< HEAD
 inline static int samplesToSeconds(int64 samples, double sampleRate)
+=======
+inline static int64 samplesToSeconds(int64 samples, double sampleRate)
+>>>>>>> origin/master
 {
 	int seconds_ = (int)samples / (int)sampleRate;
 	return seconds_;
