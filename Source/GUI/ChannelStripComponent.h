@@ -38,9 +38,9 @@ public:
     void resized();
     
 private:
-    ScopedPointer<Label> label;
-    ScopedPointer<Slider> volumeSlider;
-    ScopedPointer<Slider> panPot;
+    Label* label;
+    Slider* volumeSlider;
+    Slider* panPot;
     
     ToggleButton* muteButton;
     ToggleButton* soloButton;
