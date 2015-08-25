@@ -41,7 +41,7 @@ MainComponent::MainComponent(ApplicationCommandManager &commands, const Audio::E
 	_mixPort.setViewedComponent(&_mixerView);
 	_mixPort.setScrollBarsShown(true, true, false, false);
 	switchView(false);
-	
+    _arrangePort.setSingleStepSizes(10, 10);
 	//Transport
     addAndMakeVisible(_transportControls);
 }
@@ -52,6 +52,7 @@ MainComponent::~MainComponent()
 
 void MainComponent::paint (Graphics&)
 {
+
 	//g.setColour(Colours::darkorange);
     //g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
 }

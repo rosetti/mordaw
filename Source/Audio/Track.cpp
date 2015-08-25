@@ -14,7 +14,7 @@
 
 namespace Audio
 {
-    Track::Track() : _totalLength(9999999999) {
+    Track::Track() : _totalLength(0) {
     }
 
     Track::~Track() {
@@ -54,12 +54,12 @@ namespace Audio
     }
 
     bool Track::move(Region *region, int64 position) {
+        if (position >= _totalLength) {
+            _totalLength = position + region->getTotalLength();
+        }
         for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
             if (current->second == region) {
                 Region *regionAtPosition = findRegionAt(position);
-                if (position >= _totalLength) {
-                    _totalLength = position + region->getTotalLength();
-                }
                 if (regionAtPosition != region && regionAtPosition != nullptr) {
                     return false;
                 } else {
@@ -72,6 +72,7 @@ namespace Audio
 
         throw std::range_error("The region has not been found in the track.");
     }
+
 
     void Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {
         _samples = samplesPerBlockExpected;
@@ -120,6 +121,11 @@ namespace Audio
     int64 Track::getNextReadPosition() const {
         return _currentPosition;
     }
+    
+    void Track::setTotalLength(int64 length)
+    {
+        _totalLength = length;
+    }
 
     int64 Track::getTotalLength() const {
         return _totalLength;
@@ -128,4 +134,5 @@ namespace Audio
     bool Track::isLooping() const {
         return false;
     }
+    
 }

@@ -27,7 +27,8 @@ namespace Audio
         Region *findRegionAt(int64 position) const;
         const std::map<int64, Region *> &getRegions() const;
         bool move(Region *region, int64 position);
-
+        void setTotalLength(int64 length);
+        
         // Inherited via PositionableAudioSource
         virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
         virtual void releaseResources() override;

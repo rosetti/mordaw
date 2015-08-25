@@ -64,6 +64,8 @@ public:
 	int getTrackID();
 	void setTrackID(int trackID);
 	int64 findTrackLength();
+    
+    void setNumberofClips(int64 clips);
 
 	int64 getMixerOffset();
 
@@ -81,6 +83,7 @@ private:
     double _sampleRate;
     int64 _mixerOffset;
     int64 _pixelsPerClip;
+    int64 _numberOfClips;
     Audio::Track *_track;
     ScopedPointer<TrackMixerComponent> _trackMixer;
     std::vector<RegionComponent *> _regionComponents;

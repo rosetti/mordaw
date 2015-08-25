@@ -17,11 +17,12 @@ RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* regi
     : _region(region),
     _posX(x),
     _sampleRate(sampleRate),
-    _pixelsPerClip(pixelsPerClip)
+    _pixelsPerClip(pixelsPerClip),
+    _thumbnailCache(100)
+
 {
 	_inputSource = new FileInputSource(file),
-	_thumbnailCache = new AudioThumbnailCache(100);
-	_thumbnail = new AudioThumbnail(1024, formatManager, *_thumbnailCache);
+	_thumbnail = new AudioThumbnail(1024, formatManager, _thumbnailCache);
     _thumbnail->setSource(_inputSource);
     setOpaque(true);
     setAlwaysOnTop(true);
@@ -57,6 +58,7 @@ void RegionComponent::paint (Graphics& g)
     g.drawText(_filename, bounds_, Justification::topLeft);
     resized();
 }
+
 
 void RegionComponent::setPixelsPerClip(int64 pixels)
 {

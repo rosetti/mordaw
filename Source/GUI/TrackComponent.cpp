@@ -99,7 +99,8 @@ TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track
   _engine(engine),
   _sampleRate(_engine.getCurrentSamplerate()),
   _mixerOffset(200),
-  _pixelsPerClip(pixelsPerClip)
+  _pixelsPerClip(pixelsPerClip),
+  _numberOfClips(100)
 {
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine, _commands));
     _trackMixer->setAlwaysOnTop(true);
@@ -201,6 +202,11 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
     return true;
 }
 
+void TrackComponent::setNumberofClips(int64 clips)
+{
+    _numberOfClips = clips;
+}
+
 void TrackComponent::mouseDrag(const MouseEvent &e)
 {
     if(_regionComponents.size() != 0)
@@ -208,7 +214,7 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
         for (std::size_t i = 0; i != _regionComponents.size(); ++i)
         {
             _regionComponents.at(i)->toFront(true);
-            _regionComponents.at(i)->beginDragAutoRepeat(200);
+            //_regionComponents.at(i)->beginDragAutoRepeat(200);
             if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))
             {
                 MouseEvent ev = e.getEventRelativeTo(this);
@@ -217,20 +223,25 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                 if(ev.x > _mixerOffset)
                 {
                     int newPos = r.getX() + distance;
+                    int newEnd = r.getX() + distance + r.getWidth();
                     //_posX.at(i) = e.getMouseDownX();
                     _posX.at(i) = newPos;
                     resized();
                     
                     Region* region = _regionComponents.at(i)->getRegion();
                     region->setNextReadPosition(0);
-                    int64 samplesRange = secondsToSamples(100, _sampleRate);
+                    int64 samplesRange = secondsToSamples(_numberOfClips, _sampleRate);
                     // 20 represents the size of a second in pixels - this all needs replacing with dynamically
                     // generated values.
-                    int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+                    int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
+                    int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
+                    _track->setTotalLength(widthInSamples);
                     _track->move(region, positionSamples);
+
                     if(_posX.at(i) < _mixerOffset)
                     {
                         _posX.at(i) = getX() + _mixerOffset ;
+                        _track->move(region, 0);
                         resized();
                     }
                 }
