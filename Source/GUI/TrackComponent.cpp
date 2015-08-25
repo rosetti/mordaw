@@ -116,14 +116,13 @@ void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFor
 {
     auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile, _pixelsPerClip);
 
-    _regionComponents.push_back(regionGUI);
     _posX.push_back(posX);
-	String filePath = audioFile.getFullPathName();
-	_regions.insert(std::pair<int64, String>(posX, filePath));
+    _regionComponents.push_back(regionGUI);
     _sizeSamps.push_back(region->getLengthInSamples());
+    String filePath = audioFile.getFullPathName();
+    _regions.insert(std::pair<int64, String>(posX, filePath));
     addAndMakeVisible(regionGUI);
     resized();
-    //setOpaque(true);
 }
 
 void TrackComponent::paint (Graphics& g)
@@ -204,20 +203,40 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
 
 void TrackComponent::mouseDrag(const MouseEvent &e)
 {
-    dragger.dragComponent(_regionComponents.at(_trackID-1), e, nullptr);
-    /*if(e.x > _mixerOffset)
+    if(_regionComponents.size() != 0)
     {
-        // 100 represents the number of seconds
-        int64 samplesRange = secondsToSamples(100, _sampleRate);
-        // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-        // generated values.
-        int64 positionSamples = pixelsToSamples(e.x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
-        _track->move(_regionComponents.at(_trackID-1)->getRegion(), positionSamples);
+        for (std::size_t i = 0; i != _regionComponents.size(); ++i)
+        {
+            _regionComponents.at(i)->toFront(true);
+            _regionComponents.at(i)->beginDragAutoRepeat(200);
+            if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))
+            {
+                MouseEvent ev = e.getEventRelativeTo(this);
+                int distance = ev.getDistanceFromDragStartX();
+                Rectangle<int> r = _regionComponents.at(i)->getBounds();
+                if(ev.x > _mixerOffset)
+                {
+                    int newPos = r.getX() + distance;
+                    //_posX.at(i) = e.getMouseDownX();
+                    _posX.at(i) = newPos;
+                    resized();
+                    
+                    Region* region = _regionComponents.at(i)->getRegion();
+                    region->setNextReadPosition(0);
+                    int64 samplesRange = secondsToSamples(100, _sampleRate);
+                    // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+                    // generated values.
+                    int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+                    _track->move(region, positionSamples);
+                    if(_posX.at(i) < _mixerOffset)
+                    {
+                        _posX.at(i) = getX() + _mixerOffset ;
+                        resized();
+                    }
+                }
+            }
+        }
     }
-    else if(e.x < _mixerOffset)
-    {
-        _track->move(_regionComponents.at(_trackID-1)->getRegion(), 0);
-    }*/
 }
 
 
@@ -334,10 +353,4 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 			}
 		}
 	}
-	else
-	{
-        dragger.startDraggingComponent(_regionComponents.at(_trackID-1), e);
-
-	}
-
 }

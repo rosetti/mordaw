@@ -10,10 +10,11 @@
 
 #include <stdexcept>
 #include "Track.h"
+#include "Conversion.h"
 
 namespace Audio
 {
-    Track::Track() : _totalLength(0) {
+    Track::Track() : _totalLength(9999999999) {
     }
 
     Track::~Track() {
@@ -56,13 +57,14 @@ namespace Audio
         for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
             if (current->second == region) {
                 Region *regionAtPosition = findRegionAt(position);
-
+                if (position >= _totalLength) {
+                    _totalLength = position + region->getTotalLength();
+                }
                 if (regionAtPosition != region && regionAtPosition != nullptr) {
                     return false;
                 } else {
                     _regions.insert(std::pair<int64, Region *>(position, current->second));
                     _regions.erase(current->first);
-
                     return true;
                 }
             }

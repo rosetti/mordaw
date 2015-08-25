@@ -28,7 +28,7 @@ public:
 	int64 getRegionWidth();
     
     Audio::Region* getRegion();
-
+    
     void paint (Graphics&);
     void resized();
         

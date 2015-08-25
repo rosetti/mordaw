@@ -15,7 +15,7 @@
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
 : _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(30)
 {
-    _timeline = new TimelineComponent(100, _mixerOffset);
+    _timeline = new TimelineComponent(500, _mixerOffset);
     _cursor = new TimelineCursor(_engine);
     _zoomInButton= new TextButton("+");
     _zoomInButton->addListener(this);

@@ -200,15 +200,33 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         _engine.getMixer()->muteTrack(_trackID);
     else if(clickedButton == soloButton)
         _engine.getMixer()->soloTrack(_trackID);
-    else if(clickedButton == plugins1)
+    else if(clickedButton == plugins1 || plugins2 || plugins3 || plugins4)
     {
         KnownPluginList& pluginsList = _engine.getMixer()->getKnownPluginList();
         pluginsList.addToMenu(_plugins, KnownPluginList::sortAlphabetically);
         const int index = _plugins.show();
         const int pluginIndex = pluginsList.getIndexChosenByMenu(index);
         PluginDescription* desc = pluginsList.getType(pluginIndex);
-        _engine.getMixer()->addPreFaderPlugin(_trackID, desc, 0, 0);
-        
+        if(clickedButton == plugins1)
+        {
+            _engine.getMixer()->addPlugin1(_trackID, desc, 0, 0);
+            plugins1->setEnabled(false);
+        }
+        else if (clickedButton == plugins2)
+        {
+            _engine.getMixer()->addPlugin2(_trackID, desc, 0, 0);
+            plugins2->setEnabled(false);
+        }
+        else if (clickedButton == plugins3)
+        {
+            _engine.getMixer()->addPlugin3(_trackID, desc, 0, 0);
+            plugins3->setEnabled(false);
+        }
+        else if (clickedButton == plugins4)
+        {
+            _engine.getMixer()->addPlugin4(_trackID, desc, 0, 0);
+            plugins4->setEnabled(false);
+        }
     }
 }
 
