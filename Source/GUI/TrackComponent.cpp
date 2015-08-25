@@ -182,33 +182,36 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
 
 void TrackComponent::mouseDrag(const MouseEvent &e)
 {
-    for (std::size_t i = 0; i != _regionComponents.size(); ++i)
+    if(_regionComponents.size() != 0)
     {
-        _regionComponents.at(i)->toFront(true);
-        _regionComponents.at(i)->beginDragAutoRepeat(200);
-        if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))
+        for (std::size_t i = 0; i != _regionComponents.size(); ++i)
         {
-            MouseEvent ev = e.getEventRelativeTo(this);
-            int distance = ev.getDistanceFromDragStartX();
-            Rectangle<int> r = _regionComponents.at(i)->getBounds();
-            if(ev.x > _mixerOffset)
+            _regionComponents.at(i)->toFront(true);
+            _regionComponents.at(i)->beginDragAutoRepeat(200);
+            if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))
             {
-                int newPos = r.getX() + distance;
-                //_posX.at(i) = e.getMouseDownX();
-                _posX.at(i) = newPos;
-                resized();
-            
-                Region* region = _regionComponents.at(i)->getRegion();
-                region->setNextReadPosition(0);
-                int64 samplesRange = secondsToSamples(100, _sampleRate);
-                // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-                // generated values.
-                int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
-                _track->move(region, positionSamples);
-                if(_posX.at(i) < _mixerOffset)
+                MouseEvent ev = e.getEventRelativeTo(this);
+                int distance = ev.getDistanceFromDragStartX();
+                Rectangle<int> r = _regionComponents.at(i)->getBounds();
+                if(ev.x > _mixerOffset)
                 {
-                    _posX.at(i) = getX() + _mixerOffset ;
+                    int newPos = r.getX() + distance;
+                    //_posX.at(i) = e.getMouseDownX();
+                    _posX.at(i) = newPos;
                     resized();
+                    
+                    Region* region = _regionComponents.at(i)->getRegion();
+                    region->setNextReadPosition(0);
+                    int64 samplesRange = secondsToSamples(100, _sampleRate);
+                    // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+                    // generated values.
+                    int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+                    _track->move(region, positionSamples);
+                    if(_posX.at(i) < _mixerOffset)
+                    {
+                        _posX.at(i) = getX() + _mixerOffset ;
+                        resized();
+                    }
                 }
             }
         }
