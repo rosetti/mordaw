@@ -39,14 +39,11 @@ void RegionComponent::paint (Graphics& g)
 {
     g.fillAll(Colours::steelblue);
     Rectangle<int> bounds_;
-<<<<<<< HEAD
-    bounds_.setHeight(getParentHeight());
-    bounds_.setWidth((int)_lengthSeconds * (int)_pixelsPerClip);
-=======
+    //bounds_.setHeight(getParentHeight());
+    //bounds_.setWidth((int)_lengthSeconds * (int)_pixelsPerClip);
     int64 lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
     bounds_.setHeight(getParentHeight()-20);
     bounds_.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
->>>>>>> origin/master
     g.reduceClipRegion(bounds_);
     g.fillAll(Colours::grey);
     //int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());

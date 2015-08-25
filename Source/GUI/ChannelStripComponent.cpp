@@ -53,9 +53,6 @@ ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &e
     soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
     soloButton->addListener(this);
     
-    KnownPluginList& plugins = _engine.getMixer()->getKnownPluginList();
-
-    
     addAndMakeVisible(plugins1 = new TextButton("Plugins 1"));
     plugins1->addListener(this);
     
@@ -202,6 +199,7 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         _engine.getMixer()->soloTrack(_trackID);
     else if(clickedButton == plugins1 || plugins2 || plugins3 || plugins4)
     {
+        _plugins.clear();
         KnownPluginList& pluginsList = _engine.getMixer()->getKnownPluginList();
         pluginsList.addToMenu(_plugins, KnownPluginList::sortAlphabetically);
         const int index = _plugins.show();
