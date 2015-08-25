@@ -3,7 +3,6 @@
 
     Mixer.h
     Created: 2 Aug 2015 4:04:13pm
-    Author:  Thomas
 
   ==============================================================================
 */
@@ -62,8 +61,19 @@ namespace Audio
             PLUGIN_BASE_NODE_ID = 0x20000
         };
         
+        /* Mixer plugin functions */
+        // add mixer plugins
+        void addPlugin1(int trackNumbwe, const PluginDescription* desc, double x, double y);
+        void addPlugin2(int trackNumbwe, const PluginDescription* desc, double x, double y);
+        void addPlugin3(int trackNumbwe, const PluginDescription* desc, double x, double y);
+        void addPlugin4(int trackNumbwe, const PluginDescription* desc, double x, double y);
+        
+        /* Other plugin functions */
+        // adds a single plugin post fader
         void addPostFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
+        // adds a single plugin post fader
         void addPreFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
+        // adds limitless amounts of plugins
         void addParallelPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
 
     private:
@@ -73,12 +83,18 @@ namespace Audio
         TimeSliceThread _thread;
         AudioProcessorGraph _processorGraph;
         AudioPluginFormatManager _pluginManager;
+        // holds a list of plugins
         KnownPluginList _knownPlugins;
+        // a scanner for plugins
         ScopedPointer<PluginDirectoryScanner> scanner;
+        /* Define plugin types */
+        // vst plugin format on all platforms
         VSTPluginFormat* _vstFormat;
+        // audio unit on mac devices
         #if defined(__APPLE__)
         AudioUnitPluginFormat* _auFormat;
         #endif
+        // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
 

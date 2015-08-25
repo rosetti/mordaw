@@ -80,8 +80,114 @@ namespace Audio
         _processorGraph.addConnection(cNode->nodeId, 1, OUTPUT_NODE_ID, 1);
 
         _nextNodeID += 1;
-        
-        //addPreFaderPlugin(1, _knownPlugins.getType(2), 0, 0);
+    }
+    
+    void Mixer::addPlugin1(int trackNumber, const PluginDescription *desc, double x, double y)
+    {
+        if(desc != 0)
+        {
+            String errorMessage;
+            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+            
+            AudioProcessorGraph::Node* node = 0;
+            
+            if(instance != 0)
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
+            if(node != 0)
+            {
+                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
+                _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                node->properties.set("x", x);
+                node->properties.set("y", y);
+            }
+        }
+    }
+    
+    void Mixer::addPlugin2(int trackNumber, const PluginDescription *desc, double x, double y)
+    {
+        if(desc != 0)
+        {
+            String errorMessage;
+            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+            
+            AudioProcessorGraph::Node* node = 0;
+            
+            if(instance != 0)
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1);
+            if(node != 0)
+            {
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 0, node->nodeId, 0);
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber), 1, node->nodeId, 1);
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                node->properties.set("x", x);
+                node->properties.set("y", y);
+            }
+        }
+    }
+    
+    void Mixer::addPlugin3(int trackNumber, const PluginDescription *desc, double x, double y)
+    {
+        if(desc != 0)
+        {
+            String errorMessage;
+            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+            
+            AudioProcessorGraph::Node* node = 0;
+            
+            if(instance != 0)
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2);
+            if(node != 0)
+            {
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1, 0, node->nodeId, 0);
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 1, 1, node->nodeId, 1);
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                node->properties.set("x", x);
+                node->properties.set("y", y);
+            }
+        }
+    }
+    
+    void Mixer::addPlugin4(int trackNumber, const PluginDescription *desc, double x, double y)
+    {
+        if(desc != 0)
+        {
+            String errorMessage;
+            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+            
+            AudioProcessorGraph::Node* node = 0;
+            
+            if(instance != 0)
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 3);
+            if(node != 0)
+            {
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2, 0, node->nodeId, 0);
+                _processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + 2, 1, node->nodeId, 1);
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                node->properties.set("x", x);
+                node->properties.set("y", y);
+            }
+        }
     }
     
     void Mixer::addPreFaderPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
@@ -171,7 +277,6 @@ namespace Audio
                 instance->hasEditor();
                 instance->getParameter(1);
             }
-            
         }
     }
 
