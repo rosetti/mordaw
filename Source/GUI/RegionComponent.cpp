@@ -26,6 +26,7 @@ RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* regi
     setOpaque(true);
     setAlwaysOnTop(true);
     _filename = file.getFileName();
+	_lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
 }
 
 RegionComponent::~RegionComponent()
@@ -37,9 +38,8 @@ RegionComponent::~RegionComponent()
 void RegionComponent::paint (Graphics& g)
 {
     Rectangle<int> bounds_;
-    int64 lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
     bounds_.setHeight(getParentHeight());
-    bounds_.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
+    bounds_.setWidth((int)_lengthSeconds * (int)_pixelsPerClip);
     g.reduceClipRegion(bounds_);
     g.fillAll(Colours::grey);
     //int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
@@ -47,7 +47,7 @@ void RegionComponent::paint (Graphics& g)
     g.setColour(Colours::black);
     g.fillRect(bounds_);
     g.setColour(Colours::green);
-    _thumbnail->drawChannels(g, bounds_, 0.0f, (int)lengthSeconds, 0.5f);
+    _thumbnail->drawChannels(g, bounds_, 0.0f, (int)_lengthSeconds, 0.5f);
     g.setColour(Colours::white);
     g.setFont(8.0f);
     g.drawText(_filename, bounds_, Justification::topLeft);
@@ -58,6 +58,17 @@ void RegionComponent::setPixelsPerClip(int64 pixels)
 {
     _pixelsPerClip = pixels;
     resized();
+}
+
+int64 RegionComponent::getPositionX()
+{
+	return _posX;
+}
+
+int64 RegionComponent::getRegionWidth()
+{
+	int64 regionWidth = _lengthSeconds * _pixelsPerClip;
+	return regionWidth;
 }
 
 Audio::Region* RegionComponent::getRegion()

@@ -55,6 +55,7 @@ public:
     ~TrackComponent();
 
     void paint (Graphics&);
+	
     void resized();
     void createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile);
     bool isInterestedInFileDrag(const StringArray& files) override;
@@ -62,6 +63,7 @@ public:
     
 	int getTrackID();
 	void setTrackID(int trackID);
+	int64 findTrackLength();
 
 	int64 getMixerOffset();
 
@@ -74,6 +76,7 @@ public:
 
 private:
     int _trackID;
+	int64 _trackLength;
     const Audio::Engine& _engine;
     double _sampleRate;
     int64 _mixerOffset;

@@ -73,8 +73,14 @@ void Arrangement::paint (Graphics& g)
 
 void Arrangement::resized()
 {
-	setSize((100 * (int)_pixelsPerClip) + (int)_mixerOffset, 100 + (_tracks.size() * 100));
-    _timeline->setBounds(0,0, (100 * (int)_pixelsPerClip)+ (int)_mixerOffset, 20);
+	// go through regions
+	//find last region position
+	//posX + lengthinseconds
+	//total + 30
+	
+	int64 longestTrackWidth_ = getLongestTrackLength();
+	setSize(((100 * (int)_pixelsPerClip) + (int)_mixerOffset) + (int)longestTrackWidth_, 100 + (_tracks.size() * 100));
+    _timeline->setBounds(0,0, ((100 * (int)_pixelsPerClip)+ (int)_mixerOffset) + longestTrackWidth_, 20);
     _cursor->setBounds((int)_mixerOffset, 0, getParentWidth(), getParentHeight());
     _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
 
@@ -94,6 +100,23 @@ void Arrangement::setPixelsPerClip(int64 pixels)
     }
     repaint();
     resized();
+}
+
+int64 Arrangement::getLongestTrackLength()
+{
+	int64 longestTrackWidth_ = 0;
+	for (auto currentTrack = _tracks.begin(), tracksEnd = _tracks.end(); currentTrack != tracksEnd; ++currentTrack)
+	{
+		int64 currentTrackLength_ = currentTrack->first->findTrackLength();
+		if (currentTrackLength_ > (100 * _pixelsPerClip) + _mixerOffset)
+		{
+			if (currentTrackLength_ > longestTrackWidth_)
+			{
+				longestTrackWidth_ = currentTrackLength_;
+			}
+		}
+	}
+	return longestTrackWidth_;
 }
 
 int64 Arrangement::getPixelsPerClip()

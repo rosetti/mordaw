@@ -103,6 +103,7 @@ TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track
 {
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine, _commands));
     _trackMixer->setAlwaysOnTop(true);
+	_trackLength = getParentWidth() - (int)_mixerOffset;
 
 }
 
@@ -131,8 +132,28 @@ void TrackComponent::paint (Graphics& g)
     g.fillAll();
 }
 
+int64 TrackComponent::findTrackLength()
+{
+	int64 lastRegionPosition_ = 0;
+	for (auto currentRegion : _regionComponents)
+	{
+		int64 currentRegionPosition_ = currentRegion->getPositionX();
+			if (currentRegionPosition_ > lastRegionPosition_)
+			{
+				lastRegionPosition_ = currentRegionPosition_;
+				_trackLength = currentRegionPosition_ + currentRegion->getRegionWidth();
+			}
+	}
+	return _trackLength;
+}
+
 void TrackComponent::resized()
 {
+	// go through regions
+	//find last region position
+	//posX + lengthinseconds
+	//total + 30
+	
     for(size_t current = 0; current < _regions.size(); ++current){
         auto r(getLocalBounds().reduced(4));
 
@@ -301,11 +322,14 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 
 					_track->add(positionSamples, region);
 					createRegionGUI(x, region, formatManager, audioFile);
+					getParentComponent()->resized();
 				}
 				else if (x < _mixerOffset)
 				{
 					_track->add(0, region);
 					createRegionGUI(_mixerOffset, region, formatManager, audioFile);
+					getParentComponent()->resized();
+					resized();
 				}
 			}
 		}

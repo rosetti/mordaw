@@ -24,6 +24,8 @@ public:
     ~RegionComponent();
     
     void setPixelsPerClip(int64 pixels);
+	int64 getPositionX();
+	int64 getRegionWidth();
     
     Audio::Region* getRegion();
 
@@ -35,6 +37,7 @@ private:
     int64 _pixelsPerClip;
     String _filename;
     int64 _posX;
+	int64 _lengthSeconds;
     Audio::Region* _region;
     ScopedPointer<FileInputSource> _inputSource;
     ScopedPointer<AudioThumbnail> _thumbnail;
