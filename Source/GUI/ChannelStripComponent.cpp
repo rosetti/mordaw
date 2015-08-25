@@ -88,6 +88,9 @@ void ChannelStripComponent::paint (Graphics& g)
     g.fillAll ();   // clear the background
     
     g.drawLine(0.0f, 0.0f, (float)getWidth(), (float)getHeight());
+	
+	//g.setColour(Colours::darkorange);
+	//g.drawRect (getLocalBounds(), 2);   // draw an outline around the component
 
 }
 
@@ -111,14 +114,14 @@ void ChannelStripComponent::resized()
     
     panPot->setBounds((getWidth() - panSize) / 2, (getHeight() - volumeHeight - panSize - labelHeight), panSize, panSize);
     
-    volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight), volumeWidth, volumeHeight);
+    volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight - 3), volumeWidth, volumeHeight);
     
-    label->setBounds(0, getHeight() - labelHeight, getWidth(), labelHeight);
+    label->setBounds(0, getHeight() - labelHeight - 3, getWidth(), labelHeight);
     
-    plugins1->setBounds(0, buttonsOffset - buttonSize * 8, getWidth(), buttonSize);
-    plugins2->setBounds(0, buttonsOffset - buttonSize * 7, getWidth(), buttonSize);
-    plugins3->setBounds(0, buttonsOffset - buttonSize * 6, getWidth(), buttonSize);
-    plugins4->setBounds(0, buttonsOffset - buttonSize * 5, getWidth(), buttonSize);
+    plugins1->setBounds(5, buttonsOffset - buttonSize * 8, getWidth() - 10, buttonSize);
+    plugins2->setBounds(5, buttonsOffset - buttonSize * 7, getWidth() -10, buttonSize);
+    plugins3->setBounds(5, buttonsOffset - buttonSize * 6, getWidth() - 10, buttonSize);
+    plugins4->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
 
 }
 
@@ -200,8 +203,8 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
     else if(clickedButton == plugins1)
     {
         KnownPluginList& pluginsList = _engine.getMixer()->getKnownPluginList();
-        pluginsList.addToMenu(plugins, KnownPluginList::sortAlphabetically);
-        const int index = plugins.show();
+        pluginsList.addToMenu(_plugins, KnownPluginList::sortAlphabetically);
+        const int index = _plugins.show();
         const int pluginIndex = pluginsList.getIndexChosenByMenu(index);
         PluginDescription* desc = pluginsList.getType(pluginIndex);
         _engine.getMixer()->addParallelPlugin(_trackID, desc, 0, 0);

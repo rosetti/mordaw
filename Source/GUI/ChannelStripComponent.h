@@ -52,7 +52,7 @@ private:
     TextButton* plugins3;
     TextButton* plugins4;
     
-    PopupMenu plugins;
+    PopupMenu _plugins;
     
     int _trackID;
     const Audio::Engine &_engine;
