@@ -15,7 +15,7 @@
 Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engine &engine)
 : _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(30)
 {
-    _timeline = new TimelineComponent(500, _mixerOffset);
+    _timeline = new TimelineComponent(100, _mixerOffset);
     _cursor = new TimelineCursor(_engine);
     _zoomInButton= new TextButton("+");
     _zoomInButton->addListener(this);
@@ -81,8 +81,12 @@ void Arrangement::resized()
 	int64 longestTrackWidth_ = getLongestTrackLength();
 	setSize(((100 * (int)_pixelsPerClip) + (int)_mixerOffset) + (int)longestTrackWidth_, 100 + (_tracks.size() * 100));
     _timeline->setBounds(0,0, ((100 * (int)_pixelsPerClip)+ (int)_mixerOffset) + longestTrackWidth_, 20);
+    if(_timeline->getNumberOfClips() != (100 * (int)_pixelsPerClip + longestTrackWidth_))
+    {
+        _timeline->setNumberOfClips(100 * (int)_pixelsPerClip + longestTrackWidth_);
+    }
     _cursor->setBounds((int)_mixerOffset, 0, getParentWidth(), getParentHeight());
-    _zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
+    //_zoomInButton->setBounds(getWidth()/2, getHeight()/2, 20, 20);
 
     auto i = 0;
 	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {

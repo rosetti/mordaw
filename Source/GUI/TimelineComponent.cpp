@@ -76,6 +76,11 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
     repaint();
 }
 
+int TimelineComponent::getNumberOfClips()
+{
+    return _numberOfClips;
+}
+
 
 void TimelineComponent::paint (Graphics&)
 {

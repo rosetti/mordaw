@@ -27,6 +27,7 @@ public:
     void paint (Graphics&);
     void resized();
     
+    int getNumberOfClips();
     void setNumberOfClips(int64 numberOfClips);
 
 private:
