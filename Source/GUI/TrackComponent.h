@@ -84,7 +84,7 @@ private:
     std::vector<int64> _posX, _sizeSamps;
 	std::map< int64, String> _regions;
     ApplicationCommandManager &_commands;
-    ComponentDragger dragger;
+    void timerCallback();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TrackComponent)
 };

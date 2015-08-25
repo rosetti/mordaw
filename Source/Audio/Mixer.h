@@ -64,7 +64,7 @@ namespace Audio
         
         void addPostFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
         void addPreFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
-
+        void addParallelPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
 
     private:
         int _index;

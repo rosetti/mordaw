@@ -204,7 +204,7 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         const int index = plugins.show();
         const int pluginIndex = pluginsList.getIndexChosenByMenu(index);
         PluginDescription* desc = pluginsList.getType(pluginIndex);
-        _engine.getMixer()->addPreFaderPlugin(_trackID, desc, 0, 0);
+        _engine.getMixer()->addParallelPlugin(_trackID, desc, 0, 0);
         
     }
 }

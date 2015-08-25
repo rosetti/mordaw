@@ -36,9 +36,10 @@ RegionComponent::~RegionComponent()
 
 void RegionComponent::paint (Graphics& g)
 {
+    g.fillAll(Colours::steelblue);
     Rectangle<int> bounds_;
     int64 lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
-    bounds_.setHeight(getParentHeight());
+    bounds_.setHeight(getParentHeight()-20);
     bounds_.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
     g.reduceClipRegion(bounds_);
     g.fillAll(Colours::grey);

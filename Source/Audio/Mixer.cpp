@@ -21,8 +21,7 @@ namespace Audio
         _bufferSize(bufferSize),
         _isPlaying(false),
         _knownPlugins(),
-        _index(0)
-    
+        _index(0)    
     {
         #if defined(__APPLE__)
         _vstFormat = new VSTPluginFormat();
@@ -85,6 +84,33 @@ namespace Audio
         //addPreFaderPlugin(1, _knownPlugins.getType(2), 0, 0);
     }
     
+    void Mixer::addPreFaderPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
+    {
+        if(desc != 0)
+        {
+            String errorMessage;
+            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+            
+            AudioProcessorGraph::Node* node = 0;
+            
+            if(instance != 0)
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + _index++);
+            if(node != 0)
+            {
+                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, OUTPUT_NODE_ID, 0);
+                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, OUTPUT_NODE_ID, 1);
+                
+                _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
+                _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
+                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+                
+                node->properties.set("x", x);
+                node->properties.set("y", y);
+            }
+        }
+    }
+    
     void Mixer::addPostFaderPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
@@ -95,14 +121,18 @@ namespace Audio
             AudioProcessorGraph::Node* node = 0;
             
             if(instance != 0)
-                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
+                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + _index++);
             if(node != 0)
             {
                 _processorGraph.removeConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, OUTPUT_NODE_ID, 0);
                 _processorGraph.removeConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 1, OUTPUT_NODE_ID, 1);
-                
-                _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
-                _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
+            
+                for(int i = 1; i < _index; ++i)
+                {
+                    _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
+                    _processorGraph.addConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
+                }
+
                 _processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
                 _processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
                 
@@ -113,7 +143,7 @@ namespace Audio
         }
     }
     
-    void Mixer::addPreFaderPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
+    void Mixer::addParallelPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
         {
@@ -136,6 +166,10 @@ namespace Audio
                 
                 node->properties.set("x", x);
                 node->properties.set("y", y);
+                
+                instance->createEditor();
+                instance->hasEditor();
+                instance->getParameter(1);
             }
             
         }

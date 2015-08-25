@@ -26,7 +26,7 @@ public:
     void setPixelsPerClip(int64 pixels);
     
     Audio::Region* getRegion();
-
+    
     void paint (Graphics&);
     void resized();
         
