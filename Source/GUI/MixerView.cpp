@@ -53,7 +53,7 @@ void MixerView::mouseDown(const MouseEvent &) {
 	}
 }
 
-void MixerView::paint (Graphics& g)
+void MixerView::paint (Graphics&)
 {
 	//g.setColour(Colours::darkorange);
 	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component

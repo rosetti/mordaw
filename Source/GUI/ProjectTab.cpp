@@ -49,7 +49,7 @@ void ProjectTab::buttonClicked(Button *)
 {
 }
 
-void ProjectTab::paint(Graphics &g)
+void ProjectTab::paint(Graphics &)
 {
 	//g.setColour(Colours::steelblue);
 	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
