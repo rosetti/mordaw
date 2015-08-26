@@ -153,12 +153,7 @@ int64 TrackComponent::findTrackLength()
 }
 
 void TrackComponent::resized()
-{
-	// go through regions
-	//find last region position
-	//posX + lengthinseconds
-	//total + 30
-	
+{	
     for(size_t current = 0; current < _regions.size(); ++current){
         auto r(getLocalBounds().reduced(4));
 
@@ -364,7 +359,6 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 					_track->add(0, region);
 					createRegionGUI(_mixerOffset, region, formatManager, audioFile);
 					getParentComponent()->resized();
-					resized();
 				}
 			}
 		}
