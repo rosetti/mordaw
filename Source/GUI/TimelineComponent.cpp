@@ -59,7 +59,7 @@ void TimelineComponent::addClips(int64 numberOfClips)
 
 int TimelineComponent::getNumberOfClips()
 {
-    return _numberOfClips;
+    return (int)_numberOfClips;
 }
 
 

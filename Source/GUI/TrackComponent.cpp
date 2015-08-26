@@ -230,7 +230,7 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                     
                     Region* region = _regionComponents.at(i)->getRegion();
                     region->setNextReadPosition(0);
-                    int64 samplesRange = secondsToSamples(_numberOfClips, _sampleRate);
+                    int64 samplesRange = secondsToSamples((double)_numberOfClips, _sampleRate);
                     int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
                     int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
                     _track->setTotalLength(widthInSamples);
@@ -389,7 +389,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                 for(auto i = 0; i < _regionComponents.size(); ++i)
                 {
                     MouseEvent ev = e.getEventRelativeTo(this);
-                    Rectangle<int> bounds = _regionComponents.at(i)->getBounds();
+                    Rectangle<int> bounds_ = _regionComponents.at(i)->getBounds();
                     if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
                     {
                         _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
