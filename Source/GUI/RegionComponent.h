@@ -26,6 +26,7 @@ public:
     void setPixelsPerClip(int64 pixels);
 	int64 getPositionX();
 	int64 getRegionWidth();
+    Rectangle<int> getRegionBounds() { return _bounds; };
     
     Audio::Region* getRegion();
     
@@ -34,6 +35,7 @@ public:
             
 private:
     double _sampleRate;
+    Rectangle<int> _bounds;
     int64 _pixelsPerClip;
     String _filename;
     int64 _posX;

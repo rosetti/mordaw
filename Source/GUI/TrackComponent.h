@@ -47,7 +47,7 @@ private:
 
 };
 
-class TrackComponent    : public Component, public FileDragAndDropTarget, public MouseListener
+class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
     TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip);

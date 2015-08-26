@@ -1060,6 +1060,7 @@
 					FCC02B8735C79BF2E3ED571C, ); name = Images; sourceTree = "<group>"; };
 		610AD37D371CA094726C7E5F = {isa = PBXGroup; children = (
 					A44C96656041D21DB1DA2913, ); name = Resources; sourceTree = "<group>"; };
+		DE89142AB8FE62E09AB19D2C = {isa = PBXGroup; children = (  ); name = Plugins; sourceTree = "<group>"; };
 		FF523A7C8D4564F02B3CA213 = {isa = PBXGroup; children = (
 					0FB940842E4D51EE28ED94D6, ); name = Utility; sourceTree = "<group>"; };
 		433C791D4AB176030E1FC297 = {isa = PBXGroup; children = (
@@ -1116,6 +1117,7 @@
 					0CCD049D467B324191566B59,
 					E7CDF29F30504B120D81EE31, ); name = Audio; sourceTree = "<group>"; };
 		65A4B1EC9DF5597E99239A5C = {isa = PBXGroup; children = (
+					DE89142AB8FE62E09AB19D2C,
 					FF523A7C8D4564F02B3CA213,
 					433C791D4AB176030E1FC297,
 					6FE6D715823C3C991A4E28E3,

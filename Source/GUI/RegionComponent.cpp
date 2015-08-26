@@ -40,20 +40,19 @@ RegionComponent::~RegionComponent()
 void RegionComponent::paint (Graphics& g)
 {
     g.fillAll(Colours::steelblue);
-    Rectangle<int> bounds_;
     auto lengthSeconds = static_cast<int64>(samplesToSeconds(_region->getLengthInSamples(), _sampleRate));
-    bounds_.setHeight(getParentHeight()-20);
-    bounds_.setWidth(static_cast<int>(lengthSeconds) * static_cast<int>(_pixelsPerClip));
-    g.reduceClipRegion(bounds_);
+    _bounds.setHeight(getParentHeight()-20);
+    _bounds.setWidth(static_cast<int>(lengthSeconds) * static_cast<int>(_pixelsPerClip));
+    g.reduceClipRegion(_bounds);
     g.fillAll(Colours::grey);
     g.setColour(Colours::black);
-    g.fillRect(bounds_);
+    g.fillRect(_bounds);
     g.setColour(Colours::green);
-    _thumbnail->drawChannels(g, bounds_, 0.0f, static_cast<int>(_lengthSeconds), 0.5f);
+    _thumbnail->drawChannels(g, _bounds, 0.0f, static_cast<int>(_lengthSeconds), 0.5f);
     
     g.setColour(Colours::white);
     g.setFont(8.0f);
-    g.drawText(_filename, bounds_, Justification::topLeft);
+    g.drawText(_filename, _bounds, Justification::topLeft);
     resized();
 }
 

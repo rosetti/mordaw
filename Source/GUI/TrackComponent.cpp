@@ -317,7 +317,8 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
         for(auto region : _regionComponents)
         {
             Rectangle<int> bounds = region->getBounds();
-            if(bounds.contains(ev.x + _mixerOffset, ev.y))
+            region->setBroughtToFrontOnMouseClick(true);
+            if(region->getRegionBounds().contains(ev.x, ev.y))
             {
                 trackMenu_->addItem(2, "Remove Region", true);
             }
@@ -367,16 +368,16 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 		}
         else if (trackMenu_->show() == 2)
         {
+            CriticalSection critical;
+            critical.enter();
             for(auto i = 0; i < _regionComponents.size(); ++i)
             {
                 MouseEvent ev = e.getEventRelativeTo(this);
                 Rectangle<int> bounds = _regionComponents.at(i)->getBounds();
-                if(bounds.contains(ev.x + _mixerOffset, ev.y))
+                if(_regionComponents.at(i)->getRegionBounds().contains(ev.x, ev.y))
                 {
                     removeChildComponent(_regionComponents.at(i));
-                    
-                    Region* region = _regionComponents.at(i)->getRegion();
-                    _track->remove(region, _posX.at(i));
+                    _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
                     std::vector<RegionComponent*>::iterator regit = _regionComponents.begin() + i;
                     RegionComponent* component = _regionComponents.at(i);
                     _regionComponents.erase(regit);
@@ -388,6 +389,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                     _sizeSamps.erase(sampsit);
                 }
             }
+            critical.exit();
         }
 	}
 }

@@ -14,6 +14,9 @@
     <Filter Include="KentDAW\Source">
       <UniqueIdentifier>{5AFC75CE-07DD-2E28-300F-794DC0EFB426}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Source\Plugins">
+      <UniqueIdentifier>{E26B1B13-3253-C8E8-AD5C-46B630F2F9E9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KentDAW\Source\Utility">
       <UniqueIdentifier>{EE7FE6BB-FEDE-3060-E7A9-7F7130F7F6A6}</UniqueIdentifier>
     </Filter>
