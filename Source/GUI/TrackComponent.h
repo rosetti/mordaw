@@ -48,7 +48,7 @@ private:
 
 };
 
-class TrackComponent    : public Component, public FileDragAndDropTarget
+class TrackComponent    : public Component, public FileDragAndDropTarget, public MouseListener
 {
 public:
     TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip);
@@ -65,6 +65,8 @@ public:
 	void setTrackID(int trackID);
 	int64 findTrackLength();
     
+
+    
     void setNumberofClips(int64 clips);
 
 	int64 getMixerOffset();
@@ -73,8 +75,8 @@ public:
 
     void setPixelsPerClip(int64 pixels);
     
-    void mouseDown (const MouseEvent& e);
-    void mouseDrag (const MouseEvent& e);
+    void mouseDown (const MouseEvent& e) override;
+    void mouseDrag (const MouseEvent& e) override;
 
 private:
     int _trackID;

@@ -74,7 +74,23 @@ namespace Audio
 
         throw std::range_error("The region has not been found in the track.");
     }
-
+    
+    bool Track::remove(Region *region, int64 position)
+    {
+        for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
+            if (current->second == region) {
+                auto regionAtPosition = findRegionAt(position);
+                
+                if (regionAtPosition != region && regionAtPosition != nullptr) {
+                    return false;
+                } else {
+                    _regions.erase(current->first);
+                    delete region;
+                    return true;
+                }
+            }
+        }
+    }
 
     void Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {
         _samples = samplesPerBlockExpected;

@@ -25,7 +25,6 @@ RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* regi
 	_thumbnail = new AudioThumbnail(1024, formatManager, *_thumbnailCache);
     _thumbnail->setSource(_inputSource);
     setOpaque(true);
-    setAlwaysOnTop(true);
     _filename = file.getFileName();
 	_lengthSeconds = static_cast<int64>(samplesToSeconds(_region->getLengthInSamples(), _sampleRate));
 }
@@ -56,12 +55,12 @@ void RegionComponent::paint (Graphics& g)
     g.fillRect(bounds_);
     g.setColour(Colours::green);
     _thumbnail->drawChannels(g, bounds_, 0.0f, static_cast<int>(_lengthSeconds), 0.5f);
+    
     g.setColour(Colours::white);
     g.setFont(8.0f);
     g.drawText(_filename, bounds_, Justification::topLeft);
     resized();
 }
-
 
 void RegionComponent::setPixelsPerClip(int64 pixels)
 {

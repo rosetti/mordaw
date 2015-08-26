@@ -214,7 +214,6 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
         for (std::size_t i = 0; i != _regionComponents.size(); ++i)
         {
             _regionComponents.at(i)->toFront(true);
-            //_regionComponents.at(i)->beginDragAutoRepeat(200);
             if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))
             {
                 MouseEvent ev = e.getEventRelativeTo(this);
@@ -224,15 +223,12 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                 {
                     int newPos = r.getX() + distance;
                     int newEnd = r.getX() + distance + r.getWidth();
-                    //_posX.at(i) = e.getMouseDownX();
                     _posX.at(i) = newPos;
                     resized();
                     
                     Region* region = _regionComponents.at(i)->getRegion();
                     region->setNextReadPosition(0);
                     int64 samplesRange = secondsToSamples(_numberOfClips, _sampleRate);
-                    // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-                    // generated values.
                     int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
                     int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
                     _track->setTotalLength(widthInSamples);
@@ -318,7 +314,15 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 		ScopedPointer<PopupMenu> trackMenu_ = new PopupMenu();
 		trackMenu_->clear();
 		trackMenu_->addItem(1, "Add Region", true);
-
+        MouseEvent ev = e.getEventRelativeTo(this);
+        for(auto region : _regionComponents)
+        {
+            Rectangle<int> bounds = region->getBounds();
+            if(bounds.contains(ev.x + _mixerOffset, ev.y))
+            {
+                trackMenu_->addItem(2, "Remove Region", true);
+            }
+        }
 		if (trackMenu_->show() == 1)
 		{
 			FileChooser chooser("Select an audio file to add...",
@@ -362,5 +366,29 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 				}
 			}
 		}
+        else if (trackMenu_->show() == 2)
+        {
+            for(auto i = 0; i < _regionComponents.size(); ++i)
+            {
+                MouseEvent ev = e.getEventRelativeTo(this);
+                Rectangle<int> bounds = _regionComponents.at(i)->getBounds();
+                if(bounds.contains(ev.x + _mixerOffset, ev.y))
+                {
+                    removeChildComponent(_regionComponents.at(i));
+                    
+                    Region* region = _regionComponents.at(i)->getRegion();
+                    _track->remove(region, _posX.at(i));
+                    std::vector<RegionComponent*>::iterator regit = _regionComponents.begin() + i;
+                    RegionComponent* component = _regionComponents.at(i);
+                    _regionComponents.erase(regit);
+                    delete component;
+                    _regions.erase(_posX.at(i));
+                    std::vector<int64>::iterator posit = _posX.begin() + i;;
+                    _posX.erase(posit);
+                    std::vector<int64>::iterator sampsit = _sizeSamps.begin() + i;;
+                    _sizeSamps.erase(sampsit);
+                }
+            }
+        }
 	}
 }
