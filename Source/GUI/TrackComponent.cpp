@@ -372,7 +372,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
             {
                 MouseEvent ev = e.getEventRelativeTo(this);
                 Rectangle<int> bounds = _regionComponents.at(i)->getBounds();
-                if(bounds.contains(ev.x + _mixerOffset, ev.y))
+                if(bounds.contains(e.x + _mixerOffset, e.y))
                 {
                     removeChildComponent(_regionComponents.at(i));
                     
@@ -385,8 +385,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                     _regions.erase(_posX.at(i));
                     std::vector<int64>::iterator posit = _posX.begin() + i;;
                     _posX.erase(posit);
-                    std::vector<int64>::iterator sampsit = _sizeSamps.begin() + i;;
-                    _sizeSamps.erase(sampsit);
+                    _sizeSamps.erase(posit);
                 }
             }
         }
