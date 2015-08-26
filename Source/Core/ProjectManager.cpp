@@ -235,59 +235,62 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 			->getChildByName("Tracks")
 			->getChildByName(trackName_)
 			->getNumChildElements();
-
-		int currentRegion_ = 1;
-		//Loop through and add the regions
-		while (currentRegion_ <= numberOfRegions_)
+		if (numberOfRegions_ > 0)
 		{
-			String regionName_ = "Region_" + (String)currentRegion_;
-			//Retrieve the file path associated with the region
-			String fileString_ = projectElements
-				->getChildByName("Tracks")
-				->getChildByName(trackName_)
-				->getChildByName(regionName_)
-				->getStringAttribute("File_Path");
-			//Check that the file is in the correct format
-			String format_;
-			if (fileString_.contains(".wav") || fileString_.contains(".WAV"))
-				format_ = "WAV";
-			else if (fileString_.contains(".aif") || fileString_.contains(".aiff") || fileString_.contains(".AIF") || fileString_.contains(".AIFF"))
-				format_ = "AIFF";
-			else if (fileString_.contains(".flac") || fileString_.contains(".FLAC"))
-				format_ = "FLAC";
-			File currentRegionFile_(fileString_);
-
-			AudioFormatManager formatManager_;
-			formatManager_.registerBasicFormats();
-
-			AudioFormatReader* reader_ = formatManager_.createReaderFor(currentRegionFile_);
-			Audio::Region* region = new Audio::SampleRegion(reader_, 1, &currentRegionFile_);
-
-			//Retrieve the regions position
-			int regionPosition_ = projectElements
-				->getChildByName("Tracks")
-				->getChildByName(trackName_)
-				->getChildByName(regionName_)
-				->getIntAttribute("Region_Position");
-			int64 mixerOffset_ = _mainWindow.Content.getArrangement()->getMixerOffset();
-			int64 pixelsPerClip_ = _mainWindow.Content.getArrangement()->getPixelsPerClip();
-			double sampleRate_ = _engine.getCurrentSamplerate();
-
-			if (regionPosition_ > mixerOffset_)
+			int currentRegion_ = 1;
+			//Loop through and add the regions
+			while (currentRegion_ <= numberOfRegions_)
 			{
-				int64 samplesRange_ = secondsToSamples(100, sampleRate_);
-				int64 positionSamples_ = pixelsToSamples(regionPosition_ - mixerOffset_, 100 * pixelsPerClip_, samplesRange_);
+				String regionName_ = "Region_" + (String)currentRegion_;
+				//Retrieve the file path associated with the region
+				String fileString_ = projectElements
+					->getChildByName("Tracks")
+					->getChildByName(trackName_)
+					->getChildByName(regionName_)
+					->getStringAttribute("File_Path");
+				//Check that the file is in the correct format
+				String format_;
+				if (fileString_.contains(".wav") || fileString_.contains(".WAV"))
+					format_ = "WAV";
+				else if (fileString_.contains(".aif") || fileString_.contains(".aiff") || fileString_.contains(".AIF") || fileString_.contains(".AIFF"))
+					format_ = "AIFF";
+				else if (fileString_.contains(".flac") || fileString_.contains(".FLAC"))
+					format_ = "FLAC";
+				File currentRegionFile_(fileString_);
 
-				audioTracks_.at(trackNumber_ - 1)->add(positionSamples_, region);
-				currentTrack->first->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
+				AudioFormatManager formatManager_;
+				formatManager_.registerBasicFormats();
+
+				AudioFormatReader* reader_ = formatManager_.createReaderFor(currentRegionFile_);
+				Audio::Region* region = new Audio::SampleRegion(reader_, 1, &currentRegionFile_);
+
+				//Retrieve the regions position
+				int regionPosition_ = projectElements
+					->getChildByName("Tracks")
+					->getChildByName(trackName_)
+					->getChildByName(regionName_)
+					->getIntAttribute("Region_Position");
+				int64 mixerOffset_ = _mainWindow.Content.getArrangement()->getMixerOffset();
+				int64 pixelsPerClip_ = _mainWindow.Content.getArrangement()->getPixelsPerClip();
+				double sampleRate_ = _engine.getCurrentSamplerate();
+
+				if (regionPosition_ > mixerOffset_)
+				{
+					int64 samplesRange_ = secondsToSamples(100, sampleRate_);
+					int64 positionSamples_ = pixelsToSamples(regionPosition_ - mixerOffset_, 100 * pixelsPerClip_, samplesRange_);
+
+					audioTracks_.at(trackNumber_ - 1)->add(positionSamples_, region);
+					currentTrack->first->createRegionGUI(regionPosition_, region, formatManager_, currentRegionFile_);
+				}
+				else if (regionPosition_ < mixerOffset_)
+				{
+					audioTracks_.at(trackNumber_)->add(0, region);
+					currentTrack->first->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
+				}
+				currentRegion_++;
 			}
-			else if (regionPosition_ < mixerOffset_)
-			{
-				audioTracks_.at(trackNumber_)->add(0, region);
-				currentTrack->first->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
-			}
-			currentRegion_++;
 		}
+		trackNumber_++;
 	}
 }
 

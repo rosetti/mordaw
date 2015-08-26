@@ -51,8 +51,11 @@ void ProjectTab::buttonClicked(Button *)
 
 void ProjectTab::paint(Graphics &g)
 {
-	//g.setColour(Colours::darkorange);
+	//g.setColour(Colours::steelblue);
 	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+
+	//g.setColour(Colours::black);
+	//g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 void ProjectTab::resized()

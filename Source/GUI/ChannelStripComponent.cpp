@@ -99,9 +99,11 @@ void ChannelStripComponent::paint (Graphics& g)
     
     g.drawLine(0.0f, 0.0f, static_cast<float>(getWidth()), static_cast<float>(getHeight()));
 	
-	//g.setColour(Colours::darkorange);
-	//g.drawRect (getLocalBounds(), 2);   // draw an outline around the component
+	g.setColour(Colours::steelblue);
+	g.drawRect (getLocalBounds(), 2);   // draw an outline around the component
 
+	g.setColour(Colours::black);
+	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 void ChannelStripComponent::resized()

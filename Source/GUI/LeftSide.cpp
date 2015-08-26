@@ -69,10 +69,13 @@ void LeftSide::addTabs()
     _tabbedComponent.addTab("Plugins", Colours::darkgrey, _pluginList, false);
 }
 
-void LeftSide::paint (Graphics& g)
+void LeftSide::paint(Graphics& g)
 {
-	//g.setColour(Colours::darkorange);
-	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+	g.setColour(Colours::steelblue);
+	g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+
+	g.setColour(Colours::black);
+	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 void LeftSide::resized()
