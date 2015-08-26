@@ -217,7 +217,6 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
         {
             _regionComponents.at(i)->toFront(true);
             
-            MouseEvent ev = e.getEventRelativeTo(this);
             int distance = ev.getDistanceFromDragStartX();
             Rectangle<int> r = _regionComponents.at(i)->getBounds();
             if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))            {
@@ -331,10 +330,6 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
             {
                 trackMenu_->addItem(2, "Remove Region", true);
             }
-            //if(region->getRegionBounds().contains(ev.x, ev.y))
-            //{
-            //    trackMenu_->addItem(2, "Remove Region", true);
-            //}
         }
         switch (trackMenu_->show())
         {
