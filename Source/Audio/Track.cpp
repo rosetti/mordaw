@@ -10,7 +10,7 @@
 
 #include <stdexcept>
 #include "Track.h"
-#include "Conversion.h"
+#include "../Utility/Conversion.h"
 
 namespace Audio
 {
@@ -25,7 +25,7 @@ namespace Audio
     }
 
     void Track::add(int64 position, Region* region) {
-        ResamplingAudioSource* resampled = new ResamplingAudioSource(region, false, 2);
+        auto resampled = new ResamplingAudioSource(region, false, 2);
 
         _regions.insert(std::pair<int64, Region *>(position, region));
         _resampled.insert(std::pair<Region *, ResamplingAudioSource *>(region, resampled));
@@ -54,12 +54,14 @@ namespace Audio
     }
 
     bool Track::move(Region *region, int64 position) {
-        if (position >= _totalLength) {
+        if (position + region->getTotalLength() >= _totalLength) {
             _totalLength = position + region->getTotalLength();
         }
+
         for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
             if (current->second == region) {
-                Region *regionAtPosition = findRegionAt(position);
+                auto regionAtPosition = findRegionAt(position);
+
                 if (regionAtPosition != region && regionAtPosition != nullptr) {
                     return false;
                 } else {

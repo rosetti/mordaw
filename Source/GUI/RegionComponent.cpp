@@ -33,7 +33,7 @@ RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* regi
 RegionComponent::~RegionComponent()
 {
 	//_thumbnail->setSource(nullptr);
-    //_thumbnailCache->clear();
+    _thumbnailCache.clear();
 }
 
 void RegionComponent::paint (Graphics& g)
@@ -73,8 +73,7 @@ int64 RegionComponent::getPositionX()
 
 int64 RegionComponent::getRegionWidth()
 {
-	int64 regionWidth = _lengthSeconds * _pixelsPerClip;
-	return regionWidth;
+	return _lengthSeconds * _pixelsPerClip;
 }
 
 Audio::Region* RegionComponent::getRegion()

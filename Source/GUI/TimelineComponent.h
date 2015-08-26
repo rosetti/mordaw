@@ -31,6 +31,8 @@ public:
     void setNumberOfClips(int64 numberOfClips);
 
 private:
+    void TimelineComponent::addClips(int64 numberOfClips);
+    
     std::vector<TimelineClip*> _clips;
     int64 _mixerOffset;
     int64 _numberOfClips;

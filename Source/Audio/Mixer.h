@@ -89,10 +89,10 @@ namespace Audio
         ScopedPointer<PluginDirectoryScanner> scanner;
         /* Define plugin types */
         // vst plugin format on all platforms
-        VSTPluginFormat* _vstFormat;
+        ScopedPointer<VSTPluginFormat> _vstFormat;
         // audio unit on mac devices
         #if defined(__APPLE__)
-        AudioUnitPluginFormat* _auFormat;
+        ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
