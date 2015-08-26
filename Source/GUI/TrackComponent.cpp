@@ -363,10 +363,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                     
                     if (x > _mixerOffset)
                     {
-                        // 100 represents the number of seconds
                         int64 samplesRange = secondsToSamples(100, _sampleRate);
-                        // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-                        // generated values.
                         int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
                         
                         _track->add(positionSamples, region);
@@ -407,8 +404,6 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                 }
                 critical.exit();
             }
-                
-                
             default:
                 break;
         }
