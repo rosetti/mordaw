@@ -61,9 +61,9 @@ void MixerView::paint (Graphics&)
 
 void MixerView::resized()
 {
-    auto i = 0;
+	auto i = 0;
 	int j = 0;
-    for (auto strip : _strips) {
+	for (auto strip : _strips) {
 		if (i < 10) {
 			strip->setBounds((100 * i++) + 32, 0, 100, getHeight() / 2);
 		}
@@ -73,5 +73,5 @@ void MixerView::resized()
 			strip->setBounds((100 * j++) + 32, getHeight() / 2 - 1, 100, getHeight() / 2);
 			i++;
 		}
-    }
+	}
 }
