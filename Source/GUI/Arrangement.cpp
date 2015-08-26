@@ -19,9 +19,9 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     _cursor = new TimelineCursor(_engine);
     //_zoomInButton= new TextButton("+");
     //_zoomInButton->addListener(this);
-    //addAndMakeVisible(_cursor);
+    addAndMakeVisible(_cursor);
     addAndMakeVisible(_zoomInButton);
-    addAndMakeVisible(_timeline);
+    //addAndMakeVisible(_timeline);
     setPixelsPerClip(30);
 	_trackNumber = 1;
 }

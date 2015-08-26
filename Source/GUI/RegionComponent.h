@@ -31,9 +31,7 @@ public:
     
     void paint (Graphics&);
     void resized();
-    
-    void mouseDown(MouseEvent &e);
-        
+            
 private:
     double _sampleRate;
     int64 _pixelsPerClip;

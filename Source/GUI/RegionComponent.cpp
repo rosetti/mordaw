@@ -3,7 +3,6 @@
 
     RegionComponent.cpp
     Created: 13 Aug 2015 12:21:11pm
-    Author:  Thomas
 
   ==============================================================================
 */
@@ -42,15 +41,11 @@ void RegionComponent::paint (Graphics& g)
 {
     g.fillAll(Colours::steelblue);
     Rectangle<int> bounds_;
-    //bounds_.setHeight(getParentHeight());
-    //bounds_.setWidth((int)_lengthSeconds * (int)_pixelsPerClip);
     auto lengthSeconds = static_cast<int64>(samplesToSeconds(_region->getLengthInSamples(), _sampleRate));
     bounds_.setHeight(getParentHeight()-20);
     bounds_.setWidth(static_cast<int>(lengthSeconds) * static_cast<int>(_pixelsPerClip));
     g.reduceClipRegion(bounds_);
     g.fillAll(Colours::grey);
-    //int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
-    //int64 posSeconds = samplesToSeconds(posSamples, 44100.f);
     g.setColour(Colours::black);
     g.fillRect(bounds_);
     g.setColour(Colours::green);
