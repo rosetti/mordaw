@@ -35,6 +35,8 @@ RegionComponent::~RegionComponent()
 	_thumbnail->setSource(nullptr);
 	_thumbnail->clear();
 	_thumbnailCache->clear();
+    delete _thumbnail;
+    delete _thumbnailCache;
 }
 
 void RegionComponent::paint (Graphics& g)

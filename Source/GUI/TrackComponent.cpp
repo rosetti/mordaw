@@ -34,8 +34,7 @@ TrackMixerComponent::~TrackMixerComponent()
 
 void TrackMixerComponent::mouseDrag(const MouseEvent &)
 {
-    //int x = e.x;
-    //int y = e.y;
+
 }
 
 void TrackMixerComponent::buttonClicked(Button*)
@@ -152,16 +151,17 @@ int64 TrackComponent::findTrackLength()
 }
 
 void TrackComponent::resized()
-{	
-    for(size_t current = 0; current < _regions.size(); ++current){
-        auto r(getLocalBounds().reduced(4));
+{
+        for(size_t current = 0; current < _regions.size(); ++current)
+        {
+            auto r(getLocalBounds().reduced(4));
 
-        r.setX((int)_posX.at(current));
-        int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
-        r.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
-        r.removeFromBottom(6);
-        _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
-    }
+            r.setX((int)_posX.at(current));
+            int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
+            r.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
+            r.removeFromBottom(6);
+            _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
+        }
     _trackMixer->setBounds(0, 0, (int)_mixerOffset, getParentHeight());
     repaint();
 }
@@ -307,6 +307,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 
 	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
+    int posX;
 	// check the mod keys ..
 	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
 	{
@@ -316,80 +317,94 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
         MouseEvent ev = e.getEventRelativeTo(this);
         for(auto region : _regionComponents)
         {
-            Rectangle<int> bounds = region->getBounds();
+            posX = ev.x;
             region->setBroughtToFrontOnMouseClick(true);
-            if(region->getRegionBounds().contains(ev.x, ev.y))
+            if(region->getPositionX() < posX && posX < (region->getPositionX() + region->getRegionWidth()))
             {
                 trackMenu_->addItem(2, "Remove Region", true);
             }
+            //if(region->getRegionBounds().contains(ev.x, ev.y))
+            //{
+            //    trackMenu_->addItem(2, "Remove Region", true);
+            //}
         }
-		if (trackMenu_->show() == 1)
-		{
-			FileChooser chooser("Select an audio file to add...",
-				File::nonexistent,
-				"*.wav; *aif; *.flac");
-			if (chooser.browseForFileToOpen()) {
-				File audioFile(chooser.getResult());
-				const String fileString = audioFile.getFullPathName();
-				String format;
-				if (fileString.contains(".wav"))
-					format = "WAV";
-				else if (fileString.contains(".aif") || fileString.contains(".aiff"))
-					format = "AIFF";
-				else if (fileString.contains(".flac"))
-					format = "FLAC";
-				AudioFormatManager formatManager;
-				formatManager.registerBasicFormats();
-
-				AudioFormatReader* reader = formatManager.createReaderFor(audioFile);
-				Audio::Region* region = new Audio::SampleRegion(reader, 1, &audioFile);
-				Point<int> position = e.getPosition();
-				int x = position.getX();
-				
-				if (x > _mixerOffset)
-				{
-					// 100 represents the number of seconds
-					int64 samplesRange = secondsToSamples(100, _sampleRate);
-					// 20 represents the size of a second in pixels - this all needs replacing with dynamically
-					// generated values.
-					int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
-
-					_track->add(positionSamples, region);
-					createRegionGUI(x, region, formatManager, audioFile);
-					getParentComponent()->resized();
-				}
-				else if (x < _mixerOffset)
-				{
-					_track->add(0, region);
-					createRegionGUI(_mixerOffset, region, formatManager, audioFile);
-					getParentComponent()->resized();
-				}
-			}
-		}
-        else if (trackMenu_->show() == 2)
+        switch (trackMenu_->show())
         {
-            CriticalSection critical;
-            critical.enter();
-            for(auto i = 0; i < _regionComponents.size(); ++i)
+            case 1:
             {
-                MouseEvent ev = e.getEventRelativeTo(this);
-                Rectangle<int> bounds = _regionComponents.at(i)->getBounds();
-                if(_regionComponents.at(i)->getRegionBounds().contains(ev.x, ev.y))
-                {
-                    removeChildComponent(_regionComponents.at(i));
-                    _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
-                    std::vector<RegionComponent*>::iterator regit = _regionComponents.begin() + i;
-                    RegionComponent* component = _regionComponents.at(i);
-                    _regionComponents.erase(regit);
-                    delete component;
-                    _regions.erase(_posX.at(i));
-                    std::vector<int64>::iterator posit = _posX.begin() + i;;
-                    _posX.erase(posit);
-                    std::vector<int64>::iterator sampsit = _posX.begin() + i;;
-                    _sizeSamps.erase(sampsit);
+                FileChooser chooser("Select an audio file to add...",
+                                    File::nonexistent,
+                                    "*.wav; *aif; *.flac");
+                if (chooser.browseForFileToOpen()) {
+                    File audioFile(chooser.getResult());
+                    const String fileString = audioFile.getFullPathName();
+                    String format;
+                    if (fileString.contains(".wav"))
+                        format = "WAV";
+                    else if (fileString.contains(".aif") || fileString.contains(".aiff"))
+                        format = "AIFF";
+                    else if (fileString.contains(".flac"))
+                        format = "FLAC";
+                    AudioFormatManager formatManager;
+                    formatManager.registerBasicFormats();
+                    
+                    AudioFormatReader* reader = formatManager.createReaderFor(audioFile);
+                    Audio::Region* region = new Audio::SampleRegion(reader, 1, &audioFile);
+                    Point<int> position = e.getPosition();
+                    int x = position.getX();
+                    
+                    if (x > _mixerOffset)
+                    {
+                        // 100 represents the number of seconds
+                        int64 samplesRange = secondsToSamples(100, _sampleRate);
+                        // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+                        // generated values.
+                        int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+                        
+                        _track->add(positionSamples, region);
+                        createRegionGUI(x, region, formatManager, audioFile);
+                        getParentComponent()->resized();
+                    }
+                    else if (x < _mixerOffset)
+                    {
+                        _track->add(0, region);
+                        createRegionGUI(_mixerOffset, region, formatManager, audioFile);
+                        getParentComponent()->resized();
+                    }
                 }
             }
-            critical.exit();
+                break;
+            case 2:
+            {
+                CriticalSection critical;
+                critical.enter();
+                for(auto i = 0; i < _regionComponents.size(); ++i)
+                {
+                    MouseEvent ev = e.getEventRelativeTo(this);
+                    Rectangle<int> bounds = _regionComponents.at(i)->getBounds();
+                    if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
+                    {
+                        _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
+                        
+                        std::vector<RegionComponent*>::iterator regit = _regionComponents.begin() + i;
+                        RegionComponent* component = _regionComponents.at(i);
+                        removeChildComponent(_regionComponents.at(i));
+                        _regionComponents.erase(regit);
+                        delete component;
+                        _regions.erase(_posX.at(i));
+                        std::vector<int64>::iterator posit = _posX.begin() + i;;
+                        _posX.erase(posit);
+                        std::vector<int64>::iterator sampsit = _posX.begin() + i;;
+                        _sizeSamps.erase(sampsit);
+                    }
+                }
+                critical.exit();
+            }
+                
+                
+            default:
+                break;
         }
-	}
+    }
 }
+		
