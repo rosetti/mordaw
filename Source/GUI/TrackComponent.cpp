@@ -208,16 +208,19 @@ void TrackComponent::setNumberofClips(int64 clips)
 
 void TrackComponent::mouseDrag(const MouseEvent &e)
 {
+    int posX;
     if(_regionComponents.size() != 0)
     {
+        MouseEvent ev = e.getEventRelativeTo(this);
+        posX = ev.x;
         for (std::size_t i = 0; i != _regionComponents.size(); ++i)
         {
             _regionComponents.at(i)->toFront(true);
-            if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))
-            {
-                MouseEvent ev = e.getEventRelativeTo(this);
-                int distance = ev.getDistanceFromDragStartX();
-                Rectangle<int> r = _regionComponents.at(i)->getBounds();
+            
+            MouseEvent ev = e.getEventRelativeTo(this);
+            int distance = ev.getDistanceFromDragStartX();
+            Rectangle<int> r = _regionComponents.at(i)->getBounds();
+            if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))            {
                 if(ev.x > _mixerOffset)
                 {
                     int newPos = r.getX() + distance;
@@ -241,6 +244,11 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                     }
                 }
             }
+            else if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
+            {
+                
+            }
+
         }
     }
 }
@@ -385,7 +393,6 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                     if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
                     {
                         _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
-                        
                         std::vector<RegionComponent*>::iterator regit = _regionComponents.begin() + i;
                         RegionComponent* component = _regionComponents.at(i);
                         removeChildComponent(_regionComponents.at(i));
@@ -394,7 +401,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                         _regions.erase(_posX.at(i));
                         std::vector<int64>::iterator posit = _posX.begin() + i;;
                         _posX.erase(posit);
-                        std::vector<int64>::iterator sampsit = _posX.begin() + i;;
+                        std::vector<int64>::iterator sampsit = _sizeSamps.begin() + i;;
                         _sizeSamps.erase(sampsit);
                     }
                 }
