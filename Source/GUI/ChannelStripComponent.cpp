@@ -9,7 +9,6 @@
 */
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include <list>
 #include "ChannelStripComponent.h"
 #include "../Audio/ChannelStripProcessor.h"
 
@@ -25,7 +24,7 @@ ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &e
     label->addListener(this);
     
     // some method should be used to return the name of a track
-    String trackLabel = "Track" + (String) trackID;
+    auto trackLabel = "Track" + String(trackID);
     label->setText(trackLabel, NotificationType::sendNotification);
     
     addAndMakeVisible(volumeSlider = new Slider(trackLabel + " v"));
@@ -68,23 +67,37 @@ ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &e
 
 ChannelStripComponent::~ChannelStripComponent()
 {
-	volumeSlider->removeListener(this);
-	panPot->removeListener(this);
-	muteButton->removeListener(this);
-	soloButton->removeListener(this);
+    removeAllChildren();
 
-	removeAllChildren();
+    label->removeListener(this);
+    delete label;
+    volumeSlider->removeListener(this);
+    delete volumeSlider;
+	panPot->removeListener(this);
+    delete panPot;
+	muteButton->removeListener(this);
+    delete muteButton;
+	soloButton->removeListener(this);
+    delete soloButton;
+    plugins1->removeListener(this);
+    delete plugins1;
+    plugins2->removeListener(this);
+    delete plugins2;
+    plugins3->removeListener(this);
+    delete plugins3;
+    plugins4->removeListener(this);
+    delete plugins4;
 }
 
 void ChannelStripComponent::paint (Graphics& g)
 {
     Colour backgroundColour = Colours::transparentBlack;
     
-    g.setGradientFill(ColourGradient(backgroundColour.brighter(0.25f), 0.0f, 0.0f, backgroundColour.darker(0.25f), 0.0f, (float) getHeight(), 0));
+    g.setGradientFill(ColourGradient(backgroundColour.brighter(0.25f), 0.0f, 0.0f, backgroundColour.darker(0.25f), 0.0f, static_cast<float>(getHeight()), 0));
     
     g.fillAll ();   // clear the background
     
-    g.drawLine(0.0f, 0.0f, (float)getWidth(), (float)getHeight());
+    g.drawLine(0.0f, 0.0f, static_cast<float>(getWidth()), static_cast<float>(getHeight()));
 	
 	//g.setColour(Colours::darkorange);
 	//g.drawRect (getLocalBounds(), 2);   // draw an outline around the component
@@ -126,11 +139,11 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
 {
     if(movedSlider == volumeSlider)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, (float)movedSlider->getValue());
+        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, static_cast<float>(movedSlider->getValue()));
     }
     else if(movedSlider == panPot)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::PAN, (float)movedSlider->getValue());
+        _engine.getMixer()->changeGain(ChannelStripProcessor::PAN, static_cast<float>(movedSlider->getValue()));
     }
 }
 
@@ -164,10 +177,10 @@ void ChannelStripComponent::setButtonState(String button, bool buttonState)
 float ChannelStripComponent::getSliderValue(String slider)
 {
 	if (!slider.compare("Gain")) {
-		return (float)volumeSlider->getValue();
+		return static_cast<float>(volumeSlider->getValue());
 	}
 	if (!slider.compare("Panning")) {
-		return (float)panPot->getValue();
+		return static_cast<float>(panPot->getValue());
 	}
 	return 0.0f;
 }
@@ -175,10 +188,10 @@ float ChannelStripComponent::getSliderValue(String slider)
 void ChannelStripComponent::setSliderValue(String slider, double sliderValue)
 {
 	if (!slider.compare("Gain")) {
-		volumeSlider->setValue((float)sliderValue, sendNotificationAsync);
+		volumeSlider->setValue(static_cast<float>(sliderValue), sendNotificationAsync);
 	}
 	else if (!slider.compare("Panning")) {
-		panPot->setValue((float)sliderValue, sendNotificationAsync);
+		panPot->setValue(static_cast<float>(sliderValue), sendNotificationAsync);
 	}
 }
 

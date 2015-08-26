@@ -20,6 +20,10 @@ MixerView::MixerView(ApplicationCommandManager &commands, const Audio::Engine &e
 
 MixerView::~MixerView()
 {
+    for (auto strip : _strips) {
+        delete strip;
+    }
+    _strips.clear();
 }
 
 void MixerView::addTrack(int trackIndex) {

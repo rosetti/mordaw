@@ -28,11 +28,10 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
 
 Arrangement::~Arrangement()
 {
-	/*
+    removeAllChildren();
     for (auto track : _tracks) {
-        delete track;
+        delete track.first;
     }
-	*/
 }
 
 void Arrangement::buttonClicked(Button* button)
@@ -46,7 +45,7 @@ void Arrangement::buttonClicked(Button* button)
 
 void Arrangement::mouseDown(const MouseEvent &) {
 
-	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+    auto modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
 	// check the mod keys ..
 	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
