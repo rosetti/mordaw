@@ -33,6 +33,10 @@ RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* regi
 RegionComponent::~RegionComponent()
 {
     removeAllChildren();
+	
+	_thumbnail->setSource(nullptr);
+	_thumbnail->clear();
+	_thumbnailCache->clear();
 }
 
 void RegionComponent::paint (Graphics& g)

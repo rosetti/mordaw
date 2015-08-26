@@ -115,6 +115,7 @@ TrackComponent::~TrackComponent()
         delete region;
     }
     _regionComponents.clear();
+	
 }
 
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)

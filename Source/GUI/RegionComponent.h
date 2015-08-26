@@ -39,7 +39,7 @@ private:
     int64 _posX;
 	int64 _lengthSeconds;
     Audio::Region* _region;
-    ScopedPointer<FileInputSource> _inputSource;
+    FileInputSource* _inputSource;
     AudioThumbnail *_thumbnail;
     AudioThumbnailCache *_thumbnailCache;
     
