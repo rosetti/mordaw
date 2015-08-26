@@ -14,26 +14,25 @@
 
 //==============================================================================
 RegionComponent::RegionComponent(int64 x, double sampleRate, Audio::Region* region, AudioFormatManager& formatManager, const File& file, int64 pixelsPerClip)
-    : _region(region),
-    _posX(x),
-    _sampleRate(sampleRate),
+    : _sampleRate(sampleRate),
     _pixelsPerClip(pixelsPerClip),
-    _thumbnailCache(100)
+    _posX(x),
+    _region(region),
+    _thumbnailCache(new AudioThumbnailCache(100))
 
 {
 	_inputSource = new FileInputSource(file),
-	_thumbnail = new AudioThumbnail(1024, formatManager, _thumbnailCache);
+	_thumbnail = new AudioThumbnail(1024, formatManager, *_thumbnailCache);
     _thumbnail->setSource(_inputSource);
     setOpaque(true);
     setAlwaysOnTop(true);
     _filename = file.getFileName();
-	_lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
+	_lengthSeconds = static_cast<int64>(samplesToSeconds(_region->getLengthInSamples(), _sampleRate));
 }
 
 RegionComponent::~RegionComponent()
 {
-	//_thumbnail->setSource(nullptr);
-    _thumbnailCache.clear();
+    removeAllChildren();
 }
 
 void RegionComponent::paint (Graphics& g)
@@ -42,9 +41,9 @@ void RegionComponent::paint (Graphics& g)
     Rectangle<int> bounds_;
     //bounds_.setHeight(getParentHeight());
     //bounds_.setWidth((int)_lengthSeconds * (int)_pixelsPerClip);
-    int64 lengthSeconds = (int64)samplesToSeconds(_region->getLengthInSamples(), _sampleRate);
+    auto lengthSeconds = static_cast<int64>(samplesToSeconds(_region->getLengthInSamples(), _sampleRate));
     bounds_.setHeight(getParentHeight()-20);
-    bounds_.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
+    bounds_.setWidth(static_cast<int>(lengthSeconds) * static_cast<int>(_pixelsPerClip));
     g.reduceClipRegion(bounds_);
     g.fillAll(Colours::grey);
     //int64 posSamples = pixelsToSamples(_posX, getWidth(), _region->getLengthInSamples());
@@ -52,7 +51,7 @@ void RegionComponent::paint (Graphics& g)
     g.setColour(Colours::black);
     g.fillRect(bounds_);
     g.setColour(Colours::green);
-    _thumbnail->drawChannels(g, bounds_, 0.0f, (int)_lengthSeconds, 0.5f);
+    _thumbnail->drawChannels(g, bounds_, 0.0f, static_cast<int>(_lengthSeconds), 0.5f);
     g.setColour(Colours::white);
     g.setFont(8.0f);
     g.drawText(_filename, bounds_, Justification::topLeft);

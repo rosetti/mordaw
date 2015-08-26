@@ -40,8 +40,8 @@ private:
 	int64 _lengthSeconds;
     Audio::Region* _region;
     ScopedPointer<FileInputSource> _inputSource;
-    ScopedPointer<AudioThumbnail> _thumbnail;
-    AudioThumbnailCache _thumbnailCache;
+    AudioThumbnail *_thumbnail;
+    AudioThumbnailCache *_thumbnailCache;
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (RegionComponent)

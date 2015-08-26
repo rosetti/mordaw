@@ -111,6 +111,10 @@ TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track
 TrackComponent::~TrackComponent()
 {
 	removeAllChildren();
+    for (auto region : _regionComponents) {
+        delete region;
+    }
+    _regionComponents.clear();
 }
 
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
