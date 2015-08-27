@@ -78,6 +78,8 @@ namespace Audio
         _processorGraph.addConnection(cNode->nodeId, 0, OUTPUT_NODE_ID, 0);
         _processorGraph.addConnection(cNode->nodeId, 1, OUTPUT_NODE_ID, 1);
 
+		
+
         _nextNodeID += 1;
     }
     

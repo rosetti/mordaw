@@ -34,6 +34,8 @@ public:
 	void createBasicProjectFramework(const String& projectName);
 	void saveCurrentProject(File savedFile);
 	void saveCurrentProjectAs();
+	void exportProjectAsWav();
+	void beginWavExport(File _exportFile);
 	void projectExisting();
 	void loadExistingProject();
 
@@ -51,7 +53,7 @@ public:
 		saveProject = 0x102,
 		saveProjectAs = 0x103,
 		closeProject = 0x107,
-		exportAudio = 0x108,
+		exportWav = 0x108,
 		addTrack = 0x104,
 		addRegion = 0x105,
 		addRegionToTrack = 0x106,
@@ -65,6 +67,7 @@ private:
 
 	FileChooser _saveChooser;
 	FileChooser _loadChooser;
+	FileChooser _exportWavChooser;
 	File _projectFile;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ProjectManager)

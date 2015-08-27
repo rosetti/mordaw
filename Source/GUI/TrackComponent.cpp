@@ -379,7 +379,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                 critical.enter();
                 for(auto i = 0; i < _regionComponents.size(); ++i)
                 {
-                    MouseEvent ev = e.getEventRelativeTo(this);
+                    
                     Rectangle<int> bounds_ = _regionComponents.at(i)->getBounds();
 					posX = ev.x;
                     if((int)_regionComponents.at(i)->getPositionX() < posX && posX < ((int)_regionComponents.at(i)->getPositionX() + (int)_regionComponents.at(i)->getRegionWidth()))
