@@ -46,10 +46,12 @@ ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &e
     
     addAndMakeVisible(muteButton = new ToggleButton("Mute"));
     muteButton->setColour(TextButton::buttonColourId, Colours::blue);
+	setButtonState("Mute", false);
     muteButton->addListener(this);
     
     addAndMakeVisible(soloButton = new ToggleButton("Solo"));
     soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
+	setButtonState("Solo", false);
     soloButton->addListener(this);
     
     addAndMakeVisible(plugins1 = new TextButton("Plugins 1"));
