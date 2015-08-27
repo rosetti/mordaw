@@ -149,20 +149,8 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
 	if (!_muted)
 	{
-		if (_panning == 0.5)
-		{
-			buffer.applyGain(_gain);
-		}
-		else if (_panning < 0.5)
-		{
-			buffer.applyGain(0, 0, buffer.getNumSamples(), _gain);
-			buffer.applyGain(1, 0, buffer.getNumSamples(), _gain / _panning);
-		}
-		else if (_panning > 0.5)
-		{
-			buffer.applyGain(0, 0, buffer.getNumSamples(), _gain / (_panning - 0.5f));
-			buffer.applyGain(1, 0, buffer.getNumSamples(), _gain);
-		}
+		buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(1.0f - _panning));
+		buffer.applyGain(1, 0, buffer.getNumSamples(), _gain*_panning);
 	}
 	if (_muted)
 	{

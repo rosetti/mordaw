@@ -383,7 +383,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                     MouseEvent ev = e.getEventRelativeTo(this);
                     Rectangle<int> bounds_ = _regionComponents.at(i)->getBounds();
 					posX = ev.x;
-                    if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
+                    if((int)_regionComponents.at(i)->getPositionX() < posX && posX < ((int)_regionComponents.at(i)->getPositionX() + (int)_regionComponents.at(i)->getRegionWidth()))
                     {
                         _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
                         std::vector<RegionComponent*>::iterator regit = _regionComponents.begin() + i;
