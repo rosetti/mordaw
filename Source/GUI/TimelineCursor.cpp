@@ -18,8 +18,6 @@ TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-    
-    _lengthSamples = engine.getTotalLength();
     _showCursor = true;
 }
 
