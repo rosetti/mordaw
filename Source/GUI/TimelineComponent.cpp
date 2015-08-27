@@ -20,7 +20,7 @@ TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOf
 TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
 : _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset), _engine(engine)
 {
-    addAndMakeVisible(_cursor = new TimelineCursor(_engine, _pixelsPerClip));
+    addAndMakeVisible(_cursor = new TimelineCursor(_engine, _pixelsPerClip, _mixerOffset));
     addClips(numberOfClips);
     _cursor->setAlwaysOnTop(true);
 }
@@ -71,5 +71,5 @@ void TimelineComponent::paint (Graphics&)
 
 void TimelineComponent::resized()
 {
-    _cursor->setBounds(0,0, getWidth(), getHeight());
+    _cursor->setBounds(_mixerOffset ,0, getWidth() - _mixerOffset, getHeight());
 }

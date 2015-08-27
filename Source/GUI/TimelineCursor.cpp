@@ -13,7 +13,7 @@
 #include "../Utility/Conversion.h"
 
 //==============================================================================
-TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip)
+TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip, int64 mixerOffset)
 : _engine(engine), _pixelsPerClip(pixelsPerClip)
 {
     // In your constructor, you should add any child components, and
@@ -38,7 +38,7 @@ void TimelineCursor::mouseDown(const MouseEvent &e)
     {
         setMouseCursor(MouseCursor::IBeamCursor);
         _currentXCoords = e.x;
-        _positionInSamples = pixelsToSamples(_currentXCoords, getWidth(), _lengthSamples);
+        _positionInSamples = (_currentXCoords /_pixelsPerClip) * _engine.getCurrentSamplerate();
         _stopTimer = false;
         startTimer(40);
         repaint();
@@ -50,6 +50,7 @@ void TimelineCursor::mouseUp(const MouseEvent &)
     if(_showCursor)
     {
         setMouseCursor(MouseCursor::NormalCursor);
+        
         if(_engine.getMixer()->isPlaying())
         {
             _engine.getMixer()->stop();
@@ -68,7 +69,7 @@ void TimelineCursor::mouseDrag(const MouseEvent &e)
     if(_showCursor)
     {
         _currentXCoords = e.x;
-        _positionInSamples = pixelsToSamples(_currentXCoords, getWidth(), _lengthSamples);
+        _positionInSamples = (_currentXCoords /_pixelsPerClip) * _engine.getCurrentSamplerate();
         repaint();
     }
 }
@@ -76,11 +77,7 @@ void TimelineCursor::mouseDrag(const MouseEvent &e)
 void TimelineCursor::timerCallback()
 {
     repaint(_currentXCoords, 0, 5, getHeight());
-    /*if(_stopTimer)
-    {
-        _stopTimer = false;
-        stopTimer();
-    }*/
+
     if(_engine.getMixer()->isPlaying())
     {
         
@@ -94,7 +91,6 @@ void TimelineCursor::setCursorVisability(bool displayCursor)
 
 void TimelineCursor::resized()
 {
-    _rangePixels = getWidth();
     _cursor = Image(Image::RGB, 3, jmax(10, getHeight()), true);
     Graphics g(_cursor);
     g.fillAll(Colours::black);
