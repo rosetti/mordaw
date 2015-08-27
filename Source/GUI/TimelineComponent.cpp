@@ -12,15 +12,17 @@
 #include "TimelineComponent.h"
 
 //==============================================================================
-TimelineComponent::TimelineComponent(int64 numberOfClips, int64 mixerOffset)
+TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 mixerOffset)
 : TimelineComponent(numberOfClips, 20, mixerOffset)
 {
 }
 
-TimelineComponent::TimelineComponent(int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
-: _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset)
+TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
+: _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset), _engine(engine)
 {
+    addAndMakeVisible(_cursor = new TimelineCursor(_engine))
     addClips(numberOfClips);
+    _cursor->setAlwaysOnTop(true);
 }
 
 TimelineComponent::~TimelineComponent()
@@ -69,5 +71,5 @@ void TimelineComponent::paint (Graphics&)
 
 void TimelineComponent::resized()
 {
-
+    _cursor->setBounds(0,0, getWidth(), getHeight());
 }

@@ -22,7 +22,7 @@ class TimelineCursor    : public Component,
 
 {
 public:
-    TimelineCursor(const Audio::Engine &engine);
+    TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip);
     ~TimelineCursor();
     
     void setZoomRatio(double zoomRatio);
@@ -42,6 +42,7 @@ public:
 private:
     int64 _lengthSamples;
     int64 _rangePixels;
+    int64 _pixelsPerClip;
     int64 _positionInSamples;
     bool _showCursor, _stopTimer;
     Image _cursor;

@@ -13,8 +13,8 @@
 #include "../Utility/Conversion.h"
 
 //==============================================================================
-TimelineCursor::TimelineCursor(const Audio::Engine &engine)
-: _engine(engine)
+TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip)
+: _engine(engine), _pixelsPerClip(pixelsPerClip)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.

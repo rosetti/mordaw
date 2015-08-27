@@ -13,6 +13,8 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineClip.h"
+#include "TimelineCursor.h"
+#include "Engine.h"
 
 //==============================================================================
 /*
@@ -20,8 +22,8 @@
 class TimelineComponent    : public Component
 {
 public:
-    TimelineComponent(int64 numberOfClips, int64 mixerOffset);
-    TimelineComponent(int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset);
+    TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 mixerOffset);
+    TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset);
     ~TimelineComponent();
 
     void paint (Graphics&);
@@ -34,6 +36,8 @@ private:
     void addClips(int64 numberOfClips);
     
     std::vector<TimelineClip*> _clips;
+    ScopedPointer<TimelineCursor> _cursor;
+    const Audio::Engine& _engine;
     int64 _mixerOffset;
     int64 _numberOfClips;
     int64 _pixelsPerClip;
