@@ -22,6 +22,8 @@ ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engin
 		(File::userHomeDirectory), "*.mor"),
 	_loadChooser("Load a .mor project...", File::getSpecialLocation
 		(File::userHomeDirectory), "*.mor"),
+	_exportWavChooser("Choose a place to save the exported file...", File::getSpecialLocation
+		(File::userHomeDirectory), "*.wav"),
 	_projectFile()
 {
 	projectElements = new XmlElement("Project_Elements");
@@ -173,6 +175,33 @@ void ProjectManager::saveCurrentProjectAs()
 			saveCurrentProject(_projectFile);
 		}
 	}
+}
+
+void ProjectManager::exportProjectAsWav()
+{
+	if (_exportWavChooser.browseForFileToSave(false))
+	{
+		File exportFile_ = _exportWavChooser.getResult();
+		bool overwrite = true;
+		if (_projectFile.existsAsFile())
+		{
+			overwrite = AlertWindow::showOkCancelBox(
+				AlertWindow::WarningIcon, "An audio file by this name already exists!", "Would you like to overwrite this file?");
+		}
+
+		if (overwrite == true)
+		{
+			beginWavExport(exportFile_);
+		}
+	}
+}
+
+void ProjectManager::beginWavExport(File exportFile_)
+{
+	ScopedPointer<WavAudioFormat> wavFormat = new WavAudioFormat();
+	File output_(exportFile_);
+	FileOutputStream *outputStream_ = output_.createOutputStream(); 
+	
 }
 
 void ProjectManager::projectExisting()
@@ -338,7 +367,7 @@ void ProjectManager::getAllCommands(Array<CommandID>& commands) const
         saveProject,
         saveProjectAs,
 		closeProject,
-		exportAudio,
+		exportWav,
         StandardApplicationCommandIDs::cut,
         StandardApplicationCommandIDs::copy,
         StandardApplicationCommandIDs::paste,
@@ -379,9 +408,10 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
 		result.addDefaultKeypress('C', ModifierKeys::ctrlAltCommandModifiers);
 		break;
 
-	case exportAudio:
+	case exportWav:
 		result.setInfo("Export Audio", "Export the Project as an Audio File.", projectManagement, 0);
 		result.addDefaultKeypress('E', ModifierKeys::ctrlAltCommandModifiers);
+		break;
 
     case StandardApplicationCommandIDs::cut:
         // Need to check whether isDisabled should be passed or not, regarding the selection
@@ -454,10 +484,11 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
 		//Close the Current Project
 		return true;
 
-	case exportAudio:
+	case exportWav:
 		//Ask user where they want to save the file
+		exportProjectAsWav();
 		//Export the buffer as an audio file
-
+		return true;
 
     case StandardApplicationCommandIDs::cut:
         // Call copy()

@@ -34,12 +34,17 @@ TopMenu::~TopMenu() {
 
 void TopMenu::addFileMenu(ApplicationCommandManager* commands) {
     PopupMenu fileMenu;
+	PopupMenu exportMenu;
+
+	exportMenu.addCommandItem(commands, ProjectManager::exportWav);
 
     fileMenu.addCommandItem(commands, ProjectManager::newProject);
     fileMenu.addCommandItem(commands, ProjectManager::openProject);
     fileMenu.addCommandItem(commands, ProjectManager::saveProject);
     fileMenu.addCommandItem(commands, ProjectManager::saveProjectAs);
     fileMenu.addSeparator();
+	fileMenu.addSubMenu("Export Project As...", exportMenu, true);
+	fileMenu.addSeparator();
     fileMenu.addCommandItem(commands, StandardApplicationCommandIDs::quit);
     _menus.push_back(std::pair<String, PopupMenu>("File", fileMenu));
 }
