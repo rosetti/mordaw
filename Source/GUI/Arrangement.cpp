@@ -93,7 +93,7 @@ void Arrangement::resized()
 void Arrangement::setPixelsPerClip(int64 pixels)
 {
     _pixelsPerClip = pixels;
-    _timeline = new TimelineComponent(100, _pixelsPerClip, _mixerOffset);
+    _timeline = new TimelineComponent(_engine, 100, _pixelsPerClip, _mixerOffset);
     addAndMakeVisible(_timeline);
 	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
         currentTrack->first->setPixelsPerClip(_pixelsPerClip);

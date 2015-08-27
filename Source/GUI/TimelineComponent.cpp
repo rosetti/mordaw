@@ -13,14 +13,14 @@
 
 //==============================================================================
 TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 mixerOffset)
-: TimelineComponent(numberOfClips, 20, mixerOffset)
+: TimelineComponent(_engine, numberOfClips, 20, mixerOffset)
 {
 }
 
 TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
 : _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset), _engine(engine)
 {
-    addAndMakeVisible(_cursor = new TimelineCursor(_engine))
+    addAndMakeVisible(_cursor = new TimelineCursor(_engine, _pixelsPerClip));
     addClips(numberOfClips);
     _cursor->setAlwaysOnTop(true);
 }
