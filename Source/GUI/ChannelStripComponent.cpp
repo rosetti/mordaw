@@ -147,7 +147,8 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
     }
     else if(movedSlider == panPot)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::PAN, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changePan(ChannelStripProcessor::PAN, static_cast<float>(movedSlider->getValue()));
+		
     }
 }
 
