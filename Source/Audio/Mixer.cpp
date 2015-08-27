@@ -376,8 +376,8 @@ namespace Audio
             {
                 longestTrackWidth_ = currentTrackLength_;
             }
-            return longestTrackWidth_;
         }
+        return longestTrackWidth_;
     }
     
     

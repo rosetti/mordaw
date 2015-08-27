@@ -77,11 +77,6 @@ void TimelineCursor::mouseDrag(const MouseEvent &e)
 void TimelineCursor::timerCallback()
 {
     repaint(_currentXCoords, 0, 5, getHeight());
-
-    if(_engine.getMixer()->isPlaying())
-    {
-        
-    }
 }
 
 void TimelineCursor::setCursorVisability(bool displayCursor)

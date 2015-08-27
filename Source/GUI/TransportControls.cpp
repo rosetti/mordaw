@@ -201,6 +201,7 @@ void TransportControls::timerCallback()
         _currentTimeCode = samplesToTimeCode(samples, _engine.getCurrentSamplerate());
         repaint();
     }
+    _totalLength = _engine.getMixer()->getLongestTrack();
 }
 
 void TransportControls::paint (Graphics& g)
