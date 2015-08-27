@@ -57,7 +57,7 @@ public:
     
     const void setID(int ident);
     const int getID();
-    const String getName() const override { return "Channel Strip" + (String) _id;};
+    const String getName() const override { return "Channel Strip";};
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
     
