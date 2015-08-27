@@ -115,8 +115,8 @@ int64 Arrangement::getLongestTrackLength()
 				longestTrackWidth_ = currentTrackLength_;
 			}
 		}
-	}
 	return longestTrackWidth_;
+    }
 }
 
 int64 Arrangement::getPixelsPerClip()

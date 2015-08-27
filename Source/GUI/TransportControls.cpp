@@ -218,7 +218,7 @@ void TransportControls::paint (Graphics& g)
         g.setColour(Colours::red);
     if(getWidth() < 275)
     {}
-    else if(getWidth() < 475)
+    else if(getWidth() < 550)
         g.drawText (_currentTimeCode,  getLocalBounds(),
                 Justification::right, true);
     
@@ -234,7 +234,7 @@ void TransportControls::resized()
     _recordButton->setBounds(100, 0, 50, 50);
     _forwardButton->setBounds(150, 0, 50, 50);
     _stopButton->setBounds(200, 0, 50, 50);
-    if(getWidth() < 250)
+    if(getWidth() < 300)
     {
         _rewindButton->setBounds(0, 0, 0, 0);
         _startButton->setBounds(0, 0, 0, 0);

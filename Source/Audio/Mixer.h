@@ -51,6 +51,8 @@ namespace Audio
         
         int getNumberOfStrips();
 		int getNumberOfTracks();
+        
+        int64 getLongestTrack();
 
         enum NodeIDs
         {

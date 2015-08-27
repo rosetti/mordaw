@@ -127,6 +127,7 @@ namespace Audio
         return current->getCurrentSampleRate();
     }
     
+    // seemingly useless
     int64 Engine::getTotalLength() const
     {
         return _totalLength;

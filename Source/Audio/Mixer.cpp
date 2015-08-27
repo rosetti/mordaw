@@ -366,6 +366,21 @@ namespace Audio
         }
     }
     
+    int64 Mixer::getLongestTrack()
+    {
+        int64 longestTrackWidth_ = 0;
+        for (auto currentTrack = _tracks.begin(), tracksEnd = _tracks.end(); currentTrack != tracksEnd; ++currentTrack)
+        {
+            int64 currentTrackLength_ = currentTrack->first->getTotalLength();
+            if (currentTrackLength_ > longestTrackWidth_)
+            {
+                longestTrackWidth_ = currentTrackLength_;
+            }
+            return longestTrackWidth_;
+        }
+    }
+    
+    
     int Mixer::getNumberOfStrips()
     {
         return _strips.size();
