@@ -43,13 +43,9 @@ namespace Audio
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 
-        _exportProcessor = new ExportProcessor(_sampleRate);
         _processorGraph.setPlayConfigDetails(numInputChannels, numOutputChannels, sampleRate, bufferSize);
         _processorGraph.addNode(input, INPUT_NODE_ID);
         _processorGraph.addNode(output, OUTPUT_NODE_ID);
-        _processorGraph.addNode(_exportProcessor, EXPORT_NODE_ID);
-        _processorGraph.addConnection(OUTPUT_NODE_ID, 0, EXPORT_NODE_ID, 0);
-        _processorGraph.addConnection(OUTPUT_NODE_ID, 1, EXPORT_NODE_ID, 1);
     }
 
     Mixer::~Mixer()
@@ -57,11 +53,6 @@ namespace Audio
         _thread.stopThread(0);
         stop();
         _processorGraph.clear();
-    }
-    
-    void Mixer::exportToFile()
-    {
-        _exportProcessor->writeFile(_sampleRate);
     }
 
     void Mixer::add(Track * track)
@@ -85,8 +76,6 @@ namespace Audio
         _processorGraph.addConnection(tNode->nodeId, 1, cNode->nodeId, 1);
         _processorGraph.addConnection(cNode->nodeId, 0, OUTPUT_NODE_ID, 0);
         _processorGraph.addConnection(cNode->nodeId, 1, OUTPUT_NODE_ID, 1);
-
-		
 
         _nextNodeID += 1;
     }

@@ -145,7 +145,6 @@
     <ClCompile Include="..\..\Source\GUI\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\TopMenu.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp"/>
-    <ClCompile Include="..\..\Source\Audio\ExportProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\ChannelStripProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Recorder.cpp"/>
@@ -1316,7 +1315,6 @@
     <ClInclude Include="..\..\Source\GUI\MainComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\TopMenu.h"/>
     <ClInclude Include="..\..\Source\GUI\MainWindow.h"/>
-    <ClInclude Include="..\..\Source\Audio\ExportProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffectx.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h"/>

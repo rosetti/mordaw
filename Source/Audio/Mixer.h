@@ -12,7 +12,6 @@
 
 #include "TrackProcessor.h"
 #include "ChannelStripProcessor.h"
-#include "ExportProcessor.h"
 
 namespace Audio
 {
@@ -49,8 +48,6 @@ namespace Audio
 
         bool isPlaying() const;
         void goToTheEnd();
-        
-        void exportToFile();
         
         int getNumberOfStrips();
 		int getNumberOfTracks();
@@ -103,7 +100,6 @@ namespace Audio
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
-        ScopedPointer<ExportProcessor> _exportProcessor;
 
         int _numInput, _numOutput, _bufferSize;
         double _sampleRate;

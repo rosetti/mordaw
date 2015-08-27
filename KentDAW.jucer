@@ -77,10 +77,6 @@
         <FILE id="HQJuWs" name="MainWindow.h" compile="0" resource="0" file="Source/GUI/MainWindow.h"/>
       </GROUP>
       <GROUP id="{5CC0F50A-2D80-8B2D-AD3D-0F3E9BC6C6A9}" name="Audio">
-        <FILE id="JW9Ax6" name="ExportProcessor.cpp" compile="1" resource="0"
-              file="Source/Audio/ExportProcessor.cpp"/>
-        <FILE id="PHbjv7" name="ExportProcessor.h" compile="0" resource="0"
-              file="Source/Audio/ExportProcessor.h"/>
         <GROUP id="{CCFD9A55-A867-1EA8-582F-C6C891C8586C}" name="pluginterfaces">
           <GROUP id="{85DBFF13-1929-CF28-309A-5D2DB3C9E7EE}" name="vst2.x">
             <FILE id="HkS1KV" name="aeffect.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/aeffect.h"/>

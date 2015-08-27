@@ -16,8 +16,8 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
 : _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(30)
 {
     _timeline = new TimelineComponent(_engine, 100, _mixerOffset);
-    //_zoomInButton= new TextButton("+");
-    //_zoomInButton->addListener(this);
+    _zoomInButton= new TextButton("Export");
+    _zoomInButton->addListener(this);
     addAndMakeVisible(_zoomInButton);
     //addAndMakeVisible(_timeline);
     setPixelsPerClip(30);
@@ -88,6 +88,7 @@ void Arrangement::resized()
         currentTrack->first->setNumberofClips(100 * _pixelsPerClip + longestTrackWidth_);
         currentTrack->first->setBounds(0, (100 * i++) + 20, getWidth(), 100);
     }
+    _zoomInButton->setBounds(250, 100, 100, 50);
 }
 
 void Arrangement::setPixelsPerClip(int64 pixels)

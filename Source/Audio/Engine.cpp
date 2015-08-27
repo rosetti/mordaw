@@ -102,6 +102,7 @@ namespace Audio
             break;
         case stop:
             _mixer->stop();
+            //_mixer->resetOutput();
             break;
 
         case rewind:
@@ -116,6 +117,7 @@ namespace Audio
         case forward:
             _mixer->stop();
             _mixer->goToTheEnd();
+
             break;
         case record:
             const File file (File::getSpecialLocation (File::userDocumentsDirectory)
