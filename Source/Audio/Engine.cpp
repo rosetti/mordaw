@@ -15,7 +15,7 @@
 namespace Audio
 {
     Engine::Engine(ApplicationCommandManager *commands) : _commands(commands),
-	_formats()
+	_formats(), _recordedFiles(0)
 	{
 
         AudioIODevice* current;
@@ -28,6 +28,7 @@ namespace Audio
         _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
         _player.setProcessor(_mixer->getProcessorGraph());
         _devices.addAudioCallback(&_player);
+        _devices.addAudioCallback(&_recorder);
     }
 
     Engine::~Engine() {
@@ -60,12 +61,17 @@ namespace Audio
 
         case rewind:
             result.setInfo("Rewind", "Rewind to the beginning of the timeline.", audio, 0);
-            result.addDefaultKeypress('R', ModifierKeys::commandModifier);
+            result.addDefaultKeypress('B', ModifierKeys::commandModifier);
             break;
 
         case forward:
             result.setInfo("Forward", "Forward to the end of the timeline.", audio, 0);
             result.addDefaultKeypress('F', ModifierKeys::commandModifier);
+            break;
+        
+        case record:
+            result.setInfo("Records", "Records to file and adds to timeline.", audio, 0);
+            result.addDefaultKeypress('R', ModifierKeys::commandModifier);
             break;
         default:
             break;
@@ -79,6 +85,7 @@ namespace Audio
             stop,
             rewind,
             forward,
+            record
         };
 
         commands.addArray(ids, numElementsInArray(ids));
@@ -104,16 +111,26 @@ namespace Audio
             } else {
                 _mixer->stop();
             }
-
             break;
 
         case forward:
             _mixer->stop();
             _mixer->goToTheEnd();
             break;
+        case record:
+            const File file (File::getSpecialLocation (File::userDocumentsDirectory)
+                                 .getNonexistentChildFile ("recording" + (String) _recordedFiles, ".wav"));
+            if(!_recorder.isRecording())
+            {
+                _recorder.startRecording(file);
+            }
+            else if (_recorder.isRecording())
+            {
+                _recorder.stop();
+                _recordedFileNames.add(file.getFullPathName());
 
-        default:
-            return false;
+            }
+            break;
         }
 
         _commands->invokeDirectly(MainWindow::refreshComponents, true);
@@ -132,8 +149,14 @@ namespace Audio
     {
         return _totalLength;
     }
+    
+    StringArray Engine::getRecordedFileNames() const
+    {
+        return _recordedFileNames;
+    }
 
     Mixer* Engine::getMixer() const {
         return _mixer;
     }
+    
 }

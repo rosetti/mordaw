@@ -114,13 +114,14 @@ void TransportControls::buttonClicked(Button* button)
         {
             _image = ImageCache::getFromMemory(TransportImages::record_enabled_png, TransportImages::record_enabled_pngSize);
             _recordButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
+            _commands.invokeDirectly(Audio::Engine::record, true);
         }
         else if(!_isRecording)
         {
             _image = ImageCache::getFromMemory(TransportImages::record_png, TransportImages::record_pngSize);
             _recordButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
+            _commands.invokeDirectly(Audio::Engine::record, true);
         }
-        
     }
     else if(button == _rewindButton)
     {

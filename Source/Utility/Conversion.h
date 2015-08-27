@@ -66,6 +66,12 @@ static inline double midiToFrequency (double noteNumber)
     return 440.0 * pow(2.0, (noteNumber - 69.0) / 12.0);
 }
 
+static inline double remapFloat(float x, float oStart, float oEnd, float nStart, float nEnd)
+{
+    double scale = (double)(nEnd - nStart) / (oEnd - oStart);
+    return (float)(nStart + ((x - oStart) * scale));
+}
+
 static inline int64 remapRange(int64 x, int64 oStart, int64 oEnd, int64 nStart, int64 nEnd)
 {
     double scale = (double)(nEnd - nStart) / (oEnd - oStart);

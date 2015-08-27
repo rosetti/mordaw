@@ -13,6 +13,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Audio/Engine.h"
+#include "../Audio/Recorder.h"
 
 //==============================================================================
 /*
@@ -28,6 +29,7 @@ public:
     void start();
     void stop();
     void pause();
+    void record();
     void resetTimecode(double sampleRate);
     void setTotalLength(int64 samples);
     void setTimeCodePosition(int64 position);
@@ -47,10 +49,8 @@ public:
 
 private:
     ListenerList<TransportControls::Listener> listenerList;
-    
     Image _image;
     ScopedPointer<ImageButton> _startButton, _rewindButton, _forwardButton, _recordButton, _stopButton;
-    
     double _sampleRate;
     int64 timerAmount;
     double _milliseconds;

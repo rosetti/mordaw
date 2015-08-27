@@ -67,6 +67,7 @@ OBJECTS := \
   $(OBJDIR)/MainWindow_ca618186.o \
   $(OBJDIR)/ChannelStripProcessor_f3990705.o \
   $(OBJDIR)/TrackProcessor_c8552789.o \
+  $(OBJDIR)/Recorder_62617b00.o \
   $(OBJDIR)/Mixer_d22926d1.o \
   $(OBJDIR)/SampleRegion_6518a500.o \
   $(OBJDIR)/Region_d34d2d76.o \
@@ -195,6 +196,11 @@ $(OBJDIR)/ChannelStripProcessor_f3990705.o: ../../Source/Audio/ChannelStripProce
 $(OBJDIR)/TrackProcessor_c8552789.o: ../../Source/Audio/TrackProcessor.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling TrackProcessor.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/Recorder_62617b00.o: ../../Source/Audio/Recorder.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling Recorder.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Mixer_d22926d1.o: ../../Source/Audio/Mixer.cpp

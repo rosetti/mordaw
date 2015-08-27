@@ -201,6 +201,43 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
     return true;
 }
 
+void TrackComponent::filesDropped(const StringArray & files, int x, int)
+{
+    for (auto current = files.begin(), end = files.end(); current != end; ++current)
+    {
+        const String fileString = *current;
+        String format;
+        if(fileString.contains(".wav") || fileString.contains(".WAV"))
+            format = "WAV";
+        else if(fileString.contains(".aif") || fileString.contains(".aiff") || fileString.contains(".AIF") || fileString.contains(".AIFF"))
+            format = "AIFF";
+        else if(fileString.contains(".flac") || fileString.contains(".FLAC"))
+            format = "FLAC";
+        File file(fileString);
+        AudioFormatManager formatManager;
+        formatManager.registerBasicFormats();
+        
+        AudioFormatReader* reader = formatManager.createReaderFor(file);
+        Region* region = new SampleRegion(reader, 1, &file);
+        if(x > _mixerOffset)
+        {
+            // 100 represents the number of seconds
+            int64 samplesRange = secondsToSamples(100, _sampleRate);
+            // 20 represents the size of a second in pixels - this all needs replacing with dynamically
+            // generated values.
+            int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+            
+            _track->add(positionSamples, region);
+            createRegionGUI(x, region, formatManager, file);
+        }
+        else if(x < _mixerOffset)
+        {
+            _track->add(0, region);
+            createRegionGUI(_mixerOffset, region, formatManager, file);
+        }
+    }
+}
+
 void TrackComponent::setNumberofClips(int64 clips)
 {
     _numberOfClips = clips;
@@ -248,44 +285,6 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                 
             }
 
-        }
-    }
-}
-
-
-void TrackComponent::filesDropped(const StringArray & files, int x, int)
-{
-    for (auto current = files.begin(), end = files.end(); current != end; ++current)
-    {
-        const String fileString = *current;
-        String format;
-        if(fileString.contains(".wav") || fileString.contains(".WAV"))
-            format = "WAV";
-        else if(fileString.contains(".aif") || fileString.contains(".aiff") || fileString.contains(".AIF") || fileString.contains(".AIFF"))
-            format = "AIFF";
-        else if(fileString.contains(".flac") || fileString.contains(".FLAC"))
-            format = "FLAC";
-            File file(fileString);
-            AudioFormatManager formatManager;
-            formatManager.registerBasicFormats();
-
-            AudioFormatReader* reader = formatManager.createReaderFor(file);
-            Region* region = new SampleRegion(reader, 1, &file);
-        if(x > _mixerOffset)
-        {
-            // 100 represents the number of seconds
-            int64 samplesRange = secondsToSamples(100, _sampleRate);
-            // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-            // generated values.
-            int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
-            
-            _track->add(positionSamples, region);
-            createRegionGUI(x, region, formatManager, file);
-        }
-        else if(x < _mixerOffset)
-        {
-            _track->add(0, region);
-            createRegionGUI(_mixerOffset, region, formatManager, file);
         }
     }
 }
