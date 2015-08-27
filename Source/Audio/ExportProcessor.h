@@ -16,7 +16,7 @@
 class ExportProcessor : public AudioProcessor
 {
 public:
-    ExportProcessor();
+    ExportProcessor(double sampleRate);
     ~ExportProcessor();
     
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
@@ -57,8 +57,12 @@ public:
     AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
     
+    void writeFile(double sampleRate);
+    
 private:
-    float output[];
+    std::vector<float> _output;
+    double _sampleRate;
+    int _currentChannels;
 };
 
 

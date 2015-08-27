@@ -12,6 +12,7 @@
 
 #include "TrackProcessor.h"
 #include "ChannelStripProcessor.h"
+#include "ExportProcessor.h"
 
 namespace Audio
 {
@@ -49,6 +50,8 @@ namespace Audio
         bool isPlaying() const;
         void goToTheEnd();
         
+        void exportToFile();
+        
         int getNumberOfStrips();
 		int getNumberOfTracks();
         
@@ -58,6 +61,7 @@ namespace Audio
         {
             INPUT_NODE_ID = 0x100,
             OUTPUT_NODE_ID = 0x200,
+            EXPORT_NODE_ID = 0x300,
             TRACK_BASE_NODE_ID = 0x10000,
             STRIP_BASE_NODE_ID = 0x11000,
             PLUGIN_BASE_NODE_ID = 0x20000
@@ -99,6 +103,7 @@ namespace Audio
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
+        ScopedPointer<ExportProcessor> _exportProcessor;
 
         int _numInput, _numOutput, _bufferSize;
         double _sampleRate;

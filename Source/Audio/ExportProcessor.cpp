@@ -10,7 +10,8 @@
 
 #include "ExportProcessor.h"
 
-ExportProcessor::ExportProcessor()
+ExportProcessor::ExportProcessor(double sampleRate)
+: _sampleRate(sampleRate)
 {
 
 }
@@ -103,13 +104,13 @@ void ExportProcessor::releaseResources()
 
 void ExportProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
-    for(auto i = 0; i < buffer.getNumChannels(); ++i)
+    _currentChannels = buffer.getNumChannels();
+    for(auto i = 0; i < _currentChannels; ++i)
     {
         for(auto j = 0; j < buffer.getNumSamples(); ++j)
         {
             float samp = buffer.getSample(i, j);
-            output[j] = samp;
-
+            _output.push_back(samp);
         }
     }
 }
@@ -144,4 +145,32 @@ bool ExportProcessor::hasEditor() const
 AudioProcessorEditor* ExportProcessor::createEditor()
 {
     return nullptr;
+}
+
+void ExportProcessor::writeFile(double sampleRate)
+{
+    WavAudioFormat* wav = new WavAudioFormat();
+    File outputFile = File(File::userDocumentsDirectory + "MordawExport.wav");
+    FileOutputStream* out = outputFile.createOutputStream();
+    
+    AudioFormatWriter* writer = wav->createWriterFor(out, _sampleRate, _currentChannels, 32, NULL, 0);
+    AudioSampleBuffer buffer;
+    buffer.setSize(_currentChannels, _output.size());
+    for(int i = 0; i < _output.size(); ++i)
+    {
+        if(_currentChannels > 1)
+        {
+            int switchPoint = _output.size() / 2;
+            if(i < switchPoint)
+                buffer.setSample(0, i, _output.at(i));
+            else
+                buffer.setSample(1, i - switchPoint, _output.at(i));
+        }
+        else
+        {
+            buffer.setSample(0, i, _output.at(i));
+        }
+        
+    }
+    writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
 }
