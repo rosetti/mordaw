@@ -14,7 +14,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineClip.h"
 #include "TimelineCursor.h"
-#include "Engine.h"
+#include "../Audio/Engine.h"
 
 //==============================================================================
 /*
