@@ -41,6 +41,7 @@ namespace Audio
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
         #endif
         _exportProcessor = new ExportProcessor();
+        _masterStrip = new ChannelStripProcessor();
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 
@@ -48,16 +49,15 @@ namespace Audio
         _processorGraph.addNode(input, INPUT_NODE_ID);
         _processorGraph.addNode(output, OUTPUT_NODE_ID);
         _processorGraph.addNode(_exportProcessor, EXPORT_NODE_ID);
-        _exportProcessor->setPlayConfigDetails(numInputChannels, 0, sampleRate, bufferSize);
-        _processorGraph.addConnection(OUTPUT_NODE_ID, 0, EXPORT_NODE_ID, 0);
-        _processorGraph.addConnection(OUTPUT_NODE_ID, 1, EXPORT_NODE_ID, 1);
+        _processorGraph.addNode(_masterStrip, MASTER_STRIP_NODE_ID);
+
     }
 
     Mixer::~Mixer()
     {
         _thread.stopThread(0);
         stop();
-        _processorGraph.clear();
+        //_processorGraph.clear();
     }
 
     void Mixer::add(Track * track)
@@ -79,8 +79,12 @@ namespace Audio
         auto cNode = _processorGraph.addNode(strip, _nextNodeID + 0x1000);
         _processorGraph.addConnection(tNode->nodeId, 0, cNode->nodeId, 0);
         _processorGraph.addConnection(tNode->nodeId, 1, cNode->nodeId, 1);
-        _processorGraph.addConnection(cNode->nodeId, 0, OUTPUT_NODE_ID, 0);
-        _processorGraph.addConnection(cNode->nodeId, 1, OUTPUT_NODE_ID, 1);
+        _processorGraph.addConnection(cNode->nodeId, 0, MASTER_STRIP_NODE_ID, 0);
+        _processorGraph.addConnection(cNode->nodeId, 1, MASTER_STRIP_NODE_ID, 1);
+        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
+        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 1);
+        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, OUTPUT_NODE_ID, 0);
+        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, OUTPUT_NODE_ID, 1);
 
         _nextNodeID += 1;
     }

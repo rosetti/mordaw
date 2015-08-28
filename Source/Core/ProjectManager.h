@@ -25,7 +25,7 @@
 
 using namespace Audio;
 
-class ProjectManager
+class ProjectManager : public Timer
 {
 public:
     explicit ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window);
@@ -38,6 +38,8 @@ public:
 	void beginWavExport(File _exportFile);
 	void projectExisting();
 	void loadExistingProject();
+    
+    void timerCallback() override;
 
 	void loadTracks();
 	void addRegionGUIs(std::vector<Track*> audioTracks_);

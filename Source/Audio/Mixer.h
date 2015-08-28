@@ -76,6 +76,7 @@ namespace Audio
             INPUT_NODE_ID = 0x100,
             OUTPUT_NODE_ID = 0x200,
             EXPORT_NODE_ID = 0x300,
+            MASTER_STRIP_NODE_ID = 0x400,
             TRACK_BASE_NODE_ID = 0x10000,
             STRIP_BASE_NODE_ID = 0x11000,
             PLUGIN_BASE_NODE_ID = 0x20000
@@ -115,6 +116,7 @@ namespace Audio
         ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
         ScopedPointer<ExportProcessor> _exportProcessor;
+        ScopedPointer<ChannelStripProcessor> _masterStrip;
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;

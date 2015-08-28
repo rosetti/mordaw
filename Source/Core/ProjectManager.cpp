@@ -192,19 +192,24 @@ void ProjectManager::exportProjectAsWav()
 		if (overwrite == true)
 		{
             if(!_engine.getMixer()->isExporting())
+            {
                 _engine.getMixer()->startExporting(exportFile_);
-            else
-                _engine.getMixer()->stopExporting();
+                startTimer(1000);
+                _engine.getMixer()->startPlayingAt(0);
+            }
 		}
 	}
 }
 
-void ProjectManager::beginWavExport(File exportFile_)
+void ProjectManager::timerCallback()
 {
-	ScopedPointer<WavAudioFormat> wavFormat = new WavAudioFormat();
-	File output_(exportFile_);
-	FileOutputStream *outputStream_ = output_.createOutputStream();
+    if(!_engine.getMixer()->isPlaying())
+    {
+        _engine.getMixer()->stopExporting();
+        stopTimer();
+    }
 }
+
 
 void ProjectManager::projectExisting()
 {

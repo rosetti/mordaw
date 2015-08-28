@@ -133,6 +133,7 @@ bool ExportProcessor::silenceInProducesSilenceOut() const
 void ExportProcessor::prepareToPlay(double, int)
 {
     _sampleRate = getSampleRate();
+    setPlayConfigDetails(2, 0, getSampleRate(), getBlockSize());
 }
 
 void ExportProcessor::releaseResources()
@@ -143,7 +144,7 @@ void ExportProcessor::releaseResources()
 void ExportProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
     if(_activeWriter != 0)
-        _activeWriter->write((const float**)buffer.getArrayOfWritePointers(), buffer.getNumSamples());
+        _activeWriter->write((const float**)buffer.getArrayOfReadPointers(), buffer.getNumSamples());
 }
 
 void ExportProcessor::getStateInformation(MemoryBlock&)

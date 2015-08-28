@@ -137,7 +137,7 @@ bool ChannelStripProcessor::silenceInProducesSilenceOut() const
 //==============================================================================
 void ChannelStripProcessor::prepareToPlay(double, int)
 {
-
+    setPlayConfigDetails(2, 2, getSampleRate(), getBlockSize());
 }
 
 void ChannelStripProcessor::releaseResources()
