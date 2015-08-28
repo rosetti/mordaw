@@ -16,8 +16,13 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
 : _engine(engine), _commands(commands), _mixerOffset(200), _pixelsPerClip(30)
 {
     _timeline = new TimelineComponent(_engine, 100, _mixerOffset);
-    _zoomInButton= new TextButton("Export");
+    _zoomOutButton= new TextButton("-");
+    _zoomInButton= new TextButton("+");
+    _zoomOutButton->setAlwaysOnTop(true);
+    _zoomInButton->setAlwaysOnTop(true);
+    _zoomOutButton->addListener(this);
     _zoomInButton->addListener(this);
+    addAndMakeVisible(_zoomOutButton);
     addAndMakeVisible(_zoomInButton);
     //addAndMakeVisible(_timeline);
     setPixelsPerClip(30);
@@ -37,6 +42,11 @@ void Arrangement::buttonClicked(Button* button)
     if(button == _zoomInButton)
     {
         setPixelsPerClip(_pixelsPerClip += 10);
+        repaint();
+    }
+    else if(button == _zoomOutButton)
+    {
+        setPixelsPerClip(_pixelsPerClip -= 10);
         repaint();
     }
 }
@@ -88,7 +98,8 @@ void Arrangement::resized()
         currentTrack->first->setNumberofClips(100 * _pixelsPerClip + longestTrackWidth_);
         currentTrack->first->setBounds(0, (100 * i++) + 20, getWidth(), 100);
     }
-    _zoomInButton->setBounds(250, 100, 100, 50);
+    _zoomOutButton->setBounds(0, 0, 20, 20);
+    _zoomInButton->setBounds(20, 0, 20, 20);
 }
 
 void Arrangement::setPixelsPerClip(int64 pixels)

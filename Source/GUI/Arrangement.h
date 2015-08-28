@@ -49,7 +49,7 @@ private:
     ScopedPointer<TimelineComponent> _timeline;
     ScopedPointer<TimelineCursor> _cursor;
     ScopedPointer<TextButton> _addTrackButton;
-    ScopedPointer<TextButton> _zoomInButton;
+    ScopedPointer<TextButton> _zoomInButton, _zoomOutButton;
     ApplicationCommandManager &_commands;
     const Audio::Engine &_engine;
     Button::Listener *listener;
