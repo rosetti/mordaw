@@ -12,19 +12,25 @@
 #include "TimelineComponent.h"
 
 //==============================================================================
+/* The timeline contains a number of clips; each representing a second on the timeline */
 TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 mixerOffset)
+// construct a timeline with the default amount of 20px
 : TimelineComponent(_engine, numberOfClips, 20, mixerOffset)
 {
 }
 
+// construct a timeline specifying all parameters
 TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
 : _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset), _engine(engine)
 {
+    // add cursor to the timeline
     addAndMakeVisible(_cursor = new TimelineCursor(_engine, _pixelsPerClip, _mixerOffset));
     addClips(numberOfClips);
+    // force cursor always on top
     _cursor->setAlwaysOnTop(true);
 }
 
+// delete clips and clear from clips vector
 TimelineComponent::~TimelineComponent()
 {
     for(auto clip : _clips)
@@ -32,6 +38,7 @@ TimelineComponent::~TimelineComponent()
     _clips.clear();
 }
 
+// repaint the specified number of clips
 void TimelineComponent::setNumberOfClips(int64 numberOfClips)
 {
     for (auto clip : _clips)
@@ -41,6 +48,7 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
     repaint();
 }
 
+// add clips to timeline a clips vector
 void TimelineComponent::addClips(int64 numberOfClips) 
 {
     auto pixels = _mixerOffset;
@@ -59,16 +67,18 @@ void TimelineComponent::addClips(int64 numberOfClips)
     }
 }
 
+// get the current number of clips
 int TimelineComponent::getNumberOfClips()
 {
-    return (int)_numberOfClips;
+    return static_cast<int>(_numberOfClips);
 }
 
-
+// inherited from component, all painting is done in the sub component clip
 void TimelineComponent::paint (Graphics&)
 {
 }
 
+// set bounds
 void TimelineComponent::resized()
 {
     _cursor->setBounds(_mixerOffset ,0, getWidth() - _mixerOffset, getHeight());

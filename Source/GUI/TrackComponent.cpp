@@ -3,6 +3,7 @@
 
     TrackComponent.cpp
     Created: 12 Aug 2015 10:17:59pm
+    Author:  dtl
 
   ==============================================================================
 */
@@ -12,17 +13,20 @@
 #include "../Audio/SampleRegion.h"
 #include "../Core/ProjectManager.h"
 
+/* TrackMixerComponent is a sub component TrackComponent which holds mute and solo controls and the track label */
+// construct a track mixer component
 TrackMixerComponent::TrackMixerComponent(int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands)
-: _trackID(trackID),
-_commands(commands),
-_engine(engine)
+: _trackID(trackID), _commands(commands), _engine(engine)
 {
+    // create and add track label
     addAndMakeVisible(_trackLabel = new Label("Track " + String (trackID)));
     
+    // create and add mute button
     addAndMakeVisible(_muteButton = new ToggleButton("Mute"));
     _muteButton->setColour(TextButton::buttonColourId, Colours::blue);
     _muteButton->addListener(this);
     
+    // create and add solo button
     addAndMakeVisible(_soloButton = new ToggleButton("Solo"));
     _soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
     _soloButton->addListener(this);
@@ -32,29 +36,21 @@ TrackMixerComponent::~TrackMixerComponent()
 {
 }
 
-void TrackMixerComponent::mouseDrag(const MouseEvent &)
+// inherited from ButtonListener; not required
+void TrackMixerComponent::buttonClicked(Button* button)
 {
-
-}
-
-void TrackMixerComponent::buttonClicked(Button*)
-{
-    
-}
-void TrackMixerComponent::mouseDown(const MouseEvent &)
-{
-    
 }
 
 void TrackMixerComponent::buttonStateChanged(Button* button)
 {
+    // if button is clicked mute or solo track
     if(button == _muteButton)
         _engine.getMixer();
     else if(button == _soloButton)
         _engine.getMixer()->soloTrack(_trackID);
 	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
 
-	// check the mod keys ..
+	// menu for adding tracks
 	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
 	{
 		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
@@ -63,13 +59,15 @@ void TrackMixerComponent::buttonStateChanged(Button* button)
 		arrangeMenu_->show();
 	}
 }
-    
+
+// paint the background grey
 void TrackMixerComponent::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey);
     g.fillAll();
 }
 
+// set TrackMixerComponent bounds and set track label
 void TrackMixerComponent::resized()
 {
     int buttonSize = 16;
@@ -79,35 +77,33 @@ void TrackMixerComponent::resized()
     _trackLabel->setBounds(getWidth()/2+20, getParentHeight()/2, getWidth()/2, buttonSize);
 }
 
+// return the track id
 int TrackMixerComponent::getTrackID()
 {
 	return _trackID;
 }
 
+// set the track id
 void TrackMixerComponent::setTrackID(int trackID)
 {
 	_trackID = trackID;
 }
 
-//==============================================================================
+/* The track component can contain a number of region components, regions can be added using drag and drop or with a menu */
 TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip)
-: _track(track),
-  _commands(commands),
-  _trackID(trackID),
-  _engine(engine),
-  _sampleRate(_engine.getCurrentSamplerate()),
-  _mixerOffset(200),
-  _pixelsPerClip(pixelsPerClip),
-  _numberOfClips(100)
+: _track(track), _engine(engine), _trackID(trackID), _commands(commands), _sampleRate(engine.getCurrentSamplerate()), _mixerOffset(200), _pixelsPerClip(pixelsPerClip), _numberOfClips(100)
 {
+    // add and make visible the TrackMixerComponent
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine, _commands));
     _trackMixer->setAlwaysOnTop(true);
-	_trackLength = getParentWidth() - (int)_mixerOffset;
+    // set the track length to the arrange width - the mixer offset in px
+	_trackLength = getParentWidth() - static_cast<int>(_mixerOffset);
 
 }
 
 TrackComponent::~TrackComponent()
 {
+    // remove all children, delete region and clear the region vector
 	removeAllChildren();
     for (auto region : _regionComponents) {
         delete region;
@@ -116,25 +112,31 @@ TrackComponent::~TrackComponent()
 	
 }
 
+// create a region from a file at a specified position in pixels
 void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile)
 {
+    // create a RegionComponent
     auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile, _pixelsPerClip);
 
+    // add the region parameter to its container, the same index can be used to access each of these
     _posX.push_back(posX);
     _regionComponents.push_back(regionGUI);
     _sizeSamps.push_back(region->getLengthInSamples());
     String filePath = audioFile.getFullPathName();
     _regions.insert(std::pair<int64, String>(posX, filePath));
+    // add the region to the UI
     addAndMakeVisible(regionGUI);
     resized();
 }
 
 void TrackComponent::paint (Graphics& g)
 {
+    // set the background to grey
     g.setColour(Colours::grey);
     g.fillAll();
 }
 
+// get the current track length
 int64 TrackComponent::findTrackLength()
 {
 	int64 lastRegionPosition_ = 0;
@@ -152,6 +154,7 @@ int64 TrackComponent::findTrackLength()
 
 void TrackComponent::resized()
 {
+        // update the bounds of the regions to the values in the _posX container
         for(size_t current = 0; current < _regions.size(); ++current)
         {
             auto r(getLocalBounds().reduced(4));
@@ -162,10 +165,12 @@ void TrackComponent::resized()
             r.removeFromBottom(6);
             _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
         }
+    // set the track mixer bounds
     _trackMixer->setBounds(0, 0, (int)_mixerOffset, getParentHeight());
     repaint();
 }
 
+// set the pixels per clip for each region
 void TrackComponent::setPixelsPerClip(int64 pixels)
 {
     _pixelsPerClip = pixels;
@@ -177,15 +182,18 @@ void TrackComponent::setPixelsPerClip(int64 pixels)
     resized();
 }
 
+// implements FileDragAndDropTarget
 bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
 {
     bool accepted;
+    // file types accepted by target
     Array<String> extensions;
     extensions.add(".wav");
     extensions.add(".aif");
     extensions.add(".aiff");
     extensions.add(".flac");
 
+    // checks the string array for the file extensions, return true if accepted and false if not
     for (auto currentFile = files.begin(), end = files.end(); currentFile != end; ++currentFile) {
         accepted = false;
         for (auto extension = extensions.begin(), endExtensions = extensions.end(); extension != endExtensions; ++extension) {
@@ -222,10 +230,10 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int)
         if(x > _mixerOffset)
         {
             // 100 represents the number of seconds
-            int64 samplesRange = secondsToSamples(100, _sampleRate);
+            int64 samplesRange = secondsToSamples(_numberOfClips, _sampleRate);
             // 20 represents the size of a second in pixels - this all needs replacing with dynamically
             // generated values.
-            int64 positionSamples = pixelsToSamples(x - _mixerOffset, 100 * _pixelsPerClip, samplesRange);
+            int64 positionSamples = pixelsToSamples(x - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
             
             _track->add(positionSamples, region);
             createRegionGUI(x, region, formatManager, file);

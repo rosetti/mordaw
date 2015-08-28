@@ -3,6 +3,7 @@
 
     TrackComponent.h
     Created: 12 Aug 2015 10:17:59pm
+    Author:  dtl
 
   ==============================================================================
 */
@@ -16,24 +17,23 @@
 
 
 //==============================================================================
-/*
-*/
+/* TrackMixerComponent is a sub component TrackComponent which holds mute and solo controls and the track label */
 class TrackMixerComponent : public Component,
                             public ButtonListener
 {
 public:
     TrackMixerComponent(int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands);
     ~TrackMixerComponent();
-
-    void mouseDrag(const MouseEvent& e);
-	void mouseDown(const MouseEvent & e);
     
+    // inherited from Component
     void paint (Graphics&);
     void resized();
 
+    // track identifier methods
 	int getTrackID();
 	void setTrackID(int trackID);
     
+    // inherited from ButtonListener
     void buttonClicked(Button* button);
     void buttonStateChanged(Button* button);
     
@@ -47,40 +47,47 @@ private:
 
 };
 
+/* The track component can contain a number of region components, regions can be added using drag and drop or with a menu */
 class TrackComponent    : public Component, public FileDragAndDropTarget
 {
 public:
     TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip);
     ~TrackComponent();
 
+    // inherited from Component
     void paint (Graphics&);
-	
-    void resized();
+	void resized();
+    
+    // create a region at the specified position
     void createRegionGUI(int64 posX, Audio::Region* region, AudioFormatManager& formatManager, File& audioFile);
+    // drag and drop methods, inherited from FileDragAndDropTarget
     bool isInterestedInFileDrag(const StringArray& files) override;
     void filesDropped(const StringArray& files, int x, int y) override;
     
+    // track information methods
 	int getTrackID();
 	void setTrackID(int trackID);
 	int64 findTrackLength();
     
-
-    
+    // set number of clips, this shoudln't he called directly in this class.
     void setNumberofClips(int64 clips);
 
+    // get the mixer offset in pixels
 	int64 getMixerOffset();
 
+    // return the map of regions
 	std::map<int64, String> *getRegionMap();
 
+    // set the number of pixels, should not be called directly in this class
     void setPixelsPerClip(int64 pixels);
     
+    // mouse events
     void mouseDown (const MouseEvent& e) override;
     void mouseDrag (const MouseEvent& e) override;
 
 private:
     int _trackID;
 	int64 _trackLength;
-    const Audio::Engine& _engine;
     double _sampleRate;
     int64 _mixerOffset;
     int64 _pixelsPerClip;
@@ -90,6 +97,7 @@ private:
     std::vector<RegionComponent *> _regionComponents;
     std::vector<int64> _posX, _sizeSamps;
 	std::map< int64, String> _regions;
+    const Audio::Engine& _engine;
     ApplicationCommandManager &_commands;
     
     void timerCallback();
