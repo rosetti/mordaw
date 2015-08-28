@@ -28,7 +28,7 @@ void ExportProcessor::startExporting(const File& file)
     if(_sampleRate > 0)
     {
         file.deleteFile();
-        ScopedPointer<FileOutputStream> fileStream (file.createOutputStream());
+        FileOutputStream* fileStream (file.createOutputStream());
 
         if(fileStream != nullptr)
         {
@@ -143,7 +143,7 @@ void ExportProcessor::releaseResources()
 void ExportProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
     if(_activeWriter != 0)
-        _activeWriter->write((const float**)buffer.getArrayOfReadPointers(), buffer.getNumSamples());
+        _activeWriter->write((const float**)buffer.getArrayOfWritePointers(), buffer.getNumSamples());
 }
 
 void ExportProcessor::getStateInformation(MemoryBlock&)

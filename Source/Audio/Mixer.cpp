@@ -48,6 +48,7 @@ namespace Audio
         _processorGraph.addNode(input, INPUT_NODE_ID);
         _processorGraph.addNode(output, OUTPUT_NODE_ID);
         _processorGraph.addNode(_exportProcessor, EXPORT_NODE_ID);
+        _exportProcessor->setPlayConfigDetails(numInputChannels, 0, sampleRate, bufferSize);
         _processorGraph.addConnection(OUTPUT_NODE_ID, 0, EXPORT_NODE_ID, 0);
         _processorGraph.addConnection(OUTPUT_NODE_ID, 1, EXPORT_NODE_ID, 1);
     }

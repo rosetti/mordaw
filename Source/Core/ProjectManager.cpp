@@ -191,7 +191,10 @@ void ProjectManager::exportProjectAsWav()
 
 		if (overwrite == true)
 		{
-            _engine.getMixer()->startExporting(exportFile_);
+            if(!_engine.getMixer()->isExporting())
+                _engine.getMixer()->startExporting(exportFile_);
+            else
+                _engine.getMixer()->stopExporting();
 		}
 	}
 }
