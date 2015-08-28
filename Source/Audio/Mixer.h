@@ -10,6 +10,7 @@
 #ifndef MIXER_H_INCLUDED
 #define MIXER_H_INCLUDED
 
+#include "ExportProcessor.h"
 #include "TrackProcessor.h"
 #include "ChannelStripProcessor.h"
 
@@ -20,9 +21,11 @@ namespace Audio
         Mixer(int numInputChannels, int numOutputChannels, double sampleRate, int bufferSize);
         ~Mixer();
 
+        // add and remove tracks
         void add(Track *track);
 		void remove();
 
+        // transport methods
         void startPlayingAt(int64 position = -1);
         void pause();
         void stop();
@@ -34,24 +37,38 @@ namespace Audio
             MUTE = 3
         };
         
+        // channel strip controls
         void muteTrack(int trackID);
         void soloTrack(int trackID);
         void changeGain(int trackID, float gain);
         void changePan(int trackID, float pan);
         
+        void startExporting(const File& file);
+        void stopExporting();
+        bool isExporting();
+        
+        // return the list of recoginised plugins
         KnownPluginList& getKnownPluginList();
+        
+        // return reference to format manager
         AudioPluginFormatManager& getFormatManager();
 
+        // return the processor graph
         AudioProcessorGraph *getProcessorGraph();
+        
+        // return the processor maps
 		std::map<Track *, TrackProcessor *> *getTrackMap();
 		std::map<TrackProcessor *, ChannelStripProcessor *> *getStripMap();
 
         bool isPlaying() const;
         void goToTheEnd();
         
+        // get the current number of channel strips
         int getNumberOfStrips();
+        // get the current number of tracks
 		int getNumberOfTracks();
         
+        // get the longest track length
         int64 getLongestTrack();
 
         enum NodeIDs
@@ -97,6 +114,7 @@ namespace Audio
         #if defined(__APPLE__)
         ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
+        ScopedPointer<ExportProcessor> _exportProcessor;
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;

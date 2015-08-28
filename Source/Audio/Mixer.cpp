@@ -40,12 +40,16 @@ namespace Audio
         FileSearchPath path("C:/Program Files (x86)/Common Files/Steinberg/VSTPlugins;C:/Program Files/Steinberg/VSTPlugins");
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
         #endif
+        _exportProcessor = new ExportProcessor();
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 
         _processorGraph.setPlayConfigDetails(numInputChannels, numOutputChannels, sampleRate, bufferSize);
         _processorGraph.addNode(input, INPUT_NODE_ID);
         _processorGraph.addNode(output, OUTPUT_NODE_ID);
+        _processorGraph.addNode(_exportProcessor, EXPORT_NODE_ID);
+        _processorGraph.addConnection(OUTPUT_NODE_ID, 0, EXPORT_NODE_ID, 0);
+        _processorGraph.addConnection(OUTPUT_NODE_ID, 1, EXPORT_NODE_ID, 1);
     }
 
     Mixer::~Mixer()
@@ -362,6 +366,21 @@ namespace Audio
                 current->second->setParameter(StripParameter::PAN, pan);
             }
         }
+    }
+    
+    void Mixer::startExporting(const File &file)
+    {
+        _exportProcessor->startExporting(file);
+    }
+    
+    void Mixer::stopExporting()
+    {
+        _exportProcessor->stopExporting();
+    }
+    
+    bool Mixer::isExporting()
+    {
+        return _exportProcessor->isExporting();
     }
     
     int64 Mixer::getLongestTrack()

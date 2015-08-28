@@ -11,9 +11,6 @@
 #ifndef EXPORTPROCESSOR_H_INCLUDED
 #define EXPORTPROCESSOR_H_INCLUDED
 
-#ifndef GAINPROCESSOR_H_INCLUDED
-#define GAINPROCESSOR_H_INCLUDED
-
 #include "../JuceLibraryCode/JuceHeader.h"
 
 //==============================================================================
@@ -22,6 +19,10 @@ class ExportProcessor : public AudioProcessor
 public:
     ExportProcessor();
     ~ExportProcessor();
+    
+    void startExporting(const File& file);
+    void stopExporting();
+    bool isExporting();
     
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
@@ -62,6 +63,11 @@ public:
     bool hasEditor() const override;
     
 private:
+    TimeSliceThread backgroundThread; 
+    ScopedPointer<AudioFormatWriter::ThreadedWriter> _threadedWriter;
+    AudioFormatWriter::ThreadedWriter* volatile _activeWriter;
+    double _sampleRate;
+    int64 _nextSampleIndex;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ExportProcessor)
 };
 

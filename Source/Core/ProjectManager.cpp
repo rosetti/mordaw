@@ -181,7 +181,7 @@ void ProjectManager::exportProjectAsWav()
 {
 	if (_exportWavChooser.browseForFileToSave(false))
 	{
-		File exportFile_ = _exportWavChooser.getResult();
+		const File exportFile_ = _exportWavChooser.getResult();
 		bool overwrite = true;
 		if (_projectFile.existsAsFile())
 		{
@@ -191,7 +191,7 @@ void ProjectManager::exportProjectAsWav()
 
 		if (overwrite == true)
 		{
-			beginWavExport(exportFile_);
+            _engine.getMixer()->startExporting(exportFile_);
 		}
 	}
 }
@@ -200,8 +200,7 @@ void ProjectManager::beginWavExport(File exportFile_)
 {
 	ScopedPointer<WavAudioFormat> wavFormat = new WavAudioFormat();
 	File output_(exportFile_);
-	FileOutputStream *outputStream_ = output_.createOutputStream(); 
-	
+	FileOutputStream *outputStream_ = output_.createOutputStream();
 }
 
 void ProjectManager::projectExisting()

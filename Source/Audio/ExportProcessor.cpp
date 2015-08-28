@@ -13,15 +13,52 @@
 
 //==============================================================================
 ExportProcessor::ExportProcessor()
+: backgroundThread ("Export Thread"), _sampleRate(0), _nextSampleIndex(0), _activeWriter(nullptr)
 {
-    _gain = 1.0f;
-    _panning = 0.5f;
-    _muteGain = 0.0f;
-    _muted = false;
+    backgroundThread.startThread();
 }
 
 ExportProcessor::~ExportProcessor()
 {
+    stopExporting();
+}
+
+void ExportProcessor::startExporting(const File& file)
+{
+    if(_sampleRate > 0)
+    {
+        file.deleteFile();
+        ScopedPointer<FileOutputStream> fileStream (file.createOutputStream());
+
+        if(fileStream != nullptr)
+        {
+            WavAudioFormat wavFormat;
+            AudioFormatWriter* writer = wavFormat.createWriterFor (fileStream, _sampleRate, 2, 32, StringPairArray(), 0);
+            
+            if (writer != nullptr)
+            {
+                _threadedWriter = new AudioFormatWriter::ThreadedWriter (writer, backgroundThread, 32768);
+                _nextSampleIndex = 0;
+                
+                const ScopedLock scoped(getCallbackLock());
+                _activeWriter =_threadedWriter;
+            }
+        }
+    }
+}
+
+void ExportProcessor::stopExporting()
+{
+    const ScopedLock sl (getCallbackLock());
+    _activeWriter = nullptr;
+    _threadedWriter = nullptr;
+
+}
+
+bool ExportProcessor::isExporting()
+{
+    return _activeWriter != nullptr;
+
 }
 
 int ExportProcessor::getNumParameters()
@@ -35,10 +72,6 @@ float ExportProcessor::getParameter(int index)
 }
 
 void ExportProcessor::setParameter(int index, float newValue)
-{
-}
-
-void ExportProcessor::setMuteParameter()
 {
 }
 
@@ -99,17 +132,18 @@ bool ExportProcessor::silenceInProducesSilenceOut() const
 //==============================================================================
 void ExportProcessor::prepareToPlay(double, int)
 {
-    
+    _sampleRate = getSampleRate();
 }
 
 void ExportProcessor::releaseResources()
 {
-    
+    _sampleRate = 0;
 }
 
 void ExportProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
-
+    if(_activeWriter != 0)
+        _activeWriter->write((const float**)buffer.getArrayOfReadPointers(), buffer.getNumSamples());
 }
 
 void ExportProcessor::getStateInformation(MemoryBlock&)
@@ -131,7 +165,6 @@ const void ExportProcessor::setID(int ident)
 
 const int ExportProcessor::getID()
 {
-    return _id;
 }
 
 bool ExportProcessor::hasEditor() const
