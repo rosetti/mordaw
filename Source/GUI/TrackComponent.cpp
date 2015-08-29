@@ -290,7 +290,24 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
             }
             else if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
             {
+                int newPos = r.getX() + distance;
+                int newEnd = r.getX() + distance + r.getWidth();
+                _posX.at(i) = newPos;
+                resized();
                 
+                int64 samplesRange = secondsToSamples(static_cast<double>(_numberOfClips), _sampleRate);
+                int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips - 1 * _pixelsPerClip, samplesRange);
+                int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips - 1 * _pixelsPerClip, samplesRange);
+                _track->setTotalLength(widthInSamples);
+                _track->move(_regionComponents.at(i)->getRegion(), positionSamples);
+                
+                if(_posX.at(i) < _mixerOffset)
+                {
+                    _posX.at(i) = getX() + _mixerOffset ;
+                    _track->move(_regionComponents.at(i)->getRegion(), 0);
+                    resized();
+                }
+
             }
 
         }

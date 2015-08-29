@@ -15,8 +15,7 @@
 #include "../Audio/Engine.h"
 
 //==============================================================================
-/*
-*/
+/* The TimelineCursor controls the position of audio within the timeline*/
 class TimelineCursor    : public Component,
                           public Timer
 
