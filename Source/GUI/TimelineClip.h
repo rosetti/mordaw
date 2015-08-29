@@ -51,9 +51,9 @@ public:
         int halfWidth = quarterWidth + quarterWidth;
         int threeQuartWidth = halfWidth + quarterWidth;
         // draw lines at appropriate intervals
-        g.drawLine(quarterWidth, getHeight()-1, quarterWidth, getHeight()-3);
-        g.drawLine(halfWidth, getHeight()-1, halfWidth, getHeight()-6);
-        g.drawLine(threeQuartWidth, getHeight()-1, threeQuartWidth, getHeight()-3);
+        g.drawLine((float)quarterWidth, (float)(getHeight()-1), (float)quarterWidth, (float)(getHeight()-3));
+        g.drawLine((float)halfWidth, (float)(getHeight()-1), (float)halfWidth, (float)(getHeight()-6));
+        g.drawLine((float)threeQuartWidth, (float)(getHeight()-1), (float)threeQuartWidth, (float)(getHeight()-3));
     }
     
     void resized()
