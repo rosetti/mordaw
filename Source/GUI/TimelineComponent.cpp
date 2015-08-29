@@ -13,7 +13,7 @@
 
 //==============================================================================
 /* The timeline contains a number of clips; each representing a second on the timeline */
-TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 mixerOffset)
+TimelineComponent::TimelineComponent(const Audio::Engine &, int64 numberOfClips, int64 mixerOffset)
 // construct a timeline with the default amount of 20px
 : TimelineComponent(_engine, numberOfClips, 20, mixerOffset)
 {
@@ -81,5 +81,5 @@ void TimelineComponent::paint (Graphics&)
 // set bounds
 void TimelineComponent::resized()
 {
-    _cursor->setBounds(_mixerOffset ,0, getWidth() - _mixerOffset, getHeight());
+    _cursor->setBounds((int)_mixerOffset ,0, getWidth() - (int)_mixerOffset, getHeight());
 }

@@ -87,7 +87,7 @@ void Arrangement::resized()
 	
 	int64 longestTrackWidth_ = getLongestTrackLength();
 	setSize(((100 * (int)_pixelsPerClip) + (int)_mixerOffset) + (int)longestTrackWidth_, 100 + (_tracks.size() * 100));
-    _timeline->setBounds(0,0, ((100 * (int)_pixelsPerClip)+ (int)_mixerOffset) + longestTrackWidth_, 20);
+    _timeline->setBounds(0,0, ((100 * (int)_pixelsPerClip)+ (int)_mixerOffset) + (int)longestTrackWidth_, 20);
     if(_timeline->getNumberOfClips() != (100 * (int)_pixelsPerClip + longestTrackWidth_))
     {
         _timeline->setNumberOfClips(100 * (int)_pixelsPerClip + longestTrackWidth_);

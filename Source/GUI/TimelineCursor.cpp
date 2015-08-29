@@ -13,7 +13,7 @@
 #include "../Utility/Conversion.h"
 
 //==============================================================================
-TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip, int64 mixerOffset)
+TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip, int64)
 : _engine(engine), _pixelsPerClip(pixelsPerClip)
 {
     // In your constructor, you should add any child components, and
@@ -38,7 +38,7 @@ void TimelineCursor::mouseDown(const MouseEvent &e)
     {
         setMouseCursor(MouseCursor::IBeamCursor);
         _currentXCoords = e.x;
-        _positionInSamples = (_currentXCoords /_pixelsPerClip) * _engine.getCurrentSamplerate();
+        _positionInSamples = ((int64)_currentXCoords /_pixelsPerClip) * (int64)_engine.getCurrentSamplerate();
         _stopTimer = false;
         startTimer(40);
         repaint();
@@ -69,7 +69,7 @@ void TimelineCursor::mouseDrag(const MouseEvent &e)
     if(_showCursor)
     {
         _currentXCoords = e.x;
-        _positionInSamples = (_currentXCoords /_pixelsPerClip) * _engine.getCurrentSamplerate();
+        _positionInSamples = ((int64)_currentXCoords /_pixelsPerClip) * (int64)_engine.getCurrentSamplerate();
         repaint();
     }
 }

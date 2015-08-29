@@ -83,13 +83,15 @@ namespace Audio
                 
                 if (regionAtPosition != region && regionAtPosition != nullptr) {
                     return false;
-                } else {
+                }
+				else {
                     _regions.erase(current->first);
                     delete region;
                     return true;
                 }
             }
         }
+		return false;
     }
 
     void Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {

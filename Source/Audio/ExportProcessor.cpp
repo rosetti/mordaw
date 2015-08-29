@@ -66,23 +66,23 @@ int ExportProcessor::getNumParameters()
     return 3;
 }
 
-float ExportProcessor::getParameter(int index)
+float ExportProcessor::getParameter(int)
 {
      return 0.0f;
 }
 
-void ExportProcessor::setParameter(int index, float newValue)
+void ExportProcessor::setParameter(int, float )
 {
 }
 
-const String ExportProcessor::getParameterName(int index)
+const String ExportProcessor::getParameterName(int)
 {
-    
+	return "string";
 }
 
-const String ExportProcessor::getParameterText(int index)
+const String ExportProcessor::getParameterText(int)
 {
-
+	return "string";
 }
 
 const String ExportProcessor::getInputChannelName(int channelIndex) const
@@ -160,12 +160,13 @@ void ExportProcessor::setStateInformation(const void*, int)
     // whose contents will have been created by the getStateInformation() call.
 }
 
-const void ExportProcessor::setID(int ident)
+const void ExportProcessor::setID(int)
 {
 }
 
 const int ExportProcessor::getID()
 {
+	return 0;
 }
 
 bool ExportProcessor::hasEditor() const

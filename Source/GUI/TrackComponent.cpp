@@ -37,7 +37,7 @@ TrackMixerComponent::~TrackMixerComponent()
 }
 
 // inherited from ButtonListener; not required
-void TrackMixerComponent::buttonClicked(Button* button)
+void TrackMixerComponent::buttonClicked(Button*)
 {
 }
 
@@ -230,7 +230,7 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int)
         if(x > _mixerOffset)
         {
             // 100 represents the number of seconds
-            int64 samplesRange = secondsToSamples(_numberOfClips, _sampleRate);
+            int64 samplesRange = secondsToSamples((double)_numberOfClips, _sampleRate);
             // 20 represents the size of a second in pixels - this all needs replacing with dynamically
             // generated values.
             int64 positionSamples = pixelsToSamples(x - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
@@ -385,7 +385,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
             {
                 CriticalSection critical;
                 critical.enter();
-                for(auto i = 0; i < _regionComponents.size(); ++i)
+                for(size_t i = 0; i < _regionComponents.size(); ++i)
                 {
                     
                     Rectangle<int> bounds_ = _regionComponents.at(i)->getBounds();
