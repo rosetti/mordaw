@@ -24,9 +24,7 @@ class TimelineCursor    : public Component,
 public:
     TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip, int64 mixerOffset);
     ~TimelineCursor();
-    
-    void setZoomRatio(double zoomRatio);
-    void setStartOffsetRatio(double startOffset);
+
     void setCursorVisability(bool displayCursor);
     void positionChanged(int64 position);
     void updateCursorPosition();
