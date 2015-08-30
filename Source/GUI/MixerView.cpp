@@ -27,7 +27,7 @@ MixerView::~MixerView()
 }
 
 void MixerView::addTrack(int trackIndex) {
-    auto stripComponent = new ChannelStripComponent(trackIndex, _engine);
+    auto stripComponent = new ChannelStripComponent(_commands, trackIndex, _engine);
     _strips.push_back(stripComponent);
     addAndMakeVisible(stripComponent);
     resized();

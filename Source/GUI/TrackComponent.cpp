@@ -332,6 +332,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
 	{
 		ScopedPointer<PopupMenu> trackMenu_ = new PopupMenu();
 		trackMenu_->clear();
+		trackMenu_->addCommandItem(&_commands, MainWindow::showMixer);
 		trackMenu_->addItem(1, "Add Region", true);
         MouseEvent ev = e.getEventRelativeTo(this);
         for(auto region : _regionComponents)

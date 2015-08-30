@@ -23,13 +23,15 @@ class ChannelStripComponent    : public Component,
                                  public LabelListener
 {
 public:
-    ChannelStripComponent(int trackID, const Audio::Engine &engine);
+    ChannelStripComponent(ApplicationCommandManager &commands, int trackID, const Audio::Engine &engine);
     ~ChannelStripComponent();
     
     void sliderValueChanged(Slider* movedSlider) override;
     void buttonClicked(Button* clickedButton) override;    
     void buttonStateChanged(Button* clickedButton) override;
     void labelTextChanged(Label* changedLabel) override;
+
+	void mouseDown(const MouseEvent & e);
 
 	bool getButtonState(String button);
 	void setButtonState(String button, bool buttonState);
@@ -53,7 +55,8 @@ private:
     TextButton* plugins4;
     
     PopupMenu _plugins;
-    
+
+	ApplicationCommandManager& _commands;
     int _trackID;
     const Audio::Engine &_engine;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChannelStripComponent)
