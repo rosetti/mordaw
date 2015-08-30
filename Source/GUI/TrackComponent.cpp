@@ -65,6 +65,12 @@ void TrackMixerComponent::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey);
     g.fillAll();
+
+	//g.setColour(Colours::steelblue);
+	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+
+	//g.setColour(Colours::black);
+	//g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 // set TrackMixerComponent bounds and set track label
@@ -134,6 +140,12 @@ void TrackComponent::paint (Graphics& g)
     // set the background to grey
     g.setColour(Colours::grey);
     g.fillAll();
+
+	g.setColour(Colours::steelblue);
+	g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+
+	g.setColour(Colours::black);
+	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 // get the current track length

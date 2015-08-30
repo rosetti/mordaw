@@ -28,7 +28,7 @@ public:
 	void resized();
 
 private:
-	ScopedPointer<TextButton> _newProjectButton, _saveProjectButton, _saveProjectAsButton, _openProjectButton, _closeProjectButton;
+	ScopedPointer<TextButton> _newProjectButton, _saveProjectButton, _saveProjectAsButton, _exportWavButton, _openProjectButton, _closeProjectButton;
 	ScopedPointer<TextButton> _addTrackButton, _removeTrackButton;
 
 	ApplicationCommandManager &_commands;
