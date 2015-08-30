@@ -43,7 +43,7 @@ void TopMenu::addFileMenu(ApplicationCommandManager* commands) {
     fileMenu.addCommandItem(commands, ProjectManager::saveProject);
     fileMenu.addCommandItem(commands, ProjectManager::saveProjectAs);
     fileMenu.addSeparator();
-	fileMenu.addSubMenu("Export Project As...", exportMenu, true);
+	fileMenu.addSubMenu("Export Project...", exportMenu, true);
 	fileMenu.addSeparator();
     fileMenu.addCommandItem(commands, StandardApplicationCommandIDs::quit);
     _menus.push_back(std::pair<String, PopupMenu>("File", fileMenu));

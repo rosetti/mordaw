@@ -415,7 +415,7 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
 		break;
 
 	case exportWav:
-		result.setInfo("Export Audio", "Export the Project as an Audio File.", projectManagement, 0);
+		result.setInfo("Export As Wav", "Export the Project as an Audio File.", projectManagement, 0);
 		result.addDefaultKeypress('E', ModifierKeys::ctrlAltCommandModifiers);
 		break;
 
