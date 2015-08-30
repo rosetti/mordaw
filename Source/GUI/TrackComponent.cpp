@@ -158,7 +158,6 @@ void TrackComponent::resized()
         for(size_t current = 0; current < _regions.size(); ++current)
         {
             auto r(getLocalBounds().reduced(4));
-
             r.setX((int)_posX.at(current));
             int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
             r.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
@@ -229,10 +228,7 @@ void TrackComponent::filesDropped(const StringArray & files, int x, int)
         Region* region = new SampleRegion(reader, 1, &file);
         if(x > _mixerOffset)
         {
-            // 100 represents the number of seconds
             int64 samplesRange = secondsToSamples((double)_numberOfClips, _sampleRate);
-            // 20 represents the size of a second in pixels - this all needs replacing with dynamically
-            // generated values.
             int64 positionSamples = pixelsToSamples(x - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
             
             _track->add(positionSamples, region);
@@ -269,6 +265,7 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                 int newPos = r.getX() + distance;
                 int newEnd = r.getX() + distance + r.getWidth();
                 _posX.at(i) = newPos;
+                _regionComponents.at(i)->setBounds(newPos, 0, newEnd - newPos, getHeight());
                 resized();
                 
                 int64 samplesRange = secondsToSamples(static_cast<double>(_numberOfClips), _sampleRate);
@@ -283,9 +280,30 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                     _track->move(_regionComponents.at(i)->getRegion(), 0);
                     resized();
                 }
-
             }
-
+            else if((getComponentAt(e.x, e.y ) == _regionComponents.at(i)))
+            {
+                if(ev.x > _mixerOffset)
+                {
+                    int newPos = r.getX() + distance;
+                    int newEnd = r.getX() + distance + r.getWidth();
+                    _posX.at(i) = newPos;
+                    resized();
+                    Region* region = _regionComponents.at(i)->getRegion();
+                    region->setNextReadPosition(0);
+                    int64 samplesRange = secondsToSamples((double)_numberOfClips, _sampleRate);
+                    int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
+                    int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
+                    _track->setTotalLength(widthInSamples);
+                    _track->move(region, positionSamples);
+                    if(_posX.at(i) < _mixerOffset)
+                    {
+                        _posX.at(i) = getX() + _mixerOffset ;
+                        _track->move(region, 0);
+                        resized();
+                    }
+                 }
+            }
         }
     }
 }
