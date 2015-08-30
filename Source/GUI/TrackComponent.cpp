@@ -264,31 +264,7 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
             
             int distance = ev.getDistanceFromDragStartX();
             Rectangle<int> r = _regionComponents.at(i)->getBounds();
-            if(getComponentAt(e.x, e.y ) == _regionComponents.at(i))            {
-                if(ev.x > _mixerOffset)
-                {
-                    int newPos = r.getX() + distance;
-                    int newEnd = r.getX() + distance + r.getWidth();
-                    _posX.at(i) = newPos;
-                    resized();
-                    
-                    Region* region = _regionComponents.at(i)->getRegion();
-                    region->setNextReadPosition(0);
-                    int64 samplesRange = secondsToSamples((double)_numberOfClips, _sampleRate);
-                    int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
-                    int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
-                    _track->setTotalLength(widthInSamples);
-                    _track->move(region, positionSamples);
-
-                    if(_posX.at(i) < _mixerOffset)
-                    {
-                        _posX.at(i) = getX() + _mixerOffset ;
-                        _track->move(region, 0);
-                        resized();
-                    }
-                }
-            }
-            else if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
+            if(_regionComponents.at(i)->getPositionX() < posX && posX < (_regionComponents.at(i)->getPositionX() + _regionComponents.at(i)->getRegionWidth()))
             {
                 int newPos = r.getX() + distance;
                 int newEnd = r.getX() + distance + r.getWidth();
@@ -296,8 +272,8 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                 resized();
                 
                 int64 samplesRange = secondsToSamples(static_cast<double>(_numberOfClips), _sampleRate);
-                int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips - 1 * _pixelsPerClip, samplesRange);
-                int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips - 1 * _pixelsPerClip, samplesRange);
+                int64 positionSamples = pixelsToSamples(newPos - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
+                int64 widthInSamples = pixelsToSamples(newEnd - _mixerOffset, _numberOfClips * _pixelsPerClip, samplesRange);
                 _track->setTotalLength(widthInSamples);
                 _track->move(_regionComponents.at(i)->getRegion(), positionSamples);
                 
