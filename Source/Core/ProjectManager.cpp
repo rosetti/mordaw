@@ -210,7 +210,6 @@ void ProjectManager::timerCallback()
     }
 }
 
-
 void ProjectManager::projectExisting()
 {
 	String _currentName = projectElements->getChildByName("Settings")->getStringAttribute("Project_Name");

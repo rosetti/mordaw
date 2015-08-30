@@ -10,11 +10,15 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "ChannelStripComponent.h"
+#include "MainWindow.h"
 #include "../Audio/ChannelStripProcessor.h"
 
 
 //==============================================================================
-ChannelStripComponent::ChannelStripComponent(int trackID, const Audio::Engine &engine) : _trackID(trackID), _engine(engine)
+ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands, int trackID, const Audio::Engine &engine) :
+	_commands(commands),
+	_trackID(trackID),
+	_engine(engine)
 {
     // just for testing purposes
     addAndMakeVisible(label = new Label(String::empty, String::empty));
@@ -139,6 +143,20 @@ void ChannelStripComponent::resized()
     plugins3->setBounds(5, buttonsOffset - buttonSize * 6, getWidth() - 10, buttonSize);
     plugins4->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
 
+}
+
+void ChannelStripComponent::mouseDown(const MouseEvent &) {
+
+	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+
+	// check the mod keys ..
+	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+	{
+		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+		arrangeMenu_->clear();
+		arrangeMenu_->addCommandItem(&_commands, MainWindow::showArrangement);
+		arrangeMenu_->show();
+	}
 }
 
 void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
