@@ -90,8 +90,6 @@ namespace Audio
         /* Other plugin functions */
         // adds a single plugin post fader
         void addPostFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
-        // adds a single plugin post fader
-        void addPreFaderPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
         // adds limitless amounts of plugins
         void addParallelPlugin(int trackNumber, const PluginDescription* desc, double x, double y);
 
