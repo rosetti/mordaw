@@ -188,13 +188,25 @@ namespace Audio
 					_processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
 				}
 				else {
-					_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
-					_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+					if (pluginNumber == 0) {
+						_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+						_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
 
-					_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 0, node->nodeId, 0);
-					_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 1, node->nodeId, 1);
-					_processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
-					_processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+						_processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1) + (pluginNumber), 0, node->nodeId, 0);
+						_processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1) + (pluginNumber), 1, node->nodeId, 1);
+						_processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+						_processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+					}
+					else {
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+
+						_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, node->nodeId, 0);
+						_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, node->nodeId, 1);
+						
+						_processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+						_processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+					}
 				}
 				node->properties.set("x", x);
 				node->properties.set("y", y);
