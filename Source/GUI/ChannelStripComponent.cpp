@@ -254,22 +254,22 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         PluginDescription* desc = pluginsList.getType(pluginIndex);
         if(clickedButton == plugins1)
         {
-            _engine.getMixer()->addPlugin1(_trackID, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 0, desc, 0, 0);
             plugins1->setEnabled(false);
         }
         else if (clickedButton == plugins2)
         {
-            _engine.getMixer()->addPlugin2(_trackID, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 1, desc, 0, 0);
             plugins2->setEnabled(false);
         }
         else if (clickedButton == plugins3)
         {
-            _engine.getMixer()->addPlugin3(_trackID, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 2, desc, 0, 0);
             plugins3->setEnabled(false);
         }
         else if (clickedButton == plugins4)
         {
-            _engine.getMixer()->addPlugin4(_trackID, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 3, desc, 0, 0);
             plugins4->setEnabled(false);
         }
     }
