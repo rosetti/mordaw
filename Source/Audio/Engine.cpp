@@ -36,7 +36,15 @@ namespace Audio
         _mixer->stop();
         _devices.removeAudioCallback(&_player);
         _devices.removeAudioCallback(&_recorder);
-        delete _commands;
+        for(;;)
+        {
+            MessageManagerLock mm;
+            if(mm.lockWasGained())
+            {
+                delete _commands;
+                break;
+            }
+        }
     }
     
     void Engine::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
