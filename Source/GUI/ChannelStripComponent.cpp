@@ -77,16 +77,16 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     plugins4->addListener(this);
 
 	addAndMakeVisible(plugins5 = new TextButton("Plugin 1"));
-	plugins1->addListener(this);
+	plugins5->addListener(this);
 
 	addAndMakeVisible(plugins6 = new TextButton("Plugin 2"));
-	plugins2->addListener(this);
+	plugins6->addListener(this);
 
 	addAndMakeVisible(plugins7 = new TextButton("Plugin 3"));
-	plugins3->addListener(this);
+	plugins7->addListener(this);
 
 	addAndMakeVisible(plugins8 = new TextButton("Plugin 4"));
-	plugins4->addListener(this);
+	plugins8->addListener(this);
 }
 
 ChannelStripComponent::~ChannelStripComponent()
@@ -117,6 +117,14 @@ ChannelStripComponent::~ChannelStripComponent()
     delete plugins3;
     plugins4->removeListener(this);
     delete plugins4;
+	plugins5->removeListener(this);
+	delete plugins5;
+	plugins6->removeListener(this);
+	delete plugins6;
+	plugins7->removeListener(this);
+	delete plugins7;
+	plugins8->removeListener(this);
+	delete plugins8;
 }
 
 void ChannelStripComponent::paint (Graphics& g)
@@ -252,27 +260,24 @@ PopupMenu ChannelStripComponent::getPluginsMenu()
 	PopupMenu allPlugins_;
 	_plugins.clear();
 
-	PopupMenu preFaderPlugins_;
-	preFaderPlugins_.addCustomItem(1, plugins1, 80, 20, false);
-	preFaderPlugins_.addCustomItem(2, plugins2, 80, 20, false);
-	preFaderPlugins_.addCustomItem(3, plugins3, 80, 20, false);
-	preFaderPlugins_.addCustomItem(4, plugins4, 80, 20, false);
-
-	allPlugins_.addSubMenu("Pre-Fader Plugins", preFaderPlugins_);
-
 	if (_trackID != 0)
 	{
-		PopupMenu postFaderPlugins_;
+		PopupMenu preFaderPlugins_;
+		preFaderPlugins_.addCustomItem(1, plugins1, 80, 20, false);
+		preFaderPlugins_.addCustomItem(2, plugins2, 80, 20, false);
+		preFaderPlugins_.addCustomItem(3, plugins3, 80, 20, false);
+		preFaderPlugins_.addCustomItem(4, plugins4, 80, 20, false);
+
+		allPlugins_.addSubMenu("Pre-Fader Plugins", preFaderPlugins_);
+	}
+	PopupMenu postFaderPlugins_;
 
 		postFaderPlugins_.addCustomItem(5, plugins5, 80, 20, false);
 		postFaderPlugins_.addCustomItem(6, plugins6, 80, 20, false);
 		postFaderPlugins_.addCustomItem(7, plugins7, 80, 20, false);
 		postFaderPlugins_.addCustomItem(8, plugins8, 80, 20, false);
 
-		allPlugins_.addSubMenu("Post-Fade Plugins", postFaderPlugins_);
-	}
-
-
+		allPlugins_.addSubMenu("Post-Fader Plugins", postFaderPlugins_);
 	return allPlugins_;
 }
 
@@ -305,7 +310,8 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         const int index = _plugins.show();
         const int pluginIndex = pluginsList.getIndexChosenByMenu(index);
         PluginDescription* desc = pluginsList.getType(pluginIndex);
-        if(clickedButton == plugins1)
+        
+		if(clickedButton == plugins1)
         {
             _engine.getMixer()->addPlugin(_trackID, 0, true, desc, 0, 0);
             plugins1->setEnabled(false);
@@ -328,22 +334,22 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
 		else if (clickedButton == plugins5)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 4, false, desc, 0, 0);
-			plugins1->setEnabled(false);
+			plugins5->setEnabled(false);
 		}
 		else if (clickedButton == plugins6)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 5, false, desc, 0, 0);
-			plugins2->setEnabled(false);
+			plugins6->setEnabled(false);
 		}
 		else if (clickedButton == plugins7)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 2, false, desc, 0, 0);
-			plugins3->setEnabled(false);
+			plugins7->setEnabled(false);
 		}
 		else if (clickedButton == plugins8)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 3, false, desc, 0, 0);
-			plugins4->setEnabled(false);
+			plugins8->setEnabled(false);
 		}
     }
 }

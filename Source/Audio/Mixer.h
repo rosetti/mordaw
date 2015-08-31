@@ -112,7 +112,7 @@ namespace Audio
         ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
         ExportProcessor* _exportProcessor;
-       ChannelStripProcessor* _masterStrip;
+        ChannelStripProcessor* _masterStrip;
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
