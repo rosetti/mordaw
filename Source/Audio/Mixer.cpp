@@ -183,11 +183,15 @@ namespace Audio
 				if (trackNumber == 0) {
 					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
 					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 0);
+					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, OUTPUT_NODE_ID, 0);
+					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, OUTPUT_NODE_ID, 1);
 
 					_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, node->nodeId, 0);
 					_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, node->nodeId, 1);
 					_processorGraph.addConnection(node->nodeId, 0, EXPORT_NODE_ID, 0);
 					_processorGraph.addConnection(node->nodeId, 1, EXPORT_NODE_ID, 1);
+					_processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
+					_processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
 				}
 				else {
 					_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
