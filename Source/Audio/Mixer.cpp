@@ -168,7 +168,7 @@ namespace Audio
 					node = _processorGraph.addNode(instance, MASTER_STRIP_NODE_ID + 100);
 				}
 				else {
-					node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber);
+					node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber + 1);
 				}
 			}
 			if (node != 0)
@@ -187,11 +187,11 @@ namespace Audio
 					_processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
 				}
 				else {
-					_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
-					_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+					_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+					_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
 
-					_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber, 0, node->nodeId, 0);
-					_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber, 1, node->nodeId, 1);
+					_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 0, node->nodeId, 0);
+					_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 1, node->nodeId, 1);
 					_processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
 					_processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
 				}
@@ -200,7 +200,7 @@ namespace Audio
 			}
 		}
 	}
-    
+
     void Mixer::addPreFaderPlugin(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
