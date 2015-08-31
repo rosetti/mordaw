@@ -20,7 +20,6 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
 	_trackID(trackID),
 	_engine(engine)
 {
-    // just for testing purposes
     addAndMakeVisible(label = new Label(String::empty, String::empty));
     label->setFont(Font(11.0f, Font::FontStyleFlags::plain));
     label->setJustificationType(Justification::centred);
@@ -55,11 +54,14 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
 	setButtonState("Mute", false);
     muteButton->addListener(this);
     
-    addAndMakeVisible(soloButton = new ToggleButton("Solo"));
-    soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
-	setButtonState("Solo", false);
-    soloButton->addListener(this);
-    
+	if (!trackID == 0)
+	{
+		addAndMakeVisible(soloButton = new ToggleButton("Solo"));
+		soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
+		setButtonState("Solo", false);
+		soloButton->addListener(this);
+	}
+
     addAndMakeVisible(plugins1 = new TextButton("Plugins 1"));
     plugins1->addListener(this);
     
@@ -85,8 +87,11 @@ ChannelStripComponent::~ChannelStripComponent()
     delete panPot;
 	muteButton->removeListener(this);
     delete muteButton;
-	soloButton->removeListener(this);
-    delete soloButton;
+	if (!_trackID == 0)
+	{
+		soloButton->removeListener(this);
+		delete soloButton;
+	}
     plugins1->removeListener(this);
     delete plugins1;
     plugins2->removeListener(this);
@@ -116,22 +121,26 @@ void ChannelStripComponent::paint (Graphics& g)
 
 void ChannelStripComponent::resized()
 {
-    int panSize = 32;
-    int volumeWidth = 15;
-    int volumeHeight = 127;
-    //int meterWidth = 6;
-    int labelHeight = 14;
-    
-    int remainingWidth = (getWidth() - volumeWidth) / 2;
-    //int offsetY = (getHeight() - volumeHeight - panSize - labelHeight);
-    //int totalHeight = volumeHeight - 7;
-    
-    int buttonSize = 16;
-    int buttonsOffset = (getHeight() - volumeHeight - panSize - labelHeight) - 5;
-    
-    muteButton->setBounds(0, buttonsOffset - buttonSize * 3, getWidth(), buttonSize);
-    soloButton->setBounds(0, buttonsOffset - buttonSize * 2, getWidth(), buttonSize);
-    
+	int panSize = 32;
+	int volumeWidth = 15;
+	int volumeHeight = 127;
+	//int meterWidth = 6;
+	int labelHeight = 14;
+
+	int remainingWidth = (getWidth() - volumeWidth) / 2;
+	//int offsetY = (getHeight() - volumeHeight - panSize - labelHeight);
+	//int totalHeight = volumeHeight - 7;
+
+	int buttonSize = 16;
+	int buttonsOffset = (getHeight() - volumeHeight - panSize - labelHeight) - 5;
+
+	muteButton->setBounds(0, buttonsOffset - buttonSize * 3, getWidth(), buttonSize);
+
+	if (!_trackID == 0)
+	{
+		soloButton->setBounds(0, buttonsOffset - buttonSize * 2, getWidth(), buttonSize);
+	}
+
     panPot->setBounds((getWidth() - panSize) / 2, (getHeight() - volumeHeight - panSize - labelHeight), panSize, panSize);
     
     volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight - 3), volumeWidth, volumeHeight);

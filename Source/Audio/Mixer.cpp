@@ -423,6 +423,10 @@ namespace Audio
     
     void Mixer::muteTrack(int trackID)
     {
+		if (trackID == 0)
+		{
+			_masterStrip->setMuteParameter();
+		}
         for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
         {
             if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))
@@ -446,6 +450,10 @@ namespace Audio
     
     void Mixer::changeGain(int trackID, float gain)
     {
+		if (trackID == 0)
+		{
+			_masterStrip->setParameter(StripParameter::GAIN, gain);
+		}
         for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
         {
             if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))
@@ -457,6 +465,10 @@ namespace Audio
     
     void Mixer::changePan(int trackID, float pan)
     {
+		if (trackID == 0)
+		{
+			_masterStrip->setParameter(StripParameter::PAN, pan);
+		}
         for(auto current = _strips.begin(), end = _strips.end(); current != end; ++current)
         {
             if(current->second->getID() == NodeIDs::STRIP_BASE_NODE_ID + (trackID - 1))

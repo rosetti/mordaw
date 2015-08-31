@@ -20,7 +20,8 @@ LeftSide::LeftSide(ApplicationCommandManager &commands, const Audio::Engine &eng
 	_directoryList(nullptr, _tsThread),
 	_tabbedComponent(TabbedButtonBar::Orientation::TabsAtLeft),
 	_projectTab(_commands),
-	_fileTree(_directoryList)
+	_fileTree(_directoryList),
+	_masterStrip(commands, 0, engine)
 {
     _pluginList = new PluginListComponent(_engine.getMixer()->getFormatManager(), _engine.getMixer()->getKnownPluginList(), File::nonexistent, nullptr);
     #if defined(__APPLE__)
@@ -67,6 +68,7 @@ void LeftSide::addTabs()
 	_tabbedComponent.addTab("Project", Colours::darkgrey, &_projectTab, false);
 	_tabbedComponent.addTab("Files", Colours::darkgrey, &_fileTree, false);
     _tabbedComponent.addTab("Plugins", Colours::darkgrey, _pluginList, false);
+	_tabbedComponent.addTab("Master", Colours::darkgrey, &_masterStrip, false);
 }
 
 void LeftSide::paint(Graphics& g)

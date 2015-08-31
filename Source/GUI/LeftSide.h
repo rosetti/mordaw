@@ -13,6 +13,7 @@
 
 #include "TransportControls.h"
 #include "ProjectTab.h"
+#include "ChannelStripComponent.h"
 
 //==============================================================================
 /*
@@ -51,6 +52,7 @@ private:
 	TabbedComponent _tabbedComponent;
 	FileTreeComponent _fileTree;
 	ProjectTab _projectTab;
+	ChannelStripComponent _masterStrip;
     
     StringArray _strings;
     
