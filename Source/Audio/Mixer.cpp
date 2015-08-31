@@ -165,33 +165,41 @@ namespace Audio
 			AudioProcessorGraph::Node* node = 0;
 
 			if (instance != 0) {
-				if (trackNumber == 0) {
-					node = _processorGraph.addNode(instance, MASTER_STRIP_NODE_ID + 100);
-				}
-				else {
-					if (preFade)
-						node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber);
-					else
-						node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber);
-
-				}
+				node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber);
 			}
 			if (node != 0)
 			{
 				if (trackNumber == 0) {
-					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
-					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 0);
-					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, OUTPUT_NODE_ID, 0);
-					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, OUTPUT_NODE_ID, 1);
+					if (pluginNumber == 4) {
+						_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
+						_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 0);
+						_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, OUTPUT_NODE_ID, 0);
+						_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, OUTPUT_NODE_ID, 1);
 
-					_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, node->nodeId, 0);
-					_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, node->nodeId, 1);
-					_processorGraph.addConnection(node->nodeId, 0, EXPORT_NODE_ID, 0);
-					_processorGraph.addConnection(node->nodeId, 1, EXPORT_NODE_ID, 1);
-					_processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
-					_processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
+						_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, node->nodeId, 0);
+						_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, node->nodeId, 1);
+						_processorGraph.addConnection(node->nodeId, 0, EXPORT_NODE_ID, 0);
+						_processorGraph.addConnection(node->nodeId, 1, EXPORT_NODE_ID, 1);
+						_processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
+						_processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
+					}
+					else if (pluginNumber > 4 && pluginNumber < 8)
+					{
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, EXPORT_NODE_ID, 0);
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, EXPORT_NODE_ID, 1);
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, OUTPUT_NODE_ID, 0);
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, OUTPUT_NODE_ID, 1);
+
+						_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, node->nodeId, 0);
+						_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, node->nodeId, 1);
+						_processorGraph.addConnection(node->nodeId, 0, EXPORT_NODE_ID, 0);
+						_processorGraph.addConnection(node->nodeId, 1, EXPORT_NODE_ID, 1);
+						_processorGraph.addConnection(node->nodeId, 0, OUTPUT_NODE_ID, 0);
+						_processorGraph.addConnection(node->nodeId, 1, OUTPUT_NODE_ID, 1);
+					}
 				}
 				else {
+					//Prefade plugins are 0, 1, 2 & 3
 					if (pluginNumber == 0) {
 						_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
 						_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
@@ -215,6 +223,7 @@ namespace Audio
 						_processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
 						_processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
 					}
+					//Postfade plugins are 4, 5, 6 & 7
 					else if (pluginNumber == 4)
 					{
 						_processorGraph.removeConnection(STRIP_BASE_NODE_ID + (trackNumber - 1), 0, OUTPUT_NODE_ID, 0);
@@ -227,8 +236,8 @@ namespace Audio
 					}
 					else if (pluginNumber > 4 && pluginNumber < 8)
 					{
-						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 0, OUTPUT_NODE_ID, 0);
-						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + pluginNumber - 1, 1, OUTPUT_NODE_ID + (trackNumber - 1), 1);
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, OUTPUT_NODE_ID, 0);
+						_processorGraph.removeConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, OUTPUT_NODE_ID + (trackNumber - 1), 1);
 
 						_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 0, node->nodeId, 0);
 						_processorGraph.addConnection(PLUGIN_BASE_NODE_ID + (100 * trackNumber) + (pluginNumber - 1), 1, node->nodeId, 1);
