@@ -1300,6 +1300,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\Resources\Images\SplashImage.h"/>
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h"/>
+    <ClInclude Include="..\..\Source\Utility\UnitTest.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
     <ClInclude Include="..\..\Source\GUI\ChannelStripComponent.h"/>

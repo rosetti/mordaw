@@ -35,6 +35,8 @@ namespace Audio
     Engine::~Engine() {
         _mixer->stop();
         _devices.removeAudioCallback(&_player);
+        _devices.removeAudioCallback(&_recorder);
+        delete _commands;
     }
     
     void Engine::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {

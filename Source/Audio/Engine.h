@@ -48,7 +48,7 @@ namespace Audio
         AudioFormatManager _formats;
         ScopedPointer<Mixer> _mixer;
         AudioProcessorPlayer _player;
-        ApplicationCommandManager *_commands;
+        ApplicationCommandManager* _commands;
         AudioRecorder _recorder;
         
         OwnedArray<Track> tracks;

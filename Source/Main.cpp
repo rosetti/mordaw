@@ -39,6 +39,7 @@ public:
 
     void shutdown() override
     {
+        delete _mainWindow;
     }
 
     void registerCommands()
@@ -104,7 +105,7 @@ public:
 
 private:
     ScopedPointer<ProjectManager> _projectManager;
-    ScopedPointer<MainWindow> _mainWindow;
+    MainWindow* _mainWindow;
     Audio::Engine _engine;
     ApplicationCommandManager _commandsManager;
 
