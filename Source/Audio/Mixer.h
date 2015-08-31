@@ -77,7 +77,7 @@ namespace Audio
             INPUT_NODE_ID = 0x100,
             OUTPUT_NODE_ID = 0x200,
             EXPORT_NODE_ID = 0x300,
-            MASTER_STRIP_NODE_ID = 0x400,
+            MASTER_STRIP_NODE_ID = 0x1000,
             TRACK_BASE_NODE_ID = 0x10000,
             STRIP_BASE_NODE_ID = 0x11000,
             PLUGIN_BASE_NODE_ID = 0x20000

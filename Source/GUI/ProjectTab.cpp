@@ -67,6 +67,12 @@ void ProjectTab::paint(Graphics &g)
 
 	g.setColour(Colours::steelblue);
 	g.drawRect(7.0f, 146.0f, (float)getWidth() - 14.0f, 2.0f, 0.5f);
+
+	g.setColour(Colours::steelblue);
+	g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+
+	g.setColour(Colours::black);
+	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 void ProjectTab::resized()

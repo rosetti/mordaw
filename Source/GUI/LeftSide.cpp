@@ -83,4 +83,5 @@ void LeftSide::paint(Graphics& g)
 void LeftSide::resized()
 {
 	_tabbedComponent.setBounds(0, 0, getWidth(), getHeight());
+	_masterStrip.setBoundsRelative(0.0f, 0.25f, 0.8f, 0.5f);
 }

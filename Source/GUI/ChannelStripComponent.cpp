@@ -54,7 +54,7 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
 	setButtonState("Mute", false);
     muteButton->addListener(this);
     
-	if (!trackID == 0)
+	if (trackID != 0)
 	{
 		addAndMakeVisible(soloButton = new ToggleButton("Solo"));
 		soloButton->setColour(TextButton::buttonColourId, Colours::yellow);
@@ -87,7 +87,7 @@ ChannelStripComponent::~ChannelStripComponent()
     delete panPot;
 	muteButton->removeListener(this);
     delete muteButton;
-	if (!_trackID == 0)
+	if (_trackID != 0)
 	{
 		soloButton->removeListener(this);
 		delete soloButton;
@@ -136,7 +136,7 @@ void ChannelStripComponent::resized()
 
 	muteButton->setBounds(0, buttonsOffset - buttonSize * 3, getWidth(), buttonSize);
 
-	if (!_trackID == 0)
+	if (_trackID != 0)
 	{
 		soloButton->setBounds(0, buttonsOffset - buttonSize * 2, getWidth(), buttonSize);
 	}

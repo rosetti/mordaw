@@ -163,25 +163,41 @@ namespace Audio
 	*/
     void Mixer::addPlugin1(int trackNumber, const PluginDescription *desc, double x, double y)
     {
-        if(desc != 0)
-        {
-            String errorMessage;
-            AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
-            
-            AudioProcessorGraph::Node* node = 0;
-            
-            if(instance != 0)
-                node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
+		if (desc != 0)
+		{
+			String errorMessage;
+			AudioPluginInstance* instance = _pluginManager.createPluginInstance(*desc, _processorGraph.getSampleRate(), _processorGraph.getBlockSize(), errorMessage);
+
+			AudioProcessorGraph::Node* node = 0;
+					
+			if (instance != 0) {
+				if (trackNumber == 0) {
+					node = _processorGraph.addNode(instance, MASTER_STRIP_NODE_ID + 100);
+				}
+				else {
+					node = _processorGraph.addNode(instance, PLUGIN_BASE_NODE_ID + (100 * trackNumber));
+				}
+			}
             if(node != 0)
             {
-                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
-                _processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
-                
-                _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
-                _processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
-                _processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
-                _processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
-                
+				if (trackNumber == 0) {
+					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
+					_processorGraph.removeConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 0);
+
+					_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, node->nodeId, 0);
+					_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, node->nodeId, 1);
+					_processorGraph.addConnection(node->nodeId, 0, EXPORT_NODE_ID, 0);
+					_processorGraph.addConnection(node->nodeId, 1, EXPORT_NODE_ID, 1);
+				}
+				else {
+					_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+					_processorGraph.removeConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+
+					_processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 0, node->nodeId, 0);
+					_processorGraph.addConnection(TRACK_BASE_NODE_ID + (trackNumber - 1), 1, node->nodeId, 1);
+					_processorGraph.addConnection(node->nodeId, 0, STRIP_BASE_NODE_ID + (trackNumber - 1), 0);
+					_processorGraph.addConnection(node->nodeId, 1, STRIP_BASE_NODE_ID + (trackNumber - 1), 1);
+				}
                 node->properties.set("x", x);
                 node->properties.set("y", y);
             }

@@ -427,8 +427,12 @@ void ProjectManager::exportProjectAsWav()
 	}
 }
 
+/*
+A function which tells the exporter to stop exporting if export playback has stopped
+*/
 void ProjectManager::timerCallback()
 {
+
     if(!_engine.getMixer()->isPlaying())
     {
         _engine.getMixer()->stopExporting();
@@ -436,6 +440,10 @@ void ProjectManager::timerCallback()
     }
 }
 
+/*
+Retrieves all commands related to the project manager
+@param commands An array of the commands
+*/
 void ProjectManager::getAllCommands(Array<CommandID>& commands) const
 {
     const CommandID ids[] = {
@@ -455,6 +463,11 @@ void ProjectManager::getAllCommands(Array<CommandID>& commands) const
     commands.addArray(ids, numElementsInArray(ids));
 }
 
+/*
+Retrieves information about the commands
+@param commandID The ID of the command to be retrieved
+@param result Holds information describing a command
+*/
 void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo &result) const {
     const String projectManagement("Project Management");
     const String selection("Selection");
@@ -526,8 +539,13 @@ void ProjectManager::getCommandInfo(CommandID commandID, ApplicationCommandInfo 
     }
 }
 
+/*
+Carries out a command
+@param info Contains contextual information about the invocation of a command
+*/
 bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & info)
 {
+	//Set track and trackComponent pointers to nullptr
     Audio::Track *track = nullptr;
     TrackComponent *trackComponent = nullptr;
 
@@ -548,11 +566,11 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
 
     case saveProject:
 		isProjectExisting();
-        // Choose destination if project is new
 		// Save existing project
         return true;
 
     case saveProjectAs:
+		// Choose destination if project is new
 		saveCurrentProjectAs();
         return true;
 
@@ -584,12 +602,16 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
         return true;
 
     case addTrack:
+		//Update track to contain a new Track
         track = new Audio::Track();
+		//Add the track to the mixer
         _engine.getMixer()->add(track);
+		//Add the track to the UI
         _mainWindow.Content.addTrack(track);
         return true;
 
     case addRegion:
+		//Unused as of yet
         trackComponent = dynamic_cast<TrackComponent *>(info.originatingComponent);
         return true;
 
