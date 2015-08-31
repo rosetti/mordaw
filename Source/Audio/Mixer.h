@@ -85,7 +85,7 @@ namespace Audio
         
         /* Mixer plugin functions */
         // add mixer plugins
-		void addPlugin(int trackNumber, int pluginNumber, const PluginDescription *desc, double x, double y);
+		void addPlugin(int trackNumber, int pluginNumber, bool preFade, const PluginDescription *desc, double x, double y);
         
         /* Other plugin functions */
         // adds a single plugin post fader
@@ -111,8 +111,8 @@ namespace Audio
         #if defined(__APPLE__)
         ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
-        ScopedPointer<ExportProcessor> _exportProcessor;
-        ScopedPointer<ChannelStripProcessor> _masterStrip;
+        ExportProcessor* _exportProcessor;
+       ChannelStripProcessor* _masterStrip;
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
         std::map<TrackProcessor *, ChannelStripProcessor *> _strips;

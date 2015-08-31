@@ -61,18 +61,32 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
 		setButtonState("Solo", false);
 		soloButton->addListener(this);
 	}
+	addAndMakeVisible(_pluginsButton = new TextButton("Plugins"));
+	_pluginsButton->addListener(this);
 
-    addAndMakeVisible(plugins1 = new TextButton("Plugins 1"));
+    addAndMakeVisible(plugins1 = new TextButton("Plugin 1"));
     plugins1->addListener(this);
     
-    addAndMakeVisible(plugins2 = new TextButton("Plugins 2"));
+    addAndMakeVisible(plugins2 = new TextButton("Plugin 2"));
     plugins2->addListener(this);
     
-    addAndMakeVisible(plugins3 = new TextButton("Plugins 3"));
+    addAndMakeVisible(plugins3 = new TextButton("Plugin 3"));
     plugins3->addListener(this);
     
-    addAndMakeVisible(plugins4 = new TextButton("Plugins 4"));
+    addAndMakeVisible(plugins4 = new TextButton("Plugin 4"));
     plugins4->addListener(this);
+
+	addAndMakeVisible(plugins5 = new TextButton("Plugin 1"));
+	plugins1->addListener(this);
+
+	addAndMakeVisible(plugins6 = new TextButton("Plugin 2"));
+	plugins2->addListener(this);
+
+	addAndMakeVisible(plugins7 = new TextButton("Plugin 3"));
+	plugins3->addListener(this);
+
+	addAndMakeVisible(plugins8 = new TextButton("Plugin 4"));
+	plugins4->addListener(this);
 }
 
 ChannelStripComponent::~ChannelStripComponent()
@@ -92,6 +106,9 @@ ChannelStripComponent::~ChannelStripComponent()
 		soloButton->removeListener(this);
 		delete soloButton;
 	}
+	_pluginsButton->removeListener(this);
+	delete _pluginsButton;
+
     plugins1->removeListener(this);
     delete plugins1;
     plugins2->removeListener(this);
@@ -147,10 +164,11 @@ void ChannelStripComponent::resized()
     
     label->setBounds(0, getHeight() - labelHeight - 3, getWidth(), labelHeight);
     
-    plugins1->setBounds(5, buttonsOffset - buttonSize * 8, getWidth() - 10, buttonSize);
-    plugins2->setBounds(5, buttonsOffset - buttonSize * 7, getWidth() -10, buttonSize);
-    plugins3->setBounds(5, buttonsOffset - buttonSize * 6, getWidth() - 10, buttonSize);
-    plugins4->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
+	_pluginsButton->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
+    //plugins1->setBounds(5, buttonsOffset - buttonSize * 8, getWidth() - 10, buttonSize);
+    //plugins2->setBounds(5, buttonsOffset - buttonSize * 7, getWidth() -10, buttonSize);
+    //plugins3->setBounds(5, buttonsOffset - buttonSize * 6, getWidth() - 10, buttonSize);
+    //plugins4->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
 
 }
 
@@ -229,6 +247,35 @@ void ChannelStripComponent::setSliderValue(String slider, double sliderValue)
 	}
 }
 
+PopupMenu ChannelStripComponent::getPluginsMenu()
+{
+	PopupMenu allPlugins_;
+	_plugins.clear();
+
+	PopupMenu preFaderPlugins_;
+	preFaderPlugins_.addCustomItem(1, plugins1, 80, 20, false);
+	preFaderPlugins_.addCustomItem(2, plugins2, 80, 20, false);
+	preFaderPlugins_.addCustomItem(3, plugins3, 80, 20, false);
+	preFaderPlugins_.addCustomItem(4, plugins4, 80, 20, false);
+
+	allPlugins_.addSubMenu("Pre-Fader Plugins", preFaderPlugins_);
+
+	if (_trackID != 0)
+	{
+		PopupMenu postFaderPlugins_;
+
+		postFaderPlugins_.addCustomItem(5, plugins5, 80, 20, false);
+		postFaderPlugins_.addCustomItem(6, plugins6, 80, 20, false);
+		postFaderPlugins_.addCustomItem(7, plugins7, 80, 20, false);
+		postFaderPlugins_.addCustomItem(8, plugins8, 80, 20, false);
+
+		allPlugins_.addSubMenu("Post-Fade Plugins", postFaderPlugins_);
+	}
+
+
+	return allPlugins_;
+}
+
 
 void ChannelStripComponent::buttonStateChanged(Button*)
 {
@@ -240,11 +287,17 @@ void ChannelStripComponent::buttonStateChanged(Button*)
 
 void ChannelStripComponent::buttonClicked(Button* clickedButton)
 {
+
     if(clickedButton == muteButton)
         _engine.getMixer()->muteTrack(_trackID);
     else if(clickedButton == soloButton)
         _engine.getMixer()->soloTrack(_trackID);
-    else if(clickedButton == plugins1 || plugins2 || plugins3 || plugins4)
+	else if (clickedButton == _pluginsButton)
+	{
+		getPluginsMenu().showMenuAsync(PopupMenu::Options().withTargetComponent(_pluginsButton), nullptr);
+		
+	}
+    else if(clickedButton == plugins1 || plugins2 || plugins3 || plugins4 || plugins5 || plugins6 || plugins7 || plugins8)
     {
         _plugins.clear();
         KnownPluginList& pluginsList = _engine.getMixer()->getKnownPluginList();
@@ -254,24 +307,44 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         PluginDescription* desc = pluginsList.getType(pluginIndex);
         if(clickedButton == plugins1)
         {
-            _engine.getMixer()->addPlugin(_trackID, 0, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 0, true, desc, 0, 0);
             plugins1->setEnabled(false);
         }
         else if (clickedButton == plugins2)
         {
-            _engine.getMixer()->addPlugin(_trackID, 1, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 1, true, desc, 0, 0);
             plugins2->setEnabled(false);
         }
         else if (clickedButton == plugins3)
         {
-            _engine.getMixer()->addPlugin(_trackID, 2, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 2, true, desc, 0, 0);
             plugins3->setEnabled(false);
         }
         else if (clickedButton == plugins4)
         {
-            _engine.getMixer()->addPlugin(_trackID, 3, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 3, true, desc, 0, 0);
             plugins4->setEnabled(false);
         }
+		else if (clickedButton == plugins5)
+		{
+			_engine.getMixer()->addPlugin(_trackID, 4, false, desc, 0, 0);
+			plugins1->setEnabled(false);
+		}
+		else if (clickedButton == plugins6)
+		{
+			_engine.getMixer()->addPlugin(_trackID, 5, false, desc, 0, 0);
+			plugins2->setEnabled(false);
+		}
+		else if (clickedButton == plugins7)
+		{
+			_engine.getMixer()->addPlugin(_trackID, 2, false, desc, 0, 0);
+			plugins3->setEnabled(false);
+		}
+		else if (clickedButton == plugins8)
+		{
+			_engine.getMixer()->addPlugin(_trackID, 3, false, desc, 0, 0);
+			plugins4->setEnabled(false);
+		}
     }
 }
 

@@ -37,6 +37,8 @@ public:
 	void setButtonState(String button, bool buttonState);
 	float getSliderValue(String slider);
 	void setSliderValue(String slider, double sliderValue);
+
+	PopupMenu getPluginsMenu();
     
     void paint(Graphics& g);
     void resized();
@@ -49,10 +51,8 @@ private:
     ToggleButton* muteButton;
     ToggleButton* soloButton;
     
-    TextButton* plugins1;
-    TextButton* plugins2;
-    TextButton* plugins3;
-    TextButton* plugins4;
+	TextButton* _pluginsButton;
+	TextButton* plugins1,* plugins2,* plugins3,* plugins4,* plugins5,* plugins6,* plugins7,* plugins8;
     
     PopupMenu _plugins;
 
