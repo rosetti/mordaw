@@ -3,7 +3,8 @@
 
     Engine.cpp
     Created: 1 Aug 2015 4:24:58pm
-    Author:  Thomas
+    Author:	Dan
+			Thomas (Refactored)
 
   ==============================================================================
 */

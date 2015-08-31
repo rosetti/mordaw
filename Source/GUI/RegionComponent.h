@@ -3,7 +3,7 @@
 
     RegionComponent.h
     Created: 13 Aug 2015 12:21:11pm
-    Author:  Thomas
+    Author: Matt & Dan
 
   ==============================================================================
 */

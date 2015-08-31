@@ -3,7 +3,7 @@
 
     Arrangement.h
     Created: 10 Aug 2015 10:58:25pm
-    Author:  dtl
+    Author:  Matt & Dan
 
   ==============================================================================
 */
@@ -35,7 +35,7 @@ public:
 	int64 getPixelsPerClip();
 	int64 getMixerOffset();
 
-	std::map<TrackComponent*, int*>* getTrackMap();
+	std::vector<TrackComponent*>* getTrackMap();
     
     virtual void buttonClicked(Button* button) override;
 
@@ -45,7 +45,7 @@ public:
 private:
 	int _trackNumber;
     int64 _mixerOffset, _pixelsPerClip;
-	std::map<TrackComponent *, int*> _tracks;
+	std::vector<TrackComponent *> _tracks;
     ScopedPointer<TimelineComponent> _timeline;
     ScopedPointer<TimelineCursor> _cursor;
     ScopedPointer<TextButton> _addTrackButton;

@@ -3,7 +3,7 @@
 
     ProjectManager.h
     Created: 2 Aug 2015 3:14:20pm
-    Author:  Thomas
+    Author:  Matt
 
   ==============================================================================
 */
@@ -35,8 +35,7 @@ public:
 	void saveCurrentProject(File savedFile);
 	void saveCurrentProjectAs();
 	void exportProjectAsWav();
-	void beginWavExport(File _exportFile);
-	void projectExisting();
+	void isProjectExisting();
 	void loadExistingProject();
     
     void timerCallback() override;

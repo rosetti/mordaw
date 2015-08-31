@@ -3,7 +3,7 @@
 
     TransportControls.cpp
     Created: 4 Aug 2015 8:02:29pm
-    Author:  dtl
+    Author:  Dan
 
   ==============================================================================
 */

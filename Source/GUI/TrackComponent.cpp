@@ -3,7 +3,8 @@
 
     TrackComponent.cpp
     Created: 12 Aug 2015 10:17:59pm
-    Author:  dtl
+    Author:	TrackMixerComponent	: Dan 
+			TrackComponent		: Matt
 
   ==============================================================================
 */

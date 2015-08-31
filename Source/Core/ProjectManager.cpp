@@ -3,7 +3,7 @@
 
 ProjectManager.cpp
 Created: 2 Aug 2015 3:14:20pm
-Author:  Thomas
+Author:  Matt
 
 ==============================================================================
 */
@@ -14,6 +14,10 @@ Author:  Thomas
 #include "../Audio/SampleRegion.h"
 #include "../Utility/Conversion.h"
 
+/*
+The Project Manager class does what it says on the tin. It manages the project. This includes and may not be limited to
+creating new projects, saving, loading, exporting.
+*/
 ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engine &engine, MainWindow &window) :
 	_engine(engine),
 	_commands(commands),
@@ -26,6 +30,7 @@ ProjectManager::ProjectManager(ApplicationCommandManager &commands, Audio::Engin
 		(File::userHomeDirectory), "*.wav"),
 	_projectFile()
 {
+	//Create an XML element to hold details about the project
 	projectElements = new XmlElement("Project_Elements");
 }
 
@@ -33,14 +38,21 @@ ProjectManager::~ProjectManager()
 {
 }
 
+/*
+This function creates a basic project framework to allow the saving of a project in the form of an XML document
+@param projectName The name of the current project. By default this is "Unsaved"
+*/
 void ProjectManager::createBasicProjectFramework(const String& projectName)
 {
 	//Clear the current XML project element
 	projectElements->deleteAllChildElements();
 	//Create the framework for saving project settings/details and add it to projectElements
 	XmlElement* projectSettings = new XmlElement("Settings");
+	//Set the project name
 	projectSettings->setAttribute("Project_Name", projectName);
+	//Set the user projects filepath (currently unsaved)
 	projectSettings->setAttribute("Project_File_Path", "Unsaved");
+	//Add the project settings to the main projectElements XML element
 	projectElements->addChildElement(projectSettings);
 
 	//Create the framework for saving project tracks
@@ -49,17 +61,20 @@ void ProjectManager::createBasicProjectFramework(const String& projectName)
 	//Create the framework for storing track channel strips
 	XmlElement* projectStrips = new XmlElement("Strips");
 	projectElements->addChildElement(projectStrips);
-	//STRIPS AND TRACKS SHOULD BE LINKED
 }
 
+/*
+Saves the current project
+@param savedFile The file to append the current projects XML Document to
+*/
 void ProjectManager::saveCurrentProject(File savedFile)
 {
 	_projectFile = savedFile;
 	//Retrieve a map of all the tracks
-	std::map<TrackComponent*, int*> *tracks_ = _mainWindow.Content.getArrangement()->getTrackMap();
+	std::vector<TrackComponent*>* tracks_ = _mainWindow.Content.getArrangement()->getTrackMap();
 	//Create XML elements for each track
 	int trackNumber_ = 1;
-	for (auto currentTrack = tracks_->begin(), tracksEnd = tracks_->end(); currentTrack != tracksEnd; ++currentTrack)
+	for (auto currentTrack : *tracks_)
 	{
 		//Create an entry for the track and add it to projectTracks
 		String trackName_ = "Track_" + (String)trackNumber_;
@@ -68,7 +83,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 			->getChildByName("Tracks")->addChildElement(track_);
 
 		//Retrieve a map of all the tracks regions
-		std::map<int64, String>* regions_ = currentTrack->first->getRegionMap();
+		std::map<int64, String>* regions_ = currentTrack->getRegionMap();
 		//Create XML elements for each region
 		int regionNumber_ = 1;
 		for (auto currentRegion = regions_->begin(), regionsEnd = regions_->end(); currentRegion != regionsEnd; ++currentRegion)
@@ -94,6 +109,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 				->setAttribute("Region_Position", regionPosition_);
 			regionNumber_++;
 		}
+		//Increase the track number
 		trackNumber_++;
 	}
 
@@ -133,43 +149,51 @@ void ProjectManager::saveCurrentProject(File savedFile)
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			->setAttribute("Panning", (double)panning_);
+		//Increase the track number
 		trackNumber_++;
 	}
-
 	//reset the file
 	_projectFile.deleteFile();
 	_projectFile.create();
 	// Save existing project to the destination
-	//Create XML
+	//Create XML document
 	String xmlDoc = projectElements->createDocument(String::empty, false);
 	//Append to savefile
 	_projectFile.appendText(xmlDoc);
 }
 
+/*
+Allows the user to choose a save location then runs saveCurrentProject
+*/
 void ProjectManager::saveCurrentProjectAs()
 {
 	// Choose destination
 	if (_saveChooser.browseForFileToSave(false))
 	{
+		//Get the file and location that the user chose
 		_projectFile = _saveChooser.getResult();
 		//Get the File path where the project will be saved
 		String stringFile = _projectFile.getFullPathName();
+		//Set the project file path
 		projectElements
 			->getChildByName("Settings")
 			->setAttribute("Project_File_Path", stringFile);
 		//Get the File name to be used as the project name
 		String projectName = _projectFile.getFileNameWithoutExtension();
+		//Set the project name
 		projectElements
 			->getChildByName("Settings")
 			->setAttribute("Project_Name", projectName);
 
 		bool overwrite = true;
+		//If the file exists; ask the user if they wish to overwrite it
 		if (_projectFile.existsAsFile())
 		{
 			overwrite = AlertWindow::showOkCancelBox(
 				AlertWindow::WarningIcon, "A project by this name already exists!", "Would you like to overwrite this project file?");
 		}
 
+		//If the user wishes to overwrite the file; Save
 		if (overwrite == true)
 		{
 			saveCurrentProject(_projectFile);
@@ -177,50 +201,9 @@ void ProjectManager::saveCurrentProjectAs()
 	}
 }
 
-void ProjectManager::exportProjectAsWav()
-{
-	if (_exportWavChooser.browseForFileToSave(false))
-	{
-		const File exportFile_ = _exportWavChooser.getResult();
-		bool overwrite = true;
-		if (_projectFile.existsAsFile())
-		{
-			overwrite = AlertWindow::showOkCancelBox(
-				AlertWindow::WarningIcon, "An audio file by this name already exists!", "Would you like to overwrite this file?");
-		}
-
-		if (overwrite == true)
-		{
-            if(!_engine.getMixer()->isExporting())
-            {
-                _engine.getMixer()->startExporting(exportFile_);
-                startTimer(1000);
-                _engine.getMixer()->startPlayingAt(0);
-            }
-		}
-	}
-}
-
-void ProjectManager::timerCallback()
-{
-    if(!_engine.getMixer()->isPlaying())
-    {
-        _engine.getMixer()->stopExporting();
-        stopTimer();
-    }
-}
-
-void ProjectManager::projectExisting()
-{
-	String _currentName = projectElements->getChildByName("Settings")->getStringAttribute("Project_Name");
-	if (!_currentName.compare("Untitled_Project")) {
-		saveCurrentProjectAs();
-	}
-	else {
-		saveCurrentProject(_projectFile);
-	}
-}
-
+/*
+Loads an existing project
+*/
 void ProjectManager::loadExistingProject()
 {
 	//Let the user choose a .mor file then begin processing
@@ -233,6 +216,9 @@ void ProjectManager::loadExistingProject()
 	}
 }
 
+/*
+Used by loadExistingProject; this function loads the chosen projects tracks from an XML document
+*/
 void ProjectManager::loadTracks()
 {
 	//Find out the number of tracks in the file to be loaded
@@ -244,7 +230,7 @@ void ProjectManager::loadTracks()
 	//Loop through and add the tracks
 	while (currentTrack_ <= numberOfTracks_)
 	{
-		//Add the track
+		//Add the tracks to the mixer
 		Audio::Track* track_ = new Audio::Track();
 		audioTracks_.push_back(track_);
 		_engine.getMixer()->add(track_);
@@ -252,17 +238,22 @@ void ProjectManager::loadTracks()
 		
 		currentTrack_++;
 	}
+	//Add each tracks regions to the UI
 	addRegionGUIs(audioTracks_);
+	//Load each tracks Channel Strip settings
 	loadChannelStripSettings();
 }
 
+/*
+Used by loadTracks to add each tracks associated regions to the UI
+*/
 void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 {
-	std::map<TrackComponent*, int*> *trackComponents_ = _mainWindow.Content.getArrangement()->getTrackMap();
+	std::vector<TrackComponent*>* trackComponents_ = _mainWindow.Content.getArrangement()->getTrackMap();
 	
 	//Create XML elements for each track
 	int trackNumber_ = 1;
-	for (auto currentTrack = trackComponents_->begin(), end = trackComponents_->end(); currentTrack != end; ++currentTrack)
+	for (auto currentTrack : *trackComponents_)
 	{
 		//Find out the number of regions the loaded track has
 		String trackName_ = "Track_" + (String)trackNumber_;
@@ -293,10 +284,13 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 					format_ = "FLAC";
 				File currentRegionFile_(fileString_);
 
+				//Create a format manager and register basic formats (WAV, AIF(F), Flac)
 				AudioFormatManager formatManager_;
 				formatManager_.registerBasicFormats();
 
+				//Create a reader for the Region file
 				AudioFormatReader* reader_ = formatManager_.createReaderFor(currentRegionFile_);
+				//Create the necessary region
 				Audio::Region* region = new Audio::SampleRegion(reader_, 1, &currentRegionFile_);
 
 				//Retrieve the regions position
@@ -315,12 +309,12 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 					int64 positionSamples_ = pixelsToSamples(regionPosition_ - mixerOffset_, 100 * pixelsPerClip_, samplesRange_);
 
 					audioTracks_.at(trackNumber_ - 1)->add(positionSamples_, region);
-					currentTrack->first->createRegionGUI(regionPosition_, region, formatManager_, currentRegionFile_);
+					currentTrack->createRegionGUI(regionPosition_, region, formatManager_, currentRegionFile_);
 				}
 				else if (regionPosition_ < mixerOffset_)
 				{
 					audioTracks_.at(trackNumber_)->add(0, region);
-					currentTrack->first->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
+					currentTrack->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
 				}
 				currentRegion_++;
 			}
@@ -329,40 +323,117 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 	}
 }
 
+/*
+Used by loadTracks to add each tracks associated
+*/
 void ProjectManager::loadChannelStripSettings()
 {
+	//Retrieve the vector of channel strips
 	std::vector<ChannelStripComponent*>* strips_ = _mainWindow.Content.getMixer()->getChannelStrips();
 
+	//reset the track number to 1
 	int trackNumber_ = 1;
+	//Iterate through and apply the settings
 	for (auto strip : *strips_)
 	{
+		//Set the current strip name/number
 		String stripName_ = "TrackStrip_" + (String)trackNumber_;
+
+		//Retrieve and set the mute state
 		bool mute = projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			->getBoolAttribute("Mute");
 		strip->setButtonState("Mute", mute);
 
+		//Retrieve and set the current solo state
 		bool solo = projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			->getBoolAttribute("Solo");
 		strip->setButtonState("Solo", solo);
 		
+		//Retrieve and set the current gains state
 		double gain = projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			->getDoubleAttribute("Gain");
 		strip->setSliderValue("Gain", gain);
 
+		//Retrieve and set the current panning state
 		double panning = projectElements
 			->getChildByName("Strips")
 			->getChildByName(stripName_)
 			->getDoubleAttribute("Panning");
 		strip->setSliderValue("Panning", panning);
 		
+		//Increment the track number
 		trackNumber_++;
 	}
+}
+
+/*
+A quick checker to see if the project already exists as a file
+*/
+void ProjectManager::isProjectExisting()
+{
+	//Retrieve the current projects name
+	String _currentName = projectElements->getChildByName("Settings")->getStringAttribute("Project_Name");
+	
+	//If the project is named "Untitled_Project" we can assume it hasn't been saved
+	if (!_currentName.compare("Untitled_Project")) {
+		//Proceed to save the project as a new file
+		saveCurrentProjectAs();
+	}
+	//If the project does exist...
+	else {
+		//Save the current project in the same place
+		saveCurrentProject(_projectFile);
+	}
+}
+
+/*
+Exports the current project to a file in a WAV format
+*/
+void ProjectManager::exportProjectAsWav()
+{
+	//Allow the user to choose a place to save the project
+	if (_exportWavChooser.browseForFileToSave(false))
+	{
+		//Retrieve the user specified location
+		const File exportFile_ = _exportWavChooser.getResult();
+		bool overwrite = true;
+		//Check if the file still exists
+		if (_projectFile.existsAsFile())
+		{
+			//Ask the user if they wish to overwrite the file
+			overwrite = AlertWindow::showOkCancelBox(
+				AlertWindow::WarningIcon, "An audio file by this name already exists!", "Would you like to overwrite this file?");
+		}
+
+		//If the user confirms they want to overwrite the file (or it doesn't exist)
+		if (overwrite == true)
+		{
+
+            if(!_engine.getMixer()->isExporting())
+            {
+				//Start the export
+                _engine.getMixer()->startExporting(exportFile_);
+                startTimer(1000);
+				//Play what is being exported
+                _engine.getMixer()->startPlayingAt(0);
+            }
+		}
+	}
+}
+
+void ProjectManager::timerCallback()
+{
+    if(!_engine.getMixer()->isPlaying())
+    {
+        _engine.getMixer()->stopExporting();
+        stopTimer();
+    }
 }
 
 void ProjectManager::getAllCommands(Array<CommandID>& commands) const
@@ -476,7 +547,7 @@ bool ProjectManager::perform(const ApplicationCommandTarget::InvocationInfo & in
         return true;
 
     case saveProject:
-		projectExisting();
+		isProjectExisting();
         // Choose destination if project is new
 		// Save existing project
         return true;

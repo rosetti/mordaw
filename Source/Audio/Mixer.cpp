@@ -3,14 +3,26 @@
 
 Mixer.cpp
 Created: 2 Aug 2015 4:04:13pm
+Author: Matt & Dan
 
 ==============================================================================
 */
 
 #include "Mixer.h"
 
+/*
+Mixer is a class that takes all track objects and mixes together their audio streams. Tracks are connected to an
+AudioProcessorGraph object which in turn allows audio to flow through to the output device
+*/
 namespace Audio
 {
+	/*
+	Constructs a mixer object
+	@param numInputChannels The number of input channels required
+	@param numOutputChannels The number of output channels required
+	@param sampleRate the curren sample rate
+	@param bufferSize The size of the current buffer
+	*/
     Mixer::Mixer(int numInputChannels, int numOutputChannels, double sampleRate, int bufferSize) : 
         _nextNodeID(0x10000),
         _thread("Audio"),
@@ -22,73 +34,133 @@ namespace Audio
         _knownPlugins(),
         _index(0)    
     {
+		//If the operating system being used is an Apple system; set the default paths for VST and AudioUnit plugins
         #if defined(__APPLE__)
+		
+		//Create a VST format object
         _vstFormat = new VSTPluginFormat();
+		//Set the VST path
         FileSearchPath path("/Library/Audio/Plug-Ins/VST");
+		//Create a scanner object to detect VST plugins at the set location
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
+		
+		//Create an Audio Unit object
         _auFormat = new AudioUnitPluginFormat();
-        _pluginManager.addDefaultFormats();
+        //Set the Audio Unit Path
         FileSearchPath path2("/Library/Audio/Plug-Ins/Components");
+		//Create a scanner object to detect Audio Units at the set location
         scanner = new PluginDirectoryScanner(_knownPlugins, *_auFormat, path2, true, File::nonexistent);
+
+		//Add default formats (eg VST) to the plugin manager
+		_pluginManager.addDefaultFormats();
         #endif
+
+		//If the operating system is a 32 bit Windows system; set the default path for VST plugins
         #ifdef WIN32
+
+		//Create a VST format object
         _vstFormat = new VSTPluginFormat();
+		//Set the VST path
         FileSearchPath path("C:/Program Files/Steinberg/VstPlugins");
+		//Create a scanner object to detect VST plugins at the set location
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
+
+		//If the operating system is a 64 bit Windows system; set the default path for VST plugins
         #elif WIN64
+
+		//Create a VST format object
         _vstFormat = new VSTPluginFormat();
+		//Set the VST path
         FileSearchPath path("C:/Program Files (x86)/Common Files/Steinberg/VSTPlugins;C:/Program Files/Steinberg/VSTPlugins");
+		//Create a scanner object to detect VST plugins at the set location
         scanner = new PluginDirectoryScanner(_knownPlugins, *_vstFormat, path, false, File::nonexistent);
         #endif
+		
+		//Create a processor object which handles exporting projects to various formats (currently just WAV) and configure it.
         _exportProcessor = new ExportProcessor();
+		_exportProcessor->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
+
+		//Create a Channel Strip that has controls for the overall output and configure it.
         _masterStrip = new ChannelStripProcessor();
+		_masterStrip->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
+
+		//Create an input node that allows audio from input devices (,icrophones, instruments etc.) to flow through the graph
         auto input = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioInputNode);
+		//Create an output node that allows audio to flow out of the graph to the systems pre-selected (or default) output device
         auto output = new AudioProcessorGraph::AudioGraphIOProcessor(AudioProcessorGraph::AudioGraphIOProcessor::audioOutputNode);
 
+		//Set the graphs configuration
         _processorGraph.setPlayConfigDetails(numInputChannels, numOutputChannels, sampleRate, bufferSize);
+
+		//Add the input and output nodes to the graph
         _processorGraph.addNode(input, INPUT_NODE_ID);
         _processorGraph.addNode(output, OUTPUT_NODE_ID);
+
+		//Add the export node to the graph
         _processorGraph.addNode(_exportProcessor, EXPORT_NODE_ID);
+		//Add the master strip to the graph
         _processorGraph.addNode(_masterStrip, MASTER_STRIP_NODE_ID);
 
-    }
+		//Connect the master strip to the export node
+		_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
+		_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 1);
+
+		//Connect the  master strip to the output node
+		_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, OUTPUT_NODE_ID, 0);
+		_processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, OUTPUT_NODE_ID, 1);
+	}
 
     Mixer::~Mixer()
     {
         _thread.stopThread(0);
         stop();
-        //_processorGraph.clear();
     }
 
+	/*
+	Adds a Track object to the mixer.
+	*/
     void Mixer::add(Track * track)
     {
+		//Create a new track processor and configure it. This handles pushing the audio stream through the graph
         TrackProcessor *processor = new TrackProcessor(track, &_thread);
         processor->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
         
+		//Create a channel strip processor for the track and configure it
         ChannelStripProcessor *strip = new ChannelStripProcessor();
         strip->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
 
+		//Prepare the track to be played
         track->prepareToPlay(_bufferSize, _sampleRate);
+		//Add the Track and its associated Track Processor to a map
         _tracks.insert(std::pair<Track *, TrackProcessor *>(track, processor));
         
+		//Prepare the channel strip to be played
         strip->prepareToPlay(_bufferSize, (int)_sampleRate);
+		//Add the TrackProcessor and its associated Channel Strip to a map
         _strips.insert(std::pair<TrackProcessor *, ChannelStripProcessor *>(processor, strip));
         strip->setID(_nextNodeID + 0x1000);
 
+		//Create and add nodes to the graph for the track and the channel strip
         auto tNode = _processorGraph.addNode(processor, _nextNodeID);
         auto cNode = _processorGraph.addNode(strip, _nextNodeID + 0x1000);
+		//Connect the track node to the channel strip node to allow audio to flow through them
         _processorGraph.addConnection(tNode->nodeId, 0, cNode->nodeId, 0);
         _processorGraph.addConnection(tNode->nodeId, 1, cNode->nodeId, 1);
+		//Connect the channel strip node to the master strip to allow audio to flow through them and onwards ot the output node
         _processorGraph.addConnection(cNode->nodeId, 0, MASTER_STRIP_NODE_ID, 0);
         _processorGraph.addConnection(cNode->nodeId, 1, MASTER_STRIP_NODE_ID, 1);
-        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, EXPORT_NODE_ID, 0);
-        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, EXPORT_NODE_ID, 1);
-        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 0, OUTPUT_NODE_ID, 0);
-        _processorGraph.addConnection(MASTER_STRIP_NODE_ID, 1, OUTPUT_NODE_ID, 1);
 
+		//Increment the next nodes ID for future additions
         _nextNodeID += 1;
     }
     
+	/*
+	Add a plugin to a specified track in plugin slot 1
+	@param trackNumber The track number to add the plugin to
+	@param desc The plugins desription
+	@param x The x co-ordinate of the plugins editor
+	@param y The y co-ordinate of the plugins editor
+	*/
     void Mixer::addPlugin1(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
@@ -115,7 +187,14 @@ namespace Audio
             }
         }
     }
-    
+
+	/*
+	Add a plugin to a specified track in plugin slot 2
+	@param trackNumber The track number to add the plugin to
+	@param desc The plugins desription
+	@param x The x co-ordinate of the plugins editor
+	@param y The y co-ordinate of the plugins editor
+	*/
     void Mixer::addPlugin2(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
@@ -143,6 +222,13 @@ namespace Audio
         }
     }
     
+	/*
+	Add a plugin to a specified track in plugin slot 3
+	@param trackNumber The track number to add the plugin to
+	@param desc The plugins desription
+	@param x The x co-ordinate of the plugins editor
+	@param y The y co-ordinate of the plugins editor
+	*/
     void Mixer::addPlugin3(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)
@@ -170,6 +256,13 @@ namespace Audio
         }
     }
     
+	/*
+	Add a plugin to a specified track in plugin slot 1
+	@param trackNumber The track number to add the plugin to
+	@param desc The plugins desription
+	@param x The x co-ordinate of the plugins editor
+	@param y The y co-ordinate of the plugins editor
+	*/
     void Mixer::addPlugin4(int trackNumber, const PluginDescription *desc, double x, double y)
     {
         if(desc != 0)

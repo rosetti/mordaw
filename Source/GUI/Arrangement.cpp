@@ -3,7 +3,7 @@
 
     Arrangement.cpp
     Created: 10 Aug 2015 10:58:25pm
-    Author:  dtl
+    Author:  Matt & Dan
 
   ==============================================================================
 */
@@ -33,7 +33,7 @@ Arrangement::~Arrangement()
 {
     removeAllChildren();
     for (auto track : _tracks) {
-        delete track.first;
+        delete track;
     }
 }
 
@@ -93,10 +93,10 @@ void Arrangement::resized()
         _timeline->setNumberOfClips(100 * (int)_pixelsPerClip + longestTrackWidth_);
     }
 
-    auto i = 0;
-	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
-        currentTrack->first->setNumberofClips(100 * _pixelsPerClip + longestTrackWidth_);
-        currentTrack->first->setBounds(0, (100 * i++) + 20, getWidth(), 100);
+	int i = 0;
+	for (auto currentTrack : _tracks) {
+        currentTrack->setNumberofClips(100 * _pixelsPerClip + longestTrackWidth_);
+        currentTrack->setBounds(0, (100 * i++) + 20, getWidth(), 100);
     }
     _zoomOutButton->setBounds(0, 0, 20, 20);
     _zoomInButton->setBounds(20, 0, 20, 20);
@@ -107,8 +107,8 @@ void Arrangement::setPixelsPerClip(int64 pixels)
     _pixelsPerClip = pixels;
     _timeline = new TimelineComponent(_engine, 100, _pixelsPerClip, _mixerOffset);
     addAndMakeVisible(_timeline);
-	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
-        currentTrack->first->setPixelsPerClip(_pixelsPerClip);
+	for (auto currentTrack : _tracks) {
+        currentTrack->setPixelsPerClip(_pixelsPerClip);
     }
     repaint();
     resized();
@@ -117,9 +117,9 @@ void Arrangement::setPixelsPerClip(int64 pixels)
 int64 Arrangement::getLongestTrackLength()
 {
 	int64 longestTrackWidth_ = 0;
-	for (auto currentTrack = _tracks.begin(), tracksEnd = _tracks.end(); currentTrack != tracksEnd; ++currentTrack)
+	for (auto currentTrack : _tracks)
 	{
-		int64 currentTrackLength_ = currentTrack->first->findTrackLength();
+		int64 currentTrackLength_ = currentTrack->findTrackLength();
 		if (currentTrackLength_ > (100 * _pixelsPerClip) + _mixerOffset)
 		{
 			if (currentTrackLength_ > longestTrackWidth_)
@@ -141,22 +141,22 @@ int64 Arrangement::getMixerOffset()
 	return _mixerOffset;
 }
 
-std::map<TrackComponent*, int*>* Arrangement::getTrackMap()
+std::vector<TrackComponent*>* Arrangement::getTrackMap()
 {
 	return &_tracks;
 }
 
 void Arrangement::addTrack(Audio::Track* track) {
     auto trackComponent = new TrackComponent(_commands, track, _tracks.size()+1, _engine, _pixelsPerClip);
-	_tracks.insert(std::pair<TrackComponent *, int*>(trackComponent, &_trackNumber));
+	_tracks.push_back(trackComponent);
 	_trackNumber++;
     addAndMakeVisible(trackComponent);
     resized();
 }
 
 void Arrangement::removeTrack(int trackNumber) {
-	for (auto currentTrack = _tracks.begin(), end = _tracks.end(); currentTrack != end; ++currentTrack) {
-		if (currentTrack->first->getTrackID() == trackNumber) {
+	for (auto currentTrack : _tracks) {
+		if (currentTrack->getTrackID() == trackNumber) {
 
 		}
 	}

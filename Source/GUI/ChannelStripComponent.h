@@ -3,7 +3,7 @@
 
     ChannelStripComponent.h
     Created: 21 Jul 2015 11:43:55am
-    Author:  dtl
+    Author:  Dan
 
   ==============================================================================
 */

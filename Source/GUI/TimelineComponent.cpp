@@ -3,7 +3,7 @@
 
     TimelineComponent.cpp
     Created: 16 Aug 2015 8:26:16pm
-    Author:  dtl
+    Author:  Dan
 
   ==============================================================================
 */

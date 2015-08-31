@@ -3,7 +3,7 @@
 
     MixerView.cpp
     Created: 10 Aug 2015 11:10:33pm
-    Author:  dtl
+    Author:  Dan
 
   ==============================================================================
 */
@@ -68,8 +68,6 @@ void MixerView::resized()
 			strip->setBounds((100 * i++) + 32, 0, 100, getHeight() / 2);
 		}
 		else if (i > 9) {
-			int test = getHeight() / 2;
-			std::cout << test;
 			strip->setBounds((100 * j++) + 32, getHeight() / 2 - 1, 100, getHeight() / 2);
 			i++;
 		}
