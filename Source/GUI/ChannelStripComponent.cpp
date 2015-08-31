@@ -69,24 +69,30 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     
     addAndMakeVisible(plugins2 = new TextButton("Plugin 2"));
     plugins2->addListener(this);
+	plugins2->setEnabled(false);
     
     addAndMakeVisible(plugins3 = new TextButton("Plugin 3"));
     plugins3->addListener(this);
-    
+	plugins3->setEnabled(false);
+
     addAndMakeVisible(plugins4 = new TextButton("Plugin 4"));
     plugins4->addListener(this);
+	plugins4->setEnabled(false);
 
 	addAndMakeVisible(plugins5 = new TextButton("Plugin 1"));
 	plugins5->addListener(this);
 
 	addAndMakeVisible(plugins6 = new TextButton("Plugin 2"));
 	plugins6->addListener(this);
+	plugins6->setEnabled(false);
 
 	addAndMakeVisible(plugins7 = new TextButton("Plugin 3"));
 	plugins7->addListener(this);
+	plugins7->setEnabled(false);
 
 	addAndMakeVisible(plugins8 = new TextButton("Plugin 4"));
 	plugins8->addListener(this);
+	plugins8->setEnabled(false);
 }
 
 ChannelStripComponent::~ChannelStripComponent()
@@ -315,36 +321,43 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         {
             _engine.getMixer()->addPlugin(_trackID, 0, true, desc, 0, 0);
             plugins1->setEnabled(false);
+			plugins2->setEnabled(true);
         }
         else if (clickedButton == plugins2)
         {
             _engine.getMixer()->addPlugin(_trackID, 1, true, desc, 0, 0);
             plugins2->setEnabled(false);
+			plugins3->setEnabled(true);
         }
         else if (clickedButton == plugins3)
         {
             _engine.getMixer()->addPlugin(_trackID, 2, true, desc, 0, 0);
             plugins3->setEnabled(false);
+			plugins4->setEnabled(true);
         }
         else if (clickedButton == plugins4)
         {
             _engine.getMixer()->addPlugin(_trackID, 3, true, desc, 0, 0);
             plugins4->setEnabled(false);
+
         }
 		else if (clickedButton == plugins5)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 4, false, desc, 0, 0);
 			plugins5->setEnabled(false);
+			plugins6->setEnabled(true);
 		}
 		else if (clickedButton == plugins6)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 5, false, desc, 0, 0);
 			plugins6->setEnabled(false);
+			plugins7->setEnabled(true);
 		}
 		else if (clickedButton == plugins7)
 		{
 			_engine.getMixer()->addPlugin(_trackID, 2, false, desc, 0, 0);
 			plugins7->setEnabled(false);
+			plugins8->setEnabled(true);
 		}
 		else if (clickedButton == plugins8)
 		{
