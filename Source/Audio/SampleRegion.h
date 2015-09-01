@@ -31,6 +31,4 @@ namespace Audio
     };
 }
 
-
-
 #endif  // SAMPLEREGION_H_INCLUDED

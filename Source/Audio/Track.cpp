@@ -154,5 +154,23 @@ namespace Audio
     bool Track::isLooping() const {
         return false;
     }
-    
 }
+
+#if JUCE_UNIT_TESTS
+
+class TrackTests  : public UnitTest
+{
+public:
+    TrackTests() : UnitTest ("Random") {}
+    
+    void runTest()
+    {
+        beginTest ("Random");
+        
+        Region* testRegion = new Audio::SampleRegion()
+    }
+};
+
+static RandomTests randomTests;
+
+#endif
