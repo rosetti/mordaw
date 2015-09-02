@@ -343,7 +343,7 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 					int64 pixelsPerClip_ = _mainWindow.Content.getArrangement()->getPixelsPerClip();
 					double sampleRate_ = _engine.getCurrentSamplerate();
 
-					if (regionPosition_ > mixerOffset_)
+					if (regionPosition_ >= mixerOffset_)
 					{
 						int64 samplesRange_ = secondsToSamples(100, sampleRate_);
 						int64 positionSamples_ = pixelsToSamples(regionPosition_ - mixerOffset_, 100 * pixelsPerClip_, samplesRange_);
