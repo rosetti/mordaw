@@ -496,3 +496,53 @@ namespace Audio
         }
     }
 }
+
+#if JUCE_UNIT_TESTS
+
+class MixerTests  : public UnitTest
+{
+public:
+    MixerTests() : UnitTest ("Mixer") {}
+    
+    void runTest()
+    {
+        beginTest ("Mixer");
+        AudioFormatManager manager;
+        manager.registerBasicFormats();
+        // add the test file to your home directory
+        File* file  = new File("~/test.wav");
+        AudioFormatReader* reader = manager.createReaderFor(*file);
+        Audio::Region* testRegion = new Audio::SampleRegion(reader, 1, file);
+        Audio::Track* testTrack = new Audio::Track();
+        Audio::Mixer* testMixer = new Audio::Mixer(2, 2, 44100.0, 512);
+        long rand = random();
+        testTrack->add(rand, testRegion);
+        testMixer->add(testTrack);
+        Audio::Track* mixerTrack = testMixer->getTrackMap()->begin()->first;
+        int numStrips = testMixer->getNumberOfStrips();
+        int numTracks = testMixer->getNumberOfTracks();
+        Audio::TrackProcessor* testTrackProcessor = testMixer->getStripMap()->begin()->first;
+        ChannelStripProcessor* testChannelProcessor = testMixer->getStripMap()->begin()->second;
+        
+        AudioProcessorGraph* testGraph = testMixer->getProcessorGraph();
+        
+        for (int j = 10; --j >= 0;)
+        {
+            for (int i = 20; --i >= 0;)
+            {
+                expect (numStrips == 1);
+                expect (numTracks == 1);
+                expect (mixerTrack == testTrack);
+                expect(testGraph->getNumNodes() >= 2 && testGraph->getNumConnections() >= 2);
+                expect(testGraph->getNumInputChannels() == 2 && testGraph->getNumOutputChannels() == 2);
+                expect (testTrackProcessor->getBlockSize() == 512 && testTrackProcessor->getSampleRate() == 44100.0);
+                expect (testChannelProcessor->getBlockSize() == 512 && testChannelProcessor->getSampleRate() == 44100.0);
+                
+            }
+        }
+    }
+};
+
+static MixerTests mixerTests;
+
+#endif
