@@ -68,6 +68,7 @@ namespace Audio
         // remove player callback
         _devices.removeAudioCallback(&_player);
 <<<<<<< HEAD
+<<<<<<< HEAD
         _devices.removeAudioCallback(&_recorder);
         // loop until lock is gained and delete commands
         for(;;)
@@ -86,6 +87,8 @@ namespace Audio
 =======
         // remove the recorder callback
         _devices.addAudioCallback(&_recorder);
+=======
+>>>>>>> parent of 70f4005... Added test classes cleaned up some leaks.
     }
     
     /*

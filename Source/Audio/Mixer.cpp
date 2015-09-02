@@ -112,7 +112,7 @@ namespace Audio
 
     Mixer::~Mixer()
     {
-        //_thread.stopThread(0);
+        _thread.stopThread(0);
         stop();
     }
 

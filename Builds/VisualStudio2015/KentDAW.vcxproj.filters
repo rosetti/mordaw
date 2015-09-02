@@ -1686,9 +1686,6 @@
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h">
       <Filter>KentDAW\Resources\Images</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Utility\UnitTest.h">
-      <Filter>KentDAW\Source\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Utility\Conversion.h">
       <Filter>KentDAW\Source\Utility</Filter>
     </ClInclude>

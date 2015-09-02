@@ -26,7 +26,6 @@
     <GROUP id="{E5F16C16-8665-4C0D-DBF9-8FAEE72BEC9A}" name="Source">
       <GROUP id="{AC48C301-63C1-C5D2-1037-036B9534752E}" name="Plugins"/>
       <GROUP id="{940EBB6C-A21C-A53D-3EEA-CD545655FD3C}" name="Utility">
-        <FILE id="LnhTy9" name="UnitTest.h" compile="1" resource="0" file="Source/Utility/UnitTest.h"/>
         <FILE id="XwjyGj" name="Conversion.h" compile="1" resource="0" file="Source/Utility/Conversion.h"/>
       </GROUP>
       <GROUP id="{B410FA2B-A76D-BD0B-59B6-9B3015C77B00}" name="Core">

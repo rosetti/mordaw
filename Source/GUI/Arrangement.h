@@ -16,7 +16,6 @@
 #include "TimelineCursor.h"
 #include "TimelineComponent.h"
 #include "../Audio/Engine.h"
-#include "UnitTest.h"
 
 //==============================================================================
 /*
@@ -54,8 +53,6 @@ private:
     ApplicationCommandManager &_commands;
     const Audio::Engine &_engine;
     Button::Listener *listener;
-    // testing
-    ScopedPointer<UnitTestClasses::UnitTestsComponent> unitTestComp;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Arrangement)
 };
 

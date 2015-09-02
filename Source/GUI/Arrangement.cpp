@@ -20,12 +20,10 @@ Arrangement::Arrangement(ApplicationCommandManager &commands, const Audio::Engin
     _zoomInButton= new TextButton("+");
     _zoomOutButton->setAlwaysOnTop(true);
     _zoomInButton->setAlwaysOnTop(true);
-    unitTestComp = new UnitTestClasses::UnitTestsComponent();
     _zoomOutButton->addListener(this);
     _zoomInButton->addListener(this);
     addAndMakeVisible(_zoomOutButton);
     addAndMakeVisible(_zoomInButton);
-    addAndMakeVisible(unitTestComp);
     //addAndMakeVisible(_timeline);
     setPixelsPerClip(30);
 	_trackNumber = 1;
@@ -102,7 +100,6 @@ void Arrangement::resized()
     }
     _zoomOutButton->setBounds(0, 0, 20, 20);
     _zoomInButton->setBounds(20, 0, 20, 20);
-    unitTestComp->setBounds(0, 0, getWidth(), getHeight());
 }
 
 void Arrangement::setPixelsPerClip(int64 pixels)

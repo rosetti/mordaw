@@ -39,11 +39,14 @@ public:
 
     void shutdown() override
     {
+<<<<<<< HEAD
         delete _mainWindow;
 <<<<<<< HEAD
 =======
         _commandsManager.clearCommands();
 >>>>>>> master
+=======
+>>>>>>> parent of 70f4005... Added test classes cleaned up some leaks.
     }
 
     void registerCommands()
@@ -109,7 +112,7 @@ public:
 
 private:
     ScopedPointer<ProjectManager> _projectManager;
-    MainWindow* _mainWindow;
+    ScopedPointer<MainWindow> _mainWindow;
     Audio::Engine _engine;
     ApplicationCommandManager _commandsManager;
 
