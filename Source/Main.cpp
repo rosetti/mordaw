@@ -39,6 +39,7 @@ public:
 
     void shutdown() override
     {
+        delete _mainWindow;
     }
 
     void registerCommands()
