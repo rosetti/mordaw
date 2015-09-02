@@ -46,7 +46,7 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     panPot->setColour(Slider::rotarySliderFillColourId, Colour(0x7fffff));
     panPot->setColour(Slider::rotarySliderOutlineColourId, Colour(0x8cffff));
     panPot->setValue(0.5f);
-	_engine.getMixer()->changePan(ChannelStripProcessor::GAIN, static_cast<float>(panPot->getValue()));
+	_engine.getMixer()->changePan(ChannelStripProcessor::PAN, static_cast<float>(panPot->getValue()));
     panPot->addListener(this);
     
     addAndMakeVisible(muteButton = new ToggleButton("Mute"));

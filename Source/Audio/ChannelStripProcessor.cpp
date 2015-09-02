@@ -232,8 +232,10 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 	if (!_muted)
 	{
 		//Apply the gain value to the left channel relative to the panning value
+		//buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(0));
 		buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(1.0f - _panning));
 		//Apply the gain value to the right channel relative to the panning value
+		//buffer.applyGain(1, 0, buffer.getNumSamples(), 0);
 		buffer.applyGain(1, 0, buffer.getNumSamples(), _gain*_panning);
 	}
 	//Check to see if the track is muted
@@ -242,7 +244,6 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 		//Apply a gain value of 0 to the track
 		buffer.applyGain(_muteGain);
 	}
-
 	for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
 		buffer.clear(i, 0, buffer.getNumSamples());
 }
