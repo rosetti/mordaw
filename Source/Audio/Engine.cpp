@@ -4,7 +4,7 @@
     Engine.cpp
     Created: 1 Aug 2015 4:24:58pm
     Author:	Dan
-			Thomas (Refactored)
+			Thomas (Refactored + Command Manger)
 
   ==============================================================================
 */
@@ -15,28 +15,46 @@
 
 namespace Audio
 {
+    /*
+     Constructs an engine object
+     @param numInputChannels The number of input channels required
+     */
     Engine::Engine(ApplicationCommandManager *commands) : _commands(commands),
 	_formats(), _recordedFiles(0)
 	{
-
+        // pointer for current device
         AudioIODevice* current;
 
+        // register basic file formats
         _formats.registerBasicFormats();
+        // initialise devices with stereo input and output
         _devices.initialiseWithDefaultDevices(2, 2);
         
+        // set current device pointer to the current device
         current = _devices.getCurrentAudioDevice();
 
+        // create a mixer object with stereo input and output and the devices current sample rate and buffer size
         _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
+        // set the processor player to the mixer graph
         _player.setProcessor(_mixer->getProcessorGraph());
+        // add the mixer graph callback
         _devices.addAudioCallback(&_player);
+        // add the recorder callback (only partially implemented)
         _devices.addAudioCallback(&_recorder);
     }
 
     Engine::~Engine() {
+        // stop the mixer
         _mixer->stop();
+        // remove player callback
         _devices.removeAudioCallback(&_player);
+        // remove the recorder callback
+        _devices.addAudioCallback(&_recorder);
     }
     
+    /*
+     Gets the command info for a particular commandID 
+     */
     void Engine::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
         const String audio("Audio");
         int flags;
@@ -79,6 +97,9 @@ namespace Audio
         }
     }
 
+    /*
+     Gets an array of all the commands.
+     */
     void Engine::getAllCommands(Array<CommandID>& commands) const {
         const CommandID ids[] = {
             start,
@@ -92,21 +113,25 @@ namespace Audio
         commands.addArray(ids, numElementsInArray(ids));
     }
 
+    /*
+     Perform the command
+     */
     bool Engine::perform(const ApplicationCommandTarget::InvocationInfo& info) {
         switch (info.commandID) {
         case start:
-            // @todo replace 0 with timeline position
+            // start playing at position 0
             _mixer->startPlayingAt(0);
             break;
         case pause:
             // Pause the mixer
             break;
         case stop:
+            // stop playing
             _mixer->stop();
-            //_mixer->resetOutput();
             break;
 
         case rewind:
+            // trigger stop to set the position to 0, if is playing start playing again from 0
             if (_mixer->isPlaying()) {
                 _mixer->stop();
                 _mixer->startPlayingAt(0);
@@ -116,17 +141,22 @@ namespace Audio
             break;
 
         case forward:
+            // set the position to end of track
             _mixer->stop();
             _mixer->goToTheEnd();
 
             break;
         case record:
+            // records the microphone input to file, currently not integrated with UI regions
             const File file (File::getSpecialLocation (File::userDocumentsDirectory)
                                  .getNonexistentChildFile ("recording" + (String) _recordedFiles, ".wav"));
+            // if not recording stary recording
             if(!_recorder.isRecording())
             {
+                // record the microphone to a file
                 _recorder.startRecording(file);
             }
+            // if record command is called again stop recording and add file name to the file names array
             else if (_recorder.isRecording())
             {
                 _recorder.stop();
@@ -135,29 +165,40 @@ namespace Audio
             }
             break;
         }
-
+        // refresh components
         _commands->invokeDirectly(MainWindow::refreshComponents, true);
 
         return true;
     }
     
+    /*
+     Get the current device sample rate
+     */
     double Engine::getCurrentSamplerate() const
     {
         AudioIODevice*  current = _devices.getCurrentAudioDevice();
         return current->getCurrentSampleRate();
     }
     
-    // seemingly useless
+    /*
+    Get the total length of the project
+     */
     int64 Engine::getTotalLength() const
     {
         return _totalLength;
     }
     
+    /*
+     Get the recorded file name array
+     */
     StringArray Engine::getRecordedFileNames() const
     {
         return _recordedFileNames;
     }
 
+    /*
+     Return the mixer object
+     */
     Mixer* Engine::getMixer() const {
         return _mixer;
     }
