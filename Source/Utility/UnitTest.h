@@ -104,7 +104,7 @@ struct UnitTestClasses
             
             startTestButton.addListener (this);
             
-            logMessage ("Test Units.");
+            logMessage ("Click the button to begin unit tests.");
         }
         
         ~UnitTestsComponent()

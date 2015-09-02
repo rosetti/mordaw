@@ -168,3 +168,4 @@ void Arrangement::removeTrack(int trackNumber) {
 void Arrangement::addRegionToTrack(int) {
 
 }
+

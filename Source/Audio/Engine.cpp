@@ -170,23 +170,34 @@ namespace Audio
         return true;
     }
     
+    /*
+     Get the current sample rate.
+     */
     double Engine::getCurrentSamplerate() const
     {
         AudioIODevice*  current = _devices.getCurrentAudioDevice();
         return current->getCurrentSampleRate();
     }
     
-    // seemingly useless
+    /*
+     Get the total length of project in samples.
+     */
     int64 Engine::getTotalLength() const
     {
         return _totalLength;
     }
     
+    /*
+     Get the recorded file names to add as a region.
+     */
     StringArray Engine::getRecordedFileNames() const
     {
         return _recordedFileNames;
     }
 
+    /*
+     Return the mixer graph.
+     */
     Mixer* Engine::getMixer() const {
         return _mixer;
     }
