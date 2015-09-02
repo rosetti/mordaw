@@ -194,11 +194,11 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
 {
     if(movedSlider == volumeSlider)
     {
-        _engine.getMixer()->changeGain(1, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changeGain(_trackID, static_cast<float>(movedSlider->getValue()));
     }
     if(movedSlider == panPot)
     {
-        _engine.getMixer()->changePan(1, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changePan(_trackID, static_cast<float>(movedSlider->getValue()));
 		
     }
 }
