@@ -53,12 +53,14 @@ void ProjectManager::createBasicProjectFramework(const String& projectName)
 	//Set the user projects filepath (currently unsaved)
 	projectSettings->setAttribute("Project_File_Path", "Unsaved");
 	//Add MasterStrip to Project Settings
+	//Add the project settings to the main projectElements XML element
+	projectElements->addChildElement(projectSettings);
 	XmlElement* masterStrip = new XmlElement("Master_Strip");
 	projectElements
 		->getChildByName("Settings")
 		->addChildElement(masterStrip);
-	//Add the project settings to the main projectElements XML element
-	projectElements->addChildElement(projectSettings);
+
+	
 
 	//Create the framework for saving project tracks
 	XmlElement* projectTracks = new XmlElement("Tracks");
@@ -77,6 +79,18 @@ void ProjectManager::saveCurrentProject(File savedFile)
 	savedFile.deleteFile();
 	_projectFile = savedFile;
 	createBasicProjectFramework(savedFile.getFileName());
+	//Get the File path where the project will be saved
+	String stringFile = _projectFile.getFullPathName();
+	//Set the project file path
+	projectElements
+		->getChildByName("Settings")
+		->setAttribute("Project_File_Path", stringFile);
+	//Get the File name to be used as the project name
+	String projectName = _projectFile.getFileNameWithoutExtension();
+	//Set the project name
+	projectElements
+		->getChildByName("Settings")
+		->setAttribute("Project_Name", projectName);
 
 	//Retrieve Master Strip
 	ChannelStripProcessor* masterStrip_ = _engine.getMixer()->getMasterStrip();
@@ -205,18 +219,6 @@ void ProjectManager::saveCurrentProjectAs()
 	{
 		//Get the file and location that the user chose
 		_projectFile = _saveChooser.getResult();
-		//Get the File path where the project will be saved
-		String stringFile = _projectFile.getFullPathName();
-		//Set the project file path
-		projectElements
-			->getChildByName("Settings")
-			->setAttribute("Project_File_Path", stringFile);
-		//Get the File name to be used as the project name
-		String projectName = _projectFile.getFileNameWithoutExtension();
-		//Set the project name
-		projectElements
-			->getChildByName("Settings")
-			->setAttribute("Project_Name", projectName);
 
 		bool overwrite = true;
 		//If the file exists; ask the user if they wish to overwrite it

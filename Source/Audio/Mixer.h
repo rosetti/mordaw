@@ -86,7 +86,7 @@ namespace Audio
         
         /* Mixer plugin functions */
         // add mixer plugins
-		void addPlugin(int trackNumber, int pluginNumber, bool preFade, const PluginDescription *desc, double x, double y);
+		void addPlugin(int trackNumber, int pluginNumber, const PluginDescription *desc, double x, double y);
         
         /* Other plugin functions */
         // adds a single plugin post fader
