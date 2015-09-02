@@ -10,6 +10,8 @@
 
 #include "ChannelStripProcessor.h"
 #include "../Utility/Conversion.h"
+#define DBG(dbgtext)              MACRO_WITH_FORCED_SEMICOLON (juce::String tempDbgBuf; tempDbgBuf << dbgtext; juce::Logger::outputDebugString (tempDbgBuf);)
+
 
 //==============================================================================
 
@@ -233,6 +235,8 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 	{
 		//Apply the gain value to the left channel relative to the panning value
 		//buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(0));
+		float leftGain_ = _gain *(1.0f - _panning);
+		float rightGain_ = _gain *(1.0f - _panning);
 		buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(1.0f - _panning));
 		//Apply the gain value to the right channel relative to the panning value
 		//buffer.applyGain(1, 0, buffer.getNumSamples(), 0);

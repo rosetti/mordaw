@@ -40,9 +40,9 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     volumeSlider->addListener(this);
     
     addAndMakeVisible(panPot = new Slider(trackLabel + " p"));
-    panPot->setRange(0.0f, 1.0f);
-    panPot->setSliderStyle(Slider::RotaryVerticalDrag);
-    panPot->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
+	panPot->setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
+	panPot->setRange(0.0f, 1.0f);
+        panPot->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     panPot->setColour(Slider::rotarySliderFillColourId, Colour(0x7fffff));
     panPot->setColour(Slider::rotarySliderOutlineColourId, Colour(0x8cffff));
     panPot->setValue(0.5f);
@@ -194,11 +194,11 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
 {
     if(movedSlider == volumeSlider)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changeGain(1, static_cast<float>(movedSlider->getValue()));
     }
-    else if(movedSlider == panPot)
+    if(movedSlider == panPot)
     {
-        _engine.getMixer()->changePan(ChannelStripProcessor::PAN, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changePan(1, static_cast<float>(movedSlider->getValue()));
 		
     }
 }
