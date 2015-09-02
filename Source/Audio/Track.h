@@ -13,6 +13,7 @@
 
 #include <map>
 #include "Region.h"
+#include "SampleRegion.h"
 
 namespace Audio
 {

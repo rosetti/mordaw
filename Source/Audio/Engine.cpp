@@ -13,29 +13,42 @@
 #include "SampleRegion.h"
 #include "../GUI/MainWindow.h"
 
+
 namespace Audio
 {
+    /*
+     Constructs an engine object
+     @param numInputChannels A pointer to an instance of command manager.
+     */
     Engine::Engine(ApplicationCommandManager *commands) : _commands(commands),
 	_formats(), _recordedFiles(0)
 	{
 
         AudioIODevice* current;
 
+        // register basic file formats
         _formats.registerBasicFormats();
+        // initialise the device to a 2 input, 2 output configuration
         _devices.initialiseWithDefaultDevices(2, 2);
         
         current = _devices.getCurrentAudioDevice();
 
+        // create a new mixer object with the current device settings
         _mixer = new Mixer(2, 2, current->getCurrentSampleRate(), current->getCurrentBufferSizeSamples());
+        
+        // set the processor player to the mixers graph
         _player.setProcessor(_mixer->getProcessorGraph());
+        // add device callbacks
         _devices.addAudioCallback(&_player);
         _devices.addAudioCallback(&_recorder);
     }
 
+    // destructor
     Engine::~Engine() {
         _mixer->stop();
         _devices.removeAudioCallback(&_player);
         _devices.removeAudioCallback(&_recorder);
+        // loop until lock is gained and delete commands
         for(;;)
         {
             MessageManagerLock mm;
@@ -47,6 +60,9 @@ namespace Audio
         }
     }
     
+    /*
+     Gets the command info for a specified commandID
+     */
     void Engine::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) const {
         const String audio("Audio");
         int flags;
@@ -89,6 +105,9 @@ namespace Audio
         }
     }
 
+   	/*
+     Adds all the command ids to the commands array
+     */
     void Engine::getAllCommands(Array<CommandID>& commands) const {
         const CommandID ids[] = {
             start,

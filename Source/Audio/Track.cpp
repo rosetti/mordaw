@@ -161,16 +161,32 @@ namespace Audio
 class TrackTests  : public UnitTest
 {
 public:
-    TrackTests() : UnitTest ("Random") {}
+    TrackTests() : UnitTest ("Track") {}
     
     void runTest()
     {
-        beginTest ("Random");
-        
-        Region* testRegion = new Audio::SampleRegion()
+        beginTest ("Track");
+        AudioFormatManager manager;
+        manager.registerBasicFormats();
+        // add the test file to your home directory
+        File* file  = new File("~/test.wav");
+        AudioFormatReader* reader = manager.createReaderFor(*file);
+        Audio::Region* testRegion = new Audio::SampleRegion(reader, 1, file);
+        Audio::Track* testTrack = new Audio::Track();
+        long rand = random();
+        testTrack->add(rand, testRegion);
+        for (int j = 10; --j >= 0;)
+        {
+            for (int i = 20; --i >= 0;)
+            {
+                expect (testTrack->getTotalLength() == (rand + testRegion->getTotalLength()));
+                expect (testRegion->getBaseSampleRate() == (reader->sampleRate));
+                expect(reader->bitsPerSample > 0);
+            }
+        }
     }
 };
 
-static RandomTests randomTests;
+static TrackTests trackTests;
 
 #endif

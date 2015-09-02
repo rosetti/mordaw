@@ -12,10 +12,10 @@
 #define UNITTEST_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Audio/Track.h"
 
 struct UnitTestClasses
 {
-    class RegionTest;
     class UnitTestsComponent;
     class TestRunnerThread;
     
@@ -81,6 +81,7 @@ struct UnitTestClasses
         
     private:
         UnitTestsComponent& owner;
+        const Array<UnitTest*> _tests;
         
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TestRunnerThread);
     };
@@ -103,8 +104,7 @@ struct UnitTestClasses
             
             startTestButton.addListener (this);
             
-            logMessage ("This panel runs all the built-in JUCE unit-tests.\n");
-            logMessage ("To add your own unit-tests, see the JUCE_UNIT_TESTS macro.");
+            logMessage ("Test Units.");
         }
         
         ~UnitTestsComponent()
