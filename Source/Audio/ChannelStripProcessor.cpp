@@ -10,6 +10,8 @@
 
 #include "ChannelStripProcessor.h"
 #include "../Utility/Conversion.h"
+#define DBG(dbgtext)              MACRO_WITH_FORCED_SEMICOLON (juce::String tempDbgBuf; tempDbgBuf << dbgtext; juce::Logger::outputDebugString (tempDbgBuf);)
+
 
 //==============================================================================
 
@@ -83,6 +85,15 @@ void ChannelStripProcessor::setMuteParameter()
 		_muted = false;
 	else
 		_muted = true;
+}
+
+/*
+Gets the current mute setting
+@return The current mute state
+*/
+bool ChannelStripProcessor::getMuteParameter()
+{
+	return _muted;
 }
 
 /*
@@ -223,8 +234,12 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 	if (!_muted)
 	{
 		//Apply the gain value to the left channel relative to the panning value
+		//buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(0));
+		float leftGain_ = _gain *(1.0f - _panning);
+		float rightGain_ = _gain *(1.0f - _panning);
 		buffer.applyGain(0, 0, buffer.getNumSamples(), _gain*(1.0f - _panning));
 		//Apply the gain value to the right channel relative to the panning value
+		//buffer.applyGain(1, 0, buffer.getNumSamples(), 0);
 		buffer.applyGain(1, 0, buffer.getNumSamples(), _gain*_panning);
 	}
 	//Check to see if the track is muted
@@ -233,7 +248,6 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 		//Apply a gain value of 0 to the track
 		buffer.applyGain(_muteGain);
 	}
-
 	for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
 		buffer.clear(i, 0, buffer.getNumSamples());
 }

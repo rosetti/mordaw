@@ -36,6 +36,7 @@ TransportControls::~TransportControls()
     deleteAllChildren();
 }
 
+// draw the buttons
 void TransportControls::drawButtons()
 {
     _startButton = new ImageButton("Start");
@@ -70,22 +71,26 @@ void TransportControls::setButtonImages()
     _stopButton->setImages(false, true, true, _image, 0.5f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 1.0f, Colours::transparentWhite);
 }
 
+// stop timer
 void TransportControls::start()
 {
     startTimer((int)timerAmount);
 }
 
+// start timer
 void TransportControls::stop()
 {
     stopTimer();
 }
 
+// reset the timecode
 void TransportControls::resetTimecode(double sampleRate)
 {
     _milliseconds = 0;
     _currentTimeCode = samplesToTimeCode(0, sampleRate);
 }
 
+// add listeners to buttons
 void TransportControls::addListeners()
 {
     _startButton->addListener(this);
@@ -105,6 +110,7 @@ void TransportControls::removeListener(TransportControls::Listener *listener)
     listenerList.remove(listener);
 }
 
+// button listeners
 void TransportControls::buttonClicked(Button* button)
 {
      if(button == _recordButton)
@@ -166,6 +172,7 @@ void TransportControls::buttonClicked(Button* button)
     }
 }
 
+// update the transport button images on refresh
 void TransportControls::refresh() {
     auto isPlaying = _engine.getMixer()->isPlaying();
 
@@ -183,16 +190,19 @@ void TransportControls::refresh() {
     stop();
 }
 
+// set the timecode position
 void TransportControls::setTimeCodePosition(int64 position)
 {
     _currentTimeCode = samplesToTimeCode(position, _engine.getCurrentSamplerate());
 }
 
+// set total length of timer
 void TransportControls::setTotalLength(int64 samples)
 {
     _totalLength = samples;
 }
 
+// timer callback for timecode display
 void TransportControls::timerCallback()
 {
     if(millisecondsToSamples(_milliseconds, _engine.getCurrentSamplerate()) < _totalLength)
@@ -205,6 +215,7 @@ void TransportControls::timerCallback()
     _totalLength = _engine.getMixer()->getLongestTrack();
 }
 
+// paint the component
 void TransportControls::paint (Graphics& g)
 {
     g.fillAll (Colours::white);   // clear the background
@@ -229,6 +240,7 @@ void TransportControls::paint (Graphics& g)
                     Justification::centred, true);
 }
 
+// reset the bounds on resized
 void TransportControls::resized()
 {
     _rewindButton->setBounds(0, 0, 50, 50);

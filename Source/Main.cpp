@@ -40,6 +40,10 @@ public:
     void shutdown() override
     {
         delete _mainWindow;
+<<<<<<< HEAD
+=======
+        _commandsManager.clearCommands();
+>>>>>>> master
     }
 
     void registerCommands()

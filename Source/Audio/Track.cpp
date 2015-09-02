@@ -14,9 +14,15 @@
 
 namespace Audio
 {
+    /*
+     Constructs an track object with a total length of 0.
+     */
     Track::Track() : _totalLength(0) {
     }
 
+    /*
+     Delete all regions
+     */
     Track::~Track() {
         for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
             delete _resampled.at(region->second);
@@ -24,6 +30,9 @@ namespace Audio
         }
     }
 
+    /*
+     Add a region to the track.
+     */
     void Track::add(int64 position, Region* region) {
         auto resampled = new ResamplingAudioSource(region, false, 2);
 
@@ -35,10 +44,16 @@ namespace Audio
         }
     }
 
+    /*
+     Find the region at the current position in samples.
+     */
     Region* Track::findCurrentRegion() const {
         return findRegionAt(_currentPosition);
     }
 
+    /*
+     Find the region at a particular position.
+     */
     Region* Track::findRegionAt(int64 position) const {
         for (auto region = _regions.begin(), end = _regions.end(); region != end; ++region) {
             if (region->second->overlaps(position, region->first)) {
@@ -49,10 +64,16 @@ namespace Audio
         return nullptr;
     }
 
+    /*
+     Get the regions map.
+     */
     const std::map<int64, Region *> &Track::getRegions() const {
         return _regions;
     }
 
+    /*
+     Move a region to a particular position in samples.
+     */
     bool Track::move(Region *region, int64 position) {
         if (position + region->getTotalLength() >= _totalLength) {
             _totalLength = position + region->getTotalLength();
@@ -75,6 +96,9 @@ namespace Audio
         throw std::range_error("The region has not been found in the track.");
     }
     
+    /*
+     Remove a region which contains a particular position in samples.
+     */
     bool Track::remove(Region *region, int64 position)
     {
         for (auto current = _regions.begin(), end = _regions.end(); current != end; ++region) {
@@ -94,6 +118,9 @@ namespace Audio
 		return false;
     }
 
+    /*
+     Prepare the track to play (inherited from AudioSource)
+     */
     void Track::prepareToPlay(int samplesPerBlockExpected, double sampleRate) {
         _samples = samplesPerBlockExpected;
         _rate = sampleRate;
@@ -107,9 +134,15 @@ namespace Audio
         }
     }
 
+    /*
+     Inherite from AudioSource
+     */
     void Track::releaseResources() {
     }
 
+    /*
+     Process the next audio block (inherited from AudioSource)
+     */
     void Track::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) {
         Region* region = findCurrentRegion();
 
@@ -122,6 +155,9 @@ namespace Audio
         _currentPosition += bufferToFill.numSamples;
     }
 
+    /*
+     Set the next region position in samples (inherited from AudioSource).
+     */
     void Track::setNextReadPosition(int64 newPosition) {
         bool found = false;
 
@@ -138,19 +174,31 @@ namespace Audio
         _currentPosition = newPosition;
     }
 
+    /*
+     Get the next read position.
+     */
     int64 Track::getNextReadPosition() const {
         return _currentPosition;
     }
     
+    /*
+     Set the total length in samples.
+     */
     void Track::setTotalLength(int64 length)
     {
         _totalLength = length;
     }
 
+    /*
+     Get the total length in samples.
+     */
     int64 Track::getTotalLength() const {
         return _totalLength;
     }
 
+    /*
+     Set if the track is looping, currently always false.
+     */
     bool Track::isLooping() const {
         return false;
     }

@@ -154,7 +154,7 @@ namespace Audio
         _nextNodeID += 1;
     }
     
-	void Mixer::addPlugin(int trackNumber, int pluginNumber, bool preFade, const PluginDescription *desc, double x, double y)
+	void Mixer::addPlugin(int trackNumber, int pluginNumber, const PluginDescription *desc, double x, double y)
 	{
 		if (desc != 0)
 		{
@@ -476,6 +476,11 @@ namespace Audio
 	std::map<TrackProcessor*, ChannelStripProcessor*>* Mixer::getStripMap()
 	{
 		return &_strips;
+	}
+
+	ChannelStripProcessor* Mixer::getMasterStrip()
+	{
+		return _masterStrip;
 	}
 
     bool Mixer::isPlaying() const {

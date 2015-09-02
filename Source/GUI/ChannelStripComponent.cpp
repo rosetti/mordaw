@@ -40,13 +40,13 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     volumeSlider->addListener(this);
     
     addAndMakeVisible(panPot = new Slider(trackLabel + " p"));
-    panPot->setRange(0.0f, 1.0f);
-    panPot->setSliderStyle(Slider::RotaryVerticalDrag);
-    panPot->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
+	panPot->setSliderStyle(Slider::SliderStyle::RotaryVerticalDrag);
+	panPot->setRange(0.0f, 1.0f);
+        panPot->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     panPot->setColour(Slider::rotarySliderFillColourId, Colour(0x7fffff));
     panPot->setColour(Slider::rotarySliderOutlineColourId, Colour(0x8cffff));
     panPot->setValue(0.5f);
-	_engine.getMixer()->changePan(ChannelStripProcessor::GAIN, static_cast<float>(panPot->getValue()));
+	_engine.getMixer()->changePan(ChannelStripProcessor::PAN, static_cast<float>(panPot->getValue()));
     panPot->addListener(this);
     
     addAndMakeVisible(muteButton = new ToggleButton("Mute"));
@@ -164,26 +164,16 @@ void ChannelStripComponent::resized()
 
 	int buttonSize = 16;
 	int buttonsOffset = (getHeight() - volumeHeight - panSize - labelHeight) - 5;
-
+	
+	_pluginsButton->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
 	muteButton->setBounds(0, buttonsOffset - buttonSize * 3, getWidth(), buttonSize);
 
 	if (_trackID != 0)
-	{
 		soloButton->setBounds(0, buttonsOffset - buttonSize * 2, getWidth(), buttonSize);
-	}
 
     panPot->setBounds((getWidth() - panSize) / 2, (getHeight() - volumeHeight - panSize - labelHeight), panSize, panSize);
-    
-    volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight - 3), volumeWidth, volumeHeight);
-    
+    volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight - 3), volumeWidth, volumeHeight);  
     label->setBounds(0, getHeight() - labelHeight - 3, getWidth(), labelHeight);
-    
-	_pluginsButton->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
-    //plugins1->setBounds(5, buttonsOffset - buttonSize * 8, getWidth() - 10, buttonSize);
-    //plugins2->setBounds(5, buttonsOffset - buttonSize * 7, getWidth() -10, buttonSize);
-    //plugins3->setBounds(5, buttonsOffset - buttonSize * 6, getWidth() - 10, buttonSize);
-    //plugins4->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
-
 }
 
 void ChannelStripComponent::mouseDown(const MouseEvent &) {
@@ -204,11 +194,11 @@ void ChannelStripComponent::sliderValueChanged(Slider* movedSlider)
 {
     if(movedSlider == volumeSlider)
     {
-        _engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changeGain(_trackID, static_cast<float>(movedSlider->getValue()));
     }
-    else if(movedSlider == panPot)
+    if(movedSlider == panPot)
     {
-        _engine.getMixer()->changePan(ChannelStripProcessor::PAN, static_cast<float>(movedSlider->getValue()));
+        _engine.getMixer()->changePan(_trackID, static_cast<float>(movedSlider->getValue()));
 		
     }
 }
@@ -319,49 +309,49 @@ void ChannelStripComponent::buttonClicked(Button* clickedButton)
         
 		if(clickedButton == plugins1)
         {
-            _engine.getMixer()->addPlugin(_trackID, 0, true, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 0, desc, 0, 0);
             plugins1->setEnabled(false);
 			plugins2->setEnabled(true);
         }
         else if (clickedButton == plugins2)
         {
-            _engine.getMixer()->addPlugin(_trackID, 1, true, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 1, desc, 0, 0);
             plugins2->setEnabled(false);
 			plugins3->setEnabled(true);
         }
         else if (clickedButton == plugins3)
         {
-            _engine.getMixer()->addPlugin(_trackID, 2, true, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 2, desc, 0, 0);
             plugins3->setEnabled(false);
 			plugins4->setEnabled(true);
         }
         else if (clickedButton == plugins4)
         {
-            _engine.getMixer()->addPlugin(_trackID, 3, true, desc, 0, 0);
+            _engine.getMixer()->addPlugin(_trackID, 3, desc, 0, 0);
             plugins4->setEnabled(false);
 
         }
 		else if (clickedButton == plugins5)
 		{
-			_engine.getMixer()->addPlugin(_trackID, 4, false, desc, 0, 0);
+			_engine.getMixer()->addPlugin(_trackID, 4, desc, 0, 0);
 			plugins5->setEnabled(false);
 			plugins6->setEnabled(true);
 		}
 		else if (clickedButton == plugins6)
 		{
-			_engine.getMixer()->addPlugin(_trackID, 5, false, desc, 0, 0);
+			_engine.getMixer()->addPlugin(_trackID, 5, desc, 0, 0);
 			plugins6->setEnabled(false);
 			plugins7->setEnabled(true);
 		}
 		else if (clickedButton == plugins7)
 		{
-			_engine.getMixer()->addPlugin(_trackID, 2, false, desc, 0, 0);
+			_engine.getMixer()->addPlugin(_trackID, 2, desc, 0, 0);
 			plugins7->setEnabled(false);
 			plugins8->setEnabled(true);
 		}
 		else if (clickedButton == plugins8)
 		{
-			_engine.getMixer()->addPlugin(_trackID, 3, false, desc, 0, 0);
+			_engine.getMixer()->addPlugin(_trackID, 3, desc, 0, 0);
 			plugins8->setEnabled(false);
 		}
     }

@@ -52,8 +52,15 @@ void ProjectManager::createBasicProjectFramework(const String& projectName)
 	projectSettings->setAttribute("Project_Name", projectName);
 	//Set the user projects filepath (currently unsaved)
 	projectSettings->setAttribute("Project_File_Path", "Unsaved");
+	//Add MasterStrip to Project Settings
 	//Add the project settings to the main projectElements XML element
 	projectElements->addChildElement(projectSettings);
+	XmlElement* masterStrip = new XmlElement("Master_Strip");
+	projectElements
+		->getChildByName("Settings")
+		->addChildElement(masterStrip);
+
+	
 
 	//Create the framework for saving project tracks
 	XmlElement* projectTracks = new XmlElement("Tracks");
@@ -69,7 +76,47 @@ Saves the current project
 */
 void ProjectManager::saveCurrentProject(File savedFile)
 {
+	savedFile.deleteFile();
 	_projectFile = savedFile;
+	createBasicProjectFramework(savedFile.getFileName());
+	//Get the File path where the project will be saved
+	String stringFile = _projectFile.getFullPathName();
+	//Set the project file path
+	projectElements
+		->getChildByName("Settings")
+		->setAttribute("Project_File_Path", stringFile);
+	//Get the File name to be used as the project name
+	String projectName = _projectFile.getFileNameWithoutExtension();
+	//Set the project name
+	projectElements
+		->getChildByName("Settings")
+		->setAttribute("Project_Name", projectName);
+
+	//Retrieve Master Strip
+	ChannelStripProcessor* masterStrip_ = _engine.getMixer()->getMasterStrip();
+	
+	//Retrieve MasterStrip Volume Setting
+	float masterVolume_ = masterStrip_->getParameter(1);
+	//Store Volume Setting
+	projectElements
+		->getChildByName("Settings")
+		->getChildByName("Master_Strip")
+		->setAttribute("Gain", (double)masterVolume_);
+	//Retrieve MasterStrip Panning Setting
+	float masterPanning_ = masterStrip_->getParameter(2);
+	//Store Panning Setting
+	projectElements
+		->getChildByName("Settings")
+		->getChildByName("Master_Strip")
+		->setAttribute("Panning", (double)masterPanning_);
+	//Retrieve Mute Setting
+	bool masterMute_ = masterStrip_->getMuteParameter();
+	//Store the Mute Setting
+	projectElements
+		->getChildByName("Settings")
+		->getChildByName("Master_Strip")
+		->setAttribute("Mute", masterMute_);
+
 	//Retrieve a map of all the tracks
 	std::vector<TrackComponent*>* tracks_ = _mainWindow.Content.getArrangement()->getTrackMap();
 	//Create XML elements for each track
@@ -172,18 +219,6 @@ void ProjectManager::saveCurrentProjectAs()
 	{
 		//Get the file and location that the user chose
 		_projectFile = _saveChooser.getResult();
-		//Get the File path where the project will be saved
-		String stringFile = _projectFile.getFullPathName();
-		//Set the project file path
-		projectElements
-			->getChildByName("Settings")
-			->setAttribute("Project_File_Path", stringFile);
-		//Get the File name to be used as the project name
-		String projectName = _projectFile.getFileNameWithoutExtension();
-		//Set the project name
-		projectElements
-			->getChildByName("Settings")
-			->setAttribute("Project_Name", projectName);
 
 		bool overwrite = true;
 		//If the file exists; ask the user if they wish to overwrite it
@@ -251,75 +286,81 @@ void ProjectManager::addRegionGUIs(std::vector<Track*> audioTracks_)
 {
 	std::vector<TrackComponent*>* trackComponents_ = _mainWindow.Content.getArrangement()->getTrackMap();
 	
-	//Create XML elements for each track
-	int trackNumber_ = 1;
-	for (auto currentTrack : *trackComponents_)
+	int numberOfTracks_ = projectElements
+		->getChildByName("Tracks")
+		->getNumChildElements();
+	if (numberOfTracks_ > 0)
 	{
-		//Find out the number of regions the loaded track has
-		String trackName_ = "Track_" + (String)trackNumber_;
-		int numberOfRegions_ = projectElements
-			->getChildByName("Tracks")
-			->getChildByName(trackName_)
-			->getNumChildElements();
-		if (numberOfRegions_ > 0)
+		//Create XML elements for each track
+		int trackNumber_ = 1;
+		while (trackNumber_ <= numberOfTracks_)
 		{
-			int currentRegion_ = 1;
-			//Loop through and add the regions
-			while (currentRegion_ <= numberOfRegions_)
+			//Find out the number of regions the loaded track has
+			String trackName_ = "Track_" + (String)trackNumber_;
+			int numberOfRegions_ = projectElements
+				->getChildByName("Tracks")
+				->getChildByName(trackName_)
+				->getNumChildElements();
+			if (numberOfRegions_ > 0)
 			{
-				String regionName_ = "Region_" + (String)currentRegion_;
-				//Retrieve the file path associated with the region
-				String fileString_ = projectElements
-					->getChildByName("Tracks")
-					->getChildByName(trackName_)
-					->getChildByName(regionName_)
-					->getStringAttribute("File_Path");
-				//Check that the file is in the correct format
-				String format_;
-				if (fileString_.contains(".wav") || fileString_.contains(".WAV"))
-					format_ = "WAV";
-				else if (fileString_.contains(".aif") || fileString_.contains(".aiff") || fileString_.contains(".AIF") || fileString_.contains(".AIFF"))
-					format_ = "AIFF";
-				else if (fileString_.contains(".flac") || fileString_.contains(".FLAC"))
-					format_ = "FLAC";
-				File currentRegionFile_(fileString_);
-
-				//Create a format manager and register basic formats (WAV, AIF(F), Flac)
-				AudioFormatManager formatManager_;
-				formatManager_.registerBasicFormats();
-
-				//Create a reader for the Region file
-				AudioFormatReader* reader_ = formatManager_.createReaderFor(currentRegionFile_);
-				//Create the necessary region
-				Audio::Region* region = new Audio::SampleRegion(reader_, 1, &currentRegionFile_);
-
-				//Retrieve the regions position
-				int regionPosition_ = projectElements
-					->getChildByName("Tracks")
-					->getChildByName(trackName_)
-					->getChildByName(regionName_)
-					->getIntAttribute("Region_Position");
-				int64 mixerOffset_ = _mainWindow.Content.getArrangement()->getMixerOffset();
-				int64 pixelsPerClip_ = _mainWindow.Content.getArrangement()->getPixelsPerClip();
-				double sampleRate_ = _engine.getCurrentSamplerate();
-
-				if (regionPosition_ > mixerOffset_)
+				int currentRegion_ = 1;
+				//Loop through and add the regions
+				while (currentRegion_ <= numberOfRegions_)
 				{
-					int64 samplesRange_ = secondsToSamples(100, sampleRate_);
-					int64 positionSamples_ = pixelsToSamples(regionPosition_ - mixerOffset_, 100 * pixelsPerClip_, samplesRange_);
+					String regionName_ = "Region_" + (String)currentRegion_;
+					//Retrieve the file path associated with the region
+					String fileString_ = projectElements
+						->getChildByName("Tracks")
+						->getChildByName(trackName_)
+						->getChildByName(regionName_)
+						->getStringAttribute("File_Path");
+					//Check that the file is in the correct format
+					String format_;
+					if (fileString_.contains(".wav") || fileString_.contains(".WAV"))
+						format_ = "WAV";
+					else if (fileString_.contains(".aif") || fileString_.contains(".aiff") || fileString_.contains(".AIF") || fileString_.contains(".AIFF"))
+						format_ = "AIFF";
+					else if (fileString_.contains(".flac") || fileString_.contains(".FLAC"))
+						format_ = "FLAC";
+					File currentRegionFile_(fileString_);
 
-					audioTracks_.at(trackNumber_ - 1)->add(positionSamples_, region);
-					currentTrack->createRegionGUI(regionPosition_, region, formatManager_, currentRegionFile_);
+					//Create a format manager and register basic formats (WAV, AIF(F), Flac)
+					AudioFormatManager formatManager_;
+					formatManager_.registerBasicFormats();
+
+					//Create a reader for the Region file
+					AudioFormatReader* reader_ = formatManager_.createReaderFor(currentRegionFile_);
+					//Create the necessary region
+					Audio::Region* region = new Audio::SampleRegion(reader_, 1, &currentRegionFile_);
+
+					//Retrieve the regions position
+					int regionPosition_ = projectElements
+						->getChildByName("Tracks")
+						->getChildByName(trackName_)
+						->getChildByName(regionName_)
+						->getIntAttribute("Region_Position");
+					int64 mixerOffset_ = _mainWindow.Content.getArrangement()->getMixerOffset();
+					int64 pixelsPerClip_ = _mainWindow.Content.getArrangement()->getPixelsPerClip();
+					double sampleRate_ = _engine.getCurrentSamplerate();
+
+					if (regionPosition_ >= mixerOffset_)
+					{
+						int64 samplesRange_ = secondsToSamples(100, sampleRate_);
+						int64 positionSamples_ = pixelsToSamples(regionPosition_ - mixerOffset_, 100 * pixelsPerClip_, samplesRange_);
+
+						audioTracks_.at(trackNumber_ - 1)->add(positionSamples_, region);
+						trackComponents_->at(trackNumber_-1)->createRegionGUI(regionPosition_, region, formatManager_, currentRegionFile_);
+					}
+					else if (regionPosition_ < mixerOffset_)
+					{
+						audioTracks_.at(trackNumber_)->add(0, region);
+						trackComponents_->at(trackNumber_-1)->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
+					}
+					currentRegion_++;
 				}
-				else if (regionPosition_ < mixerOffset_)
-				{
-					audioTracks_.at(trackNumber_)->add(0, region);
-					currentTrack->createRegionGUI(mixerOffset_, region, formatManager_, currentRegionFile_);
-				}
-				currentRegion_++;
 			}
+			trackNumber_++;
 		}
-		trackNumber_++;
 	}
 }
 
