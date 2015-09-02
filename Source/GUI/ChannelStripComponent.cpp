@@ -164,26 +164,16 @@ void ChannelStripComponent::resized()
 
 	int buttonSize = 16;
 	int buttonsOffset = (getHeight() - volumeHeight - panSize - labelHeight) - 5;
-
+	
+	_pluginsButton->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
 	muteButton->setBounds(0, buttonsOffset - buttonSize * 3, getWidth(), buttonSize);
 
 	if (_trackID != 0)
-	{
 		soloButton->setBounds(0, buttonsOffset - buttonSize * 2, getWidth(), buttonSize);
-	}
 
     panPot->setBounds((getWidth() - panSize) / 2, (getHeight() - volumeHeight - panSize - labelHeight), panSize, panSize);
-    
-    volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight - 3), volumeWidth, volumeHeight);
-    
+    volumeSlider->setBounds(remainingWidth, (getHeight() - volumeHeight - labelHeight - 3), volumeWidth, volumeHeight);  
     label->setBounds(0, getHeight() - labelHeight - 3, getWidth(), labelHeight);
-    
-	_pluginsButton->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
-    //plugins1->setBounds(5, buttonsOffset - buttonSize * 8, getWidth() - 10, buttonSize);
-    //plugins2->setBounds(5, buttonsOffset - buttonSize * 7, getWidth() -10, buttonSize);
-    //plugins3->setBounds(5, buttonsOffset - buttonSize * 6, getWidth() - 10, buttonSize);
-    //plugins4->setBounds(5, buttonsOffset - buttonSize * 5, getWidth() - 10, buttonSize);
-
 }
 
 void ChannelStripComponent::mouseDown(const MouseEvent &) {
