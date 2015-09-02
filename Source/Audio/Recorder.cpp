@@ -10,6 +10,9 @@
 
 #include "Recorder.h"
 
+/*
+	Constructs a recorder object.
+	*/
 Audio::AudioRecorder::AudioRecorder ()
 : backgroundThread ("Recorder Thread"),
 sampleRate (0), nextSampleNum (0), activeWriter (nullptr)
@@ -17,38 +20,45 @@ sampleRate (0), nextSampleNum (0), activeWriter (nullptr)
     backgroundThread.startThread();
 }
 
+/*
+	Stop playing on destruct
+	*/
 Audio::AudioRecorder::~AudioRecorder()
 {
     stop();
 }
 
+/*
+	Start recording to a specified file
+	*/
 void Audio::AudioRecorder::startRecording (const File& file)
 {
+    // make sure recorder is stopped first
     stop();
-    
     if (sampleRate > 0)
     {
-        // Create an OutputStream to write to our destination file...
+        // delete file contents first
         file.deleteFile();
+        // create file stream for file
         ScopedPointer<FileOutputStream> fileStream (file.createOutputStream());
         
         if (fileStream != nullptr)
         {
-            // Now create a WAV writer object that writes to our output stream...
+            // create a wav format writer
             WavAudioFormat wavFormat;
             AudioFormatWriter* writer = wavFormat.createWriterFor (fileStream, sampleRate, 1, 16, StringPairArray(), 0);
             
             if (writer != nullptr)
             {
-                fileStream.release(); // (passes responsibility for deleting the stream to the writer object that is now using it)
+                fileStream.release();
                 
-                // Now we'll create one of these helper objects which will act as a FIFO buffer, and will
-                // write the data to disk on our background thread.
+                // create a thread for the writer.
                 threadedWriter = new AudioFormatWriter::ThreadedWriter (writer, backgroundThread, 32768);
                 
+                // set the next sample number to start
                 nextSampleNum = 0;
                 
-                // And now, swap over our active writer pointer so that the audio callback will start using it..
+                // scoped lock for writer
                 const ScopedLock sl (writerLock);
                 activeWriter = threadedWriter;
             }
@@ -56,6 +66,9 @@ void Audio::AudioRecorder::startRecording (const File& file)
     }
 }
 
+/*
+	Stop recording to file
+	*/
 void Audio::AudioRecorder::stop()
 {
     {
@@ -66,21 +79,33 @@ void Audio::AudioRecorder::stop()
     threadedWriter = nullptr;
 }
 
+/*
+	Check to see if the recorder is recording
+	*/
 bool Audio::AudioRecorder::isRecording() const
 {
     return activeWriter != nullptr;
 }
 
+/*
+	Set the sample rate to 0 on device start up
+	*/
 void Audio::AudioRecorder::audioDeviceAboutToStart (AudioIODevice* device)
 {
     sampleRate = device->getCurrentSampleRate();
 }
 
+/*
+	When audio device is stopped set sample rate to 0
+	*/
 void Audio::AudioRecorder::audioDeviceStopped()
 {
     sampleRate = 0;
 }
 
+/*
+	Write the device output to the file.
+	*/
 void Audio::AudioRecorder::audioDeviceIOCallback(const float **inputChannelData, int, float **outputChannelData, int numOutputChannels, int numSamples)
 {
     const ScopedLock sl (writerLock);
@@ -88,13 +113,11 @@ void Audio::AudioRecorder::audioDeviceIOCallback(const float **inputChannelData,
     if (activeWriter != nullptr)
     {
         activeWriter->write (inputChannelData, numSamples);
-        
-        // wrap our incomming data, note that this does no allocations or copies, it simply references our input data
         const AudioSampleBuffer buffer (const_cast<float**> (inputChannelData), 1, numSamples);
         nextSampleNum += numSamples;
     }
     
-    // We need to clear the output buffers, in case they're full of junk..
+    // clear buffers
     for (int i = 0; i < numOutputChannels; ++i)
         if (outputChannelData[i] != nullptr)
             FloatVectorOperations::clear (outputChannelData[i], numSamples);
