@@ -86,6 +86,15 @@ void ChannelStripProcessor::setMuteParameter()
 }
 
 /*
+Gets the current mute setting
+@return The current mute state
+*/
+bool ChannelStripProcessor::getMuteParameter()
+{
+	return _muted;
+}
+
+/*
 Returns the name of a chosen parameter
 @param index The index value of the parameter to be returned
 @return The name of the selected parameter

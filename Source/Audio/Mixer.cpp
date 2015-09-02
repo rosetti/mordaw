@@ -478,6 +478,11 @@ namespace Audio
 		return &_strips;
 	}
 
+	ChannelStripProcessor* Mixer::getMasterStrip()
+	{
+		return &_masterStrip;
+	}
+
     bool Mixer::isPlaying() const {
         return _isPlaying;
     }

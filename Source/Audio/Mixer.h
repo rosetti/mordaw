@@ -60,6 +60,7 @@ namespace Audio
         // return the processor maps
 		std::map<Track *, TrackProcessor *> *getTrackMap();
 		std::map<TrackProcessor *, ChannelStripProcessor *> *getStripMap();
+		ChannelStripProcessor* getMasterStrip();
 
         bool isPlaying() const;
         void goToTheEnd();

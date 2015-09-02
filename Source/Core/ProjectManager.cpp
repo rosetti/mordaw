@@ -52,6 +52,11 @@ void ProjectManager::createBasicProjectFramework(const String& projectName)
 	projectSettings->setAttribute("Project_Name", projectName);
 	//Set the user projects filepath (currently unsaved)
 	projectSettings->setAttribute("Project_File_Path", "Unsaved");
+	//Add MasterStrip to Project Settings
+	XmlElement* masterStrip = new XmlElement("Master_Strip");
+	projectElements
+		->getChildByName("Settings")
+		->addChildElement(masterStrip);
 	//Add the project settings to the main projectElements XML element
 	projectElements->addChildElement(projectSettings);
 
@@ -72,6 +77,31 @@ void ProjectManager::saveCurrentProject(File savedFile)
 	savedFile.deleteFile();
 	_projectFile = savedFile;
 	createBasicProjectFramework(savedFile.getFileName());
+
+	//Retrieve Master Strip
+	ChannelStripProcessor* masterStrip_ = _engine.getMixer()->getMasterStrip();
+	
+	//Retrieve MasterStrip Volume Setting
+	float masterVolume_ = masterStrip_->getParameter(1);
+	//Store Volume Setting
+	projectElements
+		->getChildByName("Settings")
+		->getChildByName("Master_Strip")
+		->setAttribute("Gain", (double)masterVolume_);
+	//Retrieve MasterStrip Panning Setting
+	float masterPanning_ = masterStrip_->getParameter(2);
+	//Store Panning Setting
+	projectElements
+		->getChildByName("Settings")
+		->getChildByName("Master_Strip")
+		->setAttribute("Panning", (double)masterPanning_);
+	//Retrieve Mute Setting
+	bool masterMute_ = masterStrip_->getMuteParameter();
+	//Store the Mute Setting
+	projectElements
+		->getChildByName("Settings")
+		->getChildByName("Master_Strip")
+		->setAttribute("Mute", masterMute_);
 
 	//Retrieve a map of all the tracks
 	std::vector<TrackComponent*>* tracks_ = _mainWindow.Content.getArrangement()->getTrackMap();
