@@ -13,11 +13,6 @@
 EQNode::EQNode()
 {
     
-    lastUIWidth = 400;
-    lastUIHeight = 200;
-    
-    lastPosInfo.resetToDefault();
-    
 }
 
 EQNode::~EQNode()
@@ -55,19 +50,7 @@ AudioProcessorEditor* EQNode::createEditor()
 //==============================================================================
 void EQNode::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // Here's an example of how you can use XML to make it easy and more robust:
-    
-    // Create an outer XML element..
-    XmlElement xml ("MYPLUGINSETTINGS");
-    
-    // add some attributes to it..
-    xml.setAttribute ("uiWidth", lastUIWidth);
-    xml.setAttribute ("uiHeight", lastUIHeight);
-    xml.setAttribute ("gain", gain->getValue());
-    
-    // then use this helper function to stuff it into the binary blob and return it..
-    copyXmlToBinary (xml, destData);
+
 }
 
 void EQNode::setStateInformation (const void* data, int sizeInBytes)

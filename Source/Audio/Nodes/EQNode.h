@@ -59,26 +59,33 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    void calculateCoefficients(float freq, float gain, float q);
+    float calculateFrequency(float freq);
+    float calculateGain(float gain);
+    float calculateQFactor(float q);
+    
     //==============================================================================
-    // These properties are public so that our editor component can access them
-    // A bit of a hacky way to do it, but it's only a demo! Obviously in your own
-    // code you'll do this much more neatly..
-    
-    // this keeps a copy of the last set of time info that was acquired during an audio
-    // callback - the UI component will read this and display it.
-    AudioPlayHead::CurrentPositionInfo lastPosInfo;
-    
-    // these are used to persist the UI's size - the values are stored along with the
-    // filter's other parameters, and the UI component will update them when it gets
-    // resized.
-    int lastUIWidth, lastUIHeight;
-    
-    // Our parameters
-    AudioProcessorParameter* gain;
     
 private:
     //==============================================================================
     AudioSampleBuffer _sampleBuffer;
+    
+    // processor parameters 0..1
+    float _frequency;
+    float _gain;
+    float _qFactor;
+    
+    // values of each parameter in appropriate measures
+    float _frequencyHz;
+    float _gainDB;
+    float _q;
+    
+    float _xn_1;
+    float _xn_2;
+    float _yn_1;
+    float _yn_2;
+    
+    float _a0, _a1, _a2, _b0, _b1, _b2;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EQNode)
 };
