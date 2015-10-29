@@ -412,6 +412,9 @@
     <ClCompile Include="..\..\Source\Audio\Regions\SampleRegion.cpp">
       <Filter>KentDAW\Source\Audio\Regions</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\Nodes\EQNode.cpp">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.cpp">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClCompile>
@@ -1742,6 +1745,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Regions\SampleRegion.h">
       <Filter>KentDAW\Source\Audio\Regions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Nodes\EQNode.h">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.h">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>

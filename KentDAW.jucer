@@ -85,6 +85,8 @@
           <FILE id="kU3rz9" name="SampleRegion.h" compile="0" resource="0" file="Source/Audio/Regions/SampleRegion.h"/>
         </GROUP>
         <GROUP id="{EA30E7E0-48AB-9CCC-59A3-D58BEF631008}" name="Nodes">
+          <FILE id="movl28" name="EQNode.cpp" compile="1" resource="0" file="Source/Audio/Nodes/EQNode.cpp"/>
+          <FILE id="qh6LdT" name="EQNode.h" compile="0" resource="0" file="Source/Audio/Nodes/EQNode.h"/>
           <FILE id="scEC6u" name="ChannelStripProcessor.cpp" compile="1" resource="0"
                 file="Source/Audio/Nodes/ChannelStripProcessor.cpp"/>
           <FILE id="SwAeET" name="ChannelStripProcessor.h" compile="0" resource="0"
