@@ -400,7 +400,7 @@
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\ExportProcessor.cpp">
+    <ClCompile Include="..\..\Source\Audio\RecordNode.cpp">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\ChannelStripProcessor.cpp">
@@ -1734,7 +1734,7 @@
     <ClInclude Include="..\..\Source\GUI\MainWindow.h">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\ExportProcessor.h">
+    <ClInclude Include="..\..\Source\Audio\RecordNode.h">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h">

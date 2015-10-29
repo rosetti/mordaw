@@ -77,8 +77,8 @@ namespace Audio
         #endif
 		
 		//Create a processor object which handles exporting projects to various formats (currently just WAV) and configure it.
-        _exportProcessor = new ExportProcessor();
-		_exportProcessor->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
+        _exportNode = new RecordNode();
+		_exportNode->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
 
 		//Create a Channel Strip that has controls for the overall output and configure it.
         _masterStrip = new ChannelStripProcessor();
@@ -97,7 +97,7 @@ namespace Audio
         _processorGraph.addNode(output, OUTPUT_NODE_ID);
 
 		//Add the export node to the graph
-        _processorGraph.addNode(_exportProcessor, EXPORT_NODE_ID);
+        _processorGraph.addNode(_exportNode, EXPORT_NODE_ID);
 		//Add the master strip to the graph
         _processorGraph.addNode(_masterStrip, MASTER_STRIP_NODE_ID);
 
@@ -415,17 +415,17 @@ namespace Audio
     
     void Mixer::startExporting(const File &file)
     {
-        _exportProcessor->startExporting(file);
+        _exportNode->startExporting(file);
     }
     
     void Mixer::stopExporting()
     {
-        _exportProcessor->stopExporting();
+        _exportNode->stopExporting();
     }
     
     bool Mixer::isExporting()
     {
-        return _exportProcessor->isExporting();
+        return _exportNode->isExporting();
     }
     
     int64 Mixer::getLongestTrack()

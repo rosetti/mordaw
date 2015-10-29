@@ -11,7 +11,7 @@
 #ifndef MIXER_H_INCLUDED
 #define MIXER_H_INCLUDED
 
-#include "ExportProcessor.h"
+#include "RecordNode.h"
 #include "TrackProcessor.h"
 #include "ChannelStripProcessor.h"
 
@@ -112,7 +112,7 @@ namespace Audio
         #if defined(__APPLE__)
         ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
-        ExportProcessor* _exportProcessor;
+        RecordNode* _exportNode;
         ChannelStripProcessor* _masterStrip;
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;

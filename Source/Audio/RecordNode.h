@@ -1,24 +1,24 @@
 /*
   ==============================================================================
 
-    ExportProcessor.h
+    RecordNode.h
     Created: 28 Aug 2015 12:24:23am
     Author:  Dan
 
   ==============================================================================
 */
 
-#ifndef EXPORTPROCESSOR_H_INCLUDED
-#define EXPORTPROCESSOR_H_INCLUDED
+#ifndef RECORDNODE_H_INCLUDED
+#define RECORDNODE_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
 //==============================================================================
-class ExportProcessor : public AudioProcessor
+class RecordNode : public AudioProcessor
 {
 public:
-    ExportProcessor();
-    ~ExportProcessor();
+    RecordNode();
+    ~RecordNode();
     
     void startExporting(const File& file);
     void stopExporting();
@@ -68,7 +68,7 @@ private:
     AudioFormatWriter::ThreadedWriter* volatile _activeWriter;
     double _sampleRate;
     int64 _nextSampleIndex;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ExportProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RecordNode)
 };
 
-#endif  // EXPORTPROCESSOR_H_INCLUDED
+#endif  // RECORDNODE_H_INCLUDED

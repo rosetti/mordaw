@@ -1,31 +1,31 @@
 /*
   ==============================================================================
 
-    ExportProcessor.cpp
+    RecordNode.cpp
     Created: 28 Aug 2015 12:24:23am
     Author:  Dan
 
   ==============================================================================
 */
 
-#include "ExportProcessor.h"
+#include "RecordNode.h"
 #include "../Utility/Conversion.h"
 
 //==============================================================================
-ExportProcessor::ExportProcessor()
-: backgroundThread ("Export Thread"), _sampleRate(0), _nextSampleIndex(0), _activeWriter(nullptr)
+RecordNode::RecordNode()
+: backgroundThread ("Record Thread"), _sampleRate(0), _nextSampleIndex(0), _activeWriter(nullptr)
 {
     backgroundThread.startThread();
 }
 
 // stop exporting on destruct
-ExportProcessor::~ExportProcessor()
+RecordNode::~RecordNode()
 {
     stopExporting();
 }
 
 // Start exporting to file
-void ExportProcessor::startExporting(const File& file)
+void RecordNode::startExporting(const File& file)
 {
     if(_sampleRate > 0)
     {
@@ -50,7 +50,7 @@ void ExportProcessor::startExporting(const File& file)
 }
 
 // Stop exporting
-void ExportProcessor::stopExporting()
+void RecordNode::stopExporting()
 {
     const ScopedLock sl (getCallbackLock());
     _activeWriter = nullptr;
@@ -59,67 +59,67 @@ void ExportProcessor::stopExporting()
 }
 
 // Check if processor is exporting
-bool ExportProcessor::isExporting()
+bool RecordNode::isExporting()
 {
     return _activeWriter != nullptr;
 
 }
 
 // get number of parameters
-int ExportProcessor::getNumParameters()
+int RecordNode::getNumParameters()
 {
     return 3;
 }
 
 // no parameters
-float ExportProcessor::getParameter(int)
+float RecordNode::getParameter(int)
 {
      return 0.0f;
 }
 
 // Inherited from AudioSource
-void ExportProcessor::setParameter(int, float )
+void RecordNode::setParameter(int, float )
 {
 }
 
 // no parameters
-const String ExportProcessor::getParameterName(int)
+const String RecordNode::getParameterName(int)
 {
 	return "string";
 }
 
 // no parameters
-const String ExportProcessor::getParameterText(int)
+const String RecordNode::getParameterText(int)
 {
 	return "string";
 }
 
 // Get the channel name
-const String ExportProcessor::getInputChannelName(int channelIndex) const
+const String RecordNode::getInputChannelName(int channelIndex) const
 {
     return String(channelIndex + 1);
 }
 
 // Get the channel name
-const String ExportProcessor::getOutputChannelName(int channelIndex) const
+const String RecordNode::getOutputChannelName(int channelIndex) const
 {
     return String(channelIndex + 1);
 }
 
 // Processor is stereo pair
-bool ExportProcessor::isInputChannelStereoPair(int) const
+bool RecordNode::isInputChannelStereoPair(int) const
 {
     return true;
 }
 
 // Processor is stereo pair
-bool ExportProcessor::isOutputChannelStereoPair(int) const
+bool RecordNode::isOutputChannelStereoPair(int) const
 {
     return true;
 }
 
 // Check if processor accepts midi
-bool ExportProcessor::acceptsMidi() const
+bool RecordNode::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
     return true;
@@ -129,7 +129,7 @@ bool ExportProcessor::acceptsMidi() const
 }
 
 // Check if processor produces midi
-bool ExportProcessor::producesMidi() const
+bool RecordNode::producesMidi() const
 {
 #if JucePlugin_ProducesMidiOutput
     return true;
@@ -139,62 +139,62 @@ bool ExportProcessor::producesMidi() const
 }
 
 // Inherited to AudioSource
-bool ExportProcessor::silenceInProducesSilenceOut() const
+bool RecordNode::silenceInProducesSilenceOut() const
 {
     return false;
 }
 
 // Prepare the processor to play
-void ExportProcessor::prepareToPlay(double, int)
+void RecordNode::prepareToPlay(double, int)
 {
     _sampleRate = getSampleRate();
     setPlayConfigDetails(2, 0, getSampleRate(), getBlockSize());
 }
 
 // Set sample rate to 0
-void ExportProcessor::releaseResources()
+void RecordNode::releaseResources()
 {
     _sampleRate = 0;
 }
 
 // Write the the sample buffer to a file.
-void ExportProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
+void RecordNode::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
     if(_activeWriter != 0)
         _activeWriter->write((const float**)buffer.getArrayOfReadPointers(), buffer.getNumSamples());
 }
 
 // Inherited from AudioSource
-void ExportProcessor::getStateInformation(MemoryBlock&)
+void RecordNode::getStateInformation(MemoryBlock&)
 {
 
 }
 
 // Inherited from AudioSource
-void ExportProcessor::setStateInformation(const void*, int)
+void RecordNode::setStateInformation(const void*, int)
 {
 
 }
 
 // Inherited from AudioSource
-const void ExportProcessor::setID(int)
+const void RecordNode::setID(int)
 {
 }
 
 // Inherited from AudioSource
-const int ExportProcessor::getID()
+const int RecordNode::getID()
 {
 	return 0;
 }
 
 // Inherited from AudioSource
-bool ExportProcessor::hasEditor() const
+bool RecordNode::hasEditor() const
 {
     return true;
 }
 
 // Inherited from AudioSource
-AudioProcessorEditor* ExportProcessor::createEditor()
+AudioProcessorEditor* RecordNode::createEditor()
 {
     return nullptr;
 }

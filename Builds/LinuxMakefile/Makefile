@@ -65,7 +65,7 @@ OBJECTS := \
   $(OBJDIR)/MainComponent_7cc716b1.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
-  $(OBJDIR)/ExportProcessor_87efdfc6.o \
+  $(OBJDIR)/RecordNode_b824be75.o \
   $(OBJDIR)/ChannelStripProcessor_f3990705.o \
   $(OBJDIR)/TrackProcessor_c8552789.o \
   $(OBJDIR)/Recorder_62617b00.o \
@@ -189,9 +189,9 @@ $(OBJDIR)/MainWindow_ca618186.o: ../../Source/GUI/MainWindow.cpp
 	@echo "Compiling MainWindow.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/ExportProcessor_87efdfc6.o: ../../Source/Audio/ExportProcessor.cpp
+$(OBJDIR)/RecordNode_b824be75.o: ../../Source/Audio/RecordNode.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling ExportProcessor.cpp"
+	@echo "Compiling RecordNode.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/ChannelStripProcessor_f3990705.o: ../../Source/Audio/ChannelStripProcessor.cpp
