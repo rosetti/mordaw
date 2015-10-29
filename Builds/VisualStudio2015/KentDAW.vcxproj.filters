@@ -409,9 +409,6 @@
     <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\Recorder.cpp">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Audio\Mixer.cpp">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClCompile>
@@ -1747,9 +1744,6 @@
       <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\Recorder.h">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\TrackProcessor.h">

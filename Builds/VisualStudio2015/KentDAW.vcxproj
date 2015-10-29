@@ -148,7 +148,6 @@
     <ClCompile Include="..\..\Source\Audio\RecordNode.cpp"/>
     <ClCompile Include="..\..\Source\Audio\ChannelStripProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp"/>
-    <ClCompile Include="..\..\Source\Audio\Recorder.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Mixer.cpp"/>
     <ClCompile Include="..\..\Source\Audio\SampleRegion.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Region.cpp"/>
@@ -1321,7 +1320,6 @@
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffectx.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h"/>
     <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h"/>
-    <ClInclude Include="..\..\Source\Audio\Recorder.h"/>
     <ClInclude Include="..\..\Source\Audio\TrackProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\Mixer.h"/>
     <ClInclude Include="..\..\Source\Audio\SampleRegion.h"/>
