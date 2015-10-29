@@ -11,7 +11,7 @@
 
 #include "TrackComponent.h"
 #include "../Utility/Conversion.h"
-#include "../Audio/SampleRegion.h"
+#include "../Audio/Regions/SampleRegion.h"
 #include "../Core/ProjectManager.h"
 
 /* TrackMixerComponent is a sub component TrackComponent which holds mute and solo controls and the track label */

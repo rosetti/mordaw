@@ -29,6 +29,12 @@
     <Filter Include="KentDAW\Source\Audio">
       <UniqueIdentifier>{376CECC7-7BD5-69C8-9EAF-90CDD1BB987A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Source\Audio\Regions">
+      <UniqueIdentifier>{1D30D9B3-1459-9ABA-4BF1-F4AD8BC26E57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KentDAW\Source\Audio\Nodes">
+      <UniqueIdentifier>{C759156E-9212-22B0-B8C8-763807E82A44}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KentDAW\Source\Audio\pluginterfaces">
       <UniqueIdentifier>{2E39A312-BCA1-5AE1-88BE-C588796FBE02}</UniqueIdentifier>
     </Filter>
@@ -400,22 +406,22 @@
     <ClCompile Include="..\..\Source\GUI\MainWindow.cpp">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\RecordNode.cpp">
-      <Filter>KentDAW\Source\Audio</Filter>
+    <ClCompile Include="..\..\Source\Audio\Regions\Region.cpp">
+      <Filter>KentDAW\Source\Audio\Regions</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\ChannelStripProcessor.cpp">
-      <Filter>KentDAW\Source\Audio</Filter>
+    <ClCompile Include="..\..\Source\Audio\Regions\SampleRegion.cpp">
+      <Filter>KentDAW\Source\Audio\Regions</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\TrackProcessor.cpp">
-      <Filter>KentDAW\Source\Audio</Filter>
+    <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.cpp">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\Nodes\RecordNode.cpp">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\Nodes\TrackProcessor.cpp">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\Mixer.cpp">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\SampleRegion.cpp">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\Region.cpp">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\Track.cpp">
@@ -1731,8 +1737,20 @@
     <ClInclude Include="..\..\Source\GUI\MainWindow.h">
       <Filter>KentDAW\Source\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\RecordNode.h">
-      <Filter>KentDAW\Source\Audio</Filter>
+    <ClInclude Include="..\..\Source\Audio\Regions\Region.h">
+      <Filter>KentDAW\Source\Audio\Regions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Regions\SampleRegion.h">
+      <Filter>KentDAW\Source\Audio\Regions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.h">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Nodes\RecordNode.h">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Nodes\TrackProcessor.h">
+      <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h">
       <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
@@ -1743,19 +1761,7 @@
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h">
       <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\ChannelStripProcessor.h">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\TrackProcessor.h">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Mixer.h">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\SampleRegion.h">
-      <Filter>KentDAW\Source\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\Region.h">
       <Filter>KentDAW\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Track.h">

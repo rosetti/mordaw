@@ -77,8 +77,25 @@
         <FILE id="HQJuWs" name="MainWindow.h" compile="0" resource="0" file="Source/GUI/MainWindow.h"/>
       </GROUP>
       <GROUP id="{5CC0F50A-2D80-8B2D-AD3D-0F3E9BC6C6A9}" name="Audio">
-        <FILE id="mJL6vp" name="RecordNode.cpp" compile="1" resource="0" file="Source/Audio/RecordNode.cpp"/>
-        <FILE id="fYmrRB" name="RecordNode.h" compile="0" resource="0" file="Source/Audio/RecordNode.h"/>
+        <GROUP id="{5D8A7685-8005-3CC0-6463-7FF2AC93758F}" name="Regions">
+          <FILE id="kaidW5" name="Region.cpp" compile="1" resource="0" file="Source/Audio/Regions/Region.cpp"/>
+          <FILE id="KhkD5B" name="Region.h" compile="0" resource="0" file="Source/Audio/Regions/Region.h"/>
+          <FILE id="M5hLTR" name="SampleRegion.cpp" compile="1" resource="0"
+                file="Source/Audio/Regions/SampleRegion.cpp"/>
+          <FILE id="kU3rz9" name="SampleRegion.h" compile="0" resource="0" file="Source/Audio/Regions/SampleRegion.h"/>
+        </GROUP>
+        <GROUP id="{EA30E7E0-48AB-9CCC-59A3-D58BEF631008}" name="Nodes">
+          <FILE id="scEC6u" name="ChannelStripProcessor.cpp" compile="1" resource="0"
+                file="Source/Audio/Nodes/ChannelStripProcessor.cpp"/>
+          <FILE id="SwAeET" name="ChannelStripProcessor.h" compile="0" resource="0"
+                file="Source/Audio/Nodes/ChannelStripProcessor.h"/>
+          <FILE id="EVsRvB" name="RecordNode.cpp" compile="1" resource="0" file="Source/Audio/Nodes/RecordNode.cpp"/>
+          <FILE id="USWcmk" name="RecordNode.h" compile="0" resource="0" file="Source/Audio/Nodes/RecordNode.h"/>
+          <FILE id="H62XUL" name="TrackProcessor.cpp" compile="1" resource="0"
+                file="Source/Audio/Nodes/TrackProcessor.cpp"/>
+          <FILE id="qHJZs1" name="TrackProcessor.h" compile="0" resource="0"
+                file="Source/Audio/Nodes/TrackProcessor.h"/>
+        </GROUP>
         <GROUP id="{CCFD9A55-A867-1EA8-582F-C6C891C8586C}" name="pluginterfaces">
           <GROUP id="{85DBFF13-1929-CF28-309A-5D2DB3C9E7EE}" name="vst2.x">
             <FILE id="HkS1KV" name="aeffect.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/aeffect.h"/>
@@ -86,21 +103,8 @@
             <FILE id="Y1HfMv" name="vstfxstore.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/vstfxstore.h"/>
           </GROUP>
         </GROUP>
-        <FILE id="MRAe8M" name="ChannelStripProcessor.cpp" compile="1" resource="0"
-              file="Source/Audio/ChannelStripProcessor.cpp"/>
-        <FILE id="zenPsW" name="ChannelStripProcessor.h" compile="0" resource="0"
-              file="Source/Audio/ChannelStripProcessor.h"/>
-        <FILE id="Sm33ff" name="TrackProcessor.cpp" compile="1" resource="0"
-              file="Source/Audio/TrackProcessor.cpp"/>
-        <FILE id="LpbSVN" name="TrackProcessor.h" compile="0" resource="0"
-              file="Source/Audio/TrackProcessor.h"/>
         <FILE id="DUpmPM" name="Mixer.cpp" compile="1" resource="0" file="Source/Audio/Mixer.cpp"/>
         <FILE id="p23EF9" name="Mixer.h" compile="0" resource="0" file="Source/Audio/Mixer.h"/>
-        <FILE id="VfGK8n" name="SampleRegion.cpp" compile="1" resource="0"
-              file="Source/Audio/SampleRegion.cpp"/>
-        <FILE id="f4IK0n" name="SampleRegion.h" compile="0" resource="0" file="Source/Audio/SampleRegion.h"/>
-        <FILE id="MBFp2K" name="Region.cpp" compile="1" resource="0" file="Source/Audio/Region.cpp"/>
-        <FILE id="mOu7zr" name="Region.h" compile="0" resource="0" file="Source/Audio/Region.h"/>
         <FILE id="mmS8Ur" name="Track.cpp" compile="1" resource="0" file="Source/Audio/Track.cpp"/>
         <FILE id="yElJ04" name="Track.h" compile="0" resource="0" file="Source/Audio/Track.h"/>
         <FILE id="yQ0Pep" name="Engine.cpp" compile="1" resource="0" file="Source/Audio/Engine.cpp"/>

@@ -65,12 +65,12 @@ OBJECTS := \
   $(OBJDIR)/MainComponent_7cc716b1.o \
   $(OBJDIR)/TopMenu_34ea79c1.o \
   $(OBJDIR)/MainWindow_ca618186.o \
-  $(OBJDIR)/RecordNode_b824be75.o \
-  $(OBJDIR)/ChannelStripProcessor_f3990705.o \
-  $(OBJDIR)/TrackProcessor_c8552789.o \
+  $(OBJDIR)/Region_abd260a6.o \
+  $(OBJDIR)/SampleRegion_ced6b430.o \
+  $(OBJDIR)/ChannelStripProcessor_9aad56c7.o \
+  $(OBJDIR)/RecordNode_9064b3f3.o \
+  $(OBJDIR)/TrackProcessor_ec822e07.o \
   $(OBJDIR)/Mixer_d22926d1.o \
-  $(OBJDIR)/SampleRegion_6518a500.o \
-  $(OBJDIR)/Region_d34d2d76.o \
   $(OBJDIR)/Track_c2771b13.o \
   $(OBJDIR)/Engine_9fc6a9c4.o \
   $(OBJDIR)/Main_90ebc5c2.o \
@@ -188,17 +188,27 @@ $(OBJDIR)/MainWindow_ca618186.o: ../../Source/GUI/MainWindow.cpp
 	@echo "Compiling MainWindow.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/RecordNode_b824be75.o: ../../Source/Audio/RecordNode.cpp
+$(OBJDIR)/Region_abd260a6.o: ../../Source/Audio/Regions/Region.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling RecordNode.cpp"
+	@echo "Compiling Region.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/ChannelStripProcessor_f3990705.o: ../../Source/Audio/ChannelStripProcessor.cpp
+$(OBJDIR)/SampleRegion_ced6b430.o: ../../Source/Audio/Regions/SampleRegion.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling SampleRegion.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/ChannelStripProcessor_9aad56c7.o: ../../Source/Audio/Nodes/ChannelStripProcessor.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ChannelStripProcessor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/TrackProcessor_c8552789.o: ../../Source/Audio/TrackProcessor.cpp
+$(OBJDIR)/RecordNode_9064b3f3.o: ../../Source/Audio/Nodes/RecordNode.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling RecordNode.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/TrackProcessor_ec822e07.o: ../../Source/Audio/Nodes/TrackProcessor.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling TrackProcessor.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -206,16 +216,6 @@ $(OBJDIR)/TrackProcessor_c8552789.o: ../../Source/Audio/TrackProcessor.cpp
 $(OBJDIR)/Mixer_d22926d1.o: ../../Source/Audio/Mixer.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling Mixer.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/SampleRegion_6518a500.o: ../../Source/Audio/SampleRegion.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling SampleRegion.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-
-$(OBJDIR)/Region_d34d2d76.o: ../../Source/Audio/Region.cpp
-	-@mkdir -p $(OBJDIR)
-	@echo "Compiling Region.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Track_c2771b13.o: ../../Source/Audio/Track.cpp

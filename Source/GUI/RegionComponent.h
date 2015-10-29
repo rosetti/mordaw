@@ -12,7 +12,7 @@
 #define REGIONCOMPONENT_H_INCLUDED
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "../Audio/Region.h"
+#include "../Audio/Regions/Region.h"
 
 //==============================================================================
 /*

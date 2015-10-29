@@ -12,7 +12,7 @@
 #define TRACK_H_INCLUDED
 
 #include <map>
-#include "Region.h"
+#include "Regions/Region.h"
 
 namespace Audio
 {

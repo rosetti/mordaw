@@ -11,7 +11,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "ChannelStripComponent.h"
 #include "MainWindow.h"
-#include "../Audio/ChannelStripProcessor.h"
+#include "../Audio/Nodes/ChannelStripProcessor.h"
 
 
 //==============================================================================

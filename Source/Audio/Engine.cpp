@@ -39,8 +39,6 @@ namespace Audio
         _player.setProcessor(_mixer->getProcessorGraph());
         // add the mixer graph callback
         _devices.addAudioCallback(&_player);
-        // add the recorder callback (only partially implemented)
-        _devices.addAudioCallback(&_recorder);
     }
 
     Engine::~Engine() {
@@ -49,7 +47,6 @@ namespace Audio
         // remove player callback
         _devices.removeAudioCallback(&_player);
         // remove the recorder callback
-        _devices.addAudioCallback(&_recorder);
     }
     
     /*
@@ -147,22 +144,6 @@ namespace Audio
 
             break;
         case record:
-            // records the microphone input to file, currently not integrated with UI regions
-            const File file (File::getSpecialLocation (File::userDocumentsDirectory)
-                                 .getNonexistentChildFile ("recording" + (String) _recordedFiles, ".wav"));
-            // if not recording stary recording
-            if(!_recorder.isRecording())
-            {
-                // record the microphone to a file
-                _recorder.startRecording(file);
-            }
-            // if record command is called again stop recording and add file name to the file names array
-            else if (_recorder.isRecording())
-            {
-                _recorder.stop();
-                _recordedFileNames.add(file.getFullPathName());
-
-            }
             break;
         }
         // refresh components

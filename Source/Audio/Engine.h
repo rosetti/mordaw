@@ -14,8 +14,6 @@ Author:  Dan
 
 #include "Mixer.h"
 #include "Track.h"
-#include "Recorder.h"
-
 
 namespace Audio
 {
@@ -50,7 +48,6 @@ namespace Audio
         ScopedPointer<Mixer> _mixer;
         AudioProcessorPlayer _player;
         ApplicationCommandManager *_commands;
-        AudioRecorder _recorder;
         
         OwnedArray<Track> tracks;
         

@@ -13,9 +13,9 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Audio/Engine.h"
-#include "../Audio/TrackProcessor.h"
+#include "../Audio/Nodes/TrackProcessor.h"
 #include "../Audio/Track.h"
-#include "../Audio/ChannelStripProcessor.h"
+#include "../Audio/Nodes/ChannelStripProcessor.h"
 #include "../GUI/MainWindow.h"
 
 #include "../GUI/Arrangement.h"

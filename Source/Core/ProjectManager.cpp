@@ -9,9 +9,9 @@ Author:  Matt
 */
 
 #include "ProjectManager.h"
-#include "../Audio/TrackProcessor.h"
+#include "../Audio/Nodes/TrackProcessor.h"
 #include "../Audio/Track.h"
-#include "../Audio/SampleRegion.h"
+#include "../Audio/Regions/SampleRegion.h"
 #include "../Utility/Conversion.h"
 
 /*
