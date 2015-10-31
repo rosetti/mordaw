@@ -68,7 +68,7 @@ OBJECTS := \
   $(OBJDIR)/Region_abd260a6.o \
   $(OBJDIR)/SampleRegion_ced6b430.o \
   $(OBJDIR)/EQNode_8c8006ae.o \
-  $(OBJDIR)/ChannelStripProcessor_9aad56c7.o \
+  $(OBJDIR)/ChannelStripNode_a7e9bf37.o \
   $(OBJDIR)/RecordNode_9064b3f3.o \
   $(OBJDIR)/TrackProcessor_ec822e07.o \
   $(OBJDIR)/Mixer_d22926d1.o \
@@ -204,9 +204,9 @@ $(OBJDIR)/EQNode_8c8006ae.o: ../../Source/Audio/Nodes/EQNode.cpp
 	@echo "Compiling EQNode.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/ChannelStripProcessor_9aad56c7.o: ../../Source/Audio/Nodes/ChannelStripProcessor.cpp
+$(OBJDIR)/ChannelStripNode_a7e9bf37.o: ../../Source/Audio/Nodes/ChannelStripNode.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling ChannelStripProcessor.cpp"
+	@echo "Compiling ChannelStripNode.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/RecordNode_9064b3f3.o: ../../Source/Audio/Nodes/RecordNode.cpp

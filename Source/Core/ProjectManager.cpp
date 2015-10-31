@@ -93,7 +93,7 @@ void ProjectManager::saveCurrentProject(File savedFile)
 		->setAttribute("Project_Name", projectName);
 
 	//Retrieve Master Strip
-	ChannelStripProcessor* masterStrip_ = _engine.getMixer()->getMasterStrip();
+	ChannelStripNode* masterStrip_ = _engine.getMixer()->getMasterStrip();
 	
 	//Retrieve MasterStrip Volume Setting
 	float masterVolume_ = masterStrip_->getParameter(1);

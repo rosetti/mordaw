@@ -8,17 +8,15 @@
   ==============================================================================
 */
 
-#include "ChannelStripProcessor.h"
+#include "ChannelStripNode.h"
 #include "../../Utility/Conversion.h"
-#define DBG(dbgtext)              MACRO_WITH_FORCED_SEMICOLON (juce::String tempDbgBuf; tempDbgBuf << dbgtext; juce::Logger::outputDebugString (tempDbgBuf);)
-
 
 //==============================================================================
 
 /*
 A Channel Stip is used to control the volume (gain), panning and mute settings of individual tracks
 */
-ChannelStripProcessor::ChannelStripProcessor()
+ChannelStripNode::ChannelStripNode()
 {
 	//Set the initial gain value to standard
 	_gain = 0.7f;
@@ -30,7 +28,7 @@ ChannelStripProcessor::ChannelStripProcessor()
 	_muted = false;
 }
 
-ChannelStripProcessor::~ChannelStripProcessor()
+ChannelStripNode::~ChannelStripNode()
 {
 }
 
@@ -38,7 +36,7 @@ ChannelStripProcessor::~ChannelStripProcessor()
 A function to get the number of parameters this processor contains
 @return The number of parameters
 */
-int ChannelStripProcessor::getNumParameters()
+int ChannelStripNode::getNumParameters()
 {
 	return 3;
 }
@@ -48,7 +46,7 @@ Gets the value of a particular parameter
 @param index The index value of the parameter to be returned
 @return The value of the chosen parameter
 */
-float ChannelStripProcessor::getParameter(int index)
+float ChannelStripNode::getParameter(int index)
 {
     switch(index)
     {
@@ -68,7 +66,7 @@ Sets the value of a chosen parameter
 @param index The index value of the parameter to be modified
 @param newValue The float value to set the chosen parameter to
 */
-void ChannelStripProcessor::setParameter(int index, float newValue)
+void ChannelStripNode::setParameter(int index, float newValue)
 {
     if (index == StripParameter::GAIN)
 		_gain = newValue;
@@ -79,7 +77,7 @@ void ChannelStripProcessor::setParameter(int index, float newValue)
 /*
 Switches mute on and off dependent upon its current state
 */
-void ChannelStripProcessor::setMuteParameter()
+void ChannelStripNode::setMuteParameter()
 {
 	if (_muted)
 		_muted = false;
@@ -91,7 +89,7 @@ void ChannelStripProcessor::setMuteParameter()
 Gets the current mute setting
 @return The current mute state
 */
-bool ChannelStripProcessor::getMuteParameter()
+bool ChannelStripNode::getMuteParameter()
 {
 	return _muted;
 }
@@ -101,7 +99,7 @@ Returns the name of a chosen parameter
 @param index The index value of the parameter to be returned
 @return The name of the selected parameter
 */
-const String ChannelStripProcessor::getParameterName(int index)
+const String ChannelStripNode::getParameterName(int index)
 {
     switch (index)
     {
@@ -121,7 +119,7 @@ Returns a String containing the current value of a chosen parameter
 @param index The index value of the parameter to be returned
 @return The String of a value contained within the chosen parameter
 */
-const String ChannelStripProcessor::getParameterText(int index)
+const String ChannelStripNode::getParameterText(int index)
 {
     switch (index)
     {
@@ -141,7 +139,7 @@ Returns a String containing the name of a chosen input channel
 @param channelIndex The input channel to return the name of
 @return The name of the input channel selected
 */
-const String ChannelStripProcessor::getInputChannelName(int channelIndex) const
+const String ChannelStripNode::getInputChannelName(int channelIndex) const
 {
 	return String(channelIndex + 1);
 }
@@ -151,7 +149,7 @@ Returns a String containing the name of a chosen output channel
 @param channelIndex The output channel to return the name of
 @return The name of the output channel selected
 */
-const String ChannelStripProcessor::getOutputChannelName(int channelIndex) const
+const String ChannelStripNode::getOutputChannelName(int channelIndex) const
 {
 	return String(channelIndex + 1);
 }
@@ -159,7 +157,7 @@ const String ChannelStripProcessor::getOutputChannelName(int channelIndex) const
 /*
 Inherited from AudioProcessor
 */
-bool ChannelStripProcessor::isInputChannelStereoPair(int) const
+bool ChannelStripNode::isInputChannelStereoPair(int) const
 {
 	return true;
 }
@@ -167,7 +165,7 @@ bool ChannelStripProcessor::isInputChannelStereoPair(int) const
 /*
 Inherited from AudioProcessor
 */
-bool ChannelStripProcessor::isOutputChannelStereoPair(int) const
+bool ChannelStripNode::isOutputChannelStereoPair(int) const
 {
 	return true;
 }
@@ -175,7 +173,7 @@ bool ChannelStripProcessor::isOutputChannelStereoPair(int) const
 /*
 Inherited from AudioProcessor
 */
-bool ChannelStripProcessor::acceptsMidi() const
+bool ChannelStripNode::acceptsMidi() const
 {
 	#if JucePlugin_WantsMidiInput
 		return true;
@@ -187,7 +185,7 @@ bool ChannelStripProcessor::acceptsMidi() const
 /*
 Inherited from AudioProcessor
 */
-bool ChannelStripProcessor::producesMidi() const
+bool ChannelStripNode::producesMidi() const
 {
 	#if JucePlugin_ProducesMidiOutput
 		return true;
@@ -199,7 +197,7 @@ bool ChannelStripProcessor::producesMidi() const
 /*
 Inherited from AudioProcessor
 */
-bool ChannelStripProcessor::silenceInProducesSilenceOut() const
+bool ChannelStripNode::silenceInProducesSilenceOut() const
 {
 	return false;
 }
@@ -207,7 +205,7 @@ bool ChannelStripProcessor::silenceInProducesSilenceOut() const
 /*
 Congigures the channelStripProcess and preares it to play
 */
-void ChannelStripProcessor::prepareToPlay(double, int)
+void ChannelStripNode::prepareToPlay(double, int)
 {
     setPlayConfigDetails(2, 2, getSampleRate(), getBlockSize());
 }
@@ -215,7 +213,7 @@ void ChannelStripProcessor::prepareToPlay(double, int)
 /*
 Inherited from AudioProcessor
 */
-void ChannelStripProcessor::releaseResources()
+void ChannelStripNode::releaseResources()
 {
 
 }
@@ -228,7 +226,7 @@ based on both the current gain value as well as taking into consideration the cu
 panning value.
 @param &buffer the buffer to be processed
 */
-void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
+void ChannelStripNode::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 {
 	//Check to see if the track is un-muted
 	if (!_muted)
@@ -255,21 +253,21 @@ void ChannelStripProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 /*
 Inherited from AudioProcessor
 */
-void ChannelStripProcessor::getStateInformation(MemoryBlock&)
+void ChannelStripNode::getStateInformation(MemoryBlock&)
 {
 }
 
 /*
 Inherited from AudioProcessor
 */
-void ChannelStripProcessor::setStateInformation(const void*, int)
+void ChannelStripNode::setStateInformation(const void*, int)
 {
 }
 
 /*
 Inherited from AudioProcessor
 */
-const void ChannelStripProcessor::setID(int ident)
+const void ChannelStripNode::setID(int ident)
 {
     _id = ident;
 }
@@ -277,7 +275,7 @@ const void ChannelStripProcessor::setID(int ident)
 /*
 Inherited from AudioProcessor
 */
-const int ChannelStripProcessor::getID()
+const int ChannelStripNode::getID()
 {
     return _id;
 }
@@ -285,12 +283,12 @@ const int ChannelStripProcessor::getID()
 /*
 This function returns true as the editor was configured by us (see: ChannelStripComponent)
 */
-bool ChannelStripProcessor::hasEditor() const
+bool ChannelStripNode::hasEditor() const
 {
 	return true;
 }
 
-AudioProcessorEditor* ChannelStripProcessor::createEditor()
+AudioProcessorEditor* ChannelStripNode::createEditor()
 {
 	return nullptr;
 }

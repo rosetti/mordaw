@@ -14,11 +14,11 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 //==============================================================================
-class ChannelStripProcessor : public AudioProcessor
+class ChannelStripNode : public AudioProcessor
 {
 public:
-	ChannelStripProcessor();
-	~ChannelStripProcessor();
+	ChannelStripNode();
+	~ChannelStripNode();
     
     enum StripParameter
     {
@@ -72,7 +72,7 @@ private:
     float _muteGain;
     bool _muted;
     int _id;
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ChannelStripProcessor)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ChannelStripNode)
 };
 
 #endif  // GAINPROCESSOR_H_INCLUDED

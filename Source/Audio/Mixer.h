@@ -13,7 +13,7 @@
 
 #include "RecordNode.h"
 #include "TrackProcessor.h"
-#include "ChannelStripProcessor.h"
+#include "ChannelStripNode.h"
 
 namespace Audio
 {
@@ -59,8 +59,8 @@ namespace Audio
         
         // return the processor maps
 		std::map<Track *, TrackProcessor *> *getTrackMap();
-		std::map<TrackProcessor *, ChannelStripProcessor *> *getStripMap();
-		ChannelStripProcessor* getMasterStrip();
+		std::map<TrackProcessor *, ChannelStripNode *> *getStripMap();
+		ChannelStripNode* getMasterStrip();
 
         bool isPlaying() const;
         void goToTheEnd();
@@ -113,10 +113,10 @@ namespace Audio
         ScopedPointer<AudioUnitPluginFormat> _auFormat;
         #endif
         RecordNode* _exportNode;
-        ChannelStripProcessor* _masterStrip;
+        ChannelStripNode* _masterStrip;
         // processor maps
         std::map<Track *, TrackProcessor *> _tracks;
-        std::map<TrackProcessor *, ChannelStripProcessor *> _strips;
+        std::map<TrackProcessor *, ChannelStripNode *> _strips;
 
         int _numInput, _numOutput, _bufferSize;
         double _sampleRate;

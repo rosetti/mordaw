@@ -15,7 +15,7 @@
 #include "../Audio/Engine.h"
 #include "../Audio/Nodes/TrackProcessor.h"
 #include "../Audio/Track.h"
-#include "../Audio/Nodes/ChannelStripProcessor.h"
+#include "../Audio/Nodes/ChannelStripNode.h"
 #include "../GUI/MainWindow.h"
 
 #include "../GUI/Arrangement.h"

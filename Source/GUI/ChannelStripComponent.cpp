@@ -11,7 +11,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "ChannelStripComponent.h"
 #include "MainWindow.h"
-#include "../Audio/Nodes/ChannelStripProcessor.h"
+#include "../Audio/Nodes/ChannelStripNode.h"
 
 
 //==============================================================================
@@ -36,7 +36,7 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     volumeSlider->setSkewFactor(0.5f);
     volumeSlider->setTextBoxStyle(Slider::NoTextBox, false, 80, 20);
     volumeSlider->setValue(0.7f);
-	_engine.getMixer()->changeGain(ChannelStripProcessor::GAIN, static_cast<float>(volumeSlider->getValue()));
+	_engine.getMixer()->changeGain(ChannelStripNode::GAIN, static_cast<float>(volumeSlider->getValue()));
     volumeSlider->addListener(this);
     
     addAndMakeVisible(panPot = new Slider(trackLabel + " p"));
@@ -46,7 +46,7 @@ ChannelStripComponent::ChannelStripComponent(ApplicationCommandManager &commands
     panPot->setColour(Slider::rotarySliderFillColourId, Colour(0x7fffff));
     panPot->setColour(Slider::rotarySliderOutlineColourId, Colour(0x8cffff));
     panPot->setValue(0.5f);
-	_engine.getMixer()->changePan(ChannelStripProcessor::PAN, static_cast<float>(panPot->getValue()));
+	_engine.getMixer()->changePan(ChannelStripNode::PAN, static_cast<float>(panPot->getValue()));
     panPot->addListener(this);
     
     addAndMakeVisible(muteButton = new ToggleButton("Mute"));

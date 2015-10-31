@@ -148,7 +148,7 @@
     <ClCompile Include="..\..\Source\Audio\Regions\Region.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Regions\SampleRegion.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Nodes\EQNode.cpp"/>
-    <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripNode.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Nodes\RecordNode.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Nodes\TrackProcessor.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Mixer.cpp"/>
@@ -1319,7 +1319,7 @@
     <ClInclude Include="..\..\Source\Audio\Regions\Region.h"/>
     <ClInclude Include="..\..\Source\Audio\Regions\SampleRegion.h"/>
     <ClInclude Include="..\..\Source\Audio\Nodes\EQNode.h"/>
-    <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.h"/>
+    <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripNode.h"/>
     <ClInclude Include="..\..\Source\Audio\Nodes\RecordNode.h"/>
     <ClInclude Include="..\..\Source\Audio\Nodes\TrackProcessor.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h"/>

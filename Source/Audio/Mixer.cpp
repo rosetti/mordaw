@@ -81,7 +81,7 @@ namespace Audio
 		_exportNode->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
 
 		//Create a Channel Strip that has controls for the overall output and configure it.
-        _masterStrip = new ChannelStripProcessor();
+        _masterStrip = new ChannelStripNode();
 		_masterStrip->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
 
 		//Create an input node that allows audio from input devices (,icrophones, instruments etc.) to flow through the graph
@@ -126,7 +126,7 @@ namespace Audio
         processor->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
         
 		//Create a channel strip processor for the track and configure it
-        ChannelStripProcessor *strip = new ChannelStripProcessor();
+        ChannelStripNode *strip = new ChannelStripNode();
         strip->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
 
 		//Prepare the track to be played
@@ -137,7 +137,7 @@ namespace Audio
 		//Prepare the channel strip to be played
         strip->prepareToPlay(_bufferSize, (int)_sampleRate);
 		//Add the TrackProcessor and its associated Channel Strip to a map
-        _strips.insert(std::pair<TrackProcessor *, ChannelStripProcessor *>(processor, strip));
+        _strips.insert(std::pair<TrackProcessor *, ChannelStripNode *>(processor, strip));
         strip->setID(_nextNodeID + 0x1000);
 
 		//Create and add nodes to the graph for the track and the channel strip
@@ -473,12 +473,12 @@ namespace Audio
 		return &_tracks;
 	}
 
-	std::map<TrackProcessor*, ChannelStripProcessor*>* Mixer::getStripMap()
+	std::map<TrackProcessor*, ChannelStripNode*>* Mixer::getStripMap()
 	{
 		return &_strips;
 	}
 
-	ChannelStripProcessor* Mixer::getMasterStrip()
+	ChannelStripNode* Mixer::getMasterStrip()
 	{
 		return _masterStrip;
 	}

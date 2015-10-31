@@ -415,7 +415,7 @@
     <ClCompile Include="..\..\Source\Audio\Nodes\EQNode.cpp">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.cpp">
+    <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripNode.cpp">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\Nodes\RecordNode.cpp">
@@ -1749,7 +1749,7 @@
     <ClInclude Include="..\..\Source\Audio\Nodes\EQNode.h">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripProcessor.h">
+    <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripNode.h">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Nodes\RecordNode.h">
