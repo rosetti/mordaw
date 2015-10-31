@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "TrackProcessor.h"
+#include "TrackNode.h"
 
 namespace Audio {
     /*
@@ -16,19 +16,19 @@ namespace Audio {
      @param track Pointer to a track AudioSource
      @param thread Thread for the running the track processor
      */
-    TrackProcessor::TrackProcessor(Track *track, TimeSliceThread *thread) : _track(track)
+    TrackNode::TrackNode(Track *track, TimeSliceThread *thread) : _track(track)
     {
         _source.setSource(track, 0, thread, 0);
     }
 
-    TrackProcessor::~TrackProcessor()
+    TrackNode::~TrackNode()
     {
     }
 
     /*
      Get the source.
      */
-    AudioTransportSource &TrackProcessor::getSource()
+    AudioTransportSource& TrackNode::getSource()
     {
         return _source;
     }
@@ -36,7 +36,7 @@ namespace Audio {
     /*
      Get name of processor.
      */
-    const String TrackProcessor::getName() const
+    const String TrackNode::getName() const
     {
         return "Track Processor";
     }
@@ -44,7 +44,7 @@ namespace Audio {
     /*
      Prepare the source to play.
      */
-    void TrackProcessor::prepareToPlay(double newSampleRate, int estimatedSamplesPerBlock)
+    void TrackNode::prepareToPlay(double newSampleRate, int estimatedSamplesPerBlock)
     {
         _source.prepareToPlay(estimatedSamplesPerBlock, newSampleRate);
     }
@@ -52,7 +52,7 @@ namespace Audio {
     /*
      Release the resources
      */
-    void TrackProcessor::releaseResources()
+    void TrackNode::releaseResources()
     {
         _source.releaseResources();
     }
@@ -60,7 +60,7 @@ namespace Audio {
     /*
      Convert the audio source into to a processor.
      */
-    void TrackProcessor::processBlock(AudioSampleBuffer & buffer, MidiBuffer &)
+    void TrackNode::processBlock(AudioSampleBuffer & buffer, MidiBuffer &)
     {
         AudioSourceChannelInfo channelInfo;
         
@@ -73,7 +73,7 @@ namespace Audio {
     /*
      Get the current channel name
      */
-    const String TrackProcessor::getInputChannelName(int channelIndex) const
+    const String TrackNode::getInputChannelName(int channelIndex) const
     {
         return String(channelIndex + 1);
     }
@@ -81,7 +81,7 @@ namespace Audio {
     /*
      Get the current channel name
      */
-    const String TrackProcessor::getOutputChannelName(int channelIndex) const
+    const String TrackNode::getOutputChannelName(int channelIndex) const
     {
         return String(channelIndex + 1);
     }
@@ -89,7 +89,7 @@ namespace Audio {
     /*
      The processor is not a stereo pair
      */
-    bool TrackProcessor::isInputChannelStereoPair(int ) const
+    bool TrackNode::isInputChannelStereoPair(int ) const
     {
         return false;
     }
@@ -97,7 +97,7 @@ namespace Audio {
     /*
      The processor is not a stereo pair
      */
-    bool TrackProcessor::isOutputChannelStereoPair(int) const
+    bool TrackNode::isOutputChannelStereoPair(int) const
     {
         return false;
     }
@@ -105,7 +105,7 @@ namespace Audio {
     /*
      The processor can produce audio output without input.
      */
-    bool TrackProcessor::silenceInProducesSilenceOut() const
+    bool TrackNode::silenceInProducesSilenceOut() const
     {
         return false;
     }
@@ -113,7 +113,7 @@ namespace Audio {
     /*
      The processor has no tail.
      */
-    double TrackProcessor::getTailLengthSeconds() const
+    double TrackNode::getTailLengthSeconds() const
     {
         return 0.0f;
     }
@@ -121,7 +121,7 @@ namespace Audio {
     /*
      Check if device can accepts midi
      */
-    bool TrackProcessor::acceptsMidi() const
+    bool TrackNode::acceptsMidi() const
     {
         return false;
     }
@@ -129,7 +129,7 @@ namespace Audio {
     /*
      Check if device can produce midi
      */
-    bool TrackProcessor::producesMidi() const
+    bool TrackNode::producesMidi() const
     {
         return false;
     }
@@ -137,7 +137,7 @@ namespace Audio {
     /*
      Inherited from AudioProcessor
      */
-    AudioProcessorEditor * TrackProcessor::createEditor()
+    AudioProcessorEditor * TrackNode::createEditor()
     {
         return nullptr;
     }
@@ -145,7 +145,7 @@ namespace Audio {
     /*
      Inherited from AudioProcessor
      */
-    bool TrackProcessor::hasEditor() const
+    bool TrackNode::hasEditor() const
     {
         return false;
     }
@@ -153,7 +153,7 @@ namespace Audio {
     /*
      Inherited from AudioProcessor
      */
-    int TrackProcessor::getNumPrograms()
+    int TrackNode::getNumPrograms()
     {
         return 0;
     }
@@ -161,7 +161,7 @@ namespace Audio {
     /*
      Inherited from AudioProcessor
      */
-    int TrackProcessor::getCurrentProgram()
+    int TrackNode::getCurrentProgram()
     {
         return 0;
     }
@@ -169,14 +169,14 @@ namespace Audio {
     /*
      Inherited from AudioProcessor
      */
-    void TrackProcessor::setCurrentProgram(int	)
+    void TrackNode::setCurrentProgram(int)
     {
     }
 
     /*
      Inherited from AudioProcessor
      */
-    const String TrackProcessor::getProgramName(int)
+    const String TrackNode::getProgramName(int)
     {
         return String::empty;
     }
@@ -184,21 +184,21 @@ namespace Audio {
     /*
      Inherited from AudioProcessor
      */
-    void TrackProcessor::changeProgramName(int, const String &)
+    void TrackNode::changeProgramName(int, const String &)
     {
     }
 
     /*
      Inherited from AudioProcessor
      */
-    void TrackProcessor::getStateInformation(juce::MemoryBlock &)
+    void TrackNode::getStateInformation(juce::MemoryBlock &)
     {
     }
 
     /*
      Inherited from AudioProcessor
      */
-    void TrackProcessor::setStateInformation(const void *, int)
+    void TrackNode::setStateInformation(const void *, int)
     {
     }
 

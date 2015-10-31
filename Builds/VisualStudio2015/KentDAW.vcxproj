@@ -150,7 +150,7 @@
     <ClCompile Include="..\..\Source\Audio\Nodes\EQNode.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Nodes\ChannelStripNode.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Nodes\RecordNode.cpp"/>
-    <ClCompile Include="..\..\Source\Audio\Nodes\TrackProcessor.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\Nodes\TrackNode.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Mixer.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Track.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Engine.cpp"/>
@@ -1321,7 +1321,7 @@
     <ClInclude Include="..\..\Source\Audio\Nodes\EQNode.h"/>
     <ClInclude Include="..\..\Source\Audio\Nodes\ChannelStripNode.h"/>
     <ClInclude Include="..\..\Source\Audio\Nodes\RecordNode.h"/>
-    <ClInclude Include="..\..\Source\Audio\Nodes\TrackProcessor.h"/>
+    <ClInclude Include="..\..\Source\Audio\Nodes\TrackNode.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffectx.h"/>
     <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h"/>

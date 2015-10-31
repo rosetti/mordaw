@@ -11,9 +11,9 @@
 #ifndef MIXER_H_INCLUDED
 #define MIXER_H_INCLUDED
 
-#include "RecordNode.h"
-#include "TrackProcessor.h"
-#include "ChannelStripNode.h"
+#include "Nodes/RecordNode.h"
+#include "Nodes/TrackNode.h"
+#include "Nodes/ChannelStripNode.h"
 
 namespace Audio
 {
@@ -58,8 +58,8 @@ namespace Audio
         AudioProcessorGraph *getProcessorGraph();
         
         // return the processor maps
-		std::map<Track *, TrackProcessor *> *getTrackMap();
-		std::map<TrackProcessor *, ChannelStripNode *> *getStripMap();
+		std::map<Track *, TrackNode *> *getTrackMap();
+		std::map<TrackNode *, ChannelStripNode *> *getStripMap();
 		ChannelStripNode* getMasterStrip();
 
         bool isPlaying() const;
@@ -115,8 +115,8 @@ namespace Audio
         RecordNode* _exportNode;
         ChannelStripNode* _masterStrip;
         // processor maps
-        std::map<Track *, TrackProcessor *> _tracks;
-        std::map<TrackProcessor *, ChannelStripNode *> _strips;
+        std::map<Track *, TrackNode *> _tracks;
+        std::map<TrackNode *, ChannelStripNode *> _strips;
 
         int _numInput, _numOutput, _bufferSize;
         double _sampleRate;

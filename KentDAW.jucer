@@ -93,10 +93,8 @@
                 file="Source/Audio/Nodes/ChannelStripNode.h"/>
           <FILE id="EVsRvB" name="RecordNode.cpp" compile="1" resource="0" file="Source/Audio/Nodes/RecordNode.cpp"/>
           <FILE id="USWcmk" name="RecordNode.h" compile="0" resource="0" file="Source/Audio/Nodes/RecordNode.h"/>
-          <FILE id="H62XUL" name="TrackProcessor.cpp" compile="1" resource="0"
-                file="Source/Audio/Nodes/TrackProcessor.cpp"/>
-          <FILE id="qHJZs1" name="TrackProcessor.h" compile="0" resource="0"
-                file="Source/Audio/Nodes/TrackProcessor.h"/>
+          <FILE id="H62XUL" name="TrackNode.cpp" compile="1" resource="0" file="Source/Audio/Nodes/TrackNode.cpp"/>
+          <FILE id="qHJZs1" name="TrackNode.h" compile="0" resource="0" file="Source/Audio/Nodes/TrackNode.h"/>
         </GROUP>
         <GROUP id="{CCFD9A55-A867-1EA8-582F-C6C891C8586C}" name="pluginterfaces">
           <GROUP id="{85DBFF13-1929-CF28-309A-5D2DB3C9E7EE}" name="vst2.x">

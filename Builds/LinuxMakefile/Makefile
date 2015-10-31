@@ -70,7 +70,7 @@ OBJECTS := \
   $(OBJDIR)/EQNode_8c8006ae.o \
   $(OBJDIR)/ChannelStripNode_a7e9bf37.o \
   $(OBJDIR)/RecordNode_9064b3f3.o \
-  $(OBJDIR)/TrackProcessor_ec822e07.o \
+  $(OBJDIR)/TrackNode_dfbb5ff7.o \
   $(OBJDIR)/Mixer_d22926d1.o \
   $(OBJDIR)/Track_c2771b13.o \
   $(OBJDIR)/Engine_9fc6a9c4.o \
@@ -214,9 +214,9 @@ $(OBJDIR)/RecordNode_9064b3f3.o: ../../Source/Audio/Nodes/RecordNode.cpp
 	@echo "Compiling RecordNode.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
-$(OBJDIR)/TrackProcessor_ec822e07.o: ../../Source/Audio/Nodes/TrackProcessor.cpp
+$(OBJDIR)/TrackNode_dfbb5ff7.o: ../../Source/Audio/Nodes/TrackNode.cpp
 	-@mkdir -p $(OBJDIR)
-	@echo "Compiling TrackProcessor.cpp"
+	@echo "Compiling TrackNode.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/Mixer_d22926d1.o: ../../Source/Audio/Mixer.cpp

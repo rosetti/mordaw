@@ -15,11 +15,11 @@
 
 namespace Audio
 {
-    class TrackProcessor : public AudioProcessor
+    class TrackNode : public AudioProcessor
     {
     public:
-        TrackProcessor(Track *track, TimeSliceThread *thread);
-        ~TrackProcessor();
+        TrackNode(Track *track, TimeSliceThread *thread);
+        ~TrackNode();
 
         AudioTransportSource &getSource();
      
@@ -50,7 +50,7 @@ namespace Audio
         ScopedPointer<Track> _track;
         AudioTransportSource _source;
 
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackProcessor)
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TrackNode)
     };
 }
 

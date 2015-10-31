@@ -122,7 +122,7 @@ namespace Audio
     void Mixer::add(Track * track)
     {
 		//Create a new track processor and configure it. This handles pushing the audio stream through the graph
-        TrackProcessor *processor = new TrackProcessor(track, &_thread);
+        TrackNode *processor = new TrackNode(track, &_thread);
         processor->setPlayConfigDetails(_numInput, _numOutput, _sampleRate, _bufferSize);
         
 		//Create a channel strip processor for the track and configure it
@@ -132,12 +132,12 @@ namespace Audio
 		//Prepare the track to be played
         track->prepareToPlay(_bufferSize, _sampleRate);
 		//Add the Track and its associated Track Processor to a map
-        _tracks.insert(std::pair<Track *, TrackProcessor *>(track, processor));
+        _tracks.insert(std::pair<Track *, TrackNode *>(track, processor));
         
 		//Prepare the channel strip to be played
         strip->prepareToPlay(_bufferSize, (int)_sampleRate);
 		//Add the TrackProcessor and its associated Channel Strip to a map
-        _strips.insert(std::pair<TrackProcessor *, ChannelStripNode *>(processor, strip));
+        _strips.insert(std::pair<TrackNode *, ChannelStripNode *>(processor, strip));
         strip->setID(_nextNodeID + 0x1000);
 
 		//Create and add nodes to the graph for the track and the channel strip
@@ -468,12 +468,12 @@ namespace Audio
         return &_processorGraph;
     }
 
-	std::map<Track*, TrackProcessor*>* Mixer::getTrackMap()
+	std::map<Track*, TrackNode*>* Mixer::getTrackMap()
 	{
 		return &_tracks;
 	}
 
-	std::map<TrackProcessor*, ChannelStripNode*>* Mixer::getStripMap()
+	std::map<TrackNode*, ChannelStripNode*>* Mixer::getStripMap()
 	{
 		return &_strips;
 	}

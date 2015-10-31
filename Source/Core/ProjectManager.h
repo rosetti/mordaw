@@ -13,7 +13,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Audio/Engine.h"
-#include "../Audio/Nodes/TrackProcessor.h"
+#include "../Audio/Nodes/TrackNode.h"
 #include "../Audio/Track.h"
 #include "../Audio/Nodes/ChannelStripNode.h"
 #include "../GUI/MainWindow.h"
