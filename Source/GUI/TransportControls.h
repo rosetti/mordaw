@@ -13,7 +13,6 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "../Audio/Engine.h"
-#include "../Audio/Recorder.h"
 
 //==============================================================================
 /*

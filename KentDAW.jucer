@@ -47,6 +47,8 @@
               file="Source/Core/ProjectManager.h"/>
       </GROUP>
       <GROUP id="{9C67EB47-D9F1-0313-FC3C-A14A19951AFC}" name="GUI">
+        <FILE id="tKn4EE" name="Meter.cpp" compile="1" resource="0" file="Source/GUI/Meter.cpp"/>
+        <FILE id="hLxSjo" name="Meter.h" compile="0" resource="0" file="Source/GUI/Meter.h"/>
         <FILE id="R1XK2X" name="ChannelStripComponent.cpp" compile="1" resource="0"
               file="Source/GUI/ChannelStripComponent.cpp"/>
         <FILE id="SovZuk" name="ChannelStripComponent.h" compile="0" resource="0"

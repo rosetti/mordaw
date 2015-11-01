@@ -134,6 +134,7 @@
     <ClCompile Include="..\..\Source\Plugins\BasePlugin.cpp"/>
     <ClCompile Include="..\..\Source\Plugins\VSTPlugin.cpp"/>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp"/>
+    <ClCompile Include="..\..\Source\GUI\Meter.cpp"/>
     <ClCompile Include="..\..\Source\GUI\ChannelStripComponent.cpp"/>
     <ClCompile Include="..\..\Source\GUI\MixerView.cpp"/>
     <ClCompile Include="..\..\Source\GUI\ProjectTab.cpp"/>
@@ -1309,6 +1310,7 @@
     <ClInclude Include="..\..\Source\Plugins\VSTPlugin.h"/>
     <ClInclude Include="..\..\Source\Utility\Conversion.h"/>
     <ClInclude Include="..\..\Source\Core\ProjectManager.h"/>
+    <ClInclude Include="..\..\Source\GUI\Meter.h"/>
     <ClInclude Include="..\..\Source\GUI\ChannelStripComponent.h"/>
     <ClInclude Include="..\..\Source\GUI\MixerView.h"/>
     <ClInclude Include="..\..\Source\GUI\ProjectTab.h"/>

@@ -36,6 +36,7 @@
 		09B089C947D95892FC79C6DC = {isa = PBXBuildFile; fileRef = 6E4EF8535E84ED84FE7F80A0; };
 		96EF650C48F77C44C803B9C9 = {isa = PBXBuildFile; fileRef = 0FB940842E4D51EE28ED94D6; };
 		DDCF97372E631DFBD317E3D3 = {isa = PBXBuildFile; fileRef = 279A0CECC4448FCB09F5C612; };
+		8556074ADC169D7FBFBB57F6 = {isa = PBXBuildFile; fileRef = 542416B1393F73983008EA6E; };
 		690B3946C661C9B27BF9472C = {isa = PBXBuildFile; fileRef = 0702A6E3F06B642A17248D0A; };
 		24D039C9F6EC49F06B63FCDC = {isa = PBXBuildFile; fileRef = 8551F776DF58B48CC2251BD5; };
 		AC238EAB3C91028F6A5C6E86 = {isa = PBXBuildFile; fileRef = 58A168ECEEA222A3F8BC5BBC; };
@@ -141,6 +142,7 @@
 		0FB940842E4D51EE28ED94D6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Conversion.h; path = ../../Source/Utility/Conversion.h; sourceTree = "SOURCE_ROOT"; };
 		1007BC413CD02D40196D9024 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_KeyPressMappingSet.h"; path = "../../JuceModules/juce_gui_basics/commands/juce_KeyPressMappingSet.h"; sourceTree = "SOURCE_ROOT"; };
 		10D8F9EF36A91E63F90567C9 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_CharacterFunctions.cpp"; path = "../../JuceModules/juce_core/text/juce_CharacterFunctions.cpp"; sourceTree = "SOURCE_ROOT"; };
+		110C1CD6B9A5A8D96B7FE084 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Meter.h; path = ../../Source/GUI/Meter.h; sourceTree = "SOURCE_ROOT"; };
 		1175599CDD5D9EEA7F1AC504 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_Slider.cpp"; path = "../../JuceModules/juce_gui_basics/widgets/juce_Slider.cpp"; sourceTree = "SOURCE_ROOT"; };
 		11EFEBF1FA6D78F538BF3347 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ChildProcess.h"; path = "../../JuceModules/juce_core/threads/juce_ChildProcess.h"; sourceTree = "SOURCE_ROOT"; };
 		12873B814EC6E6E63144C1E3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_MouseListener.cpp"; path = "../../JuceModules/juce_gui_basics/mouse/juce_MouseListener.cpp"; sourceTree = "SOURCE_ROOT"; };
@@ -403,6 +405,7 @@
 		53CA1813103C8DC986A48DBD = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "juce_Value.cpp"; path = "../../JuceModules/juce_data_structures/values/juce_Value.cpp"; sourceTree = "SOURCE_ROOT"; };
 		53D48AAF1B5B9693CD884551 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_RelativeRectangle.h"; path = "../../JuceModules/juce_gui_basics/positioning/juce_RelativeRectangle.h"; sourceTree = "SOURCE_ROOT"; };
 		54038096A19B27486E648FF3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_ComponentBuilder.h"; path = "../../JuceModules/juce_gui_basics/layout/juce_ComponentBuilder.h"; sourceTree = "SOURCE_ROOT"; };
+		542416B1393F73983008EA6E = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Meter.cpp; path = ../../Source/GUI/Meter.cpp; sourceTree = "SOURCE_ROOT"; };
 		5433D3E9F35360A9B58136A1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_LookAndFeel.h"; path = "../../JuceModules/juce_gui_basics/lookandfeel/juce_LookAndFeel.h"; sourceTree = "SOURCE_ROOT"; };
 		5488D5D4C41FE66C5D724B23 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "juce_NormalisableRange.h"; path = "../../JuceModules/juce_core/maths/juce_NormalisableRange.h"; sourceTree = "SOURCE_ROOT"; };
 		549ADD862ABA6313EC32A5A5 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainWindow.cpp; path = ../../Source/GUI/MainWindow.cpp; sourceTree = "SOURCE_ROOT"; };
@@ -1090,6 +1093,8 @@
 					279A0CECC4448FCB09F5C612,
 					D78329EE462A9B414DA8FB53, ); name = Core; sourceTree = "<group>"; };
 		6FE6D715823C3C991A4E28E3 = {isa = PBXGroup; children = (
+					542416B1393F73983008EA6E,
+					110C1CD6B9A5A8D96B7FE084,
 					0702A6E3F06B642A17248D0A,
 					16F005507CBE02CF8F71CC17,
 					8551F776DF58B48CC2251BD5,
@@ -2385,6 +2390,7 @@
 					09B089C947D95892FC79C6DC,
 					96EF650C48F77C44C803B9C9,
 					DDCF97372E631DFBD317E3D3,
+					8556074ADC169D7FBFBB57F6,
 					690B3946C661C9B27BF9472C,
 					24D039C9F6EC49F06B63FCDC,
 					AC238EAB3C91028F6A5C6E86,

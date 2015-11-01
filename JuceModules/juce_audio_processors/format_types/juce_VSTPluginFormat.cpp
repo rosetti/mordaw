@@ -46,7 +46,7 @@
     If you're not interested in VSTs, you can disable them by setting the
     JUCE_PLUGINHOST_VST flag to 0.
 */
-#include "../../../Source/Audio/pluginterfaces/vst2.x/aeffectx.h"
+#include "../../../Source/Plugins/pluginterfaces/vst2.x/aeffectx.h"
 
 
 #if JUCE_MSVC

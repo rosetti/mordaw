@@ -54,6 +54,7 @@ OBJECTS := \
   $(OBJDIR)/BasePlugin_2b3c135c.o \
   $(OBJDIR)/VSTPlugin_8ef0bb7c.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
+  $(OBJDIR)/Meter_9ce0b876.o \
   $(OBJDIR)/ChannelStripComponent_a4a2f215.o \
   $(OBJDIR)/MixerView_2ce514bb.o \
   $(OBJDIR)/ProjectTab_b868ab9.o \
@@ -134,6 +135,11 @@ $(OBJDIR)/VSTPlugin_8ef0bb7c.o: ../../Source/Plugins/VSTPlugin.cpp
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling ProjectManager.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/Meter_9ce0b876.o: ../../Source/GUI/Meter.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling Meter.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/ChannelStripComponent_a4a2f215.o: ../../Source/GUI/ChannelStripComponent.cpp
