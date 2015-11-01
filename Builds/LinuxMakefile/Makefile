@@ -51,6 +51,8 @@ endif
 OBJECTS := \
   $(OBJDIR)/SplashImage_48f94350.o \
   $(OBJDIR)/TransportImages_4b3c351d.o \
+  $(OBJDIR)/BasePlugin_2b3c135c.o \
+  $(OBJDIR)/VSTPlugin_8ef0bb7c.o \
   $(OBJDIR)/ProjectManager_74d90745.o \
   $(OBJDIR)/ChannelStripComponent_a4a2f215.o \
   $(OBJDIR)/MixerView_2ce514bb.o \
@@ -117,6 +119,16 @@ $(OBJDIR)/SplashImage_48f94350.o: ../../Source/Resources/Images/SplashImage.cpp
 $(OBJDIR)/TransportImages_4b3c351d.o: ../../Source/Resources/Images/TransportImages.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling TransportImages.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/BasePlugin_2b3c135c.o: ../../Source/Plugins/BasePlugin.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling BasePlugin.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/VSTPlugin_8ef0bb7c.o: ../../Source/Plugins/VSTPlugin.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling VSTPlugin.cpp"
 	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/ProjectManager_74d90745.o: ../../Source/Core/ProjectManager.cpp

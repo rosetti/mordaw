@@ -74,6 +74,23 @@ void EQNode::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
     }
 }
 
+float EQNode::setFrequency(float freq)
+{
+    return _frequency = freq;
+}
+
+float EQNode::setGain(float gain)
+{
+    return _gain = gain;
+}
+
+float EQNode::setQFactor(float q)
+{
+    return _qFactor = q;
+}
+
+
+
 //==============================================================================
 AudioProcessorEditor* EQNode::createEditor()
 {

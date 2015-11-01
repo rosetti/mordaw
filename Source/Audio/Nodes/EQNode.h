@@ -60,9 +60,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     void calculateCoefficients(float freq, float gain, float q);
-    float calculateFrequency(float freq);
-    float calculateGain(float gain);
-    float calculateQFactor(float q);
+    float setFrequency(float freq);
+    float setGain(float gain);
+    float setQFactor(float q);
     
     //==============================================================================
     

@@ -17,6 +17,12 @@
     <Filter Include="KentDAW\Source\Plugins">
       <UniqueIdentifier>{E26B1B13-3253-C8E8-AD5C-46B630F2F9E9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KentDAW\Source\Plugins\pluginterfaces">
+      <UniqueIdentifier>{88DAF639-275D-C3F0-4021-B136B006EAA8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KentDAW\Source\Plugins\pluginterfaces\vst2.x">
+      <UniqueIdentifier>{68BC1DFC-312B-1DDF-7C6F-BCD42365982C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KentDAW\Source\Utility">
       <UniqueIdentifier>{EE7FE6BB-FEDE-3060-E7A9-7F7130F7F6A6}</UniqueIdentifier>
     </Filter>
@@ -34,12 +40,6 @@
     </Filter>
     <Filter Include="KentDAW\Source\Audio\Nodes">
       <UniqueIdentifier>{C759156E-9212-22B0-B8C8-763807E82A44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="KentDAW\Source\Audio\pluginterfaces">
-      <UniqueIdentifier>{2E39A312-BCA1-5AE1-88BE-C588796FBE02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="KentDAW\Source\Audio\pluginterfaces\vst2.x">
-      <UniqueIdentifier>{95BED227-F206-C890-F4A6-74F91A477AB0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Juce Modules">
       <UniqueIdentifier>{422C46B7-0467-2DB0-BF3C-16DFCAFD69AC}</UniqueIdentifier>
@@ -363,6 +363,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Resources\Images\TransportImages.cpp">
       <Filter>KentDAW\Resources\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Plugins\BasePlugin.cpp">
+      <Filter>KentDAW\Source\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Plugins\VSTPlugin.cpp">
+      <Filter>KentDAW\Source\Plugins</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Core\ProjectManager.cpp">
       <Filter>KentDAW\Source\Core</Filter>
@@ -1692,6 +1698,21 @@
     <ClInclude Include="..\..\Source\Resources\Images\TransportImages.h">
       <Filter>KentDAW\Resources\Images</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Plugins\BasePlugin.h">
+      <Filter>KentDAW\Source\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Plugins\pluginterfaces\vst2.x\aeffect.h">
+      <Filter>KentDAW\Source\Plugins\pluginterfaces\vst2.x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Plugins\pluginterfaces\vst2.x\aeffectx.h">
+      <Filter>KentDAW\Source\Plugins\pluginterfaces\vst2.x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Plugins\pluginterfaces\vst2.x\vstfxstore.h">
+      <Filter>KentDAW\Source\Plugins\pluginterfaces\vst2.x</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Plugins\VSTPlugin.h">
+      <Filter>KentDAW\Source\Plugins</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Utility\Conversion.h">
       <Filter>KentDAW\Source\Utility</Filter>
     </ClInclude>
@@ -1757,15 +1778,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Nodes\TrackNode.h">
       <Filter>KentDAW\Source\Audio\Nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffect.h">
-      <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\aeffectx.h">
-      <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Audio\pluginterfaces\vst2.x\vstfxstore.h">
-      <Filter>KentDAW\Source\Audio\pluginterfaces\vst2.x</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\Mixer.h">
       <Filter>KentDAW\Source\Audio</Filter>

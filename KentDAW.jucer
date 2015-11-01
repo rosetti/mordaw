@@ -24,7 +24,19 @@
       </GROUP>
     </GROUP>
     <GROUP id="{E5F16C16-8665-4C0D-DBF9-8FAEE72BEC9A}" name="Source">
-      <GROUP id="{AC48C301-63C1-C5D2-1037-036B9534752E}" name="Plugins"/>
+      <GROUP id="{AC48C301-63C1-C5D2-1037-036B9534752E}" name="Plugins">
+        <FILE id="s8h1JY" name="BasePlugin.cpp" compile="1" resource="0" file="Source/Plugins/BasePlugin.cpp"/>
+        <FILE id="Qio7f7" name="BasePlugin.h" compile="0" resource="0" file="Source/Plugins/BasePlugin.h"/>
+        <GROUP id="{0AFF1C4F-1D09-71E3-A187-A9D40AAFA584}" name="pluginterfaces">
+          <GROUP id="{3B78A34E-D6A1-275B-9FEA-DF95907C2C7B}" name="vst2.x">
+            <FILE id="aQzvFz" name="aeffect.h" compile="0" resource="0" file="Source/Plugins/pluginterfaces/vst2.x/aeffect.h"/>
+            <FILE id="M19lKa" name="aeffectx.h" compile="0" resource="0" file="Source/Plugins/pluginterfaces/vst2.x/aeffectx.h"/>
+            <FILE id="f5NaRm" name="vstfxstore.h" compile="0" resource="0" file="Source/Plugins/pluginterfaces/vst2.x/vstfxstore.h"/>
+          </GROUP>
+        </GROUP>
+        <FILE id="HnvS0t" name="VSTPlugin.cpp" compile="1" resource="0" file="Source/Plugins/VSTPlugin.cpp"/>
+        <FILE id="zF9BDl" name="VSTPlugin.h" compile="0" resource="0" file="Source/Plugins/VSTPlugin.h"/>
+      </GROUP>
       <GROUP id="{940EBB6C-A21C-A53D-3EEA-CD545655FD3C}" name="Utility">
         <FILE id="XwjyGj" name="Conversion.h" compile="1" resource="0" file="Source/Utility/Conversion.h"/>
       </GROUP>
@@ -95,13 +107,6 @@
           <FILE id="USWcmk" name="RecordNode.h" compile="0" resource="0" file="Source/Audio/Nodes/RecordNode.h"/>
           <FILE id="H62XUL" name="TrackNode.cpp" compile="1" resource="0" file="Source/Audio/Nodes/TrackNode.cpp"/>
           <FILE id="qHJZs1" name="TrackNode.h" compile="0" resource="0" file="Source/Audio/Nodes/TrackNode.h"/>
-        </GROUP>
-        <GROUP id="{CCFD9A55-A867-1EA8-582F-C6C891C8586C}" name="pluginterfaces">
-          <GROUP id="{85DBFF13-1929-CF28-309A-5D2DB3C9E7EE}" name="vst2.x">
-            <FILE id="HkS1KV" name="aeffect.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/aeffect.h"/>
-            <FILE id="oyEWNt" name="aeffectx.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/aeffectx.h"/>
-            <FILE id="Y1HfMv" name="vstfxstore.h" compile="0" resource="0" file="Source/Audio/pluginterfaces/vst2.x/vstfxstore.h"/>
-          </GROUP>
         </GROUP>
         <FILE id="DUpmPM" name="Mixer.cpp" compile="1" resource="0" file="Source/Audio/Mixer.cpp"/>
         <FILE id="p23EF9" name="Mixer.h" compile="0" resource="0" file="Source/Audio/Mixer.h"/>
