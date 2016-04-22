@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    TimelineCursor.cpp
-    Created: 13 Aug 2015 10:14:54am
-    Author:  Dan
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ TimelineCursor.cpp
+ Created: 13 Aug 2015 10:14:54am
+ Author:  Dan
+ 
+ ==============================================================================
+ */
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineCursor.h"
@@ -14,7 +14,8 @@
 
 //==============================================================================
 TimelineCursor::TimelineCursor(const Audio::Engine &engine, int64 pixelsPerClip, int64)
-: _engine(engine), _pixelsPerClip(pixelsPerClip)
+: _pixelsPerClip(pixelsPerClip),
+_engine(engine)
 {
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.

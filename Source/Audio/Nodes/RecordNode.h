@@ -63,7 +63,7 @@ public:
     bool hasEditor() const override;
     
 private:
-    TimeSliceThread backgroundThread; 
+    TimeSliceThread _backgroundThread;
     ScopedPointer<AudioFormatWriter::ThreadedWriter> _threadedWriter;
     AudioFormatWriter::ThreadedWriter* volatile _activeWriter;
     double _sampleRate;

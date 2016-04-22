@@ -1,23 +1,23 @@
 /*
-  ==============================================================================
-
-    TransportControls.cpp
-    Created: 4 Aug 2015 8:02:29pm
-    Author:  Dan
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ TransportControls.cpp
+ Created: 4 Aug 2015 8:02:29pm
+ Author:  Dan
+ 
+ ==============================================================================
+ */
 
 #include "../Resources/Images/TransportImages.h"
 #include "../Utility/Conversion.h"
 #include "TransportControls.h"
 
 //==============================================================================
-TransportControls::TransportControls(ApplicationCommandManager &commands, const Audio::Engine &engine) :
-    _engine(engine),
-    _commands(commands), 
-    _isPlaying(false), 
-    _isRecording(false)
+TransportControls::TransportControls(ApplicationCommandManager &commands, const Audio::Engine &engine)
+: _isPlaying(false),
+_isRecording(false),
+_commands(commands),
+_engine(engine)
 {
     _totalLength = secondsToSamples(100.0f, _engine.getCurrentSamplerate());
     resetTimecode(_engine.getCurrentSamplerate());
@@ -113,7 +113,7 @@ void TransportControls::removeListener(TransportControls::Listener *listener)
 // button listeners
 void TransportControls::buttonClicked(Button* button)
 {
-     if(button == _recordButton)
+    if(button == _recordButton)
     {
         _isRecording = !_isRecording;
         if(_isRecording)
@@ -175,16 +175,16 @@ void TransportControls::buttonClicked(Button* button)
 // update the transport button images on refresh
 void TransportControls::refresh() {
     auto isPlaying = _engine.getMixer()->isPlaying();
-
+    
     if (isPlaying)
     {
         _image = ImageCache::getFromMemory(TransportImages::pause_png, TransportImages::pause_pngSize);
         _startButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
         start();
-
+        
         return;
     }
-
+    
     _image = ImageCache::getFromMemory(TransportImages::play_png, TransportImages::play_pngSize);
     _startButton->setImages(false, true, true, _image, 1.0f, Colours::transparentBlack, _image, 0.7f, Colours::transparentWhite, _image, 0.5f, Colours::transparentWhite);
     stop();
@@ -219,12 +219,12 @@ void TransportControls::timerCallback()
 void TransportControls::paint (Graphics& g)
 {
     g.fillAll (Colours::white);   // clear the background
-
+    
     g.setColour (Colours::steelblue);
     g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
     g.setColour(Colours::black);
     g.fillRect(getLocalBounds());
-
+    
     g.setColour (Colours::green);
     g.setFont(20.0f);
     if(_isRecording)
@@ -233,7 +233,7 @@ void TransportControls::paint (Graphics& g)
     {}
     else if(getWidth() < 550)
         g.drawText (_currentTimeCode,  getLocalBounds(),
-                Justification::right, true);
+                    Justification::right, true);
     
     else
         g.drawText (_currentTimeCode,  getLocalBounds(),

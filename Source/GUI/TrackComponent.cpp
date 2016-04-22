@@ -1,13 +1,13 @@
 /*
-  ==============================================================================
-
-    TrackComponent.cpp
-    Created: 12 Aug 2015 10:17:59pm
-    Author:	TrackMixerComponent	: Dan 
-			TrackComponent		: Matt
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ TrackComponent.cpp
+ Created: 12 Aug 2015 10:17:59pm
+ Author:	TrackMixerComponent	: Dan
+ TrackComponent		: Matt
+ 
+ ==============================================================================
+ */
 
 #include "TrackComponent.h"
 #include "../Utility/Conversion.h"
@@ -17,7 +17,9 @@
 /* TrackMixerComponent is a sub component TrackComponent which holds mute and solo controls and the track label */
 // construct a track mixer component
 TrackMixerComponent::TrackMixerComponent(int trackID, const Audio::Engine& engine, ApplicationCommandManager& commands)
-: _trackID(trackID), _commands(commands), _engine(engine)
+: _engine(engine),
+_trackID(trackID),
+_commands(commands)
 {
     // create and add track label
     addAndMakeVisible(_trackLabel = new Label("Track " + String (trackID)));
@@ -49,16 +51,16 @@ void TrackMixerComponent::buttonStateChanged(Button* button)
         _engine.getMixer();
     else if(button == _soloButton)
         _engine.getMixer()->soloTrack(_trackID);
-	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
-
-	// menu for adding tracks
-	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
-	{
-		ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
-		arrangeMenu_->clear();
-		arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
-		arrangeMenu_->show();
-	}
+    ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+    
+    // menu for adding tracks
+    if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+    {
+        ScopedPointer<PopupMenu> arrangeMenu_ = new PopupMenu();
+        arrangeMenu_->clear();
+        arrangeMenu_->addCommandItem(&_commands, ProjectManager::addTrack);
+        arrangeMenu_->show();
+    }
 }
 
 // paint the background grey
@@ -66,12 +68,12 @@ void TrackMixerComponent::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey);
     g.fillAll();
-
-	//g.setColour(Colours::steelblue);
-	//g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
-
-	//g.setColour(Colours::black);
-	//g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
+    
+    //g.setColour(Colours::steelblue);
+    //g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+    
+    //g.setColour(Colours::black);
+    //g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 // set TrackMixerComponent bounds and set track label
@@ -87,36 +89,43 @@ void TrackMixerComponent::resized()
 // return the track id
 int TrackMixerComponent::getTrackID()
 {
-	return _trackID;
+    return _trackID;
 }
 
 // set the track id
 void TrackMixerComponent::setTrackID(int trackID)
 {
-	_trackID = trackID;
+    _trackID = trackID;
 }
 
 /* The track component can contain a number of region components, regions can be added using drag and drop or with a menu */
 TrackComponent::TrackComponent(ApplicationCommandManager& commands, Audio::Track *track, int trackID, const Audio::Engine& engine, int64 pixelsPerClip)
-: _track(track), _engine(engine), _trackID(trackID), _commands(commands), _sampleRate(engine.getCurrentSamplerate()), _mixerOffset(200), _pixelsPerClip(pixelsPerClip), _numberOfClips(100)
+: _trackID(trackID),
+_sampleRate(engine.getCurrentSamplerate()),
+_mixerOffset(200),
+_pixelsPerClip(pixelsPerClip),
+_numberOfClips(100),
+_track(track),
+_engine(engine),
+_commands(commands)
 {
     // add and make visible the TrackMixerComponent
     addAndMakeVisible(_trackMixer = new TrackMixerComponent(_trackID, _engine, _commands));
     _trackMixer->setAlwaysOnTop(true);
     // set the track length to the arrange width - the mixer offset in px
-	_trackLength = getParentWidth() - static_cast<int>(_mixerOffset);
-
+    _trackLength = getParentWidth() - static_cast<int>(_mixerOffset);
+    
 }
 
 TrackComponent::~TrackComponent()
 {
     // remove all children, delete region and clear the region vector
-	removeAllChildren();
+    removeAllChildren();
     for (auto region : _regionComponents) {
         delete region;
     }
     _regionComponents.clear();
-	
+    
 }
 
 // create a region from a file at a specified position in pixels
@@ -124,7 +133,7 @@ void TrackComponent::createRegionGUI(int64 posX, Audio::Region* region, AudioFor
 {
     // create a RegionComponent
     auto regionGUI = new RegionComponent(posX, _sampleRate, region, formatManager, audioFile, _pixelsPerClip);
-
+    
     // add the region parameter to its container, the same index can be used to access each of these
     _posX.push_back(posX);
     _regionComponents.push_back(regionGUI);
@@ -141,42 +150,42 @@ void TrackComponent::paint (Graphics& g)
     // set the background to grey
     g.setColour(Colours::grey);
     g.fillAll();
-
-	g.setColour(Colours::steelblue);
-	g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
-
-	g.setColour(Colours::black);
-	g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
+    
+    g.setColour(Colours::steelblue);
+    g.drawRect(getLocalBounds(), 2);   // draw an outline around the component
+    
+    g.setColour(Colours::black);
+    g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
 }
 
 // get the current track length
 int64 TrackComponent::findTrackLength()
 {
-	int64 lastRegionPosition_ = 0;
-	for (auto currentRegion : _regionComponents)
-	{
-		int64 currentRegionPosition_ = currentRegion->getPositionX();
-			if (currentRegionPosition_ > lastRegionPosition_)
-			{
-				lastRegionPosition_ = currentRegionPosition_;
-				_trackLength = currentRegionPosition_ + currentRegion->getRegionWidth();
-			}
-	}
-	return _trackLength;
+    int64 lastRegionPosition_ = 0;
+    for (auto currentRegion : _regionComponents)
+    {
+        int64 currentRegionPosition_ = currentRegion->getPositionX();
+        if (currentRegionPosition_ > lastRegionPosition_)
+        {
+            lastRegionPosition_ = currentRegionPosition_;
+            _trackLength = currentRegionPosition_ + currentRegion->getRegionWidth();
+        }
+    }
+    return _trackLength;
 }
 
 void TrackComponent::resized()
 {
-        // update the bounds of the regions to the values in the _posX container
-        for(size_t current = 0; current < _regions.size(); ++current)
-        {
-            auto r(getLocalBounds().reduced(4));
-            r.setX((int)_posX.at(current));
-            int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
-            r.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
-            r.removeFromBottom(6);
-            _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
-        }
+    // update the bounds of the regions to the values in the _posX container
+    for(size_t current = 0; current < _regions.size(); ++current)
+    {
+        auto r(getLocalBounds().reduced(4));
+        r.setX((int)_posX.at(current));
+        int64 lengthSeconds = samplesToSeconds(_sizeSamps.at(current), _sampleRate);
+        r.setWidth((int)lengthSeconds * (int)_pixelsPerClip);
+        r.removeFromBottom(6);
+        _regionComponents.at(current)->setBounds(r.removeFromBottom(90));
+    }
     // set the track mixer bounds
     _trackMixer->setBounds(0, 0, (int)_mixerOffset, getParentHeight());
     repaint();
@@ -204,7 +213,7 @@ bool TrackComponent::isInterestedInFileDrag(const StringArray & files)
     extensions.add(".aif");
     extensions.add(".aiff");
     extensions.add(".flac");
-
+    
     // checks the string array for the file extensions, return true if accepted and false if not
     for (auto currentFile = files.begin(), end = files.end(); currentFile != end; ++currentFile) {
         accepted = false;
@@ -315,7 +324,7 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
                         _track->move(region, 0);
                         resized();
                     }
-                 }
+                }
             }
         }
     }
@@ -323,36 +332,36 @@ void TrackComponent::mouseDrag(const MouseEvent &e)
 
 int TrackComponent::getTrackID()
 {
-	return _trackID;
+    return _trackID;
 }
 
 void TrackComponent::setTrackID(int trackID)
 {
-	_trackID = trackID;
+    _trackID = trackID;
 }
 
 int64 TrackComponent::getMixerOffset()
 {
-	return _mixerOffset;
+    return _mixerOffset;
 }
 
 std::map<int64, String>* TrackComponent::getRegionMap()
 {
-	return &_regions;
+    return &_regions;
 }
 
 void TrackComponent::mouseDown(const MouseEvent &e) {
-
-	ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
-
+    
+    ModifierKeys modifiers = ModifierKeys::getCurrentModifiersRealtime();
+    
     int posX;
-	// check the mod keys ..
-	if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
-	{
-		ScopedPointer<PopupMenu> trackMenu_ = new PopupMenu();
-		trackMenu_->clear();
-		trackMenu_->addCommandItem(&_commands, MainWindow::showMixer);
-		trackMenu_->addItem(1, "Add Region", true);
+    // check the mod keys ..
+    if (modifiers.isPopupMenu() || modifiers.isCtrlDown())
+    {
+        ScopedPointer<PopupMenu> trackMenu_ = new PopupMenu();
+        trackMenu_->clear();
+        trackMenu_->addCommandItem(&_commands, MainWindow::showMixer);
+        trackMenu_->addItem(1, "Add Region", true);
         MouseEvent ev = e.getEventRelativeTo(this);
         for(auto region : _regionComponents)
         {
@@ -414,7 +423,7 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
                 {
                     
                     Rectangle<int> bounds_ = _regionComponents.at(i)->getBounds();
-					posX = ev.x;
+                    posX = ev.x;
                     if((int)_regionComponents.at(i)->getPositionX() < posX && posX < ((int)_regionComponents.at(i)->getPositionX() + (int)_regionComponents.at(i)->getRegionWidth()))
                     {
                         _track->remove(_regionComponents.at(i)->getRegion(), _posX.at(i));
@@ -437,4 +446,5 @@ void TrackComponent::mouseDown(const MouseEvent &e) {
         }
     }
 }
+
 		

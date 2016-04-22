@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="KE999T" name="KentDAW" projectType="guiapp" version="1.0.0"
               bundleIdentifier="DawnOfAudio.DAW" includeBinaryInAppConfig="1"
-              jucerVersion="3.2.0" defines="">
+              jucerVersion="4.2.1" defines="">
   <MAINGROUP id="rLaEhK" name="KentDAW">
     <GROUP id="{51132C53-0A2A-C4FB-FE7C-D29417E9F85F}" name="Resources">
       <GROUP id="{FD440D3D-7A6B-1B59-607B-DA719225E245}" name="Images">
@@ -24,19 +24,7 @@
       </GROUP>
     </GROUP>
     <GROUP id="{E5F16C16-8665-4C0D-DBF9-8FAEE72BEC9A}" name="Source">
-      <GROUP id="{AC48C301-63C1-C5D2-1037-036B9534752E}" name="Plugins">
-        <FILE id="s8h1JY" name="BasePlugin.cpp" compile="1" resource="0" file="Source/Plugins/BasePlugin.cpp"/>
-        <FILE id="Qio7f7" name="BasePlugin.h" compile="0" resource="0" file="Source/Plugins/BasePlugin.h"/>
-        <GROUP id="{0AFF1C4F-1D09-71E3-A187-A9D40AAFA584}" name="pluginterfaces">
-          <GROUP id="{3B78A34E-D6A1-275B-9FEA-DF95907C2C7B}" name="vst2.x">
-            <FILE id="aQzvFz" name="aeffect.h" compile="0" resource="0" file="Source/Plugins/pluginterfaces/vst2.x/aeffect.h"/>
-            <FILE id="M19lKa" name="aeffectx.h" compile="0" resource="0" file="Source/Plugins/pluginterfaces/vst2.x/aeffectx.h"/>
-            <FILE id="f5NaRm" name="vstfxstore.h" compile="0" resource="0" file="Source/Plugins/pluginterfaces/vst2.x/vstfxstore.h"/>
-          </GROUP>
-        </GROUP>
-        <FILE id="HnvS0t" name="VSTPlugin.cpp" compile="1" resource="0" file="Source/Plugins/VSTPlugin.cpp"/>
-        <FILE id="zF9BDl" name="VSTPlugin.h" compile="0" resource="0" file="Source/Plugins/VSTPlugin.h"/>
-      </GROUP>
+      <GROUP id="{AC48C301-63C1-C5D2-1037-036B9534752E}" name="Plugins"/>
       <GROUP id="{940EBB6C-A21C-A53D-3EEA-CD545655FD3C}" name="Utility">
         <FILE id="XwjyGj" name="Conversion.h" compile="1" resource="0" file="Source/Utility/Conversion.h"/>
       </GROUP>
@@ -129,22 +117,19 @@
                        isDebug="0" optimisation="3" targetName="KentDAW"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="JuceModules"/>
-        <MODULEPATH id="juce_events" path="JuceModules"/>
-        <MODULEPATH id="juce_graphics" path="JuceModules"/>
-        <MODULEPATH id="juce_data_structures" path="JuceModules"/>
-        <MODULEPATH id="juce_gui_basics" path="JuceModules"/>
-        <MODULEPATH id="juce_gui_extra" path="JuceModules"/>
-        <MODULEPATH id="juce_cryptography" path="JuceModules"/>
-        <MODULEPATH id="juce_video" path="JuceModules"/>
-        <MODULEPATH id="juce_opengl" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_basics" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_utils" path="JuceModules"/>
-        <MODULEPATH id="juce_box2d" path="JuceModules"/>
-        <MODULEPATH id="juce_tracktion_marketplace" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_box2d" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2015 targetFolder="Builds/VisualStudio2015">
@@ -155,25 +140,22 @@
                        isDebug="0" optimisation="3" targetName="KentDAW"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="JuceModules"/>
-        <MODULEPATH id="juce_events" path="JuceModules"/>
-        <MODULEPATH id="juce_graphics" path="JuceModules"/>
-        <MODULEPATH id="juce_data_structures" path="JuceModules"/>
-        <MODULEPATH id="juce_gui_basics" path="JuceModules"/>
-        <MODULEPATH id="juce_gui_extra" path="JuceModules"/>
-        <MODULEPATH id="juce_cryptography" path="JuceModules"/>
-        <MODULEPATH id="juce_video" path="JuceModules"/>
-        <MODULEPATH id="juce_opengl" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_basics" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_utils" path="JuceModules"/>
-        <MODULEPATH id="juce_box2d" path="JuceModules"/>
-        <MODULEPATH id="juce_tracktion_marketplace" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_box2d" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </VS2015>
-    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" vstFolder="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
                        targetName="KentDAW"/>
@@ -181,42 +163,36 @@
                        targetName="KentDAW"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="JuceModules"/>
-        <MODULEPATH id="juce_events" path="JuceModules"/>
-        <MODULEPATH id="juce_graphics" path="JuceModules"/>
-        <MODULEPATH id="juce_data_structures" path="JuceModules"/>
-        <MODULEPATH id="juce_gui_basics" path="JuceModules"/>
-        <MODULEPATH id="juce_gui_extra" path="JuceModules"/>
-        <MODULEPATH id="juce_cryptography" path="JuceModules"/>
-        <MODULEPATH id="juce_video" path="JuceModules"/>
-        <MODULEPATH id="juce_opengl" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_basics" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_devices" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_formats" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_processors" path="JuceModules"/>
-        <MODULEPATH id="juce_audio_utils" path="JuceModules"/>
-        <MODULEPATH id="juce_box2d" path="JuceModules"/>
-        <MODULEPATH id="juce_tracktion_marketplace" path="JuceModules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_box2d" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../Applications/JUCE/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_box2d" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_tracktion_marketplace" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_box2d" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_PLUGINHOST_VST="enabled" JUCE_PLUGINHOST_VST3="disabled"
                JUCE_PLUGINHOST_AU="enabled"/>

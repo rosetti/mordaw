@@ -1,21 +1,24 @@
 /*
-  ==============================================================================
-
-    RecordNode.cpp
-    Created: 28 Aug 2015 12:24:23am
-    Author:  Dan
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ RecordNode.cpp
+ Created: 28 Aug 2015 12:24:23am
+ Author:  Dan
+ 
+ ==============================================================================
+ */
 
 #include "RecordNode.h"
 #include "../../Utility/Conversion.h"
 
 //==============================================================================
 RecordNode::RecordNode()
-: backgroundThread ("Record Thread"), _sampleRate(0), _nextSampleIndex(0), _activeWriter(nullptr)
+: _backgroundThread ("Record Thread"),
+_activeWriter(nullptr),
+_sampleRate(0),
+_nextSampleIndex(0)
 {
-    backgroundThread.startThread();
+    _backgroundThread.startThread();
 }
 
 // stop exporting on destruct
@@ -31,7 +34,7 @@ void RecordNode::startExporting(const File& file)
     {
         file.deleteFile();
         FileOutputStream* fileStream (file.createOutputStream());
-
+        
         if(fileStream != nullptr)
         {
             WavAudioFormat wavFormat;
@@ -39,7 +42,7 @@ void RecordNode::startExporting(const File& file)
             
             if (writer != nullptr)
             {
-                _threadedWriter = new AudioFormatWriter::ThreadedWriter (writer, backgroundThread, 32768);
+                _threadedWriter = new AudioFormatWriter::ThreadedWriter (writer, _backgroundThread, 32768);
                 _nextSampleIndex = 0;
                 
                 const ScopedLock scoped(getCallbackLock());
@@ -55,14 +58,14 @@ void RecordNode::stopExporting()
     const ScopedLock sl (getCallbackLock());
     _activeWriter = nullptr;
     _threadedWriter = nullptr;
-
+    
 }
 
 // Check if processor is exporting
 bool RecordNode::isExporting()
 {
     return _activeWriter != nullptr;
-
+    
 }
 
 // get number of parameters
@@ -74,7 +77,7 @@ int RecordNode::getNumParameters()
 // no parameters
 float RecordNode::getParameter(int)
 {
-     return 0.0f;
+    return 0.0f;
 }
 
 // Inherited from AudioSource
@@ -85,13 +88,13 @@ void RecordNode::setParameter(int, float )
 // no parameters
 const String RecordNode::getParameterName(int)
 {
-	return "string";
+    return "string";
 }
 
 // no parameters
 const String RecordNode::getParameterText(int)
 {
-	return "string";
+    return "string";
 }
 
 // Get the channel name
@@ -167,13 +170,13 @@ void RecordNode::processBlock(AudioSampleBuffer& buffer, MidiBuffer&)
 // Inherited from AudioSource
 void RecordNode::getStateInformation(MemoryBlock&)
 {
-
+    
 }
 
 // Inherited from AudioSource
 void RecordNode::setStateInformation(const void*, int)
 {
-
+    
 }
 
 // Inherited from AudioSource
@@ -184,7 +187,7 @@ const void RecordNode::setID(int)
 // Inherited from AudioSource
 const int RecordNode::getID()
 {
-	return 0;
+    return 0;
 }
 
 // Inherited from AudioSource

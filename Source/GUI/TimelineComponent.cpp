@@ -1,12 +1,12 @@
 /*
-  ==============================================================================
-
-    TimelineComponent.cpp
-    Created: 16 Aug 2015 8:26:16pm
-    Author:  Dan
-
-  ==============================================================================
-*/
+ ==============================================================================
+ 
+ TimelineComponent.cpp
+ Created: 16 Aug 2015 8:26:16pm
+ Author:  Dan
+ 
+ ==============================================================================
+ */
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "TimelineComponent.h"
@@ -21,7 +21,10 @@ TimelineComponent::TimelineComponent(const Audio::Engine &, int64 numberOfClips,
 
 // construct a timeline specifying all parameters
 TimelineComponent::TimelineComponent(const Audio::Engine &engine, int64 numberOfClips, int64 pixelsPerClip, int64 mixerOffset)
-: _numberOfClips(numberOfClips), _pixelsPerClip(pixelsPerClip), _mixerOffset(mixerOffset), _engine(engine)
+: _engine(engine),
+_mixerOffset(mixerOffset),
+_numberOfClips(numberOfClips),
+_pixelsPerClip(pixelsPerClip)
 {
     // add cursor to the timeline
     addAndMakeVisible(_cursor = new TimelineCursor(_engine, _pixelsPerClip, _mixerOffset));
@@ -49,7 +52,7 @@ void TimelineComponent::setNumberOfClips(int64 numberOfClips)
 }
 
 // add clips to timeline a clips vector
-void TimelineComponent::addClips(int64 numberOfClips) 
+void TimelineComponent::addClips(int64 numberOfClips)
 {
     auto pixels = _mixerOffset;
     for (auto clips = 0; clips < numberOfClips; ++clips)
